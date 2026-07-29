@@ -1,1 +1,46 @@
+LangChain 工具调用 和 LLM Function Call 的区别
 
+LLM Function Call：是模型提供商（如 OpenAI、Anthropic、阿里云百炼）在底层 API 中提供的一个原生能力。模型在推理时，会决定是否调用函数，并输出结构化的 JSON 参数，但它不会真正执行函数。
+
+LangChain 工具调用：在 LLM Function Call 之上构建了一个完整的编排层。它不仅负责将函数定义转换成 LLM 需要的 JSON Schema，还负责自动执行对应的 Python 函数，并将执行结果作为消息传回给模型。
+
+
+
+Function Call：你需要手动解析模型返回的 JSON，编写 if 语句判断调用哪个函数，然后手动调用函数，再手动将结果传给模型。
+
+LangChain 工具调用：你只需要用 @tool 装饰器定义函数，然后 model.bind_tools([tool])。LangChain 会自动完成“解析 JSON -> 匹配工具 -> 执行函数 -> 打包结果”的全流程。
+
+
+
+Function Call：原生 API 在一次请求中处理多个 Function 调用时比较原始。
+
+LangChain 工具调用：内置了 ToolNode 或 AgentExecutor，能够优雅地处理多轮工具调用（即模型调用工具A，拿到结果后，模型再决定调用工具B，直到得出最终答案）。
+
+
+
+2. LangChain 工具调用 的速度受什么影响？
+LangChain 工具调用的耗时 = 网络 IO + 模型推理 + 代码执行 + 序列化/反序列化开销。具体受以下因素影响：
+
+LLM 推理时间（占比最大）：
+
+模型需要额外生成包含函数调用参数的 Token，这比普通文本生成要慢。
+
+输入上下文越长（即你传给模型的 System Prompt 和 Message 越多），推理越慢。
+
+模型越大（如 GPT-4 vs GPT-3.5），推理耗时越长。
+
+工具定义的复杂度（序列化开销）：
+
+当你调用 bind_tools 时，LangChain 需要将 Python 函数的 Docstring、参数类型（Pydantic 模型）序列化成 JSON Schema，连同请求一起发给 LLM。
+
+如果参数结构极其复杂（嵌套的 Pydantic 模型），生成的 JSON Schema 会非常大，这会增加网络传输时间和 LLM 解析上下文的负担。
+
+工具函数的实际执行速度（代码逻辑）：
+
+如果你的工具内部是纯计算（如加减乘除），速度飞快。
+
+如果你的工具内部涉及外部 IO（如查询数据库、调用第三方 REST API、读写本地文件），速度取决于这些外部服务的响应时间。
+
+网络往返延迟（RTT）：
+
+如果你的 API 在国外（如 OpenAI），本地网络延迟较高，每次 HTTP 请求的往返时间会显著影响总耗时。使用国内的 API（如通义千问、智谱）或开启代理通常能改善。
