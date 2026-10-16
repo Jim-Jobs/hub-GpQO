@@ -28,7 +28,7 @@ from pydantic import BaseModel, Field
 
 # ---------------- 环境配置 ----------------
 # DeepSeek（deepseek-chat），兼容 OpenAI 协议
-os.environ["OPENAI_API_KEY"] = "sk-7c1606376d4c4ac1ae86d1933e6bbca9"
+os.environ["OPENAI_API_KEY"] = "sk-7c1606376d4ctopabu1ae86d1933e6bbca9"
 os.environ["OPENAI_BASE_URL"] = "https://api.deepseek.com"
 
 from agents import Agent, Runner
