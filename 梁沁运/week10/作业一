@@ -1,0 +1,115 @@
+import asyncio
+import json
+from openai import AsyncOpenAI
+from agents import Agent, Runner,handoff, set_tracing_disabled, OpenAIChatCompletionsModel
+set_tracing_disabled(True)
+from pydantic import BaseModel
+from agents.extensions.visualization import draw_graph
+
+# ---------- 1. 配置硅基流动客户端 ----------
+client = AsyncOpenAI(
+    base_url="https://api.siliconflow.cn/v1",
+    api_key="密钥"  # 密钥
+)
+siliconflow_model = OpenAIChatCompletionsModel(
+    model="deepseek-ai/DeepSeek-V4-Flash",
+    openai_client=client
+)
+
+# ---------- 2. 定义最终 JSON Schema ----------
+class FinalResult(BaseModel):
+    query_input: str
+    language: str
+    result: str
+
+# ---------- 3. 定义三个 Agent（先声明，后互相 handoff） ----------
+
+# 3.1 汇总 Agent（最终出口）
+finalizer_agent = Agent(
+    name="Finalizer",
+    model=siliconflow_model,
+    instructions="""你是结果汇总助手。你会收到上游传递过来的上下文信息，其中包含：
+- 用户的原始输入文本
+- 检测到的语种代码（ISO 639-1）
+- 翻译后的文本
+
+请从中提取信息，输出最终的结构化结果。
+不要做任何翻译，只负责整理和输出。""",
+    output_type=FinalResult,
+)
+
+# 3.2 英文翻译助手（处理中文输入）
+english_translator = Agent(
+    name="EnglishTranslator",
+    model=siliconflow_model,
+    instructions="""你是一个英文翻译助手。
+上游会把中文原文和语种信息传递给你。
+你的任务：
+1. 将中文文本翻译为英文
+2. 然后把所有信息（原始输入、语种代码、你的英文翻译）交给 Finalizer 汇总
+不要输出多余解释，翻译完立刻 handoff。""",
+    handoffs=[handoff(finalizer_agent)],
+)
+
+# 3.3 中文翻译助手（处理非中文输入）
+chinese_translator = Agent(
+    name="ChineseTranslator",
+    model=siliconflow_model,
+    instructions="""你是一个中文翻译助手。
+上游会把非中文原文和语种信息传递给你。
+你的任务：
+1. 将该文本翻译为中文
+2. 然后把所有信息（原始输入、语种代码、你的中文翻译）交给 Finalizer 汇总
+不要输出多余解释，翻译完立刻 handoff。""",
+    handoffs=[handoff(finalizer_agent)],
+)
+
+# 3.4 分诊 Agent
+triage_agent = Agent(
+    name="TriageAgent",
+    model=siliconflow_model,
+    instructions="""你是一个语言类型分析助手（管家）。
+收到用户文本后，你只需要做一件事：
+
+1. 判断文本的语种，使用 ISO 639-1 语言代码（如 zh、en、ja、ko、fr 等）
+2. 根据语种做 handoff：
+   - 如果是中文（zh）→ 移交给 EnglishTranslator
+   - 如果**不是中文**（包括英文及其他所有语言）→ 移交给 ChineseTranslator
+
+注意：移交前不需要自己翻译，直接 handoff 即可。
+在 handoff 时，请把【原始输入文本】和【检测到的语种】一起传递过去。""",
+    handoffs=[handoff(english_translator), handoff(chinese_translator)],
+)
+
+
+# ---------- 4. 运行入口 ----------
+async def main():
+    user_input = input("请输入文本：").strip()
+    if not user_input:
+        print("输入不能为空")
+        return
+
+    result = await Runner.run(triage_agent, input=user_input)
+
+    # 打印 Agent 调用链，方便观察 handoff 过程
+    print("\n--- Agent 调用链 ---")
+    for item in result.new_items:
+        item_type = type(item).__name__
+        agent_name = getattr(getattr(item, "agent", None), "name", "-")
+        print(f"[{item_type}] -> {agent_name}")
+
+    # 打印最终 JSON
+    print("\n--- 最终结果 ---")
+    output = result.final_output
+    if isinstance(output, FinalResult):
+        print(json.dumps(output.model_dump(), ensure_ascii=False, indent=2))
+    else:
+        # 兜底：如果模型没走结构化输出，就原样打印
+        print(output)
+
+# ---------- 5. 画agents关系图 ----------
+draw_graph(triage_agent, filename="agent_graph")
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
