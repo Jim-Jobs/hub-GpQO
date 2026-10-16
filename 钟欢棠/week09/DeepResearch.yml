@@ -1,0 +1,632 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: workflow
+  name: DeepResearch
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.24@9e12eef09973667f0eaf4f082af883167e1de88740b22e71e71488d020c3778a
+    version: null
+kind: app
+version: 0.7.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: start-source-decompose-target
+      source: start
+      sourceHandle: source
+      target: decompose
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: decompose-source-parse_queries-target
+      source: decompose
+      sourceHandle: source
+      target: parse_queries
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: iteration
+      id: parse_queries-source-iterate-target
+      source: parse_queries
+      sourceHandle: source
+      target: iterate
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: iterate
+        sourceType: iteration-start
+        targetType: http-request
+      id: iteratestart-source-bocha_search-target
+      source: iteratestart
+      sourceHandle: source
+      target: bocha_search
+      targetHandle: target
+      type: custom
+      zIndex: 1001
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: iterate
+        sourceType: http-request
+        targetType: code
+      id: bocha_search-source-parse_result-target
+      source: bocha_search
+      sourceHandle: source
+      target: parse_result
+      targetHandle: target
+      type: custom
+      zIndex: 1001
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: iterate
+        sourceType: code
+        targetType: llm
+      id: parse_result-source-summarize-target
+      selected: false
+      source: parse_result
+      sourceHandle: source
+      target: summarize
+      targetHandle: target
+      type: custom
+      zIndex: 1001
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: iteration
+        targetType: code
+      id: iterate-source-aggregate-target
+      source: iterate
+      sourceHandle: source
+      target: aggregate
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: aggregate-source-report-target
+      source: aggregate
+      sourceHandle: source
+      target: report
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: end
+      id: report-source-end-target
+      source: report
+      sourceHandle: source
+      target: end
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables:
+        - default: ''
+          hint: ''
+          label: 研究问题
+          max_length: 256
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: question
+      height: 108
+      id: start
+      position:
+        x: -259.00414906570677
+        y: 202.93828016277973
+      positionAbsolute:
+        x: -259.00414906570677
+        y: 202.93828016277973
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            response_format: json_object
+            temperature: 0.7
+            thinking: false
+          mode: chat
+          name: deepseek-v4-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: d0ffee00-0000-4000-8000-000000000001
+          role: system
+          text: '你是一名资深研究规划专家。请把用户的研究主题拆解成 3~5 个可以独立在搜索引擎上检索的具体子问题。
+
+
+            要求：
+
+            1. 从不同角度（背景、现状、技术方案、应用场景、风险挑战等）拆解；
+
+            2. 每个子问题都是可直接送入搜索引擎的查询语句，避免笼统或含糊；
+
+            3. 子问题之间尽量互相独立，避免重复。
+
+
+            用户的研究主题：{{#start.question#}}
+
+
+            只输出一个 JSON 对象，格式如下，不要输出任何其他内容：
+
+            {"queries": ["子问题1", "子问题2", "子问题3"]}
+
+            '
+        selected: false
+        structured_output_enabled: false
+        title: 问题分解
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: decompose
+      position:
+        x: 20.299947265163496
+        y: 223.93828016277973
+      positionAbsolute:
+        x: 20.299947265163496
+        y: 223.93828016277973
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        code: "import json\nimport re\n\ndef main(llm_output: str) -> dict:\n    queries\
+          \ = []\n    try:\n        data = json.loads(llm_output)\n        if isinstance(data,\
+          \ dict):\n            queries = data.get(\"queries\", [])\n        elif\
+          \ isinstance(data, list):\n            queries = data\n    except Exception:\n\
+          \        pass\n    if not queries:\n        m = re.search(r'\\{.*\\}', llm_output,\
+          \ re.DOTALL)\n        if m:\n            try:\n                data = json.loads(m.group(0))\n\
+          \                if isinstance(data, dict):\n                    queries\
+          \ = data.get(\"queries\", [])\n            except Exception:\n         \
+          \       pass\n    if not queries:\n        m = re.search(r'\\[.*\\]', llm_output,\
+          \ re.DOTALL)\n        if m:\n            try:\n                arr = json.loads(m.group(0))\n\
+          \                if isinstance(arr, list):\n                    queries\
+          \ = arr\n            except Exception:\n                pass\n    if isinstance(queries,\
+          \ str):\n        queries = [queries]\n    queries = [q.strip() for q in\
+          \ queries if isinstance(q, str) and q.strip()]\n    return {\"queries\"\
+          : queries}\n"
+        code_language: python3
+        outputs:
+          queries:
+            children: null
+            type: array[string]
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        title: 解析子问题
+        type: code
+        variables:
+        - value_selector:
+          - decompose
+          - text
+          value_type: string
+          variable: llm_output
+      height: 51
+      id: parse_queries
+      position:
+        x: 298.39381373655556
+        y: 223.93828016277973
+      positionAbsolute:
+        x: 298.39381373655556
+        y: 223.93828016277973
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        error_handle_mode: remove-abnormal-output
+        flatten_output: false
+        height: 320
+        is_parallel: true
+        iterator_input_type: array[string]
+        iterator_selector:
+        - parse_queries
+        - queries
+        output_selector:
+        - summarize
+        - text
+        output_type: array[string]
+        parallel_nums: 10
+        selected: false
+        start_node_id: iteratestart
+        title: 迭代搜索
+        type: iteration
+        width: 978
+      height: 320
+      id: iterate
+      position:
+        x: 95.91391617378292
+        y: 398.7788292636062
+      positionAbsolute:
+        x: 95.91391617378292
+        y: 398.7788292636062
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 978
+      zIndex: 0
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: iteratestart
+      parentId: iterate
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 119.91391617378292
+        y: 466.7788292636062
+      selectable: false
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1001
+    - data:
+        authorization:
+          config:
+            api_key: sk-3d2293ad83aa4823a7c7ce8dd5ff8c72
+            header: Bearer sk-3d2293ad83aa4823a7c7ce8dd5ff8c72
+            type: bearer
+          type: no-auth
+        body:
+          data:
+          - type: text
+            value: '{"query":"{{#iterate.item#}}","summary":true,"count":10}'
+          type: raw-text
+        headers: 'Authorization:Bearer sk-3d2293ad83aa4823a7c7ce8dd5ff8c72
+
+          Content-Type:application/json'
+        isInIteration: true
+        isInLoop: false
+        iteration_id: iterate
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: Bocha搜索
+        type: http-request
+        url: https://api.bocha.cn/v1/web-search
+        variables: []
+      height: 107
+      id: bocha_search
+      parentId: iterate
+      position:
+        x: 120
+        y: 100
+      positionAbsolute:
+        x: 215.91391617378292
+        y: 498.7788292636062
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1001
+    - data:
+        code: "import json\n\ndef main(body: str) -> dict:\n    try:\n        data\
+          \ = json.loads(body)\n    except Exception:\n        return {\"context\"\
+          : \"未能解析搜索结果\"}\n    pages = data.get(\"data\", {}).get(\"webPages\", {}).get(\"\
+          value\", [])\n    if not isinstance(pages, list):\n        return {\"context\"\
+          : \"未检索到相关内容\"}\n    parts = []\n    for i, p in enumerate(pages[:5], 1):\n\
+          \        title = p.get(\"name\", \"\")\n        url = p.get(\"url\", \"\"\
+          )\n        summary = p.get(\"summary\") or p.get(\"snippet\", \"\")\n  \
+          \      parts.append(\"[{}] {}\\n链接: {}\\n内容: {}\".format(i, title, url,\
+          \ summary))\n    return {\"context\": \"\\n\\n\".join(parts) if parts else\
+          \ \"未检索到相关内容\"}\n"
+        code_language: python3
+        isInIteration: true
+        isInLoop: false
+        iteration_id: iterate
+        outputs:
+          context:
+            children: null
+            type: string
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        title: 解析搜索结果
+        type: code
+        variables:
+        - value_selector:
+          - bocha_search
+          - body
+          value_type: string
+          variable: body
+      height: 51
+      id: parse_result
+      parentId: iterate
+      position:
+        x: 420
+        y: 97.85843735503727
+      positionAbsolute:
+        x: 515.9139161737829
+        y: 496.6372666186435
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1001
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        isInIteration: true
+        isInLoop: false
+        iteration_id: iterate
+        model:
+          completion_params:
+            temperature: 0.3
+            thinking: false
+          mode: chat
+          name: deepseek-v4-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: d0ffee00-0000-4000-8000-000000000002
+          role: system
+          text: '你是研究助手。请根据以下搜索结果，针对子问题「{{#iterate.item#}}」写一段简洁的要点总结，突出关键事实和数据，并在引用处保留来源链接。
+
+
+            搜索结果：
+
+            {{#parse_result.context#}}
+
+            '
+        selected: false
+        structured_output_enabled: false
+        title: 网页总结
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: summarize
+      parentId: iterate
+      position:
+        x: 720
+        y: 100
+      positionAbsolute:
+        x: 815.9139161737829
+        y: 498.7788292636062
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1001
+    - data:
+        code: "def main(results: list) -> dict:\n    if not results:\n        return\
+          \ {\"summary\": \"未获取到任何检索结果\"}\n    sections = []\n    for i, r in enumerate(results,\
+          \ 1):\n        sections.append(\"### 子问题 {}\\n{}\".format(i, r))\n    return\
+          \ {\"summary\": \"\\n\\n---\\n\\n\".join(sections)}\n"
+        code_language: python3
+        outputs:
+          summary:
+            children: null
+            type: string
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        title: 汇总
+        type: code
+        variables:
+        - value_selector:
+          - iterate
+          - output
+          value_type: array[string]
+          variable: results
+      height: 51
+      id: aggregate
+      position:
+        x: 612.7115663110624
+        y: 223.93828016277973
+      positionAbsolute:
+        x: 612.7115663110624
+        y: 223.93828016277973
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.3
+            thinking: false
+          mode: chat
+          name: deepseek-v4-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: d0ffee00-0000-4000-8000-000000000003
+          role: system
+          text: '你是一名深度研究分析师。请根据以下各子问题的检索总结，汇总成一份结构化的深度研究报告，完整回答用户的初始问题。
+
+
+            用户初始问题：{{#start.question#}}
+
+
+            各子问题检索总结：
+
+            {{#aggregate.summary#}}
+
+
+            报告要求：
+
+            1. 先给出「核心摘要」，概括主要结论；
+
+            2. 再分模块展开「关键发现」，重要数据保留来源链接；
+
+            3. 最后给出「结论与建议」。
+
+            使用 Markdown 格式，结构清晰。
+
+            '
+        selected: false
+        structured_output_enabled: false
+        title: 形成报告
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: report
+      position:
+        x: 917.3611432317348
+        y: 223.93828016277973
+      positionAbsolute:
+        x: 917.3611432317348
+        y: 223.93828016277973
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        outputs:
+        - value_selector:
+          - report
+          - text
+          value_type: string
+          variable: output
+        selected: false
+        title: 输出
+        type: end
+      height: 88
+      id: end
+      position:
+        x: 1200.2645158200912
+        y: 223.93828016277973
+      positionAbsolute:
+        x: 1200.2645158200912
+        y: 223.93828016277973
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    viewport:
+      x: 153.5141480065808
+      y: 11.986202056570221
+      zoom: 0.5000000338450782
+  rag_pipeline_variables: []
