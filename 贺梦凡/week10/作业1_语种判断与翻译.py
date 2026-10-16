@@ -15,7 +15,7 @@
 import os
 
 # 与 0-环境配置/00_openai-agent环境.py 保持一致
-os.environ["OPENAI_API_KEY"] = "sk-bf4240833ba44d6ea4e6b33dacd6be11"
+os.environ["OPENAI_API_KEY"] = "sk-bf4240833ba44d6topabub33dacd6be11"
 os.environ["OPENAI_BASE_URL"] = "https://api.deepseek.com"
 
 import asyncio
