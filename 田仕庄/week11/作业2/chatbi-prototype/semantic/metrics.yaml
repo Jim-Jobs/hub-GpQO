@@ -1,0 +1,74 @@
+# 语义层 —— 指标定义
+# metric_type: atomic(原子) | derived(派生) | composite(复合)
+# 复合指标用 ${指标名} 引用其他指标，不重写 SQL。
+
+metrics:
+  - name: gmv
+    display_name: 销售额
+    metric_type: atomic
+    model: fact_invoice
+    expression: "SUM(i.Total)"
+    synonyms: [销售额, 营收, 营业额, 销售金额, 销售总额, 总销售额, gmv, revenue, sales]
+    time_model: fact_invoice
+    time_dimension: month
+    time_column: i.InvoiceDate
+    available_dimensions: [region, country, city, month, year, quarter]
+    default_filters: []
+    description: 订单金额合计（chinook 无退款字段，等同已支付金额）
+    owner: 财务部
+
+  - name: order_cnt
+    display_name: 订单数
+    metric_type: atomic
+    model: fact_invoice
+    expression: "COUNT(DISTINCT i.InvoiceId)"
+    synonyms: [订单数, 订单量, 订单数量, 单量, 笔数, order_cnt]
+    time_model: fact_invoice
+    time_dimension: month
+    time_column: i.InvoiceDate
+    available_dimensions: [region, country, city, month, year, quarter]
+    default_filters: []
+    description: 去重后的订单笔数
+    owner: 财务部
+
+  - name: customer_cnt
+    display_name: 购买客户数
+    metric_type: atomic
+    model: fact_invoice
+    expression: "COUNT(DISTINCT i.CustomerId)"
+    synonyms: [客户数, 顾客数, 用户数, 买家数, 购买客户数, customer_cnt]
+    time_model: fact_invoice
+    time_dimension: month
+    time_column: i.InvoiceDate
+    available_dimensions: [region, country, city, month, year, quarter]
+    default_filters: []
+    description: 去重后的购买客户数
+    owner: 财务部
+
+  - name: aov
+    display_name: 客单价
+    metric_type: composite
+    model: fact_invoice
+    expression: "${gmv} / ${order_cnt}"
+    synonyms: [客单价, 平均订单金额, 单均, aov]
+    time_model: fact_invoice
+    time_dimension: month
+    time_column: i.InvoiceDate
+    available_dimensions: [region, country, city, month, year, quarter]
+    default_filters: []
+    description: 销售额 / 订单数
+    owner: 财务部
+
+  - name: track_qty
+    display_name: 曲目销量
+    metric_type: atomic
+    model: fact_invoice_line
+    expression: "SUM(il.Quantity)"
+    synonyms: [销量, 销售量, 曲目销量, 售出数量, 卖出数量, track_qty]
+    time_model: fact_invoice
+    time_dimension: month
+    time_column: i.InvoiceDate
+    available_dimensions: [genre, region, country, month, year]
+    default_filters: []
+    description: 订单明细中的曲目数量合计
+    owner: 运营部

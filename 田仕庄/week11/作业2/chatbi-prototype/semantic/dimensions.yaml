@@ -1,0 +1,132 @@
+# 语义层 —— 维度定义
+# dim_type: categorical(分类) | time(时间) | numeric(数值)
+# value_mapping: 维度值 -> 物理列取值集合（用于自动生成 CASE 表达式）
+# values: 受控词表（NL 识别时可匹配的合法取值）
+# value_synonyms: 取值的中文/别名同义词
+
+dimensions:
+  - name: region
+    display_name: 大区
+    model: dim_customer
+    base_column: c.Country
+    dim_type: categorical
+    synonyms: [大区, 地区, 区域, 片区, area, region]
+    hierarchy: [region, country, city]
+    value_mapping:
+      "北美": [USA, Canada]
+      "南美": [Argentina, Brazil, Chile]
+      "欧洲": [Austria, Belgium, Czech Republic, Denmark, Finland, France, Germany, Hungary, Ireland, Italy, Netherlands, Norway, Poland, Portugal, Spain, Sweden, United Kingdom]
+      "亚太": [Australia, India]
+    default_value: 其他
+    values: ["北美", "南美", "欧洲", "亚太"]
+    value_synonyms:
+      "北美": [北美地区, 北美洲]
+      "南美": [南美地区, 南美洲]
+      "欧洲": [欧洲地区, 欧州]
+      "亚太": [亚太地区, 亚洲太平洋]
+    owner: 数据工程组
+
+  - name: country
+    display_name: 国家
+    model: dim_customer
+    expression: "c.Country"
+    dim_type: categorical
+    synonyms: [国家, 国别, 各国, country]
+    hierarchy: [region, country, city]
+    values: ["Argentina", "Australia", "Austria", "Belgium", "Brazil", "Canada", "Chile", "Czech Republic", "Denmark", "Finland", "France", "Germany", "Hungary", "India", "Ireland", "Italy", "Netherlands", "Norway", "Poland", "Portugal", "Spain", "Sweden", "USA", "United Kingdom"]
+    value_synonyms:
+      "USA": [美国, 美利坚, usa, united states]
+      "United Kingdom": [英国, 大不列颠, uk]
+      "Canada": [加拿大]
+      "France": [法国]
+      "Germany": [德国]
+      "Brazil": [巴西]
+      "Australia": [澳大利亚, 澳洲]
+      "India": [印度]
+      "Spain": [西班牙]
+      "Italy": [意大利]
+      "Netherlands": [荷兰]
+      "Norway": [挪威]
+      "Sweden": [瑞典]
+      "Denmark": [丹麦]
+      "Finland": [芬兰]
+      "Poland": [波兰]
+      "Portugal": [葡萄牙]
+      "Austria": [奥地利]
+      "Belgium": [比利时]
+      "Ireland": [爱尔兰]
+      "Hungary": [匈牙利]
+      "Czech Republic": [捷克]
+      "Chile": [智利]
+      "Argentina": [阿根廷]
+    owner: 数据工程组
+
+  - name: city
+    display_name: 城市
+    model: dim_customer
+    expression: "c.City"
+    dim_type: categorical
+    synonyms: [城市, 各城市, city]
+    hierarchy: [region, country, city]
+    values: []
+    value_synonyms: {}
+    owner: 数据工程组
+
+  - name: month
+    display_name: 月份
+    model: fact_invoice
+    expression: "strftime('%Y-%m', i.InvoiceDate)"
+    dim_type: time
+    synonyms: [月份, 月度, 按月, 各月, 每月, 逐月, 趋势, 走势]
+    hierarchy: [year, quarter, month]
+    values: []
+    value_synonyms: {}
+    owner: 数据工程组
+
+  - name: year
+    display_name: 年份
+    model: fact_invoice
+    expression: "strftime('%Y', i.InvoiceDate)"
+    dim_type: time
+    synonyms: [年份, 年度, 按年, 各年, 每年, 逐年]
+    hierarchy: [year, quarter, month]
+    values: []
+    value_synonyms: {}
+    owner: 数据工程组
+
+  - name: quarter
+    display_name: 季度
+    model: fact_invoice
+    expression: "strftime('%Y', i.InvoiceDate) || '-Q' || ((CAST(strftime('%m', i.InvoiceDate) AS INTEGER) + 2) / 3)"
+    dim_type: time
+    synonyms: [季度, 按季度, 各季度, 每季度]
+    hierarchy: [year, quarter, month]
+    values: []
+    value_synonyms: {}
+    owner: 数据工程组
+
+  - name: genre
+    display_name: 曲风
+    model: dim_genre
+    expression: "g.Name"
+    dim_type: categorical
+    synonyms: [曲风, 流派, 风格, 音乐类型, genre]
+    hierarchy: []
+    values: ["Alternative", "Alternative & Punk", "Blues", "Bossa Nova", "Classical", "Comedy", "Drama", "Easy Listening", "Electronica/Dance", "Heavy Metal", "Hip Hop/Rap", "Jazz", "Latin", "Metal", "Opera", "Pop", "R&B/Soul", "Reggae", "Rock", "Rock And Roll", "Sci Fi & Fantasy", "Science Fiction", "Soundtrack", "TV Shows", "World"]
+    value_synonyms:
+      "Rock": [摇滚, 摇滚乐]
+      "Jazz": [爵士, 爵士乐]
+      "Classical": [古典, 古典乐]
+      "Blues": [蓝调, 布鲁斯]
+      "Metal": [金属]
+      "Heavy Metal": [重金属, heavy metal]
+      "Pop": [流行, 流行乐]
+      "Hip Hop/Rap": [说唱, 嘻哈]
+      "Reggae": [雷鬼]
+      "Latin": [拉丁]
+      "Opera": [歌剧]
+      "Electronica/Dance": [电子, 电子舞曲, 电音]
+      "Comedy": [喜剧]
+      "Drama": [戏剧]
+      "Soundtrack": [原声, 原声带]
+    owner: 数据工程组
