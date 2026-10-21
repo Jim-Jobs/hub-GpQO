@@ -1,0 +1,48 @@
+:root {
+  --panel-gap: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: 'Helvetica Neue', Arial, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', sans-serif;
+  background: #f5f7fa;
+  color: #303133;
+}
+
+/* SQL 代码块 */
+.sql-block {
+  background: #0d1117;
+  color: #e6edf3;
+  border-radius: 6px;
+  padding: 12px 14px;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-x: auto;
+  white-space: pre;
+  margin: 0;
+}
+
+/* 汇总 markdown 渲染 */
+.summary-md {
+  line-height: 1.8;
+}
+
+.summary-md :first-child {
+  margin-top: 0;
+}
+
+.summary-md :last-child {
+  margin-bottom: 0;
+}
