@@ -13,7 +13,7 @@ from app.config import HISTORY_DB_PATH
 HISTORY_DB_PATH = HISTORY_DB_PATH
 
 _COLUMNS = [
-    "id", "question", "status", "tables", "sql", "summary",
+    "id", "question", "status", "tables", "sql", "summary", "error",
     "columns", "rows", "row_count", "truncated", "rewrite_rounds",
     "duration_ms", "steps", "created_at",
 ]
@@ -25,7 +25,7 @@ def _connect() -> sqlite3.Connection:
 
 
 def init_db() -> None:
-    """建表(幂等)。"""
+    """建表(幂等)并做轻量迁移(老库补列)。"""
     with _connect() as conn:
         conn.execute(
             """
@@ -36,6 +36,7 @@ def init_db() -> None:
                 tables TEXT NOT NULL DEFAULT '[]',
                 sql TEXT NOT NULL DEFAULT '',
                 summary TEXT NOT NULL DEFAULT '',
+                error TEXT NOT NULL DEFAULT '',
                 columns TEXT NOT NULL DEFAULT '[]',
                 rows TEXT NOT NULL DEFAULT '[]',
                 row_count INTEGER NOT NULL DEFAULT 0,
@@ -47,6 +48,11 @@ def init_db() -> None:
             )
             """
         )
+        # 迁移:早期建的老库没有 error 列,补上(已存在则忽略)
+        try:
+            conn.execute("ALTER TABLE history ADD COLUMN error TEXT NOT NULL DEFAULT ''")
+        except sqlite3.OperationalError:
+            pass  # 列已存在
 
 
 def save_record(record: dict) -> int:
@@ -56,9 +62,9 @@ def save_record(record: dict) -> int:
         cur = conn.execute(
             """
             INSERT INTO history (
-                question, status, tables, sql, summary, columns, rows,
+                question, status, tables, sql, summary, error, columns, rows,
                 row_count, truncated, rewrite_rounds, duration_ms, steps, created_at
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 record["question"],
@@ -66,6 +72,7 @@ def save_record(record: dict) -> int:
                 json.dumps(record.get("tables", []), ensure_ascii=False),
                 record.get("sql", ""),
                 record.get("summary", ""),
+                record.get("error", ""),
                 json.dumps(record.get("columns", []), ensure_ascii=False),
                 json.dumps(record.get("rows", []), ensure_ascii=False),
                 record.get("row_count", 0),

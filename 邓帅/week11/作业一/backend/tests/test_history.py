@@ -51,15 +51,17 @@ def test_list_orders_newest_first(tmp_db):
     assert [r["question"] for r in records] == ["第二问", "第一问"]
 
 
-def test_failed_record_kept(tmp_db):
-    """失败问答也落库(status=failed,summary 可为空)。"""
+def test_failed_record_kept_with_error(tmp_db):
+    """失败问答落库,真实失败原因(error)完整往返,供回放展示。"""
     rec = _sample("失败问", status="failed")
     rec["summary"] = ""
     rec["sql"] = "SELECT bad"
+    rec["error"] = "SQL 校验错误未能在改写重试内修复: no such column: bad"
     history.save_record(rec)
     r = history.list_records()[0]
     assert r["status"] == "failed"
     assert r["summary"] == ""
+    assert "no such column: bad" in r["error"]
 
 
 def test_list_limit(tmp_db):

@@ -79,6 +79,22 @@ def test_leading_comment_ignored():
     assert ok
 
 
+def test_replace_function_allowed():
+    """SELECT 中合法的 REPLACE() 字符串函数不得被写操作黑名单误伤。"""
+    ok, errs = validate_select_only(
+        "SELECT REPLACE(Title, 'old', 'new') FROM albums"
+    )
+    assert ok and errs == []
+
+
+def test_with_cte_write_rejected():
+    """sqlite 的 WITH 可后接 DELETE(CTE 写),语句中间的 DML 必须拦截。"""
+    ok, errs = validate_select_only(
+        "WITH t AS (SELECT 1) DELETE FROM albums"
+    )
+    assert not ok and any("DELETE" in e for e in errs)
+
+
 # ---------- check_syntax:EXPLAIN 语法+表+列 ----------
 
 def test_valid_sql_passes(ro_conn):

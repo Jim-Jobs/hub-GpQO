@@ -70,6 +70,7 @@ async def run_workflow(question: str, parser, conn) -> AsyncGenerator[dict, None
 
         # 第 4~6 步:校验 → (失败则改写,上限 N 次) → 执行
         errors: list[str] = []
+        fail_stage = "validate"  # 失败源头:校验(validate)或执行(execute)
         executed = False
         while True:
             yield _step(4, "start")
@@ -91,6 +92,7 @@ async def run_workflow(question: str, parser, conn) -> AsyncGenerator[dict, None
                     executed = True
                     break
                 errors = [result["error"]]
+                fail_stage = "execute"
                 yield _step(6, "done", ok=False, errors=errors)
 
             # 改写:超出上限即失败收尾
@@ -104,13 +106,18 @@ async def run_workflow(question: str, parser, conn) -> AsyncGenerator[dict, None
             yield _step(5, "done", rounds=rewrite_rounds, triggered=True, errors=errors, sql=sql)
 
         if not executed:
+            stage_text = (
+                "SQL 执行错误未能在改写重试内修复"
+                if fail_stage == "execute"
+                else "SQL 校验错误未能在改写重试内修复"
+            )
             yield {
                 "event": "final",
                 "status": "failed",
                 "question": question,
                 "tables": tables,
                 "sql": sql,
-                "error": "校验错误未能在重试内修复: " + "; ".join(errors),
+                "error": f"{stage_text}: " + "; ".join(errors),
                 "rewrite_rounds": rewrite_rounds,
                 "duration_ms": int((time.time() - started) * 1000),
             }

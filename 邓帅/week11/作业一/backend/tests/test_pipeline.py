@@ -154,7 +154,7 @@ def test_flow_rewrite_recovers(monkeypatch):
 
 
 def test_flow_fails_after_max_rounds(monkeypatch):
-    """生成 + 3 次改写全失败 → final failed。"""
+    """生成 + 3 次改写全失败 → final failed,文案标明校验源头。"""
     mock_chat(monkeypatch, [
         '["albums"]',
         "SELECT bad_col FROM albums",
@@ -167,7 +167,30 @@ def test_flow_fails_after_max_rounds(monkeypatch):
 
     assert final["status"] == "failed"
     assert final["rewrite_rounds"] == 3
+    assert "校验错误" in final["error"]
     assert "bad_col" in final["error"]
+
+
+def test_flow_execute_failure_message(monkeypatch):
+    """校验通过但执行报错 → 改写耗尽后文案标明执行源头(非校验)。"""
+    mock_chat(monkeypatch, [
+        '["albums"]',
+        "SELECT Title FROM albums",
+        "SELECT Title FROM albums",
+        "SELECT Title FROM albums",
+        "SELECT Title FROM albums",
+    ])
+
+    def fake_execute(sql, conn, row_limit):
+        return {"error": "SQL 执行失败: disk I/O error"}
+
+    monkeypatch.setattr(steps, "execute_query", fake_execute)
+    events = run_flow("查询专辑名")
+    final = events[-1]
+
+    assert final["status"] == "failed"
+    assert "执行错误" in final["error"]
+    assert "disk I/O error" in final["error"]
 
 
 def test_flow_dangerous_sql_redirected(monkeypatch):

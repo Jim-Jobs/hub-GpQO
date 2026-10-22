@@ -159,7 +159,7 @@ function replay(item: HistoryRecord) {
     truncated: item.truncated,
     rewrite_rounds: item.rewrite_rounds,
     summary: item.summary,
-    error: item.status === 'success' ? undefined : '历史失败记录',
+    error: item.status === 'success' ? undefined : item.error || '(历史记录未保存失败原因)',
     duration_ms: item.duration_ms,
   }
   question.value = item.question

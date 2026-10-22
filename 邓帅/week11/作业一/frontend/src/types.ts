@@ -35,6 +35,7 @@ export interface HistoryRecord {
   tables: string[]
   sql: string
   summary: string
+  error: string
   columns: string[]
   rows: unknown[][]
   row_count: number

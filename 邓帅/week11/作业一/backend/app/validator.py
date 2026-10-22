@@ -6,15 +6,15 @@
 import re
 import sqlite3
 
-# 仅允许查询语句:首关键词必须是 SELECT 或 WITH(CTE)
+# 仅允许查询语句:首关键词必须是 SELECT 或 WITH(CTE);
+# INSERT/UPDATE/DROP/ATTACH 等写操作语句作为首关键词即在此被拦
 _ALLOWED_START = re.compile(r"^(with|select)\b", re.IGNORECASE)
 
-# 危险关键词:DML/DDL/ATTACH 等(sqlite 的 WITH 也可接 INSERT/UPDATE/DELETE,一并拦)
-_FORBIDDEN = re.compile(
-    r"\b(insert|update|delete|drop|alter|create|replace|truncate|"
-    r"attach|detach|pragma|vacuum|reindex|grant|revoke)\b",
-    re.IGNORECASE,
-)
+# 语句中间的写操作:sqlite 的 WITH 可后接 INSERT/UPDATE/DELETE(CTE 写),
+# 需全局拦截这三个 DML 关键词。其余写语句词(DROP/CREATE/ATTACH...)只能
+# 作为顶层首关键词出现,已由 _ALLOWED_START 拦截,不再全局搜——避免误伤
+# SELECT 中合法的 REPLACE() 等函数名
+_FORBIDDEN_DML = re.compile(r"\b(insert|update|delete)\b", re.IGNORECASE)
 
 # ```sql ... ``` 代码围栏
 _FENCE = re.compile(r"```(?:sql)?\s*(.*?)\s*```", re.DOTALL | re.IGNORECASE)
@@ -59,10 +59,12 @@ def validate_select_only(sql: str) -> tuple[bool, list[str]]:
     errors: list[str] = []
 
     if not _ALLOWED_START.match(stripped):
+        first_word = stripped.split(None, 1)[0] if stripped.split() else "(空)"
         errors.append(
-            f"仅允许 SELECT 查询,当前语句不是 SELECT/WITH 开头: {stripped[:40]!r}"
+            f"仅允许 SELECT 查询,当前首关键词为 {first_word.upper()},"
+            f"不是 SELECT/WITH: {stripped[:40]!r}"
         )
-    m = _FORBIDDEN.search(stripped)
+    m = _FORBIDDEN_DML.search(stripped)
     if m:
         errors.append(f"包含禁止的写操作关键词: {m.group(1).upper()}")
 
