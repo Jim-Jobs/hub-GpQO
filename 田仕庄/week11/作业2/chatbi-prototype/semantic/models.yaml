@@ -1,0 +1,61 @@
+# 语义层 —— 模型定义（chinook 示例域）
+# alias 为模型在生成 SQL 中的固定表别名，指标/维度表达式内直接引用该别名。
+
+models:
+  - name: fact_invoice
+    display_name: 销售订单事实表
+    physical_table: invoices
+    primary_key: InvoiceId
+    alias: i
+    owner: 数据工程组
+    joins:
+      - to_model: dim_customer
+        join_type: many_to_one
+        on_fields:
+          - from: CustomerId
+            to: CustomerId
+
+  - name: dim_customer
+    display_name: 客户维表
+    physical_table: customers
+    primary_key: CustomerId
+    alias: c
+    owner: 数据工程组
+
+  - name: fact_invoice_line
+    display_name: 订单明细事实表
+    physical_table: invoice_items
+    primary_key: InvoiceLineId
+    alias: il
+    owner: 数据工程组
+    joins:
+      - to_model: fact_invoice
+        join_type: many_to_one
+        on_fields:
+          - from: InvoiceId
+            to: InvoiceId
+      - to_model: dim_track
+        join_type: many_to_one
+        on_fields:
+          - from: TrackId
+            to: TrackId
+
+  - name: dim_track
+    display_name: 曲目维表
+    physical_table: tracks
+    primary_key: TrackId
+    alias: t
+    owner: 数据工程组
+    joins:
+      - to_model: dim_genre
+        join_type: many_to_one
+        on_fields:
+          - from: GenreId
+            to: GenreId
+
+  - name: dim_genre
+    display_name: 曲风维表
+    physical_table: genres
+    primary_key: GenreId
+    alias: g
+    owner: 数据工程组

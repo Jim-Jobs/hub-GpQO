@@ -1,0 +1,11 @@
+{"setup": ["各大区销售额"], "question": "那上个月呢", "expect_dsl": {"metric": "gmv", "dimensions": ["region"], "time_range": {"type": "relative", "value": "last_month"}}}
+{"setup": ["各大区销售额", "那上个月呢"], "question": "换成订单数呢", "expect_dsl": {"metric": "order_cnt", "dimensions": ["region"], "time_range": {"value": "last_month"}}}
+{"setup": ["销售额Top5的国家"], "question": "那按城市看", "expect_dsl": {"metric": "gmv", "dimensions": ["city"], "limit": 5}}
+{"setup": ["销售额Top5的国家"], "question": "这些国家的销售额", "expected_sql": "SELECT c.Country AS \"country\", (SUM(i.Total)) AS \"gmv\" FROM invoices i JOIN customers c ON i.CustomerId = c.CustomerId WHERE (c.Country IN ('USA', 'Canada', 'France', 'Brazil', 'Germany')) GROUP BY 1 ORDER BY \"gmv\" DESC LIMIT 5"}
+{"setup": ["按城市看"], "question": "销售额", "expect_dsl": {"metric": "gmv", "dimensions": ["city"]}}
+{"setup": ["销售额和订单数分别是多少"], "question": "销售额", "expect_dsl": {"metric": "gmv", "dimensions": []}}
+{"setup": ["各大区销售额"], "question": "那北美呢", "expect_dsl": {"metric": "gmv", "dimensions": ["region"], "filters": [{"dimension": "region", "op": "eq", "value": "北美"}]}}
+{"setup": ["各大区销售额"], "question": "总销售额是多少", "expect_dsl": {"metric": "gmv", "dimensions": []}}
+{"setup": ["各大区销售额"], "question": "今天天气怎么样", "expect_status": "clarify"}
+{"setup": ["2009年各季度销售额"], "question": "换成客单价呢", "expect_dsl": {"metric": "aov", "dimensions": ["quarter"], "time_range": {"type": "absolute", "start": "2009-01-01"}}}
+{"setup": ["各大区销售额"], "question": "那按曲风看", "expect_status": "clarify"}

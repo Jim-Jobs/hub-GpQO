@@ -1,0 +1,17 @@
+{"question": "总销售额是多少", "expected_sql": "SELECT SUM(i.Total) FROM invoices i", "note": "单值原子指标"}
+{"question": "近3个月销售额", "expected_sql": "SELECT SUM(i.Total) FROM invoices i WHERE i.InvoiceDate >= '2013-10-01' AND i.InvoiceDate < '2014-01-01'", "note": "相对时间"}
+{"question": "各月销售额趋势", "expected_sql": "SELECT strftime('%Y-%m', i.InvoiceDate), SUM(i.Total) FROM invoices i GROUP BY 1", "note": "时间维度分组"}
+{"question": "各大区销售额", "expected_sql": "SELECT CASE WHEN c.Country IN ('USA','Canada') THEN '北美' WHEN c.Country IN ('Argentina','Brazil','Chile') THEN '南美' WHEN c.Country IN ('Australia','India') THEN '亚太' ELSE '欧洲' END, SUM(i.Total) FROM invoices i JOIN customers c ON i.CustomerId=c.CustomerId GROUP BY 1", "note": "派生维度 + join"}
+{"question": "销售额Top5的国家", "expected_sql": "SELECT c.Country, SUM(i.Total) FROM invoices i JOIN customers c ON i.CustomerId=c.CustomerId GROUP BY 1 ORDER BY 2 DESC LIMIT 5", "note": "排名 + limit"}
+{"question": "北美销售额", "expected_sql": "SELECT SUM(i.Total) FROM invoices i JOIN customers c ON i.CustomerId=c.CustomerId WHERE c.Country IN ('USA','Canada')", "note": "受控取值过滤"}
+{"question": "北美和南美哪个销售额高", "expected_sql": "SELECT CASE WHEN c.Country IN ('USA','Canada') THEN '北美' WHEN c.Country IN ('Argentina','Brazil','Chile') THEN '南美' ELSE '其他' END, SUM(i.Total) FROM invoices i JOIN customers c ON i.CustomerId=c.CustomerId WHERE c.Country IN ('USA','Canada','Argentina','Brazil','Chile') GROUP BY 1", "note": "多取值 -> 升级为维度对比"}
+{"question": "客单价是多少", "expected_sql": "SELECT SUM(i.Total) / COUNT(DISTINCT i.InvoiceId) FROM invoices i", "note": "复合指标展开"}
+{"question": "2009年各季度销售额", "expected_sql": "SELECT strftime('%Y', i.InvoiceDate) || '-Q' || ((CAST(strftime('%m', i.InvoiceDate) AS INTEGER) + 2) / 3), SUM(i.Total) FROM invoices i WHERE i.InvoiceDate >= '2009-01-01' AND i.InvoiceDate < '2010-01-01' GROUP BY 1", "note": "绝对时间 + 季度维度"}
+{"question": "按曲风统计销量", "expected_sql": "SELECT g.Name, SUM(il.Quantity) FROM invoice_items il JOIN tracks t ON il.TrackId=t.TrackId JOIN genres g ON t.GenreId=g.GenreId GROUP BY 1", "note": "多跳 join"}
+{"question": "上个月订单数", "expected_sql": "SELECT COUNT(DISTINCT i.InvoiceId) FROM invoices i WHERE i.InvoiceDate >= '2013-11-01' AND i.InvoiceDate < '2013-12-01'", "note": "相对时间 + 去重计数"}
+{"question": "各国家的购买客户数", "expected_sql": "SELECT c.Country, COUNT(DISTINCT i.CustomerId) FROM invoices i JOIN customers c ON i.CustomerId=c.CustomerId GROUP BY 1", "note": "维度全量分组"}
+{"question": "销售额环比", "expected_sql": "SELECT SUM(i.Total) FROM invoices i WHERE i.InvoiceDate >= '2013-11-01' AND i.InvoiceDate < '2013-12-01'", "note": "复合/对比指标（取本期结果）"}
+{"question": "今天天气怎么样", "expect_status": "clarify", "note": "无指标 -> 澄清"}
+{"question": "销售额和订单数分别是多少", "expect_status": "clarify", "note": "指标歧义 -> 澄清"}
+{"question": "各城市销售额", "user": "bob", "expect_status": "denied", "note": "列级权限拒绝"}
+{"question": "各大区销售额", "user": "bob", "expected_sql": "SELECT CASE WHEN c.Country IN ('USA','Canada') THEN '北美' WHEN c.Country IN ('Argentina','Brazil','Chile') THEN '南美' WHEN c.Country IN ('Australia','India') THEN '亚太' ELSE '欧洲' END, SUM(i.Total) FROM invoices i JOIN customers c ON i.CustomerId=c.CustomerId WHERE c.Country IN ('USA','Canada') GROUP BY 1", "note": "行级权限注入"}

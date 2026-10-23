@@ -1,0 +1,29 @@
+# 权限规则（演示用）
+# row_rules: 行级规则，编译期强制注入 WHERE 过滤
+# denied_columns: 列级规则-拒绝（命中即报无权限）
+# masked_columns: 列级规则-脱敏（取值替换为 '******'）
+
+users:
+  - user_id: alice
+    display_name: Alice（总部数据分析师）
+    row_rules: []
+    denied_columns: []
+    masked_columns: []
+
+  - user_id: bob
+    display_name: Bob（北美区分析师）
+    row_rules:
+      - dimension: region
+        op: in
+        values: ["北美"]
+    denied_columns: [city]
+    masked_columns: []
+
+  - user_id: carol
+    display_name: Carol（仅美加 + 城市脱敏）
+    row_rules:
+      - dimension: country
+        op: in
+        values: [USA, Canada]
+    denied_columns: []
+    masked_columns: [city]
