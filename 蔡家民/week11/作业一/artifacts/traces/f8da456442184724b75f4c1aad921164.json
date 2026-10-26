@@ -1,0 +1,390 @@
+{
+  "run_id": "f8da456442184724b75f4c1aad921164",
+  "question": "2012年各有订单月份的平均订单金额，按月份升序。",
+  "status": "success",
+  "mode": "replay",
+  "reference_date": "2014-01-15",
+  "intent": {
+    "status": "answerable",
+    "metric": "2012年各有订单月份的平均订单金额，按月份升序。",
+    "dimensions": [],
+    "filters": [],
+    "time_range": [
+      "2012-01-01",
+      "2013-01-01"
+    ],
+    "ranking": "",
+    "grain": "",
+    "assumptions": [],
+    "clarification": "",
+    "reason": "",
+    "rule_ids": [
+      "R07"
+    ]
+  },
+  "selection": {
+    "tables": [
+      "invoices"
+    ],
+    "columns": {},
+    "joins": [],
+    "reason": "Explicit replay fixture",
+    "bridge_tables": []
+  },
+  "candidates": [
+    {
+      "sql": "SELECT strftime('%Y-%m', InvoiceDate) AS month, AVG(Total) AS average_amount FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY month ORDER BY month",
+      "params": {
+        "start": "2012-01-01",
+        "end": "2013-01-01"
+      },
+      "explanation": "",
+      "changes": ""
+    }
+  ],
+  "validations": [
+    {
+      "passed": true,
+      "checks": [
+        {
+          "name": "sqlite_compile_and_authorize",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "selection_scope",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "header_detail_grain_risk",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "confirmed_time_boundaries",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        }
+      ]
+    }
+  ],
+  "execution": {
+    "status": "ok",
+    "columns": [
+      "month",
+      "average_amount"
+    ],
+    "rows": [
+      [
+        "2012-01",
+        5.374285714285714
+      ],
+      [
+        "2012-02",
+        5.374285714285714
+      ],
+      [
+        "2012-03",
+        5.374285714285714
+      ],
+      [
+        "2012-04",
+        5.374285714285714
+      ],
+      [
+        "2012-05",
+        5.374285714285714
+      ],
+      [
+        "2012-06",
+        5.374285714285714
+      ],
+      [
+        "2012-07",
+        5.659999999999999
+      ],
+      [
+        "2012-08",
+        6.8028571428571425
+      ],
+      [
+        "2012-09",
+        7.785
+      ],
+      [
+        "2012-10",
+        6.088571428571428
+      ],
+      [
+        "2012-11",
+        5.374285714285714
+      ],
+      [
+        "2012-12",
+        5.374285714285714
+      ]
+    ],
+    "truncated": false,
+    "elapsed_ms": 0.0,
+    "error_type": "",
+    "error": ""
+  },
+  "answer": {
+    "text": "离线回放：查询返回 12 行。\n{\"columns\": [\"month\", \"average_amount\"], \"rows\": [[\"2012-01\", 5.374285714285714], [\"2012-02\", 5.374285714285714], [\"2012-03\", 5.374285714285714], [\"2012-04\", 5.374285714285714], [\"2012-05\", 5.374285714285714], [\"2012-06\", 5.374285714285714], [\"2012-07\", 5.659999999999999], [\"2012-08\", 6.8028571428571425], [\"2012-09\", 7.785], [\"2012-10\", 6.088571428571428], [\"2012-11\", 5.374285714285714], [\"2012-12\", 5.374285714285714]]}",
+    "facts": [],
+    "limitations": [
+      "仅验证工作流，未调用大模型。"
+    ]
+  },
+  "trace": [
+    {
+      "node": "database_parse",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "albums",
+          "artists",
+          "customers",
+          "employees",
+          "genres",
+          "invoice_items",
+          "invoices",
+          "media_types",
+          "playlist_track",
+          "playlists",
+          "tracks"
+        ],
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb"
+      }
+    },
+    {
+      "node": "intent",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "answerable",
+        "metric": "2012年各有订单月份的平均订单金额，按月份升序。",
+        "time_range": [
+          "2012-01-01",
+          "2013-01-01"
+        ],
+        "rule_ids": [
+          "R07"
+        ]
+      }
+    },
+    {
+      "node": "table_selection",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "tables": [
+          "invoices"
+        ],
+        "reason": "Explicit replay fixture"
+      }
+    },
+    {
+      "node": "bridge_completion",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "invoices"
+        ],
+        "columns": {},
+        "joins": [],
+        "reason": "Explicit replay fixture",
+        "bridge_tables": []
+      }
+    },
+    {
+      "node": "sql_generation",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "sql": "SELECT strftime('%Y-%m', InvoiceDate) AS month, AVG(Total) AS average_amount FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY month ORDER BY month",
+        "params": {
+          "start": "2012-01-01",
+          "end": "2013-01-01"
+        }
+      }
+    },
+    {
+      "node": "semantic_review",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "issues": []
+      }
+    },
+    {
+      "node": "sql_validation",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "sqlite_compile_and_authorize",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "selection_scope",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "header_detail_grain_risk",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "confirmed_time_boundaries",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          }
+        ]
+      }
+    },
+    {
+      "node": "sql_execution",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "ok",
+        "columns": [
+          "month",
+          "average_amount"
+        ],
+        "rows": [
+          [
+            "2012-01",
+            5.374285714285714
+          ],
+          [
+            "2012-02",
+            5.374285714285714
+          ],
+          [
+            "2012-03",
+            5.374285714285714
+          ],
+          [
+            "2012-04",
+            5.374285714285714
+          ],
+          [
+            "2012-05",
+            5.374285714285714
+          ],
+          [
+            "2012-06",
+            5.374285714285714
+          ],
+          [
+            "2012-07",
+            5.659999999999999
+          ],
+          [
+            "2012-08",
+            6.8028571428571425
+          ],
+          [
+            "2012-09",
+            7.785
+          ],
+          [
+            "2012-10",
+            6.088571428571428
+          ],
+          [
+            "2012-11",
+            5.374285714285714
+          ],
+          [
+            "2012-12",
+            5.374285714285714
+          ]
+        ],
+        "truncated": false,
+        "elapsed_ms": 0.0,
+        "error_type": "",
+        "error": ""
+      }
+    },
+    {
+      "node": "summary",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "text": "离线回放：查询返回 12 行。\n{\"columns\": [\"month\", \"average_amount\"], \"rows\": [[\"2012-01\", 5.374285714285714], [\"2012-02\", 5.374285714285714], [\"2012-03\", 5.374285714285714], [\"2012-04\", 5.374285714285714], [\"2012-05\", 5.374285714285714], [\"2012-06\", 5.374285714285714], [\"2012-07\", 5.659999999999999], [\"2012-08\", 6.8028571428571425], [\"2012-09\", 7.785], [\"2012-10\", 6.088571428571428], [\"2012-11\", 5.374285714285714], [\"2012-12\", 5.374285714285714]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "node": "run_metadata",
+      "status": "success",
+      "output": {
+        "variant": "workflow",
+        "prompt_version": "2026-10-21-v1",
+        "semantic_review": true,
+        "rules_enabled": true,
+        "max_rewrites": 2,
+        "reference_date": "2014-01-15",
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+        "calls": [
+          {
+            "stage": "intent",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "table_selection",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "sql_generation",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "semantic_review",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "summary",
+            "model": "scripted-fixture",
+            "usage": null
+          }
+        ],
+        "elapsed_ms": 0.0
+      }
+    }
+  ],
+  "error": ""
+}

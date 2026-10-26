@@ -1,0 +1,795 @@
+{
+  "version": 1,
+  "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+  "tables": {
+    "albums": {
+      "description": "专辑",
+      "row_count": 347,
+      "columns": [
+        {
+          "name": "AlbumId",
+          "type": "INTEGER",
+          "nullable": false,
+          "primary_key": true,
+          "distinct": 347,
+          "nulls": 0
+        },
+        {
+          "name": "Title",
+          "type": "NVARCHAR(160)",
+          "nullable": false,
+          "primary_key": false,
+          "distinct": 347,
+          "nulls": 0,
+          "samples": [
+            "...And Justice For All",
+            "20th Century Masters - The Millennium Collection: The Best of Scorpions",
+            "A Copland Celebration, Vol. I"
+          ]
+        },
+        {
+          "name": "ArtistId",
+          "type": "INTEGER",
+          "nullable": false,
+          "primary_key": false,
+          "distinct": 204,
+          "nulls": 0
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_table": "albums",
+          "from_column": "ArtistId",
+          "to_table": "artists",
+          "to_column": "ArtistId"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "IFK_AlbumArtistId",
+          "unique": false
+        }
+      ]
+    },
+    "artists": {
+      "description": "艺术家",
+      "row_count": 275,
+      "columns": [
+        {
+          "name": "ArtistId",
+          "type": "INTEGER",
+          "nullable": false,
+          "primary_key": true,
+          "distinct": 275,
+          "nulls": 0
+        },
+        {
+          "name": "Name",
+          "type": "NVARCHAR(120)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 275,
+          "nulls": 0,
+          "samples": [
+            "A Cor Do Som",
+            "AC/DC",
+            "Aaron Copland & London Symphony Orchestra"
+          ]
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": []
+    },
+    "customers": {
+      "description": "客户及其支持员工",
+      "row_count": 59,
+      "columns": [
+        {
+          "name": "CustomerId",
+          "type": "INTEGER",
+          "nullable": false,
+          "primary_key": true,
+          "distinct": 59,
+          "nulls": 0
+        },
+        {
+          "name": "FirstName",
+          "type": "NVARCHAR(40)",
+          "nullable": false,
+          "primary_key": false,
+          "distinct": 57,
+          "nulls": 0
+        },
+        {
+          "name": "LastName",
+          "type": "NVARCHAR(20)",
+          "nullable": false,
+          "primary_key": false,
+          "distinct": 59,
+          "nulls": 0
+        },
+        {
+          "name": "Company",
+          "type": "NVARCHAR(80)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 10,
+          "nulls": 49
+        },
+        {
+          "name": "Address",
+          "type": "NVARCHAR(70)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 59,
+          "nulls": 0
+        },
+        {
+          "name": "City",
+          "type": "NVARCHAR(40)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 53,
+          "nulls": 0
+        },
+        {
+          "name": "State",
+          "type": "NVARCHAR(40)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 25,
+          "nulls": 29
+        },
+        {
+          "name": "Country",
+          "type": "NVARCHAR(40)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 24,
+          "nulls": 0,
+          "samples": [
+            "Argentina",
+            "Australia",
+            "Austria"
+          ]
+        },
+        {
+          "name": "PostalCode",
+          "type": "NVARCHAR(10)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 55,
+          "nulls": 4
+        },
+        {
+          "name": "Phone",
+          "type": "NVARCHAR(24)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 58,
+          "nulls": 1
+        },
+        {
+          "name": "Fax",
+          "type": "NVARCHAR(24)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 12,
+          "nulls": 47
+        },
+        {
+          "name": "Email",
+          "type": "NVARCHAR(60)",
+          "nullable": false,
+          "primary_key": false,
+          "distinct": 59,
+          "nulls": 0
+        },
+        {
+          "name": "SupportRepId",
+          "type": "INTEGER",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 3,
+          "nulls": 0
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_table": "customers",
+          "from_column": "SupportRepId",
+          "to_table": "employees",
+          "to_column": "EmployeeId"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "IFK_CustomerSupportRepId",
+          "unique": false
+        }
+      ]
+    },
+    "employees": {
+      "description": "员工和直属上级，不能直接当作销售人员",
+      "row_count": 8,
+      "columns": [
+        {
+          "name": "EmployeeId",
+          "type": "INTEGER",
+          "nullable": false,
+          "primary_key": true,
+          "distinct": 8,
+          "nulls": 0
+        },
+        {
+          "name": "LastName",
+          "type": "NVARCHAR(20)",
+          "nullable": false,
+          "primary_key": false,
+          "distinct": 8,
+          "nulls": 0
+        },
+        {
+          "name": "FirstName",
+          "type": "NVARCHAR(20)",
+          "nullable": false,
+          "primary_key": false,
+          "distinct": 8,
+          "nulls": 0
+        },
+        {
+          "name": "Title",
+          "type": "NVARCHAR(30)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 5,
+          "nulls": 0,
+          "samples": [
+            "General Manager",
+            "IT Manager",
+            "IT Staff"
+          ]
+        },
+        {
+          "name": "ReportsTo",
+          "type": "INTEGER",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 3,
+          "nulls": 1
+        },
+        {
+          "name": "BirthDate",
+          "type": "DATETIME",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 8,
+          "nulls": 0,
+          "range": [
+            "1947-09-19 00:00:00",
+            "1973-08-29 00:00:00"
+          ]
+        },
+        {
+          "name": "HireDate",
+          "type": "DATETIME",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 7,
+          "nulls": 0,
+          "range": [
+            "2002-04-01 00:00:00",
+            "2004-03-04 00:00:00"
+          ]
+        },
+        {
+          "name": "Address",
+          "type": "NVARCHAR(70)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 8,
+          "nulls": 0
+        },
+        {
+          "name": "City",
+          "type": "NVARCHAR(40)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 3,
+          "nulls": 0
+        },
+        {
+          "name": "State",
+          "type": "NVARCHAR(40)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 1,
+          "nulls": 0
+        },
+        {
+          "name": "Country",
+          "type": "NVARCHAR(40)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 1,
+          "nulls": 0,
+          "samples": [
+            "Canada"
+          ]
+        },
+        {
+          "name": "PostalCode",
+          "type": "NVARCHAR(10)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 8,
+          "nulls": 0
+        },
+        {
+          "name": "Phone",
+          "type": "NVARCHAR(24)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 7,
+          "nulls": 0
+        },
+        {
+          "name": "Fax",
+          "type": "NVARCHAR(24)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 8,
+          "nulls": 0
+        },
+        {
+          "name": "Email",
+          "type": "NVARCHAR(60)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 8,
+          "nulls": 0
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_table": "employees",
+          "from_column": "ReportsTo",
+          "to_table": "employees",
+          "to_column": "EmployeeId"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "IFK_EmployeeReportsTo",
+          "unique": false
+        }
+      ]
+    },
+    "genres": {
+      "description": "音乐类型",
+      "row_count": 25,
+      "columns": [
+        {
+          "name": "GenreId",
+          "type": "INTEGER",
+          "nullable": false,
+          "primary_key": true,
+          "distinct": 25,
+          "nulls": 0
+        },
+        {
+          "name": "Name",
+          "type": "NVARCHAR(120)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 25,
+          "nulls": 0,
+          "samples": [
+            "Alternative",
+            "Alternative & Punk",
+            "Blues"
+          ]
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": []
+    },
+    "invoice_items": {
+      "description": "订单明细、历史成交单价和数量",
+      "row_count": 2240,
+      "columns": [
+        {
+          "name": "InvoiceLineId",
+          "type": "INTEGER",
+          "nullable": false,
+          "primary_key": true,
+          "distinct": 2240,
+          "nulls": 0
+        },
+        {
+          "name": "InvoiceId",
+          "type": "INTEGER",
+          "nullable": false,
+          "primary_key": false,
+          "distinct": 412,
+          "nulls": 0
+        },
+        {
+          "name": "TrackId",
+          "type": "INTEGER",
+          "nullable": false,
+          "primary_key": false,
+          "distinct": 1984,
+          "nulls": 0
+        },
+        {
+          "name": "UnitPrice",
+          "type": "NUMERIC(10,2)",
+          "nullable": false,
+          "primary_key": false,
+          "distinct": 2,
+          "nulls": 0
+        },
+        {
+          "name": "Quantity",
+          "type": "INTEGER",
+          "nullable": false,
+          "primary_key": false,
+          "distinct": 1,
+          "nulls": 0
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_table": "invoice_items",
+          "from_column": "TrackId",
+          "to_table": "tracks",
+          "to_column": "TrackId"
+        },
+        {
+          "from_table": "invoice_items",
+          "from_column": "InvoiceId",
+          "to_table": "invoices",
+          "to_column": "InvoiceId"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "IFK_InvoiceLineTrackId",
+          "unique": false
+        },
+        {
+          "name": "IFK_InvoiceLineInvoiceId",
+          "unique": false
+        }
+      ]
+    },
+    "invoices": {
+      "description": "订单头、日期、账单地址、订单总金额",
+      "row_count": 412,
+      "columns": [
+        {
+          "name": "InvoiceId",
+          "type": "INTEGER",
+          "nullable": false,
+          "primary_key": true,
+          "distinct": 412,
+          "nulls": 0
+        },
+        {
+          "name": "CustomerId",
+          "type": "INTEGER",
+          "nullable": false,
+          "primary_key": false,
+          "distinct": 59,
+          "nulls": 0
+        },
+        {
+          "name": "InvoiceDate",
+          "type": "DATETIME",
+          "nullable": false,
+          "primary_key": false,
+          "distinct": 354,
+          "nulls": 0,
+          "samples": [
+            "2009-01-01 00:00:00",
+            "2009-01-02 00:00:00",
+            "2009-01-03 00:00:00"
+          ],
+          "range": [
+            "2009-01-01 00:00:00",
+            "2013-12-22 00:00:00"
+          ]
+        },
+        {
+          "name": "BillingAddress",
+          "type": "NVARCHAR(70)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 59,
+          "nulls": 0
+        },
+        {
+          "name": "BillingCity",
+          "type": "NVARCHAR(40)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 53,
+          "nulls": 0
+        },
+        {
+          "name": "BillingState",
+          "type": "NVARCHAR(40)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 25,
+          "nulls": 202
+        },
+        {
+          "name": "BillingCountry",
+          "type": "NVARCHAR(40)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 24,
+          "nulls": 0,
+          "samples": [
+            "Argentina",
+            "Australia",
+            "Austria"
+          ]
+        },
+        {
+          "name": "BillingPostalCode",
+          "type": "NVARCHAR(10)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 55,
+          "nulls": 28
+        },
+        {
+          "name": "Total",
+          "type": "NUMERIC(10,2)",
+          "nullable": false,
+          "primary_key": false,
+          "distinct": 23,
+          "nulls": 0
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_table": "invoices",
+          "from_column": "CustomerId",
+          "to_table": "customers",
+          "to_column": "CustomerId"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "IFK_InvoiceCustomerId",
+          "unique": false
+        }
+      ]
+    },
+    "media_types": {
+      "description": "媒体类型",
+      "row_count": 5,
+      "columns": [
+        {
+          "name": "MediaTypeId",
+          "type": "INTEGER",
+          "nullable": false,
+          "primary_key": true,
+          "distinct": 5,
+          "nulls": 0
+        },
+        {
+          "name": "Name",
+          "type": "NVARCHAR(120)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 5,
+          "nulls": 0,
+          "samples": [
+            "AAC audio file",
+            "MPEG audio file",
+            "Protected AAC audio file"
+          ]
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": []
+    },
+    "playlist_track": {
+      "description": "播放列表收录关系，不是播放次数",
+      "row_count": 8715,
+      "columns": [
+        {
+          "name": "PlaylistId",
+          "type": "INTEGER",
+          "nullable": false,
+          "primary_key": true,
+          "distinct": 14,
+          "nulls": 0
+        },
+        {
+          "name": "TrackId",
+          "type": "INTEGER",
+          "nullable": false,
+          "primary_key": true,
+          "distinct": 3503,
+          "nulls": 0
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_table": "playlist_track",
+          "from_column": "TrackId",
+          "to_table": "tracks",
+          "to_column": "TrackId"
+        },
+        {
+          "from_table": "playlist_track",
+          "from_column": "PlaylistId",
+          "to_table": "playlists",
+          "to_column": "PlaylistId"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "IFK_PlaylistTrackTrackId",
+          "unique": false
+        },
+        {
+          "name": "sqlite_autoindex_playlist_track_1",
+          "unique": true
+        }
+      ]
+    },
+    "playlists": {
+      "description": "播放列表",
+      "row_count": 18,
+      "columns": [
+        {
+          "name": "PlaylistId",
+          "type": "INTEGER",
+          "nullable": false,
+          "primary_key": true,
+          "distinct": 18,
+          "nulls": 0
+        },
+        {
+          "name": "Name",
+          "type": "NVARCHAR(120)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 14,
+          "nulls": 0,
+          "samples": [
+            "90’s Music",
+            "Audiobooks",
+            "Brazilian Music"
+          ]
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": []
+    },
+    "tracks": {
+      "description": "曲目目录和当前标价，不是播放记录",
+      "row_count": 3503,
+      "columns": [
+        {
+          "name": "TrackId",
+          "type": "INTEGER",
+          "nullable": false,
+          "primary_key": true,
+          "distinct": 3503,
+          "nulls": 0
+        },
+        {
+          "name": "Name",
+          "type": "NVARCHAR(200)",
+          "nullable": false,
+          "primary_key": false,
+          "distinct": 3257,
+          "nulls": 0,
+          "samples": [
+            "\"40\"",
+            "\"?\"",
+            "\"Eine Kleine Nachtmusik\" Serenade In G, K. 525: I. Allegro"
+          ]
+        },
+        {
+          "name": "AlbumId",
+          "type": "INTEGER",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 347,
+          "nulls": 0
+        },
+        {
+          "name": "MediaTypeId",
+          "type": "INTEGER",
+          "nullable": false,
+          "primary_key": false,
+          "distinct": 5,
+          "nulls": 0
+        },
+        {
+          "name": "GenreId",
+          "type": "INTEGER",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 25,
+          "nulls": 0
+        },
+        {
+          "name": "Composer",
+          "type": "NVARCHAR(220)",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 852,
+          "nulls": 978
+        },
+        {
+          "name": "Milliseconds",
+          "type": "INTEGER",
+          "nullable": false,
+          "primary_key": false,
+          "distinct": 3080,
+          "nulls": 0
+        },
+        {
+          "name": "Bytes",
+          "type": "INTEGER",
+          "nullable": true,
+          "primary_key": false,
+          "distinct": 3501,
+          "nulls": 0
+        },
+        {
+          "name": "UnitPrice",
+          "type": "NUMERIC(10,2)",
+          "nullable": false,
+          "primary_key": false,
+          "distinct": 2,
+          "nulls": 0
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_table": "tracks",
+          "from_column": "MediaTypeId",
+          "to_table": "media_types",
+          "to_column": "MediaTypeId"
+        },
+        {
+          "from_table": "tracks",
+          "from_column": "GenreId",
+          "to_table": "genres",
+          "to_column": "GenreId"
+        },
+        {
+          "from_table": "tracks",
+          "from_column": "AlbumId",
+          "to_table": "albums",
+          "to_column": "AlbumId"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "IFK_TrackMediaTypeId",
+          "unique": false
+        },
+        {
+          "name": "IFK_TrackGenreId",
+          "unique": false
+        },
+        {
+          "name": "IFK_TrackAlbumId",
+          "unique": false
+        }
+      ]
+    }
+  }
+}

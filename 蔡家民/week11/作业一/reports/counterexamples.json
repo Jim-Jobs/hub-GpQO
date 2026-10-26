@@ -1,0 +1,51 @@
+{
+  "total": 3,
+  "passed": 3,
+  "records": [
+    {
+      "name": "header_join_double_count",
+      "passed": true,
+      "wrong": [
+        [
+          40.0
+        ]
+      ],
+      "correct_header": [
+        [
+          30.0
+        ]
+      ],
+      "correct_detail": [
+        [
+          30.0
+        ]
+      ]
+    },
+    {
+      "name": "lines_units_orders_differ",
+      "passed": true,
+      "values": [
+        [
+          3,
+          4,
+          2
+        ]
+      ]
+    },
+    {
+      "name": "empty_null_zero_differ",
+      "passed": true,
+      "empty": [],
+      "null": [
+        [
+          null
+        ]
+      ],
+      "zero": [
+        [
+          0
+        ]
+      ]
+    }
+  ]
+}

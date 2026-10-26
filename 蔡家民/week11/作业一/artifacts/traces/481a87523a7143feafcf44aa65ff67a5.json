@@ -1,0 +1,411 @@
+{
+  "run_id": "481a87523a7143feafcf44aa65ff67a5",
+  "question": "计算2013年有订单月份的销售额与从年初开始的累计销售额，按月排序。",
+  "status": "success",
+  "mode": "replay",
+  "reference_date": "2014-01-15",
+  "intent": {
+    "status": "answerable",
+    "metric": "计算2013年有订单月份的销售额与从年初开始的累计销售额，按月排序。",
+    "dimensions": [],
+    "filters": [],
+    "time_range": [
+      "2013-01-01",
+      "2014-01-01"
+    ],
+    "ranking": "",
+    "grain": "",
+    "assumptions": [],
+    "clarification": "",
+    "reason": "",
+    "rule_ids": []
+  },
+  "selection": {
+    "tables": [
+      "invoices"
+    ],
+    "columns": {},
+    "joins": [],
+    "reason": "Explicit replay fixture, not model selection",
+    "bridge_tables": []
+  },
+  "candidates": [
+    {
+      "sql": "WITH monthly AS (SELECT strftime('%Y-%m', InvoiceDate) AS month, SUM(Total) AS revenue FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY month) SELECT month, revenue, SUM(revenue) OVER (ORDER BY month ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS cumulative_revenue FROM monthly ORDER BY month",
+      "params": {
+        "start": "2013-01-01",
+        "end": "2014-01-01"
+      },
+      "explanation": "",
+      "changes": ""
+    }
+  ],
+  "validations": [
+    {
+      "passed": true,
+      "checks": [
+        {
+          "name": "sqlite_compile_and_authorize",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "selection_scope",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "header_detail_grain_risk",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "confirmed_time_boundaries",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        }
+      ]
+    }
+  ],
+  "execution": {
+    "status": "ok",
+    "columns": [
+      "month",
+      "revenue",
+      "cumulative_revenue"
+    ],
+    "rows": [
+      [
+        "2013-01",
+        37.62,
+        37.62
+      ],
+      [
+        "2013-02",
+        27.72,
+        65.34
+      ],
+      [
+        "2013-03",
+        37.62,
+        102.96
+      ],
+      [
+        "2013-04",
+        33.66,
+        136.62
+      ],
+      [
+        "2013-05",
+        37.62,
+        174.23999999999998
+      ],
+      [
+        "2013-06",
+        37.62,
+        211.85999999999999
+      ],
+      [
+        "2013-07",
+        37.62,
+        249.48
+      ],
+      [
+        "2013-08",
+        37.62,
+        287.09999999999997
+      ],
+      [
+        "2013-09",
+        37.62,
+        324.71999999999997
+      ],
+      [
+        "2013-10",
+        37.62,
+        362.34
+      ],
+      [
+        "2013-11",
+        49.62,
+        411.96
+      ],
+      [
+        "2013-12",
+        38.62,
+        450.58
+      ]
+    ],
+    "truncated": false,
+    "elapsed_ms": 0.0,
+    "error_type": "",
+    "error": ""
+  },
+  "answer": {
+    "text": "离线回放：查询返回 12 行。\n{\"columns\": [\"month\", \"revenue\", \"cumulative_revenue\"], \"rows\": [[\"2013-01\", 37.62, 37.62], [\"2013-02\", 27.72, 65.34], [\"2013-03\", 37.62, 102.96], [\"2013-04\", 33.66, 136.62], [\"2013-05\", 37.62, 174.23999999999998], [\"2013-06\", 37.62, 211.85999999999999], [\"2013-07\", 37.62, 249.48], [\"2013-08\", 37.62, 287.09999999999997], [\"2013-09\", 37.62, 324.71999999999997], [\"2013-10\", 37.62, 362.34], [\"2013-11\", 49.62, 411.96], [\"2013-12\", 38.62, 450.58]]}",
+    "facts": [],
+    "limitations": [
+      "仅验证工作流，未调用大模型。"
+    ]
+  },
+  "trace": [
+    {
+      "node": "database_parse",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "albums",
+          "artists",
+          "customers",
+          "employees",
+          "genres",
+          "invoice_items",
+          "invoices",
+          "media_types",
+          "playlist_track",
+          "playlists",
+          "tracks"
+        ],
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb"
+      }
+    },
+    {
+      "node": "intent",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "answerable",
+        "metric": "计算2013年有订单月份的销售额与从年初开始的累计销售额，按月排序。",
+        "time_range": [
+          "2013-01-01",
+          "2014-01-01"
+        ]
+      }
+    },
+    {
+      "node": "table_selection",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "tables": [
+          "invoices"
+        ],
+        "reason": "Explicit replay fixture, not model selection"
+      }
+    },
+    {
+      "node": "bridge_completion",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "invoices"
+        ],
+        "columns": {},
+        "joins": [],
+        "reason": "Explicit replay fixture, not model selection",
+        "bridge_tables": []
+      }
+    },
+    {
+      "node": "sql_generation",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "sql": "WITH monthly AS (SELECT strftime('%Y-%m', InvoiceDate) AS month, SUM(Total) AS revenue FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY month) SELECT month, revenue, SUM(revenue) OVER (ORDER BY month ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS cumulative_revenue FROM monthly ORDER BY month",
+        "params": {
+          "start": "2013-01-01",
+          "end": "2014-01-01"
+        }
+      }
+    },
+    {
+      "node": "semantic_review",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "issues": []
+      }
+    },
+    {
+      "node": "sql_validation",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "sqlite_compile_and_authorize",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "selection_scope",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "header_detail_grain_risk",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "confirmed_time_boundaries",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          }
+        ]
+      }
+    },
+    {
+      "node": "sql_execution",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "ok",
+        "columns": [
+          "month",
+          "revenue",
+          "cumulative_revenue"
+        ],
+        "rows": [
+          [
+            "2013-01",
+            37.62,
+            37.62
+          ],
+          [
+            "2013-02",
+            27.72,
+            65.34
+          ],
+          [
+            "2013-03",
+            37.62,
+            102.96
+          ],
+          [
+            "2013-04",
+            33.66,
+            136.62
+          ],
+          [
+            "2013-05",
+            37.62,
+            174.23999999999998
+          ],
+          [
+            "2013-06",
+            37.62,
+            211.85999999999999
+          ],
+          [
+            "2013-07",
+            37.62,
+            249.48
+          ],
+          [
+            "2013-08",
+            37.62,
+            287.09999999999997
+          ],
+          [
+            "2013-09",
+            37.62,
+            324.71999999999997
+          ],
+          [
+            "2013-10",
+            37.62,
+            362.34
+          ],
+          [
+            "2013-11",
+            49.62,
+            411.96
+          ],
+          [
+            "2013-12",
+            38.62,
+            450.58
+          ]
+        ],
+        "truncated": false,
+        "elapsed_ms": 0.0,
+        "error_type": "",
+        "error": ""
+      }
+    },
+    {
+      "node": "summary",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "text": "离线回放：查询返回 12 行。\n{\"columns\": [\"month\", \"revenue\", \"cumulative_revenue\"], \"rows\": [[\"2013-01\", 37.62, 37.62], [\"2013-02\", 27.72, 65.34], [\"2013-03\", 37.62, 102.96], [\"2013-04\", 33.66, 136.62], [\"2013-05\", 37.62, 174.23999999999998], [\"2013-06\", 37.62, 211.85999999999999], [\"2013-07\", 37.62, 249.48], [\"2013-08\", 37.62, 287.09999999999997], [\"2013-09\", 37.62, 324.71999999999997], [\"2013-10\", 37.62, 362.34], [\"2013-11\", 49.62, 411.96], [\"2013-12\", 38.62, 450.58]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "node": "run_metadata",
+      "status": "success",
+      "output": {
+        "variant": "workflow",
+        "prompt_version": "2026-10-21-v1",
+        "semantic_review": true,
+        "rules_enabled": true,
+        "max_rewrites": 2,
+        "reference_date": "2014-01-15",
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+        "calls": [
+          {
+            "stage": "intent",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "table_selection",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "sql_generation",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "semantic_review",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "summary",
+            "model": "scripted-fixture",
+            "usage": null
+          }
+        ],
+        "elapsed_ms": 0.0
+      }
+    }
+  ],
+  "error": ""
+}

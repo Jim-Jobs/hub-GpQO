@@ -1,0 +1,1846 @@
+{
+  "mode": "replay",
+  "warning": "Oracle-input independent stages, not end-to-end scores",
+  "records": [
+    {
+      "case_id": "S01",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"customer_count\"], \"rows\": [[59]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S02",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"track_count\"], \"rows\": [[3503]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S03",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 5 行。\n{\"columns\": [\"TrackId\", \"Name\", \"Milliseconds\"], \"rows\": [[2820, \"Occupation / Precipice\", 5286953], [3224, \"Through a Looking Glass\", 5088838], [3244, \"Greetings from Earth, Pt. 1\", 2960293], [3242, \"The Man With Nine Lives\", 2956998], [3227, \"Battlestar Galactica, Pt. 2\", 2956081]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S04",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 25 行。\n{\"columns\": [\"GenreId\", \"Name\", \"tracks\"], \"rows\": [[1, \"Rock\", 1297], [2, \"Jazz\", 130], [3, \"Metal\", 374], [4, \"Alternative & Punk\", 332], [5, \"Rock And Roll\", 12], [6, \"Blues\", 81], [7, \"Latin\", 579], [8, \"Reggae\", 58], [9, \"Pop\", 48], [10, \"Soundtrack\", 43], [11, \"Bossa Nova\", 15], [12, \"Easy Listening\", 24], [13, \"Heavy Metal\", 28], [14, \"R&B/Soul\", 61], [15, \"Electronica/Dance\", 30], [16, \"World\", 28], [17, \"Hip Hop/Rap\", 35], [18, \"Science Fiction\", 13], [19, \"TV Shows\", 93], [20, \"Sci Fi & Fantasy\", 26], [21, \"Drama\", 64], [22, \"Comedy\", 17], [23, \"Alternative\", 40], [24, \"Classical\", 74], [25, \"Opera\", 1]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S05",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 5 行。\n{\"columns\": [\"CustomerId\", \"FirstName\", \"LastName\"], \"rows\": [[1, \"Luís\", \"Gonçalves\"], [10, \"Eduardo\", \"Martins\"], [11, \"Alexandre\", \"Rocha\"], [12, \"Roberto\", \"Almeida\"], [13, \"Fernanda\", \"Ramos\"]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S06",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"orders\"], \"rows\": [[0]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S07",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 24 行。\n{\"columns\": [\"BillingCountry\", \"revenue\"], \"rows\": [[\"USA\", 523.06], [\"Canada\", 303.96], [\"France\", 195.1], [\"Brazil\", 190.1], [\"Germany\", 156.48], [\"United Kingdom\", 112.86], [\"Czech Republic\", 90.24], [\"Portugal\", 77.24], [\"India\", 75.26], [\"Chile\", 46.62], [\"Hungary\", 45.62], [\"Ireland\", 45.62], [\"Austria\", 42.62], [\"Finland\", 41.62], [\"Netherlands\", 40.62], [\"Norway\", 39.62], [\"Sweden\", 38.62], [\"Argentina\", 37.62], [\"Australia\", 37.62], [\"Belgium\", 37.62], [\"Denmark\", 37.62], [\"Italy\", 37.62], [\"Poland\", 37.62], [\"Spain\", 37.62]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S08",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 12 行。\n{\"columns\": [\"month\", \"revenue\"], \"rows\": [[\"2013-01\", 37.62], [\"2013-02\", 27.72], [\"2013-03\", 37.62], [\"2013-04\", 33.66], [\"2013-05\", 37.62], [\"2013-06\", 37.62], [\"2013-07\", 37.62], [\"2013-08\", 37.62], [\"2013-09\", 37.62], [\"2013-10\", 37.62], [\"2013-11\", 49.62], [\"2013-12\", 38.62]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S09",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 3 行。\n{\"columns\": [\"CustomerId\", \"FirstName\", \"LastName\", \"revenue\"], \"rows\": [[6, \"Helena\", \"Holý\", 49.62], [26, \"Richard\", \"Cunningham\", 47.62], [57, \"Luis\", \"Rojas\", 46.62]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S10",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 24 行。\n{\"columns\": [\"GenreId\", \"Name\", \"revenue\"], \"rows\": [[1, \"Rock\", 826.65], [7, \"Latin\", 382.14], [3, \"Metal\", 261.36], [4, \"Alternative & Punk\", 241.56], [19, \"TV Shows\", 93.53], [2, \"Jazz\", 79.2], [6, \"Blues\", 60.39], [21, \"Drama\", 57.71], [14, \"R&B/Soul\", 40.589999999999996], [24, \"Classical\", 40.589999999999996], [20, \"Sci Fi & Fantasy\", 39.8], [8, \"Reggae\", 29.7], [9, \"Pop\", 27.72], [10, \"Soundtrack\", 19.8], [22, \"Comedy\", 17.91], [17, \"Hip Hop/Rap\", 16.83], [11, \"Bossa Nova\", 14.85], [23, \"Alternative\", 13.86], [16, \"World\", 12.87], [18, \"Science Fiction\", 11.94], [13, \"Heavy Metal\", 11.879999999999999], [15, \"Electronica/Dance\", 11.879999999999999], [12, \"Easy Listening\", 9.9], [5, \"Rock And Roll\", 5.9399999999999995]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S11",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 5 行。\n{\"columns\": [\"ArtistId\", \"Name\", \"revenue\"], \"rows\": [[90, \"Iron Maiden\", 35.64], [150, \"U2\", 24.75], [50, \"Metallica\", 16.83], [149, \"Lost\", 15.92], [22, \"Led Zeppelin\", 14.85]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S12",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 61 行。\n{\"columns\": [\"AlbumId\", \"Title\", \"tracks\"], \"rows\": [[18, \"Body Count\", 17], [21, \"Prenda Minha\", 18], [23, \"Minha Historia\", 34], [24, \"Afrociberdelia\", 23], [26, \"Acústico MTV [Live]\", 17], [33, \"Chill: Brazil (Disc 1)\", 17], [34, \"Chill: Brazil (Disc 2)\", 17], [36, \"Greatest Hits II\", 17], [37, \"Greatest Kiss\", 20], [39, \"International Superhits\", 21], [51, \"Up An' Atom\", 22], [54, \"Chronicle, Vol. 1\", 20], [55, \"Chronicle, Vol. 2\", 20], [67, \"Vault: Def Leppard's Greatest Hits\", 16], [72, \"The Cream Of Clapton\", 18], [73, \"Unplugged\", 30], [83, \"My Way: The Best Of Frank Sinatra [Disc 1]\", 24], [84, \"Roda De Funk\", 16], [91, \"Use Your Illusion I\", 16], [102, \"Live After Death\", 18], [115, \"Sex Machine\", 20], [120, \"Are You Experienced?\", 17], [125, \"Living After Midnight\", 16], [140, \"Mais Do Mesmo\", 16], [141, \"Greatest Hits\", 57], [145, \"Barulhinho Bom\", 18], [146, \"Seek And Shall Find: More Of The Best (1963-1981)\", 18], [149, \"Garage Inc. (Disc 2)\", 16], [162, \"Motley Crue Greatest Hits\", 17], [163, \"From The Muddy Banks Of The Wishkah [Live]\", 17], [167, \"Acústico MTV\", 21], [169, \"Arquivo Os Paralamas Do Sucesso\", 16], [178, \"Live On Two Legs [Live]\", 16], [184, \"Os Cães Ladram Mas A Caravana Não Pára\", 16], [185, \"Greatest Hits I\", 17], [190, \"The Best Of R.E.M.: The IRS Years\", 16], [193, \"Blood Sugar Sex Magik\", 17], [194, \"By The Way\", 16], [201, \"Judas 0: B-Sides and Rarities\", 16], [202, \"Rotten Apples: Greatest Hits\", 18], [203, \"A-Sides\", 17], [211, \"The Singles\", 18], [213, \"Pure Cult: The Best Of The Cult (For Rockers, Ravers, Lovers & Sinners) [UK]\", 18], [221, \"My Generation - The Very Best Of The Who\", 20], [224, \"Acústico\", 22], [225, \"Volume Dois\", 16], [227, \"Battlestar Galactica, Season 3\", 19], [228, \"Heroes, Season 1\", 23], [229, \"Lost, Season 3\", 26], [230, \"Lost, Season 1\", 25], [231, \"Lost, Season 2\", 24], [237, \"Rattle And Hum\", 17], [243, \"The Best Of Van Halen, Vol. I\", 17], [248, \"Ao Vivo [IMPORT]\", 19], [250, \"The Office, Season 2\", 22], [251, \"The Office, Season 3\", 25], [253, \"Battlestar Galactica (Classic), Season 1\", 24], [255, \"Instant Karma: The Amnesty International Campaign to Save Darfur\", 23], [258, \"House of Pain\", 19], [259, \"Radio Brasil (O Som da Jovem Vanguarda) - Seleccao de Henrique Amaro\", 17], [261, \"LOST, Season 4\", 17]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S13",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"average_order_amount\"], \"rows\": [[5.651941747572815]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S14",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 8 行。\n{\"columns\": [\"EmployeeId\", \"FirstName\", \"LastName\", \"customers\"], \"rows\": [[1, \"Andrew\", \"Adams\", 0], [2, \"Nancy\", \"Edwards\", 0], [3, \"Jane\", \"Peacock\", 21], [4, \"Margaret\", \"Park\", 20], [5, \"Steve\", \"Johnson\", 18], [6, \"Michael\", \"Mitchell\", 0], [7, \"Robert\", \"King\", 0], [8, \"Laura\", \"Callahan\", 0]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S15",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 18 行。\n{\"columns\": [\"PlaylistId\", \"Name\", \"tracks\"], \"rows\": [[1, \"Music\", 3290], [2, \"Movies\", 0], [3, \"TV Shows\", 213], [4, \"Audiobooks\", 0], [5, \"90’s Music\", 1477], [6, \"Audiobooks\", 0], [7, \"Movies\", 0], [8, \"Music\", 3290], [9, \"Music Videos\", 1], [10, \"TV Shows\", 213], [11, \"Brazilian Music\", 39], [12, \"Classical\", 75], [13, \"Classical 101 - Deep Cuts\", 25], [14, \"Classical 101 - Next Steps\", 25], [15, \"Classical 101 - The Basics\", 25], [16, \"Grunge\", 15], [17, \"Heavy Metal Classic\", 26], [18, \"On-The-Go 1\", 1]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S16",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 5 行。\n{\"columns\": [\"MediaTypeId\", \"Name\", \"tracks\"], \"rows\": [[1, \"MPEG audio file\", 3034], [2, \"Protected AAC audio file\", 237], [3, \"Protected MPEG-4 video file\", 214], [4, \"Purchased AAC audio file\", 7], [5, \"AAC audio file\", 11]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S17",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"unsold_tracks\"], \"rows\": [[1519]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S18",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 26 行。\n{\"columns\": [\"CustomerId\", \"orders\"], \"rows\": [[3, 2], [6, 2], [8, 2], [10, 2], [12, 3], [14, 2], [16, 2], [18, 2], [20, 2], [25, 2], [27, 2], [29, 3], [31, 2], [33, 3], [35, 3], [37, 2], [39, 2], [41, 2], [44, 2], [46, 2], [48, 2], [50, 3], [52, 2], [54, 3], [56, 3], [58, 3]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S19",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"orders\", \"units\"], \"rows\": [[412, 2240]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S20",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 5 行。\n{\"columns\": [\"year\", \"revenue\", \"orders\"], \"rows\": [[\"2009\", 449.46, 83], [\"2010\", 481.45, 83], [\"2011\", 469.58, 83], [\"2012\", 477.53, 83], [\"2013\", 450.58, 80]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S21",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 12 行。\n{\"columns\": [\"month\", \"revenue\", \"cumulative_revenue\"], \"rows\": [[\"2013-01\", 37.62, 37.62], [\"2013-02\", 27.72, 65.34], [\"2013-03\", 37.62, 102.96], [\"2013-04\", 33.66, 136.62], [\"2013-05\", 37.62, 174.23999999999998], [\"2013-06\", 37.62, 211.85999999999999], [\"2013-07\", 37.62, 249.48], [\"2013-08\", 37.62, 287.09999999999997], [\"2013-09\", 37.62, 324.71999999999997], [\"2013-10\", 37.62, 362.34], [\"2013-11\", 49.62, 411.96], [\"2013-12\", 38.62, 450.58]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S22",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 3 行。\n{\"columns\": [\"GenreId\", \"Name\", \"units\", \"position\"], \"rows\": [[1, \"Rock\", 835, 1], [7, \"Latin\", 386, 2], [3, \"Metal\", 264, 3]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S23",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"orders\"], \"rows\": [[64]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S24",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"customers_without_company\"], \"rows\": [[49]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S25",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"differing_lines\"], \"rows\": [[0]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S26",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 0 行。\n{\"columns\": [\"CustomerId\", \"FirstName\", \"LastName\"], \"rows\": []}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S27",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 25 行。\n{\"columns\": [\"GenreId\", \"Name\", \"average_ms\"], \"rows\": [[1, \"Rock\", 283910.0431765613], [2, \"Jazz\", 291755.3769230769], [3, \"Metal\", 309749.4438502674], [4, \"Alternative & Punk\", 234353.84939759035], [5, \"Rock And Roll\", 134643.5], [6, \"Blues\", 270359.77777777775], [7, \"Latin\", 232859.26252158894], [8, \"Reggae\", 247177.75862068965], [9, \"Pop\", 229034.10416666666], [10, \"Soundtrack\", 244370.88372093023], [11, \"Bossa Nova\", 219590.0], [12, \"Easy Listening\", 189164.20833333334], [13, \"Heavy Metal\", 297452.9285714286], [14, \"R&B/Soul\", 220066.8524590164], [15, \"Electronica/Dance\", 302985.8], [16, \"World\", 224923.82142857142], [17, \"Hip Hop/Rap\", 178176.2857142857], [18, \"Science Fiction\", 2625549.076923077], [19, \"TV Shows\", 2145041.0215053763], [20, \"Sci Fi & Fantasy\", 2911783.0384615385], [21, \"Drama\", 2575283.78125], [22, \"Comedy\", 1585263.705882353], [23, \"Alternative\", 264058.525], [24, \"Classical\", 293867.5675675676], [25, \"Opera\", 174813.0]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S28",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"revenue\"], \"rows\": [[2328.6]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S29",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 24 行。\n{\"columns\": [\"BillingCountry\", \"units\"], \"rows\": [[\"USA\", 494], [\"Canada\", 304], [\"Brazil\", 190], [\"France\", 190], [\"Germany\", 152], [\"United Kingdom\", 114], [\"Czech Republic\", 76], [\"Portugal\", 76], [\"India\", 74], [\"Argentina\", 38], [\"Australia\", 38], [\"Austria\", 38], [\"Belgium\", 38], [\"Chile\", 38], [\"Denmark\", 38], [\"Finland\", 38], [\"Hungary\", 38], [\"Ireland\", 38], [\"Italy\", 38], [\"Netherlands\", 38], [\"Norway\", 38], [\"Poland\", 38], [\"Spain\", 38], [\"Sweden\", 38]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S30",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"sold_tracks\"], \"rows\": [[1984]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S31",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 7 行。\n{\"columns\": [\"EmployeeId\", \"LastName\", \"manager_id\", \"manager_name\"], \"rows\": [[2, \"Edwards\", 1, \"Adams\"], [3, \"Peacock\", 2, \"Edwards\"], [4, \"Park\", 2, \"Edwards\"], [5, \"Johnson\", 2, \"Edwards\"], [6, \"Mitchell\", 1, \"Adams\"], [7, \"King\", 6, \"Mitchell\"], [8, \"Callahan\", 6, \"Mitchell\"]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "S32",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 0 行。\n{\"columns\": [\"InvoiceId\", \"Total\", \"detail_amount\"], \"rows\": []}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "C01",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "intent_status_correct": true
+    },
+    {
+      "case_id": "C02",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "intent_status_correct": true
+    },
+    {
+      "case_id": "C03",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "intent_status_correct": true
+    },
+    {
+      "case_id": "C04",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "intent_status_correct": true
+    },
+    {
+      "case_id": "U01",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "intent_status_correct": true
+    },
+    {
+      "case_id": "U02",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "intent_status_correct": true
+    },
+    {
+      "case_id": "U03",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "intent_status_correct": true
+    },
+    {
+      "case_id": "U04",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "intent_status_correct": true
+    },
+    {
+      "case_id": "E01",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"customers\"], \"rows\": [[13]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E02",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"customers\"], \"rows\": [[8]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E03",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"orders\"], \"rows\": [[91]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E04",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"orders\"], \"rows\": [[28]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E05",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"revenue\"], \"rows\": [[190.1]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E06",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"revenue\"], \"rows\": [[195.1]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E07",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"revenue\"], \"rows\": [[481.45]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E08",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"revenue\"], \"rows\": [[477.53]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E09",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"units\"], \"rows\": [[455]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E10",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"units\"], \"rows\": [[447]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E11",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 12 行。\n{\"columns\": [\"month\", \"orders\"], \"rows\": [[\"2010-01\", 7], [\"2010-02\", 7], [\"2010-03\", 7], [\"2010-04\", 7], [\"2010-05\", 7], [\"2010-06\", 7], [\"2010-07\", 7], [\"2010-08\", 7], [\"2010-09\", 6], [\"2010-10\", 7], [\"2010-11\", 7], [\"2010-12\", 7]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E12",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 12 行。\n{\"columns\": [\"month\", \"orders\"], \"rows\": [[\"2012-01\", 7], [\"2012-02\", 7], [\"2012-03\", 7], [\"2012-04\", 7], [\"2012-05\", 7], [\"2012-06\", 7], [\"2012-07\", 7], [\"2012-08\", 7], [\"2012-09\", 6], [\"2012-10\", 7], [\"2012-11\", 7], [\"2012-12\", 7]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E13",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 12 行。\n{\"columns\": [\"month\", \"average_amount\"], \"rows\": [[\"2010-01\", 7.517142857142857], [\"2010-02\", 6.659999999999999], [\"2010-03\", 6.374285714285714], [\"2010-04\", 5.374285714285714], [\"2010-05\", 5.374285714285714], [\"2010-06\", 5.374285714285714], [\"2010-07\", 5.374285714285714], [\"2010-08\", 5.374285714285714], [\"2010-09\", 6.105], [\"2010-10\", 5.374285714285714], [\"2010-11\", 5.374285714285714], [\"2010-12\", 5.374285714285714]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E14",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 12 行。\n{\"columns\": [\"month\", \"average_amount\"], \"rows\": [[\"2012-01\", 5.374285714285714], [\"2012-02\", 5.374285714285714], [\"2012-03\", 5.374285714285714], [\"2012-04\", 5.374285714285714], [\"2012-05\", 5.374285714285714], [\"2012-06\", 5.374285714285714], [\"2012-07\", 5.659999999999999], [\"2012-08\", 6.8028571428571425], [\"2012-09\", 7.785], [\"2012-10\", 6.088571428571428], [\"2012-11\", 5.374285714285714], [\"2012-12\", 5.374285714285714]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E15",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"tracks\"], \"rows\": [[18]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E16",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"tracks\"], \"rows\": [[4]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E17",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 2 行。\n{\"columns\": [\"AlbumId\", \"Title\"], \"rows\": [[1, \"For Those About To Rock We Salute You\"], [4, \"Let There Be Rock\"]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E18",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 2 行。\n{\"columns\": [\"AlbumId\", \"Title\"], \"rows\": [[2, \"Balls to the Wall\"], [3, \"Restless and Wild\"]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E19",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"tracks\"], \"rows\": [[1297]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E20",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"tracks\"], \"rows\": [[130]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E21",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"average_catalog_price\"], \"rows\": [[0.99]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E22",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"average_catalog_price\"], \"rows\": [[0.9899999999999999]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E23",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"duration_ms\"], \"rows\": [[2400415]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E24",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"duration_ms\"], \"rows\": [[342562]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E25",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 2 行。\n{\"columns\": [\"InvoiceLineId\", \"Name\", \"UnitPrice\", \"Quantity\", \"line_amount\"], \"rows\": [[1, \"Balls to the Wall\", 0.99, 1, 0.99], [2, \"Restless and Wild\", 0.99, 1, 0.99]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E26",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 4 行。\n{\"columns\": [\"InvoiceLineId\", \"Name\", \"UnitPrice\", \"Quantity\", \"line_amount\"], \"rows\": [[3, \"Put The Finger On You\", 0.99, 1, 0.99], [4, \"Inject The Venom\", 0.99, 1, 0.99], [5, \"Evil Walks\", 0.99, 1, 0.99], [6, \"Breaking The Rules\", 0.99, 1, 0.99]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E27",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 7 行。\n{\"columns\": [\"InvoiceId\", \"InvoiceDate\", \"Total\"], \"rows\": [[98, \"2010-03-11 00:00:00\", 3.98], [121, \"2010-06-13 00:00:00\", 3.96], [143, \"2010-09-15 00:00:00\", 5.94], [195, \"2011-05-06 00:00:00\", 0.99], [316, \"2012-10-27 00:00:00\", 1.98], [327, \"2012-12-07 00:00:00\", 13.86], [382, \"2013-08-07 00:00:00\", 8.91]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E28",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 7 行。\n{\"columns\": [\"InvoiceId\", \"InvoiceDate\", \"Total\"], \"rows\": [[1, \"2009-01-01 00:00:00\", 1.98], [12, \"2009-02-11 00:00:00\", 13.86], [67, \"2009-10-12 00:00:00\", 8.91], [196, \"2011-05-19 00:00:00\", 1.98], [219, \"2011-08-21 00:00:00\", 3.96], [241, \"2011-11-23 00:00:00\", 5.94], [293, \"2012-07-13 00:00:00\", 0.99]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E29",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"revenue\"], \"rows\": [[8.91]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E30",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"revenue\"], \"rows\": [[null]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E31",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"albums\"], \"rows\": [[2]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E32",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"albums\"], \"rows\": [[2]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E33",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 27 行。\n{\"columns\": [\"TrackId\", \"Name\"], \"rows\": [[24, \"Love In An Elevator\"], [56, \"Love, Hate, Love\"], [413, \"Loverman\"], [440, \"Love Gun\"], [493, \"Love Is Blind\"], [571, \"Love Of My Life\"], [751, \"Love Child\"], [803, \"Love Conquers All\"], [808, \"Love Don't Mean a Thing\"], [828, \"Love Bites\"], [1042, \"Love And Marriage\"], [1055, \"Loves Been Good To Me\"], [1189, \"Love Is The Colour\"], [1483, \"Love Or Confusion\"], [1943, \"Love Me Like A Reptile\"], [2180, \"Love Boat Captain\"], [2540, \"Love Me Darlin'\"], [2628, \"Love Removal Machine\"], [2632, \"Love\"], [2690, \"Love Is Strong\"], [2937, \"Love Is Blindness\"], [2952, \"Love Comes Tumbling\"], [2967, \"Love And Peace Or Else\"], [2997, \"Love Rescue Me\"], [3135, \"Love Ain't No Stranger\"], [3355, \"Love Comes\"], [3460, \"Love Is a Losing Game\"]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E34",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 15 行。\n{\"columns\": [\"TrackId\", \"Name\"], \"rows\": [[117, \"Rock 'N' Roll Music\"], [452, \"Rock And Roll All Nite\"], [833, \"Rocket\"], [839, \"Rock Of Ages\"], [1157, \"Rocket Queen\"], [1569, \"Rock Bottom\"], [1576, \"Rock And Roll All Nite\"], [1611, \"Rock & Roll\"], [1662, \"Rock & Roll\"], [1704, \"Rock And Roll Is Dead\"], [2357, \"Rock Das Aranhas (Ao Vivo) (Live)\"], [2430, \"Rock Me\"], [2483, \"Rock On\"], [2607, \"Rock The Casbah\"], [3288, \"Rock You Like a Hurricane\"]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E35",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"orders\"], \"rows\": [[178]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E36",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"orders\"], \"rows\": [[115]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E37",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"orders\"], \"rows\": [[7]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E38",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"orders\"], \"rows\": [[5]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E39",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"direct_reports\"], \"rows\": [[2]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E40",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"direct_reports\"], \"rows\": [[3]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E41",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"duration_ms\"], \"rows\": [[877683083]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E42",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"duration_ms\"], \"rows\": [[398705153]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E43",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"artists\"], \"rows\": [[198]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E44",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"artists\"], \"rows\": [[109]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E45",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"units\"], \"rows\": [[1976]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E46",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"units\"], \"rows\": [[146]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E47",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 22 行。\n{\"columns\": [\"GenreId\", \"Name\", \"revenue\"], \"rows\": [[1, \"Rock\", 155.43], [7, \"Latin\", 90.09], [3, \"Metal\", 63.36], [4, \"Alternative & Punk\", 49.5], [19, \"TV Shows\", 27.86], [2, \"Jazz\", 21.78], [22, \"Comedy\", 15.92], [6, \"Blues\", 14.85], [21, \"Drama\", 11.94], [14, \"R&B/Soul\", 11.879999999999999], [20, \"Sci Fi & Fantasy\", 9.95], [24, \"Classical\", 7.92], [11, \"Bossa Nova\", 6.93], [8, \"Reggae\", 5.9399999999999995], [9, \"Pop\", 4.95], [23, \"Alternative\", 4.95], [10, \"Soundtrack\", 3.96], [13, \"Heavy Metal\", 3.96], [17, \"Hip Hop/Rap\", 3.96], [5, \"Rock And Roll\", 2.9699999999999998], [12, \"Easy Listening\", 2.9699999999999998], [18, \"Science Fiction\", 1.99]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E48",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 16 行。\n{\"columns\": [\"GenreId\", \"Name\", \"revenue\"], \"rows\": [[1, \"Rock\", 105.92999999999999], [7, \"Latin\", 59.4], [3, \"Metal\", 39.6], [4, \"Alternative & Punk\", 35.64], [2, \"Jazz\", 12.87], [8, \"Reggae\", 6.93], [11, \"Bossa Nova\", 6.93], [16, \"World\", 5.9399999999999995], [14, \"R&B/Soul\", 4.95], [17, \"Hip Hop/Rap\", 4.95], [24, \"Classical\", 4.95], [21, \"Drama\", 3.98], [6, \"Blues\", 3.96], [15, \"Electronica/Dance\", 3.96], [19, \"TV Shows\", 1.99], [5, \"Rock And Roll\", 1.98]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E49",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"revenue\"], \"rows\": [[null]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E50",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"revenue\"], \"rows\": [[null]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E51",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"last_order\"], \"rows\": [[\"2013-08-07 00:00:00\"]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E52",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"last_order\"], \"rows\": [[\"2012-07-13 00:00:00\"]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E53",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 12 行。\n{\"columns\": [\"month\", \"customers\"], \"rows\": [[\"2010-01\", 7], [\"2010-02\", 7], [\"2010-03\", 7], [\"2010-04\", 7], [\"2010-05\", 7], [\"2010-06\", 7], [\"2010-07\", 7], [\"2010-08\", 7], [\"2010-09\", 6], [\"2010-10\", 7], [\"2010-11\", 7], [\"2010-12\", 7]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E54",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 12 行。\n{\"columns\": [\"month\", \"customers\"], \"rows\": [[\"2012-01\", 7], [\"2012-02\", 7], [\"2012-03\", 7], [\"2012-04\", 7], [\"2012-05\", 7], [\"2012-06\", 7], [\"2012-07\", 7], [\"2012-08\", 7], [\"2012-09\", 6], [\"2012-10\", 7], [\"2012-11\", 7], [\"2012-12\", 7]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E55",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"month\", \"revenue\"], \"rows\": [[\"2010-01\", 52.62]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E56",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"month\", \"revenue\"], \"rows\": [[\"2012-08\", 47.62]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E57",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"current_amount\", \"previous_amount\", \"growth_rate\"], \"rows\": [[481.45, 449.46, 0.07117429804654476]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E58",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"current_amount\", \"previous_amount\", \"growth_rate\"], \"rows\": [[469.58, 481.45, -0.024654688960432037]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E59",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"tracks\"], \"rows\": [[3503]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E60",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"tracks\"], \"rows\": [[213]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E61",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 3 行。\n{\"columns\": [\"CustomerId\", \"revenue\"], \"rows\": [[26, 47.62], [24, 43.62], [28, 43.62]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E62",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 3 行。\n{\"columns\": [\"CustomerId\", \"revenue\"], \"rows\": [[3, 39.62], [15, 38.62], [14, 37.62]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E63",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"unsold_tracks\"], \"rows\": [[552]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E64",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"unsold_tracks\"], \"rows\": [[62]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E65",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 0 行。\n{\"columns\": [\"AlbumId\", \"Title\"], \"rows\": []}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E66",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 0 行。\n{\"columns\": [\"AlbumId\", \"Title\"], \"rows\": []}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E67",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 10 行。\n{\"columns\": [\"Country\", \"customers\"], \"rows\": [[\"Brazil\", 2], [\"Canada\", 5], [\"Finland\", 1], [\"France\", 2], [\"Germany\", 2], [\"Hungary\", 1], [\"India\", 2], [\"Ireland\", 1], [\"USA\", 3], [\"United Kingdom\", 2]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E68",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 12 行。\n{\"columns\": [\"Country\", \"customers\"], \"rows\": [[\"Argentina\", 1], [\"Australia\", 1], [\"Belgium\", 1], [\"Brazil\", 2], [\"Canada\", 1], [\"Czech Republic\", 1], [\"Denmark\", 1], [\"France\", 2], [\"Norway\", 1], [\"Poland\", 1], [\"Portugal\", 2], [\"USA\", 6]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E69",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 18 行。\n{\"columns\": [\"InvoiceId\", \"InvoiceDate\", \"Total\"], \"rows\": [[90, \"2010-01-26 00:00:00\", 0.99], [91, \"2010-02-08 00:00:00\", 1.98], [92, \"2010-02-08 00:00:00\", 1.98], [93, \"2010-02-09 00:00:00\", 3.96], [103, \"2010-03-21 00:00:00\", 15.86], [111, \"2010-04-29 00:00:00\", 0.99], [112, \"2010-05-12 00:00:00\", 1.98], [113, \"2010-05-12 00:00:00\", 1.98], [114, \"2010-05-13 00:00:00\", 3.96], [115, \"2010-05-14 00:00:00\", 5.94], [124, \"2010-06-22 00:00:00\", 13.86], [134, \"2010-08-13 00:00:00\", 1.98], [135, \"2010-08-14 00:00:00\", 3.96], [136, \"2010-08-15 00:00:00\", 5.94], [137, \"2010-08-18 00:00:00\", 8.91], [145, \"2010-09-23 00:00:00\", 13.86], [157, \"2010-11-16 00:00:00\", 5.94], [158, \"2010-11-19 00:00:00\", 8.91]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E70",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 21 行。\n{\"columns\": [\"InvoiceId\", \"InvoiceDate\", \"Total\"], \"rows\": [[255, \"2012-01-24 00:00:00\", 5.94], [256, \"2012-01-27 00:00:00\", 8.91], [265, \"2012-03-11 00:00:00\", 0.99], [266, \"2012-03-24 00:00:00\", 1.98], [277, \"2012-04-29 00:00:00\", 8.91], [286, \"2012-06-12 00:00:00\", 0.99], [287, \"2012-06-25 00:00:00\", 1.98], [288, \"2012-06-25 00:00:00\", 1.98], [289, \"2012-06-26 00:00:00\", 3.96], [298, \"2012-07-31 00:00:00\", 10.91], [299, \"2012-08-05 00:00:00\", 23.86], [307, \"2012-09-13 00:00:00\", 1.99], [308, \"2012-09-26 00:00:00\", 3.98], [309, \"2012-09-26 00:00:00\", 3.98], [310, \"2012-09-27 00:00:00\", 7.96], [311, \"2012-09-28 00:00:00\", 11.94], [320, \"2012-11-06 00:00:00\", 13.86], [329, \"2012-12-28 00:00:00\", 1.98], [330, \"2012-12-28 00:00:00\", 1.98], [331, \"2012-12-29 00:00:00\", 3.96], [332, \"2012-12-30 00:00:00\", 5.94]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E71",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"tracks\"], \"rows\": [[66]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E72",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"tracks\"], \"rows\": [[387]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E73",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"units\"], \"rows\": [[16]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E74",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"units\"], \"rows\": [[5]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E75",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"weighted_sale_price\"], \"rows\": [[0.99]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E76",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"weighted_sale_price\"], \"rows\": [[0.99]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E77",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"orders\"], \"rows\": [[13]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E78",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"orders\"], \"rows\": [[15]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E79",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"tracks\"], \"rows\": [[486]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "case_id": "E80",
+      "mode": "replay",
+      "protocol": "oracle-input independent nodes",
+      "table_recall": 1.0,
+      "extra_tables": 0,
+      "sql_result_correct_with_gold_tables": true,
+      "sql_status": "ok",
+      "summary_with_gold_result": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"tracks\"], \"rows\": [[302]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "run_id": "af7c98c515f44be4b41241ed170b91ec",
+  "question": "删除所有客户然后告诉我结果。",
+  "status": "unsupported",
+  "mode": "replay",
+  "reference_date": "2014-01-15",
+  "intent": {
+    "status": "unsupported",
+    "metric": "",
+    "dimensions": [],
+    "filters": [],
+    "time_range": [],
+    "ranking": "",
+    "grain": "",
+    "assumptions": [],
+    "clarification": "",
+    "reason": "只读问数系统不执行数据删除。",
+    "rule_ids": []
+  },
+  "selection": null,
+  "candidates": [],
+  "validations": [],
+  "execution": null,
+  "answer": {
+    "text": "只读问数系统不执行数据删除。",
+    "facts": [],
+    "limitations": []
+  },
+  "trace": [
+    {
+      "node": "database_parse",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "albums",
+          "artists",
+          "customers",
+          "employees",
+          "genres",
+          "invoice_items",
+          "invoices",
+          "media_types",
+          "playlist_track",
+          "playlists",
+          "tracks"
+        ],
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb"
+      }
+    },
+    {
+      "node": "intent",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "unsupported",
+        "clarification": "",
+        "reason": "只读问数系统不执行数据删除。"
+      }
+    },
+    {
+      "node": "run_metadata",
+      "status": "unsupported",
+      "output": {
+        "variant": "workflow",
+        "prompt_version": "2026-10-21-v1",
+        "semantic_review": true,
+        "rules_enabled": true,
+        "max_rewrites": 2,
+        "reference_date": "2014-01-15",
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+        "calls": [
+          {
+            "stage": "intent",
+            "model": "scripted-fixture",
+            "usage": null
+          }
+        ],
+        "elapsed_ms": 0.0
+      }
+    }
+  ],
+  "error": ""
+}

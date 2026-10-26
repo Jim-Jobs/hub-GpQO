@@ -1,0 +1,13 @@
+{
+  "python_ok": true,
+  "missing_files": [],
+  "missing_environment": [
+    "SQL_AGENT_BASE_URL",
+    "SQL_AGENT_API_KEY",
+    "SQL_AGENT_MODEL"
+  ],
+  "configuration_error": "",
+  "ready_for_live": false,
+  "network_called": false,
+  "secrets_printed": false
+}

@@ -1,0 +1,345 @@
+{
+  "run_id": "7dc69918e10e4d4f97bf3f99220a0ff4",
+  "question": "专项回放：修复已注入的SQL错误",
+  "status": "success",
+  "mode": "replay",
+  "reference_date": "2014-01-15",
+  "intent": {
+    "status": "answerable",
+    "metric": "",
+    "dimensions": [],
+    "filters": [],
+    "time_range": [],
+    "ranking": "",
+    "grain": "",
+    "assumptions": [],
+    "clarification": "",
+    "reason": "",
+    "rule_ids": []
+  },
+  "selection": {
+    "tables": [
+      "invoices",
+      "invoice_items"
+    ],
+    "columns": {},
+    "joins": [],
+    "reason": "",
+    "bridge_tables": []
+  },
+  "candidates": [
+    {
+      "sql": "SELECT SUM(Total) FROM invoices JOIN invoice_items ON invoices.InvoiceId=invoice_items.InvoiceId",
+      "params": {},
+      "explanation": "",
+      "changes": ""
+    },
+    {
+      "sql": "SELECT SUM(ii.UnitPrice*ii.Quantity) AS revenue FROM invoices i JOIN invoice_items ii ON ii.InvoiceId=i.InvoiceId",
+      "params": {},
+      "explanation": "",
+      "changes": "Injected-error repair fixture"
+    }
+  ],
+  "validations": [
+    {
+      "passed": false,
+      "checks": [
+        {
+          "name": "sqlite_compile_and_authorize",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "selection_scope",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "header_detail_grain_risk",
+          "passed": false,
+          "error_type": "aggregation_grain",
+          "evidence": "SUM(order Total) after joining invoice_items can duplicate order totals",
+          "retryable": true
+        }
+      ]
+    },
+    {
+      "passed": true,
+      "checks": [
+        {
+          "name": "sqlite_compile_and_authorize",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "selection_scope",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "header_detail_grain_risk",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        }
+      ]
+    }
+  ],
+  "execution": {
+    "status": "ok",
+    "columns": [
+      "revenue"
+    ],
+    "rows": [
+      [
+        2328.6
+      ]
+    ],
+    "truncated": false,
+    "elapsed_ms": 0.0,
+    "error_type": "",
+    "error": ""
+  },
+  "answer": {
+    "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"revenue\"], \"rows\": [[2328.6]]}",
+    "facts": [],
+    "limitations": [
+      "仅验证工作流，未调用大模型。"
+    ]
+  },
+  "trace": [
+    {
+      "node": "database_parse",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "albums",
+          "artists",
+          "customers",
+          "employees",
+          "genres",
+          "invoice_items",
+          "invoices",
+          "media_types",
+          "playlist_track",
+          "playlists",
+          "tracks"
+        ],
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb"
+      }
+    },
+    {
+      "node": "intent",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "answerable"
+      }
+    },
+    {
+      "node": "table_selection",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "tables": [
+          "invoices",
+          "invoice_items"
+        ]
+      }
+    },
+    {
+      "node": "bridge_completion",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "invoices",
+          "invoice_items"
+        ],
+        "columns": {},
+        "joins": [],
+        "reason": "",
+        "bridge_tables": []
+      }
+    },
+    {
+      "node": "sql_generation",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "sql": "SELECT SUM(Total) FROM invoices JOIN invoice_items ON invoices.InvoiceId=invoice_items.InvoiceId",
+        "params": {}
+      }
+    },
+    {
+      "node": "sql_validation",
+      "status": "failed",
+      "elapsed_ms": 0,
+      "output": {
+        "passed": false,
+        "checks": [
+          {
+            "name": "sqlite_compile_and_authorize",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "selection_scope",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "header_detail_grain_risk",
+            "passed": false,
+            "error_type": "aggregation_grain",
+            "evidence": "SUM(order Total) after joining invoice_items can duplicate order totals",
+            "retryable": true
+          }
+        ]
+      }
+    },
+    {
+      "node": "sql_rewrite",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "sql": "SELECT SUM(ii.UnitPrice*ii.Quantity) AS revenue FROM invoices i JOIN invoice_items ii ON ii.InvoiceId=i.InvoiceId",
+        "params": {},
+        "changes": "Injected-error repair fixture"
+      }
+    },
+    {
+      "node": "semantic_review",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "issues": []
+      }
+    },
+    {
+      "node": "sql_validation",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "sqlite_compile_and_authorize",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "selection_scope",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "header_detail_grain_risk",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          }
+        ]
+      }
+    },
+    {
+      "node": "sql_execution",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "ok",
+        "columns": [
+          "revenue"
+        ],
+        "rows": [
+          [
+            2328.6
+          ]
+        ],
+        "truncated": false,
+        "elapsed_ms": 0.0,
+        "error_type": "",
+        "error": ""
+      }
+    },
+    {
+      "node": "summary",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"revenue\"], \"rows\": [[2328.6]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "node": "run_metadata",
+      "status": "success",
+      "output": {
+        "variant": "workflow",
+        "prompt_version": "2026-10-21-v1",
+        "semantic_review": true,
+        "rules_enabled": true,
+        "max_rewrites": 2,
+        "reference_date": "2014-01-15",
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+        "calls": [
+          {
+            "stage": "intent",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "table_selection",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "sql_generation",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "sql_rewrite",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "semantic_review",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "summary",
+            "model": "scripted-fixture",
+            "usage": null
+          }
+        ],
+        "elapsed_ms": 0.0
+      }
+    }
+  ],
+  "error": ""
+}

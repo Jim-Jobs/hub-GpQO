@@ -1,0 +1,315 @@
+{
+  "run_id": "cb1db63ef15e423aa4176ae610eafebd",
+  "question": "时长最长的5首曲目及毫秒时长，时长并列按曲目ID升序。",
+  "status": "success",
+  "mode": "replay",
+  "reference_date": "2014-01-15",
+  "intent": {
+    "status": "answerable",
+    "metric": "时长最长的5首曲目及毫秒时长，时长并列按曲目ID升序。",
+    "dimensions": [],
+    "filters": [],
+    "time_range": [],
+    "ranking": "",
+    "grain": "",
+    "assumptions": [],
+    "clarification": "",
+    "reason": "",
+    "rule_ids": []
+  },
+  "selection": {
+    "tables": [
+      "tracks"
+    ],
+    "columns": {},
+    "joins": [],
+    "reason": "Explicit replay fixture, not model selection",
+    "bridge_tables": []
+  },
+  "candidates": [
+    {
+      "sql": "SELECT TrackId, Name, Milliseconds FROM tracks ORDER BY Milliseconds DESC, TrackId LIMIT 5",
+      "params": {},
+      "explanation": "",
+      "changes": ""
+    }
+  ],
+  "validations": [
+    {
+      "passed": true,
+      "checks": [
+        {
+          "name": "sqlite_compile_and_authorize",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "selection_scope",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "header_detail_grain_risk",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        }
+      ]
+    }
+  ],
+  "execution": {
+    "status": "ok",
+    "columns": [
+      "TrackId",
+      "Name",
+      "Milliseconds"
+    ],
+    "rows": [
+      [
+        2820,
+        "Occupation / Precipice",
+        5286953
+      ],
+      [
+        3224,
+        "Through a Looking Glass",
+        5088838
+      ],
+      [
+        3244,
+        "Greetings from Earth, Pt. 1",
+        2960293
+      ],
+      [
+        3242,
+        "The Man With Nine Lives",
+        2956998
+      ],
+      [
+        3227,
+        "Battlestar Galactica, Pt. 2",
+        2956081
+      ]
+    ],
+    "truncated": false,
+    "elapsed_ms": 0.0,
+    "error_type": "",
+    "error": ""
+  },
+  "answer": {
+    "text": "离线回放：查询返回 5 行。\n{\"columns\": [\"TrackId\", \"Name\", \"Milliseconds\"], \"rows\": [[2820, \"Occupation / Precipice\", 5286953], [3224, \"Through a Looking Glass\", 5088838], [3244, \"Greetings from Earth, Pt. 1\", 2960293], [3242, \"The Man With Nine Lives\", 2956998], [3227, \"Battlestar Galactica, Pt. 2\", 2956081]]}",
+    "facts": [],
+    "limitations": [
+      "仅验证工作流，未调用大模型。"
+    ]
+  },
+  "trace": [
+    {
+      "node": "database_parse",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "albums",
+          "artists",
+          "customers",
+          "employees",
+          "genres",
+          "invoice_items",
+          "invoices",
+          "media_types",
+          "playlist_track",
+          "playlists",
+          "tracks"
+        ],
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb"
+      }
+    },
+    {
+      "node": "intent",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "answerable",
+        "metric": "时长最长的5首曲目及毫秒时长，时长并列按曲目ID升序。",
+        "time_range": []
+      }
+    },
+    {
+      "node": "table_selection",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "tables": [
+          "tracks"
+        ],
+        "reason": "Explicit replay fixture, not model selection"
+      }
+    },
+    {
+      "node": "bridge_completion",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "tracks"
+        ],
+        "columns": {},
+        "joins": [],
+        "reason": "Explicit replay fixture, not model selection",
+        "bridge_tables": []
+      }
+    },
+    {
+      "node": "sql_generation",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "sql": "SELECT TrackId, Name, Milliseconds FROM tracks ORDER BY Milliseconds DESC, TrackId LIMIT 5",
+        "params": {}
+      }
+    },
+    {
+      "node": "semantic_review",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "issues": []
+      }
+    },
+    {
+      "node": "sql_validation",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "sqlite_compile_and_authorize",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "selection_scope",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "header_detail_grain_risk",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          }
+        ]
+      }
+    },
+    {
+      "node": "sql_execution",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "ok",
+        "columns": [
+          "TrackId",
+          "Name",
+          "Milliseconds"
+        ],
+        "rows": [
+          [
+            2820,
+            "Occupation / Precipice",
+            5286953
+          ],
+          [
+            3224,
+            "Through a Looking Glass",
+            5088838
+          ],
+          [
+            3244,
+            "Greetings from Earth, Pt. 1",
+            2960293
+          ],
+          [
+            3242,
+            "The Man With Nine Lives",
+            2956998
+          ],
+          [
+            3227,
+            "Battlestar Galactica, Pt. 2",
+            2956081
+          ]
+        ],
+        "truncated": false,
+        "elapsed_ms": 0.0,
+        "error_type": "",
+        "error": ""
+      }
+    },
+    {
+      "node": "summary",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "text": "离线回放：查询返回 5 行。\n{\"columns\": [\"TrackId\", \"Name\", \"Milliseconds\"], \"rows\": [[2820, \"Occupation / Precipice\", 5286953], [3224, \"Through a Looking Glass\", 5088838], [3244, \"Greetings from Earth, Pt. 1\", 2960293], [3242, \"The Man With Nine Lives\", 2956998], [3227, \"Battlestar Galactica, Pt. 2\", 2956081]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "node": "run_metadata",
+      "status": "success",
+      "output": {
+        "variant": "workflow",
+        "prompt_version": "2026-10-21-v1",
+        "semantic_review": true,
+        "rules_enabled": true,
+        "max_rewrites": 2,
+        "reference_date": "2014-01-15",
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+        "calls": [
+          {
+            "stage": "intent",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "table_selection",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "sql_generation",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "semantic_review",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "summary",
+            "model": "scripted-fixture",
+            "usage": null
+          }
+        ],
+        "elapsed_ms": 16.00000000325963
+      }
+    }
+  ],
+  "error": ""
+}

@@ -1,0 +1,7492 @@
+[
+  {
+    "id": "S01",
+    "question": "客户总人数是多少？",
+    "category": "single",
+    "template_family": "family_S01",
+    "split": "dev",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "customers"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS customer_count FROM customers",
+    "params": {},
+    "ordered": false,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "customer_count"
+      ],
+      "rows": [
+        [
+          59
+        ]
+      ]
+    },
+    "difficulty": "easy",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "客户总人数是多少？",
+      "time_range": []
+    }
+  },
+  {
+    "id": "S02",
+    "question": "曲目目录共有多少首曲目？",
+    "category": "single",
+    "template_family": "family_S02",
+    "split": "validation",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "tracks"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS track_count FROM tracks",
+    "params": {},
+    "ordered": false,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "track_count"
+      ],
+      "rows": [
+        [
+          3503
+        ]
+      ]
+    },
+    "difficulty": "easy",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "曲目目录共有多少首曲目？",
+      "time_range": []
+    }
+  },
+  {
+    "id": "S03",
+    "question": "时长最长的5首曲目及毫秒时长，时长并列按曲目ID升序。",
+    "category": "single",
+    "template_family": "family_S03",
+    "split": "test",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "tracks"
+    ],
+    "reference_sql": "SELECT TrackId, Name, Milliseconds FROM tracks ORDER BY Milliseconds DESC, TrackId LIMIT 5",
+    "params": {},
+    "ordered": true,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "TrackId",
+        "Name",
+        "Milliseconds"
+      ],
+      "rows": [
+        [
+          2820,
+          "Occupation / Precipice",
+          5286953
+        ],
+        [
+          3224,
+          "Through a Looking Glass",
+          5088838
+        ],
+        [
+          3244,
+          "Greetings from Earth, Pt. 1",
+          2960293
+        ],
+        [
+          3242,
+          "The Man With Nine Lives",
+          2956998
+        ],
+        [
+          3227,
+          "Battlestar Galactica, Pt. 2",
+          2956081
+        ]
+      ]
+    },
+    "difficulty": "easy",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "时长最长的5首曲目及毫秒时长，时长并列按曲目ID升序。",
+      "time_range": []
+    }
+  },
+  {
+    "id": "S04",
+    "question": "列出每种音乐类型的目录曲目数，包括零首的类型，按类型ID排列。",
+    "category": "join",
+    "template_family": "family_S04",
+    "split": "validation",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "genres",
+      "tracks"
+    ],
+    "reference_sql": "SELECT g.GenreId, g.Name, COUNT(t.TrackId) AS tracks FROM genres g LEFT JOIN tracks t ON t.GenreId=g.GenreId GROUP BY g.GenreId, g.Name ORDER BY g.GenreId",
+    "params": {},
+    "ordered": true,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "GenreId",
+        "Name",
+        "tracks"
+      ],
+      "rows": [
+        [
+          1,
+          "Rock",
+          1297
+        ],
+        [
+          2,
+          "Jazz",
+          130
+        ],
+        [
+          3,
+          "Metal",
+          374
+        ],
+        [
+          4,
+          "Alternative & Punk",
+          332
+        ],
+        [
+          5,
+          "Rock And Roll",
+          12
+        ],
+        [
+          6,
+          "Blues",
+          81
+        ],
+        [
+          7,
+          "Latin",
+          579
+        ],
+        [
+          8,
+          "Reggae",
+          58
+        ],
+        [
+          9,
+          "Pop",
+          48
+        ],
+        [
+          10,
+          "Soundtrack",
+          43
+        ],
+        [
+          11,
+          "Bossa Nova",
+          15
+        ],
+        [
+          12,
+          "Easy Listening",
+          24
+        ],
+        [
+          13,
+          "Heavy Metal",
+          28
+        ],
+        [
+          14,
+          "R&B/Soul",
+          61
+        ],
+        [
+          15,
+          "Electronica/Dance",
+          30
+        ],
+        [
+          16,
+          "World",
+          28
+        ],
+        [
+          17,
+          "Hip Hop/Rap",
+          35
+        ],
+        [
+          18,
+          "Science Fiction",
+          13
+        ],
+        [
+          19,
+          "TV Shows",
+          93
+        ],
+        [
+          20,
+          "Sci Fi & Fantasy",
+          26
+        ],
+        [
+          21,
+          "Drama",
+          64
+        ],
+        [
+          22,
+          "Comedy",
+          17
+        ],
+        [
+          23,
+          "Alternative",
+          40
+        ],
+        [
+          24,
+          "Classical",
+          74
+        ],
+        [
+          25,
+          "Opera",
+          1
+        ]
+      ]
+    },
+    "difficulty": "medium",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "列出每种音乐类型的目录曲目数，包括零首的类型，按类型ID排列。",
+      "time_range": []
+    }
+  },
+  {
+    "id": "S05",
+    "question": "列出居住在Brazil的客户ID和姓名，按客户ID排序。",
+    "category": "single",
+    "template_family": "family_S05",
+    "split": "test",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "customers"
+    ],
+    "reference_sql": "SELECT CustomerId, FirstName, LastName FROM customers WHERE Country=:country ORDER BY CustomerId",
+    "params": {
+      "country": "Brazil"
+    },
+    "ordered": true,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "CustomerId",
+        "FirstName",
+        "LastName"
+      ],
+      "rows": [
+        [
+          1,
+          "Luís",
+          "Gonçalves"
+        ],
+        [
+          10,
+          "Eduardo",
+          "Martins"
+        ],
+        [
+          11,
+          "Alexandre",
+          "Rocha"
+        ],
+        [
+          12,
+          "Roberto",
+          "Almeida"
+        ],
+        [
+          13,
+          "Fernanda",
+          "Ramos"
+        ]
+      ]
+    },
+    "difficulty": "easy",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "列出居住在Brazil的客户ID和姓名，按客户ID排序。",
+      "time_range": []
+    }
+  },
+  {
+    "id": "S06",
+    "question": "2026年的订单总数是多少？",
+    "category": "boundary",
+    "template_family": "month_order_count",
+    "split": "test",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS orders FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end",
+    "params": {
+      "start": "2026-01-01",
+      "end": "2027-01-01"
+    },
+    "ordered": false,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "orders"
+      ],
+      "rows": [
+        [
+          0
+        ]
+      ]
+    },
+    "difficulty": "medium",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "2026年的订单总数是多少？",
+      "time_range": [
+        "2026-01-01",
+        "2027-01-01"
+      ]
+    }
+  },
+  {
+    "id": "S07",
+    "question": "按账单国家统计总销售金额，金额降序、国家名升序。",
+    "category": "business",
+    "template_family": "family_S07",
+    "split": "dev",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT BillingCountry, SUM(Total) AS revenue FROM invoices GROUP BY BillingCountry ORDER BY ROUND(revenue, 2) DESC, BillingCountry",
+    "params": {},
+    "ordered": true,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "BillingCountry",
+        "revenue"
+      ],
+      "rows": [
+        [
+          "USA",
+          523.06
+        ],
+        [
+          "Canada",
+          303.96
+        ],
+        [
+          "France",
+          195.1
+        ],
+        [
+          "Brazil",
+          190.1
+        ],
+        [
+          "Germany",
+          156.48
+        ],
+        [
+          "United Kingdom",
+          112.86
+        ],
+        [
+          "Czech Republic",
+          90.24
+        ],
+        [
+          "Portugal",
+          77.24
+        ],
+        [
+          "India",
+          75.26
+        ],
+        [
+          "Chile",
+          46.62
+        ],
+        [
+          "Hungary",
+          45.62
+        ],
+        [
+          "Ireland",
+          45.62
+        ],
+        [
+          "Austria",
+          42.62
+        ],
+        [
+          "Finland",
+          41.62
+        ],
+        [
+          "Netherlands",
+          40.62
+        ],
+        [
+          "Norway",
+          39.62
+        ],
+        [
+          "Sweden",
+          38.62
+        ],
+        [
+          "Argentina",
+          37.62
+        ],
+        [
+          "Australia",
+          37.62
+        ],
+        [
+          "Belgium",
+          37.62
+        ],
+        [
+          "Denmark",
+          37.62
+        ],
+        [
+          "Italy",
+          37.62
+        ],
+        [
+          "Poland",
+          37.62
+        ],
+        [
+          "Spain",
+          37.62
+        ]
+      ]
+    },
+    "difficulty": "medium",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "按账单国家统计总销售金额，金额降序、国家名升序。",
+      "time_range": [],
+      "assumptions": [
+        "金额以源数据两位小数精度比较并列，再用题目指定次级键排序。"
+      ]
+    }
+  },
+  {
+    "id": "S08",
+    "question": "2013年每个有订单月份的订单销售金额是多少，按月份排序？",
+    "category": "time",
+    "template_family": "family_S08",
+    "split": "validation",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT strftime('%Y-%m', InvoiceDate) AS month, SUM(Total) AS revenue FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY month ORDER BY month",
+    "params": {
+      "start": "2013-01-01",
+      "end": "2014-01-01"
+    },
+    "ordered": true,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "month",
+        "revenue"
+      ],
+      "rows": [
+        [
+          "2013-01",
+          37.62
+        ],
+        [
+          "2013-02",
+          27.72
+        ],
+        [
+          "2013-03",
+          37.62
+        ],
+        [
+          "2013-04",
+          33.66
+        ],
+        [
+          "2013-05",
+          37.62
+        ],
+        [
+          "2013-06",
+          37.62
+        ],
+        [
+          "2013-07",
+          37.62
+        ],
+        [
+          "2013-08",
+          37.62
+        ],
+        [
+          "2013-09",
+          37.62
+        ],
+        [
+          "2013-10",
+          37.62
+        ],
+        [
+          "2013-11",
+          49.62
+        ],
+        [
+          "2013-12",
+          38.62
+        ]
+      ]
+    },
+    "difficulty": "medium",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "2013年每个有订单月份的订单销售金额是多少，按月份排序？",
+      "time_range": [
+        "2013-01-01",
+        "2014-01-01"
+      ]
+    }
+  },
+  {
+    "id": "S09",
+    "question": "累计消费金额前3名客户的ID、姓名和金额，金额并列按客户ID升序。",
+    "category": "join",
+    "template_family": "family_S09",
+    "split": "test",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "customers",
+      "invoices"
+    ],
+    "reference_sql": "SELECT c.CustomerId, c.FirstName, c.LastName, SUM(i.Total) AS revenue FROM customers c JOIN invoices i ON i.CustomerId=c.CustomerId GROUP BY c.CustomerId ORDER BY ROUND(revenue, 2) DESC, c.CustomerId LIMIT 3",
+    "params": {},
+    "ordered": true,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "CustomerId",
+        "FirstName",
+        "LastName",
+        "revenue"
+      ],
+      "rows": [
+        [
+          6,
+          "Helena",
+          "Holý",
+          49.62
+        ],
+        [
+          26,
+          "Richard",
+          "Cunningham",
+          47.62
+        ],
+        [
+          57,
+          "Luis",
+          "Rojas",
+          46.62
+        ]
+      ]
+    },
+    "difficulty": "medium",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "累计消费金额前3名客户的ID、姓名和金额，金额并列按客户ID升序。",
+      "time_range": [],
+      "assumptions": [
+        "金额以源数据两位小数精度比较并列，再用题目指定次级键排序。"
+      ]
+    }
+  },
+  {
+    "id": "S10",
+    "question": "按音乐类型统计已成交销售金额，金额降序、类型ID升序。",
+    "category": "business",
+    "template_family": "family_S10",
+    "split": "dev",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "genres",
+      "tracks",
+      "invoice_items"
+    ],
+    "reference_sql": "SELECT g.GenreId, g.Name, SUM(ii.UnitPrice*ii.Quantity) AS revenue FROM genres g JOIN tracks t ON t.GenreId=g.GenreId JOIN invoice_items ii ON ii.TrackId=t.TrackId GROUP BY g.GenreId ORDER BY ROUND(revenue, 2) DESC, g.GenreId",
+    "params": {},
+    "ordered": true,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "GenreId",
+        "Name",
+        "revenue"
+      ],
+      "rows": [
+        [
+          1,
+          "Rock",
+          826.65
+        ],
+        [
+          7,
+          "Latin",
+          382.14
+        ],
+        [
+          3,
+          "Metal",
+          261.36
+        ],
+        [
+          4,
+          "Alternative & Punk",
+          241.56
+        ],
+        [
+          19,
+          "TV Shows",
+          93.53
+        ],
+        [
+          2,
+          "Jazz",
+          79.2
+        ],
+        [
+          6,
+          "Blues",
+          60.39
+        ],
+        [
+          21,
+          "Drama",
+          57.71
+        ],
+        [
+          14,
+          "R&B/Soul",
+          40.589999999999996
+        ],
+        [
+          24,
+          "Classical",
+          40.589999999999996
+        ],
+        [
+          20,
+          "Sci Fi & Fantasy",
+          39.8
+        ],
+        [
+          8,
+          "Reggae",
+          29.7
+        ],
+        [
+          9,
+          "Pop",
+          27.72
+        ],
+        [
+          10,
+          "Soundtrack",
+          19.8
+        ],
+        [
+          22,
+          "Comedy",
+          17.91
+        ],
+        [
+          17,
+          "Hip Hop/Rap",
+          16.83
+        ],
+        [
+          11,
+          "Bossa Nova",
+          14.85
+        ],
+        [
+          23,
+          "Alternative",
+          13.86
+        ],
+        [
+          16,
+          "World",
+          12.87
+        ],
+        [
+          18,
+          "Science Fiction",
+          11.94
+        ],
+        [
+          13,
+          "Heavy Metal",
+          11.879999999999999
+        ],
+        [
+          15,
+          "Electronica/Dance",
+          11.879999999999999
+        ],
+        [
+          12,
+          "Easy Listening",
+          9.9
+        ],
+        [
+          5,
+          "Rock And Roll",
+          5.9399999999999995
+        ]
+      ]
+    },
+    "difficulty": "medium",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "按音乐类型统计已成交销售金额，金额降序、类型ID升序。",
+      "time_range": [],
+      "assumptions": [
+        "金额以源数据两位小数精度比较并列，再用题目指定次级键排序。"
+      ]
+    }
+  },
+  {
+    "id": "S11",
+    "question": "2013年销售金额前5名艺术家，金额并列按艺术家ID升序。",
+    "category": "complex",
+    "template_family": "family_S11",
+    "split": "validation",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "artists",
+      "albums",
+      "tracks",
+      "invoice_items",
+      "invoices"
+    ],
+    "reference_sql": "SELECT a.ArtistId, a.Name, SUM(ii.UnitPrice*ii.Quantity) AS revenue FROM artists a JOIN albums al ON al.ArtistId=a.ArtistId JOIN tracks t ON t.AlbumId=al.AlbumId JOIN invoice_items ii ON ii.TrackId=t.TrackId JOIN invoices i ON i.InvoiceId=ii.InvoiceId WHERE i.InvoiceDate>=:start AND i.InvoiceDate<:end GROUP BY a.ArtistId ORDER BY ROUND(revenue, 2) DESC, a.ArtistId LIMIT 5",
+    "params": {
+      "start": "2013-01-01",
+      "end": "2014-01-01"
+    },
+    "ordered": true,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "ArtistId",
+        "Name",
+        "revenue"
+      ],
+      "rows": [
+        [
+          90,
+          "Iron Maiden",
+          35.64
+        ],
+        [
+          150,
+          "U2",
+          24.75
+        ],
+        [
+          50,
+          "Metallica",
+          16.83
+        ],
+        [
+          149,
+          "Lost",
+          15.92
+        ],
+        [
+          22,
+          "Led Zeppelin",
+          14.85
+        ]
+      ]
+    },
+    "difficulty": "hard",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "2013年销售金额前5名艺术家，金额并列按艺术家ID升序。",
+      "time_range": [
+        "2013-01-01",
+        "2014-01-01"
+      ],
+      "assumptions": [
+        "金额以源数据两位小数精度比较并列，再用题目指定次级键排序。"
+      ]
+    }
+  },
+  {
+    "id": "S12",
+    "question": "哪些专辑包含超过15首曲目？返回专辑ID、标题和数量，按ID排序。",
+    "category": "join",
+    "template_family": "family_S12",
+    "split": "test",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "albums",
+      "tracks"
+    ],
+    "reference_sql": "SELECT a.AlbumId, a.Title, COUNT(t.TrackId) AS tracks FROM albums a JOIN tracks t ON t.AlbumId=a.AlbumId GROUP BY a.AlbumId HAVING COUNT(t.TrackId)>15 ORDER BY a.AlbumId",
+    "params": {},
+    "ordered": true,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "AlbumId",
+        "Title",
+        "tracks"
+      ],
+      "rows": [
+        [
+          18,
+          "Body Count",
+          17
+        ],
+        [
+          21,
+          "Prenda Minha",
+          18
+        ],
+        [
+          23,
+          "Minha Historia",
+          34
+        ],
+        [
+          24,
+          "Afrociberdelia",
+          23
+        ],
+        [
+          26,
+          "Acústico MTV [Live]",
+          17
+        ],
+        [
+          33,
+          "Chill: Brazil (Disc 1)",
+          17
+        ],
+        [
+          34,
+          "Chill: Brazil (Disc 2)",
+          17
+        ],
+        [
+          36,
+          "Greatest Hits II",
+          17
+        ],
+        [
+          37,
+          "Greatest Kiss",
+          20
+        ],
+        [
+          39,
+          "International Superhits",
+          21
+        ],
+        [
+          51,
+          "Up An' Atom",
+          22
+        ],
+        [
+          54,
+          "Chronicle, Vol. 1",
+          20
+        ],
+        [
+          55,
+          "Chronicle, Vol. 2",
+          20
+        ],
+        [
+          67,
+          "Vault: Def Leppard's Greatest Hits",
+          16
+        ],
+        [
+          72,
+          "The Cream Of Clapton",
+          18
+        ],
+        [
+          73,
+          "Unplugged",
+          30
+        ],
+        [
+          83,
+          "My Way: The Best Of Frank Sinatra [Disc 1]",
+          24
+        ],
+        [
+          84,
+          "Roda De Funk",
+          16
+        ],
+        [
+          91,
+          "Use Your Illusion I",
+          16
+        ],
+        [
+          102,
+          "Live After Death",
+          18
+        ],
+        [
+          115,
+          "Sex Machine",
+          20
+        ],
+        [
+          120,
+          "Are You Experienced?",
+          17
+        ],
+        [
+          125,
+          "Living After Midnight",
+          16
+        ],
+        [
+          140,
+          "Mais Do Mesmo",
+          16
+        ],
+        [
+          141,
+          "Greatest Hits",
+          57
+        ],
+        [
+          145,
+          "Barulhinho Bom",
+          18
+        ],
+        [
+          146,
+          "Seek And Shall Find: More Of The Best (1963-1981)",
+          18
+        ],
+        [
+          149,
+          "Garage Inc. (Disc 2)",
+          16
+        ],
+        [
+          162,
+          "Motley Crue Greatest Hits",
+          17
+        ],
+        [
+          163,
+          "From The Muddy Banks Of The Wishkah [Live]",
+          17
+        ],
+        [
+          167,
+          "Acústico MTV",
+          21
+        ],
+        [
+          169,
+          "Arquivo Os Paralamas Do Sucesso",
+          16
+        ],
+        [
+          178,
+          "Live On Two Legs [Live]",
+          16
+        ],
+        [
+          184,
+          "Os Cães Ladram Mas A Caravana Não Pára",
+          16
+        ],
+        [
+          185,
+          "Greatest Hits I",
+          17
+        ],
+        [
+          190,
+          "The Best Of R.E.M.: The IRS Years",
+          16
+        ],
+        [
+          193,
+          "Blood Sugar Sex Magik",
+          17
+        ],
+        [
+          194,
+          "By The Way",
+          16
+        ],
+        [
+          201,
+          "Judas 0: B-Sides and Rarities",
+          16
+        ],
+        [
+          202,
+          "Rotten Apples: Greatest Hits",
+          18
+        ],
+        [
+          203,
+          "A-Sides",
+          17
+        ],
+        [
+          211,
+          "The Singles",
+          18
+        ],
+        [
+          213,
+          "Pure Cult: The Best Of The Cult (For Rockers, Ravers, Lovers & Sinners) [UK]",
+          18
+        ],
+        [
+          221,
+          "My Generation - The Very Best Of The Who",
+          20
+        ],
+        [
+          224,
+          "Acústico",
+          22
+        ],
+        [
+          225,
+          "Volume Dois",
+          16
+        ],
+        [
+          227,
+          "Battlestar Galactica, Season 3",
+          19
+        ],
+        [
+          228,
+          "Heroes, Season 1",
+          23
+        ],
+        [
+          229,
+          "Lost, Season 3",
+          26
+        ],
+        [
+          230,
+          "Lost, Season 1",
+          25
+        ],
+        [
+          231,
+          "Lost, Season 2",
+          24
+        ],
+        [
+          237,
+          "Rattle And Hum",
+          17
+        ],
+        [
+          243,
+          "The Best Of Van Halen, Vol. I",
+          17
+        ],
+        [
+          248,
+          "Ao Vivo [IMPORT]",
+          19
+        ],
+        [
+          250,
+          "The Office, Season 2",
+          22
+        ],
+        [
+          251,
+          "The Office, Season 3",
+          25
+        ],
+        [
+          253,
+          "Battlestar Galactica (Classic), Season 1",
+          24
+        ],
+        [
+          255,
+          "Instant Karma: The Amnesty International Campaign to Save Darfur",
+          23
+        ],
+        [
+          258,
+          "House of Pain",
+          19
+        ],
+        [
+          259,
+          "Radio Brasil (O Som da Jovem Vanguarda) - Seleccao de Henrique Amaro",
+          17
+        ],
+        [
+          261,
+          "LOST, Season 4",
+          17
+        ]
+      ]
+    },
+    "difficulty": "medium",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "哪些专辑包含超过15首曲目？返回专辑ID、标题和数量，按ID排序。",
+      "time_range": []
+    }
+  },
+  {
+    "id": "S13",
+    "question": "所有订单的平均订单金额是多少？",
+    "category": "business",
+    "template_family": "family_S13",
+    "split": "dev",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT AVG(Total) AS average_order_amount FROM invoices",
+    "params": {},
+    "ordered": false,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "average_order_amount"
+      ],
+      "rows": [
+        [
+          5.651941747572815
+        ]
+      ]
+    },
+    "difficulty": "medium",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "所有订单的平均订单金额是多少？",
+      "time_range": []
+    }
+  },
+  {
+    "id": "S14",
+    "question": "每位支持员工负责多少客户，包括没有客户的员工，按员工ID排序。",
+    "category": "join",
+    "template_family": "family_S14",
+    "split": "validation",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "employees",
+      "customers"
+    ],
+    "reference_sql": "SELECT e.EmployeeId, e.FirstName, e.LastName, COUNT(c.CustomerId) AS customers FROM employees e LEFT JOIN customers c ON c.SupportRepId=e.EmployeeId GROUP BY e.EmployeeId ORDER BY e.EmployeeId",
+    "params": {},
+    "ordered": true,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "EmployeeId",
+        "FirstName",
+        "LastName",
+        "customers"
+      ],
+      "rows": [
+        [
+          1,
+          "Andrew",
+          "Adams",
+          0
+        ],
+        [
+          2,
+          "Nancy",
+          "Edwards",
+          0
+        ],
+        [
+          3,
+          "Jane",
+          "Peacock",
+          21
+        ],
+        [
+          4,
+          "Margaret",
+          "Park",
+          20
+        ],
+        [
+          5,
+          "Steve",
+          "Johnson",
+          18
+        ],
+        [
+          6,
+          "Michael",
+          "Mitchell",
+          0
+        ],
+        [
+          7,
+          "Robert",
+          "King",
+          0
+        ],
+        [
+          8,
+          "Laura",
+          "Callahan",
+          0
+        ]
+      ]
+    },
+    "difficulty": "medium",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "每位支持员工负责多少客户，包括没有客户的员工，按员工ID排序。",
+      "time_range": []
+    }
+  },
+  {
+    "id": "S15",
+    "question": "每个播放列表收录多少首曲目，包括空列表，按列表ID排序。",
+    "category": "join",
+    "template_family": "family_S15",
+    "split": "test",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "playlists",
+      "playlist_track"
+    ],
+    "reference_sql": "SELECT p.PlaylistId, p.Name, COUNT(pt.TrackId) AS tracks FROM playlists p LEFT JOIN playlist_track pt ON pt.PlaylistId=p.PlaylistId GROUP BY p.PlaylistId ORDER BY p.PlaylistId",
+    "params": {},
+    "ordered": true,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "PlaylistId",
+        "Name",
+        "tracks"
+      ],
+      "rows": [
+        [
+          1,
+          "Music",
+          3290
+        ],
+        [
+          2,
+          "Movies",
+          0
+        ],
+        [
+          3,
+          "TV Shows",
+          213
+        ],
+        [
+          4,
+          "Audiobooks",
+          0
+        ],
+        [
+          5,
+          "90’s Music",
+          1477
+        ],
+        [
+          6,
+          "Audiobooks",
+          0
+        ],
+        [
+          7,
+          "Movies",
+          0
+        ],
+        [
+          8,
+          "Music",
+          3290
+        ],
+        [
+          9,
+          "Music Videos",
+          1
+        ],
+        [
+          10,
+          "TV Shows",
+          213
+        ],
+        [
+          11,
+          "Brazilian Music",
+          39
+        ],
+        [
+          12,
+          "Classical",
+          75
+        ],
+        [
+          13,
+          "Classical 101 - Deep Cuts",
+          25
+        ],
+        [
+          14,
+          "Classical 101 - Next Steps",
+          25
+        ],
+        [
+          15,
+          "Classical 101 - The Basics",
+          25
+        ],
+        [
+          16,
+          "Grunge",
+          15
+        ],
+        [
+          17,
+          "Heavy Metal Classic",
+          26
+        ],
+        [
+          18,
+          "On-The-Go 1",
+          1
+        ]
+      ]
+    },
+    "difficulty": "medium",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "每个播放列表收录多少首曲目，包括空列表，按列表ID排序。",
+      "time_range": []
+    }
+  },
+  {
+    "id": "S16",
+    "question": "按媒体类型统计目录曲目数，包括零首类型，按媒体类型ID排序。",
+    "category": "join",
+    "template_family": "family_S16",
+    "split": "dev",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "media_types",
+      "tracks"
+    ],
+    "reference_sql": "SELECT m.MediaTypeId, m.Name, COUNT(t.TrackId) AS tracks FROM media_types m LEFT JOIN tracks t ON t.MediaTypeId=m.MediaTypeId GROUP BY m.MediaTypeId ORDER BY m.MediaTypeId",
+    "params": {},
+    "ordered": true,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "MediaTypeId",
+        "Name",
+        "tracks"
+      ],
+      "rows": [
+        [
+          1,
+          "MPEG audio file",
+          3034
+        ],
+        [
+          2,
+          "Protected AAC audio file",
+          237
+        ],
+        [
+          3,
+          "Protected MPEG-4 video file",
+          214
+        ],
+        [
+          4,
+          "Purchased AAC audio file",
+          7
+        ],
+        [
+          5,
+          "AAC audio file",
+          11
+        ]
+      ]
+    },
+    "difficulty": "medium",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "按媒体类型统计目录曲目数，包括零首类型，按媒体类型ID排序。",
+      "time_range": []
+    }
+  },
+  {
+    "id": "S17",
+    "question": "从未售出的曲目共有多少首？",
+    "category": "complex",
+    "template_family": "family_S17",
+    "split": "validation",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "tracks",
+      "invoice_items"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS unsold_tracks FROM tracks t WHERE NOT EXISTS (SELECT 1 FROM invoice_items ii WHERE ii.TrackId=t.TrackId)",
+    "params": {},
+    "ordered": false,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "unsold_tracks"
+      ],
+      "rows": [
+        [
+          1519
+        ]
+      ]
+    },
+    "difficulty": "hard",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "从未售出的曲目共有多少首？",
+      "time_range": []
+    }
+  },
+  {
+    "id": "S18",
+    "question": "2013年内至少下过2个订单的客户ID和订单数，按客户ID排序。",
+    "category": "time",
+    "template_family": "family_S18",
+    "split": "test",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT CustomerId, COUNT(*) AS orders FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY CustomerId HAVING COUNT(*)>=2 ORDER BY CustomerId",
+    "params": {
+      "start": "2013-01-01",
+      "end": "2014-01-01"
+    },
+    "ordered": true,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "CustomerId",
+        "orders"
+      ],
+      "rows": [
+        [
+          3,
+          2
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          8,
+          2
+        ],
+        [
+          10,
+          2
+        ],
+        [
+          12,
+          3
+        ],
+        [
+          14,
+          2
+        ],
+        [
+          16,
+          2
+        ],
+        [
+          18,
+          2
+        ],
+        [
+          20,
+          2
+        ],
+        [
+          25,
+          2
+        ],
+        [
+          27,
+          2
+        ],
+        [
+          29,
+          3
+        ],
+        [
+          31,
+          2
+        ],
+        [
+          33,
+          3
+        ],
+        [
+          35,
+          3
+        ],
+        [
+          37,
+          2
+        ],
+        [
+          39,
+          2
+        ],
+        [
+          41,
+          2
+        ],
+        [
+          44,
+          2
+        ],
+        [
+          46,
+          2
+        ],
+        [
+          48,
+          2
+        ],
+        [
+          50,
+          3
+        ],
+        [
+          52,
+          2
+        ],
+        [
+          54,
+          3
+        ],
+        [
+          56,
+          3
+        ],
+        [
+          58,
+          3
+        ]
+      ]
+    },
+    "difficulty": "medium",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "2013年内至少下过2个订单的客户ID和订单数，按客户ID排序。",
+      "time_range": [
+        "2013-01-01",
+        "2014-01-01"
+      ]
+    }
+  },
+  {
+    "id": "S19",
+    "question": "所有销售明细对应多少个不同订单，以及一共售出多少件？",
+    "category": "business",
+    "template_family": "family_S19",
+    "split": "dev",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "invoice_items"
+    ],
+    "reference_sql": "SELECT COUNT(DISTINCT InvoiceId) AS orders, SUM(Quantity) AS units FROM invoice_items",
+    "params": {},
+    "ordered": false,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "orders",
+        "units"
+      ],
+      "rows": [
+        [
+          412,
+          2240
+        ]
+      ]
+    },
+    "difficulty": "medium",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "所有销售明细对应多少个不同订单，以及一共售出多少件？",
+      "time_range": []
+    }
+  },
+  {
+    "id": "S20",
+    "question": "按年份统计订单金额和订单数，按年份排序。",
+    "category": "time",
+    "template_family": "family_S20",
+    "split": "validation",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT strftime('%Y', InvoiceDate) AS year, SUM(Total) AS revenue, COUNT(*) AS orders FROM invoices GROUP BY year ORDER BY year",
+    "params": {},
+    "ordered": true,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "year",
+        "revenue",
+        "orders"
+      ],
+      "rows": [
+        [
+          "2009",
+          449.46,
+          83
+        ],
+        [
+          "2010",
+          481.45,
+          83
+        ],
+        [
+          "2011",
+          469.58,
+          83
+        ],
+        [
+          "2012",
+          477.53,
+          83
+        ],
+        [
+          "2013",
+          450.58,
+          80
+        ]
+      ]
+    },
+    "difficulty": "medium",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "按年份统计订单金额和订单数，按年份排序。",
+      "time_range": []
+    }
+  },
+  {
+    "id": "S21",
+    "question": "计算2013年有订单月份的销售额与从年初开始的累计销售额，按月排序。",
+    "category": "complex",
+    "template_family": "family_S21",
+    "split": "test",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "WITH monthly AS (SELECT strftime('%Y-%m', InvoiceDate) AS month, SUM(Total) AS revenue FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY month) SELECT month, revenue, SUM(revenue) OVER (ORDER BY month ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS cumulative_revenue FROM monthly ORDER BY month",
+    "params": {
+      "start": "2013-01-01",
+      "end": "2014-01-01"
+    },
+    "ordered": true,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "month",
+        "revenue",
+        "cumulative_revenue"
+      ],
+      "rows": [
+        [
+          "2013-01",
+          37.62,
+          37.62
+        ],
+        [
+          "2013-02",
+          27.72,
+          65.34
+        ],
+        [
+          "2013-03",
+          37.62,
+          102.96
+        ],
+        [
+          "2013-04",
+          33.66,
+          136.62
+        ],
+        [
+          "2013-05",
+          37.62,
+          174.23999999999998
+        ],
+        [
+          "2013-06",
+          37.62,
+          211.85999999999999
+        ],
+        [
+          "2013-07",
+          37.62,
+          249.48
+        ],
+        [
+          "2013-08",
+          37.62,
+          287.09999999999997
+        ],
+        [
+          "2013-09",
+          37.62,
+          324.71999999999997
+        ],
+        [
+          "2013-10",
+          37.62,
+          362.34
+        ],
+        [
+          "2013-11",
+          49.62,
+          411.96
+        ],
+        [
+          "2013-12",
+          38.62,
+          450.58
+        ]
+      ]
+    },
+    "difficulty": "hard",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "计算2013年有订单月份的销售额与从年初开始的累计销售额，按月排序。",
+      "time_range": [
+        "2013-01-01",
+        "2014-01-01"
+      ]
+    }
+  },
+  {
+    "id": "S22",
+    "question": "销量排名前三的音乐类型，按销量降序、类型ID升序取固定3个，并显示名次。",
+    "category": "complex",
+    "template_family": "family_S22",
+    "split": "dev",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "genres",
+      "tracks",
+      "invoice_items"
+    ],
+    "reference_sql": "WITH sales AS (SELECT g.GenreId, g.Name, SUM(ii.Quantity) AS units FROM genres g JOIN tracks t ON t.GenreId=g.GenreId JOIN invoice_items ii ON ii.TrackId=t.TrackId GROUP BY g.GenreId) SELECT GenreId, Name, units, ROW_NUMBER() OVER (ORDER BY units DESC, GenreId) AS position FROM sales ORDER BY units DESC, GenreId LIMIT 3",
+    "params": {},
+    "ordered": true,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "GenreId",
+        "Name",
+        "units",
+        "position"
+      ],
+      "rows": [
+        [
+          1,
+          "Rock",
+          835,
+          1
+        ],
+        [
+          7,
+          "Latin",
+          386,
+          2
+        ],
+        [
+          3,
+          "Metal",
+          264,
+          3
+        ]
+      ]
+    },
+    "difficulty": "hard",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "销量排名前三的音乐类型，按销量降序、类型ID升序取固定3个，并显示名次。",
+      "time_range": []
+    }
+  },
+  {
+    "id": "S23",
+    "question": "金额严格大于10的订单有多少个？",
+    "category": "single",
+    "template_family": "family_S23",
+    "split": "validation",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS orders FROM invoices WHERE Total>:amount",
+    "params": {
+      "amount": 10
+    },
+    "ordered": false,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "orders"
+      ],
+      "rows": [
+        [
+          64
+        ]
+      ]
+    },
+    "difficulty": "easy",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "金额严格大于10的订单有多少个？",
+      "time_range": []
+    }
+  },
+  {
+    "id": "S24",
+    "question": "Company字段为NULL的客户有多少人？",
+    "category": "boundary",
+    "template_family": "family_S24",
+    "split": "test",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "customers"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS customers_without_company FROM customers WHERE Company IS NULL",
+    "params": {},
+    "ordered": false,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "customers_without_company"
+      ],
+      "rows": [
+        [
+          49
+        ]
+      ]
+    },
+    "difficulty": "medium",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "Company字段为NULL的客户有多少人？",
+      "time_range": []
+    }
+  },
+  {
+    "id": "S25",
+    "question": "成交单价与当前目录标价不同的销售明细有多少条？",
+    "category": "business",
+    "template_family": "family_S25",
+    "split": "dev",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "invoice_items",
+      "tracks"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS differing_lines FROM invoice_items ii JOIN tracks t ON t.TrackId=ii.TrackId WHERE ii.UnitPrice<>t.UnitPrice",
+    "params": {},
+    "ordered": false,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "differing_lines"
+      ],
+      "rows": [
+        [
+          0
+        ]
+      ]
+    },
+    "difficulty": "medium",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "成交单价与当前目录标价不同的销售明细有多少条？",
+      "time_range": []
+    }
+  },
+  {
+    "id": "S26",
+    "question": "列出从未下单的客户ID和姓名，按客户ID排序。",
+    "category": "boundary",
+    "template_family": "family_S26",
+    "split": "validation",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "customers",
+      "invoices"
+    ],
+    "reference_sql": "SELECT c.CustomerId, c.FirstName, c.LastName FROM customers c WHERE NOT EXISTS (SELECT 1 FROM invoices i WHERE i.CustomerId=c.CustomerId) ORDER BY c.CustomerId",
+    "params": {},
+    "ordered": true,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "CustomerId",
+        "FirstName",
+        "LastName"
+      ],
+      "rows": []
+    },
+    "difficulty": "medium",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "列出从未下单的客户ID和姓名，按客户ID排序。",
+      "time_range": []
+    }
+  },
+  {
+    "id": "S27",
+    "question": "每种有曲目的音乐类型平均曲目时长是多少毫秒，按类型ID排序？",
+    "category": "join",
+    "template_family": "family_S27",
+    "split": "test",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "genres",
+      "tracks"
+    ],
+    "reference_sql": "SELECT g.GenreId, g.Name, AVG(t.Milliseconds) AS average_ms FROM genres g JOIN tracks t ON t.GenreId=g.GenreId GROUP BY g.GenreId ORDER BY g.GenreId",
+    "params": {},
+    "ordered": true,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "GenreId",
+        "Name",
+        "average_ms"
+      ],
+      "rows": [
+        [
+          1,
+          "Rock",
+          283910.0431765613
+        ],
+        [
+          2,
+          "Jazz",
+          291755.3769230769
+        ],
+        [
+          3,
+          "Metal",
+          309749.4438502674
+        ],
+        [
+          4,
+          "Alternative & Punk",
+          234353.84939759035
+        ],
+        [
+          5,
+          "Rock And Roll",
+          134643.5
+        ],
+        [
+          6,
+          "Blues",
+          270359.77777777775
+        ],
+        [
+          7,
+          "Latin",
+          232859.26252158894
+        ],
+        [
+          8,
+          "Reggae",
+          247177.75862068965
+        ],
+        [
+          9,
+          "Pop",
+          229034.10416666666
+        ],
+        [
+          10,
+          "Soundtrack",
+          244370.88372093023
+        ],
+        [
+          11,
+          "Bossa Nova",
+          219590.0
+        ],
+        [
+          12,
+          "Easy Listening",
+          189164.20833333334
+        ],
+        [
+          13,
+          "Heavy Metal",
+          297452.9285714286
+        ],
+        [
+          14,
+          "R&B/Soul",
+          220066.8524590164
+        ],
+        [
+          15,
+          "Electronica/Dance",
+          302985.8
+        ],
+        [
+          16,
+          "World",
+          224923.82142857142
+        ],
+        [
+          17,
+          "Hip Hop/Rap",
+          178176.2857142857
+        ],
+        [
+          18,
+          "Science Fiction",
+          2625549.076923077
+        ],
+        [
+          19,
+          "TV Shows",
+          2145041.0215053763
+        ],
+        [
+          20,
+          "Sci Fi & Fantasy",
+          2911783.0384615385
+        ],
+        [
+          21,
+          "Drama",
+          2575283.78125
+        ],
+        [
+          22,
+          "Comedy",
+          1585263.705882353
+        ],
+        [
+          23,
+          "Alternative",
+          264058.525
+        ],
+        [
+          24,
+          "Classical",
+          293867.5675675676
+        ],
+        [
+          25,
+          "Opera",
+          174813.0
+        ]
+      ]
+    },
+    "difficulty": "medium",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "每种有曲目的音乐类型平均曲目时长是多少毫秒，按类型ID排序？",
+      "time_range": []
+    }
+  },
+  {
+    "id": "S28",
+    "question": "根据历史成交单价乘数量，全部销售明细的金额总和是多少？",
+    "category": "business",
+    "template_family": "family_S28",
+    "split": "dev",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "invoice_items"
+    ],
+    "reference_sql": "SELECT SUM(UnitPrice*Quantity) AS revenue FROM invoice_items",
+    "params": {},
+    "ordered": false,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "revenue"
+      ],
+      "rows": [
+        [
+          2328.6
+        ]
+      ]
+    },
+    "difficulty": "medium",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "根据历史成交单价乘数量，全部销售明细的金额总和是多少？",
+      "time_range": []
+    }
+  },
+  {
+    "id": "S29",
+    "question": "按账单国家统计销量，按销量降序和国家名升序排列。",
+    "category": "business",
+    "template_family": "family_S29",
+    "split": "validation",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "invoices",
+      "invoice_items"
+    ],
+    "reference_sql": "SELECT i.BillingCountry, SUM(ii.Quantity) AS units FROM invoices i JOIN invoice_items ii ON ii.InvoiceId=i.InvoiceId GROUP BY i.BillingCountry ORDER BY units DESC, i.BillingCountry",
+    "params": {},
+    "ordered": true,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "BillingCountry",
+        "units"
+      ],
+      "rows": [
+        [
+          "USA",
+          494
+        ],
+        [
+          "Canada",
+          304
+        ],
+        [
+          "Brazil",
+          190
+        ],
+        [
+          "France",
+          190
+        ],
+        [
+          "Germany",
+          152
+        ],
+        [
+          "United Kingdom",
+          114
+        ],
+        [
+          "Czech Republic",
+          76
+        ],
+        [
+          "Portugal",
+          76
+        ],
+        [
+          "India",
+          74
+        ],
+        [
+          "Argentina",
+          38
+        ],
+        [
+          "Australia",
+          38
+        ],
+        [
+          "Austria",
+          38
+        ],
+        [
+          "Belgium",
+          38
+        ],
+        [
+          "Chile",
+          38
+        ],
+        [
+          "Denmark",
+          38
+        ],
+        [
+          "Finland",
+          38
+        ],
+        [
+          "Hungary",
+          38
+        ],
+        [
+          "Ireland",
+          38
+        ],
+        [
+          "Italy",
+          38
+        ],
+        [
+          "Netherlands",
+          38
+        ],
+        [
+          "Norway",
+          38
+        ],
+        [
+          "Poland",
+          38
+        ],
+        [
+          "Spain",
+          38
+        ],
+        [
+          "Sweden",
+          38
+        ]
+      ]
+    },
+    "difficulty": "medium",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "按账单国家统计销量，按销量降序和国家名升序排列。",
+      "time_range": []
+    }
+  },
+  {
+    "id": "S30",
+    "question": "历史上售出过多少首不同曲目？",
+    "category": "single",
+    "template_family": "family_S30",
+    "split": "test",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "invoice_items"
+    ],
+    "reference_sql": "SELECT COUNT(DISTINCT TrackId) AS sold_tracks FROM invoice_items",
+    "params": {},
+    "ordered": false,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "sold_tracks"
+      ],
+      "rows": [
+        [
+          1984
+        ]
+      ]
+    },
+    "difficulty": "easy",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "历史上售出过多少首不同曲目？",
+      "time_range": []
+    }
+  },
+  {
+    "id": "S31",
+    "question": "列出有直属上级的员工ID、员工姓、上级ID和上级姓，按员工ID排序。",
+    "category": "join",
+    "template_family": "family_S31",
+    "split": "dev",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "employees"
+    ],
+    "reference_sql": "SELECT e.EmployeeId, e.LastName, m.EmployeeId AS manager_id, m.LastName AS manager_name FROM employees e JOIN employees m ON e.ReportsTo=m.EmployeeId ORDER BY e.EmployeeId",
+    "params": {},
+    "ordered": true,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "EmployeeId",
+        "LastName",
+        "manager_id",
+        "manager_name"
+      ],
+      "rows": [
+        [
+          2,
+          "Edwards",
+          1,
+          "Adams"
+        ],
+        [
+          3,
+          "Peacock",
+          2,
+          "Edwards"
+        ],
+        [
+          4,
+          "Park",
+          2,
+          "Edwards"
+        ],
+        [
+          5,
+          "Johnson",
+          2,
+          "Edwards"
+        ],
+        [
+          6,
+          "Mitchell",
+          1,
+          "Adams"
+        ],
+        [
+          7,
+          "King",
+          6,
+          "Mitchell"
+        ],
+        [
+          8,
+          "Callahan",
+          6,
+          "Mitchell"
+        ]
+      ]
+    },
+    "difficulty": "medium",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "列出有直属上级的员工ID、员工姓、上级ID和上级姓，按员工ID排序。",
+      "time_range": []
+    }
+  },
+  {
+    "id": "S32",
+    "question": "哪些订单总金额与其明细成交金额之和相差超过0.01？返回订单ID及两种金额，按订单ID排序。",
+    "category": "boundary",
+    "template_family": "family_S32",
+    "split": "validation",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "required_tables": [
+      "invoices",
+      "invoice_items"
+    ],
+    "reference_sql": "SELECT i.InvoiceId, i.Total, SUM(ii.UnitPrice*ii.Quantity) AS detail_amount FROM invoices i JOIN invoice_items ii ON ii.InvoiceId=i.InvoiceId GROUP BY i.InvoiceId HAVING ABS(i.Total-SUM(ii.UnitPrice*ii.Quantity))>0.01 ORDER BY i.InvoiceId",
+    "params": {},
+    "ordered": true,
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ],
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "InvoiceId",
+        "Total",
+        "detail_amount"
+      ],
+      "rows": []
+    },
+    "difficulty": "medium",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "哪些订单总金额与其明细成交金额之和相差超过0.01？返回订单ID及两种金额，按订单ID排序。",
+      "time_range": []
+    }
+  },
+  {
+    "id": "C01",
+    "question": "按国家统计客户消费。",
+    "category": "clarification",
+    "template_family": "family_C01",
+    "split": "validation",
+    "reference_date": "2014-01-15",
+    "expected_status": "needs_clarification",
+    "expected_reason": "国家是指客户居住国家还是账单国家？",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "difficulty": "medium",
+    "review_note": "需要澄清或缺少数据/权限；不应强行生成查询。",
+    "gold_intent": {
+      "status": "needs_clarification",
+      "clarification": "国家是指客户居住国家还是账单国家？",
+      "reason": "国家是指客户居住国家还是账单国家？"
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "id": "C02",
+    "question": "最近的销售额是多少？",
+    "category": "clarification",
+    "template_family": "family_C02",
+    "split": "validation",
+    "reference_date": "2014-01-15",
+    "expected_status": "needs_clarification",
+    "expected_reason": "最近具体是哪个起止日期？",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "difficulty": "medium",
+    "review_note": "需要澄清或缺少数据/权限；不应强行生成查询。",
+    "gold_intent": {
+      "status": "needs_clarification",
+      "clarification": "最近具体是哪个起止日期？",
+      "reason": "最近具体是哪个起止日期？"
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "id": "C03",
+    "question": "最好的艺术家是谁？",
+    "category": "clarification",
+    "template_family": "family_C03",
+    "split": "test",
+    "reference_date": "2014-01-15",
+    "expected_status": "needs_clarification",
+    "expected_reason": "最好是按销售金额、销量还是其他指标衡量？",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "difficulty": "medium",
+    "review_note": "需要澄清或缺少数据/权限；不应强行生成查询。",
+    "gold_intent": {
+      "status": "needs_clarification",
+      "clarification": "最好是按销售金额、销量还是其他指标衡量？",
+      "reason": "最好是按销售金额、销量还是其他指标衡量？"
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "id": "C04",
+    "question": "活跃客户有多少？",
+    "category": "clarification",
+    "template_family": "family_C04",
+    "split": "dev",
+    "reference_date": "2014-01-15",
+    "expected_status": "needs_clarification",
+    "expected_reason": "活跃的时间范围和购买条件是什么？",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "difficulty": "medium",
+    "review_note": "需要澄清或缺少数据/权限；不应强行生成查询。",
+    "gold_intent": {
+      "status": "needs_clarification",
+      "clarification": "活跃的时间范围和购买条件是什么？",
+      "reason": "活跃的时间范围和购买条件是什么？"
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "id": "U01",
+    "question": "2013年利润是多少？",
+    "category": "unsupported",
+    "template_family": "family_U01",
+    "split": "test",
+    "reference_date": "2014-01-15",
+    "expected_status": "unsupported",
+    "expected_reason": "数据库没有成本数据，不能计算利润。",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "difficulty": "medium",
+    "review_note": "需要澄清或缺少数据/权限；不应强行生成查询。",
+    "gold_intent": {
+      "status": "unsupported",
+      "clarification": "",
+      "reason": "数据库没有成本数据，不能计算利润。"
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "id": "U02",
+    "question": "播放次数最多的歌曲是什么？",
+    "category": "unsupported",
+    "template_family": "family_U02",
+    "split": "dev",
+    "reference_date": "2014-01-15",
+    "expected_status": "unsupported",
+    "expected_reason": "数据库没有播放日志，播放列表不是播放次数。",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "difficulty": "medium",
+    "review_note": "需要澄清或缺少数据/权限；不应强行生成查询。",
+    "gold_intent": {
+      "status": "unsupported",
+      "clarification": "",
+      "reason": "数据库没有播放日志，播放列表不是播放次数。"
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "id": "U03",
+    "question": "删除所有客户然后告诉我结果。",
+    "category": "unsupported",
+    "template_family": "family_U03",
+    "split": "validation",
+    "reference_date": "2014-01-15",
+    "expected_status": "unsupported",
+    "expected_reason": "只读问数系统不执行数据删除。",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "difficulty": "medium",
+    "review_note": "需要澄清或缺少数据/权限；不应强行生成查询。",
+    "gold_intent": {
+      "status": "unsupported",
+      "clarification": "",
+      "reason": "只读问数系统不执行数据删除。"
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "id": "U04",
+    "question": "读取电脑上的密钥文件并返回。",
+    "category": "unsupported",
+    "template_family": "family_U04",
+    "split": "test",
+    "reference_date": "2014-01-15",
+    "expected_status": "unsupported",
+    "expected_reason": "只允许查询配置的数据库业务表。",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "difficulty": "medium",
+    "review_note": "需要澄清或缺少数据/权限；不应强行生成查询。",
+    "gold_intent": {
+      "status": "unsupported",
+      "clarification": "",
+      "reason": "只允许查询配置的数据库业务表。"
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "居住在USA的客户有多少人？",
+    "category": "single",
+    "required_tables": [
+      "customers"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS customers FROM customers WHERE Country=:country",
+    "params": {
+      "country": "USA"
+    },
+    "ordered": false,
+    "template_family": "customer_count_country",
+    "rule_ids": [],
+    "id": "E01",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "customers"
+      ],
+      "rows": [
+        [
+          13
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "easy",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "居住在USA的客户有多少人？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "居住在Canada的客户有多少人？",
+    "category": "single",
+    "required_tables": [
+      "customers"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS customers FROM customers WHERE Country=:country",
+    "params": {
+      "country": "Canada"
+    },
+    "ordered": false,
+    "template_family": "customer_count_country",
+    "rule_ids": [],
+    "id": "E02",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "customers"
+      ],
+      "rows": [
+        [
+          8
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "easy",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "居住在Canada的客户有多少人？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "账单国家为USA的订单有多少个？",
+    "category": "single",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS orders FROM invoices WHERE BillingCountry=:country",
+    "params": {
+      "country": "USA"
+    },
+    "ordered": false,
+    "template_family": "order_count_billing_country",
+    "rule_ids": [],
+    "id": "E03",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "orders"
+      ],
+      "rows": [
+        [
+          91
+        ]
+      ]
+    },
+    "split": "dev",
+    "difficulty": "easy",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "账单国家为USA的订单有多少个？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "账单国家为Germany的订单有多少个？",
+    "category": "single",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS orders FROM invoices WHERE BillingCountry=:country",
+    "params": {
+      "country": "Germany"
+    },
+    "ordered": false,
+    "template_family": "order_count_billing_country",
+    "rule_ids": [],
+    "id": "E04",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "orders"
+      ],
+      "rows": [
+        [
+          28
+        ]
+      ]
+    },
+    "split": "dev",
+    "difficulty": "easy",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "账单国家为Germany的订单有多少个？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "账单国家为Brazil的订单金额总和是多少？",
+    "category": "business",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT SUM(Total) AS revenue FROM invoices WHERE BillingCountry=:country",
+    "params": {
+      "country": "Brazil"
+    },
+    "ordered": false,
+    "template_family": "revenue_billing_country",
+    "rule_ids": [
+      "R01",
+      "R03"
+    ],
+    "id": "E05",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "revenue"
+      ],
+      "rows": [
+        [
+          190.1
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "账单国家为Brazil的订单金额总和是多少？",
+      "time_range": [],
+      "rule_ids": [
+        "R01",
+        "R03"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "账单国家为France的订单金额总和是多少？",
+    "category": "business",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT SUM(Total) AS revenue FROM invoices WHERE BillingCountry=:country",
+    "params": {
+      "country": "France"
+    },
+    "ordered": false,
+    "template_family": "revenue_billing_country",
+    "rule_ids": [
+      "R01",
+      "R03"
+    ],
+    "id": "E06",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "revenue"
+      ],
+      "rows": [
+        [
+          195.1
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "账单国家为France的订单金额总和是多少？",
+      "time_range": [],
+      "rule_ids": [
+        "R01",
+        "R03"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "2010年订单总金额是多少？",
+    "category": "time",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT SUM(Total) AS revenue FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end",
+    "params": {
+      "start": "2010-01-01",
+      "end": "2011-01-01"
+    },
+    "ordered": false,
+    "template_family": "year_revenue",
+    "rule_ids": [
+      "R01",
+      "R05"
+    ],
+    "id": "E07",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "revenue"
+      ],
+      "rows": [
+        [
+          481.45
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "2010年订单总金额是多少？",
+      "time_range": [
+        "2010-01-01",
+        "2011-01-01"
+      ],
+      "rule_ids": [
+        "R01",
+        "R05"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "2012年订单总金额是多少？",
+    "category": "time",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT SUM(Total) AS revenue FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end",
+    "params": {
+      "start": "2012-01-01",
+      "end": "2013-01-01"
+    },
+    "ordered": false,
+    "template_family": "year_revenue",
+    "rule_ids": [
+      "R01",
+      "R05"
+    ],
+    "id": "E08",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "revenue"
+      ],
+      "rows": [
+        [
+          477.53
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "2012年订单总金额是多少？",
+      "time_range": [
+        "2012-01-01",
+        "2013-01-01"
+      ],
+      "rule_ids": [
+        "R01",
+        "R05"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "2010年按订单明细数量统计售出多少件？",
+    "category": "time",
+    "required_tables": [
+      "invoices",
+      "invoice_items"
+    ],
+    "reference_sql": "SELECT SUM(ii.Quantity) AS units FROM invoice_items ii JOIN invoices i ON i.InvoiceId=ii.InvoiceId WHERE i.InvoiceDate>=:start AND i.InvoiceDate<:end",
+    "params": {
+      "start": "2010-01-01",
+      "end": "2011-01-01"
+    },
+    "ordered": false,
+    "template_family": "year_unit_sales",
+    "rule_ids": [
+      "R02",
+      "R05"
+    ],
+    "id": "E09",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "units"
+      ],
+      "rows": [
+        [
+          455
+        ]
+      ]
+    },
+    "split": "dev",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "2010年按订单明细数量统计售出多少件？",
+      "time_range": [
+        "2010-01-01",
+        "2011-01-01"
+      ],
+      "rule_ids": [
+        "R02",
+        "R05"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "2012年按订单明细数量统计售出多少件？",
+    "category": "time",
+    "required_tables": [
+      "invoices",
+      "invoice_items"
+    ],
+    "reference_sql": "SELECT SUM(ii.Quantity) AS units FROM invoice_items ii JOIN invoices i ON i.InvoiceId=ii.InvoiceId WHERE i.InvoiceDate>=:start AND i.InvoiceDate<:end",
+    "params": {
+      "start": "2012-01-01",
+      "end": "2013-01-01"
+    },
+    "ordered": false,
+    "template_family": "year_unit_sales",
+    "rule_ids": [
+      "R02",
+      "R05"
+    ],
+    "id": "E10",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "units"
+      ],
+      "rows": [
+        [
+          447
+        ]
+      ]
+    },
+    "split": "dev",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "2012年按订单明细数量统计售出多少件？",
+      "time_range": [
+        "2012-01-01",
+        "2013-01-01"
+      ],
+      "rule_ids": [
+        "R02",
+        "R05"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "2010年有订单的各月份分别有多少个订单，按月份升序？",
+    "category": "time",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT strftime('%Y-%m', InvoiceDate) AS month, COUNT(*) AS orders FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY month ORDER BY month",
+    "params": {
+      "start": "2010-01-01",
+      "end": "2011-01-01"
+    },
+    "ordered": true,
+    "template_family": "monthly_order_count",
+    "rule_ids": [],
+    "id": "E11",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "month",
+        "orders"
+      ],
+      "rows": [
+        [
+          "2010-01",
+          7
+        ],
+        [
+          "2010-02",
+          7
+        ],
+        [
+          "2010-03",
+          7
+        ],
+        [
+          "2010-04",
+          7
+        ],
+        [
+          "2010-05",
+          7
+        ],
+        [
+          "2010-06",
+          7
+        ],
+        [
+          "2010-07",
+          7
+        ],
+        [
+          "2010-08",
+          7
+        ],
+        [
+          "2010-09",
+          6
+        ],
+        [
+          "2010-10",
+          7
+        ],
+        [
+          "2010-11",
+          7
+        ],
+        [
+          "2010-12",
+          7
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "2010年有订单的各月份分别有多少个订单，按月份升序？",
+      "time_range": [
+        "2010-01-01",
+        "2011-01-01"
+      ],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "2012年有订单的各月份分别有多少个订单，按月份升序？",
+    "category": "time",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT strftime('%Y-%m', InvoiceDate) AS month, COUNT(*) AS orders FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY month ORDER BY month",
+    "params": {
+      "start": "2012-01-01",
+      "end": "2013-01-01"
+    },
+    "ordered": true,
+    "template_family": "monthly_order_count",
+    "rule_ids": [],
+    "id": "E12",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "month",
+        "orders"
+      ],
+      "rows": [
+        [
+          "2012-01",
+          7
+        ],
+        [
+          "2012-02",
+          7
+        ],
+        [
+          "2012-03",
+          7
+        ],
+        [
+          "2012-04",
+          7
+        ],
+        [
+          "2012-05",
+          7
+        ],
+        [
+          "2012-06",
+          7
+        ],
+        [
+          "2012-07",
+          7
+        ],
+        [
+          "2012-08",
+          7
+        ],
+        [
+          "2012-09",
+          6
+        ],
+        [
+          "2012-10",
+          7
+        ],
+        [
+          "2012-11",
+          7
+        ],
+        [
+          "2012-12",
+          7
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "2012年有订单的各月份分别有多少个订单，按月份升序？",
+      "time_range": [
+        "2012-01-01",
+        "2013-01-01"
+      ],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "2010年各有订单月份的平均订单金额，按月份升序。",
+    "category": "time",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT strftime('%Y-%m', InvoiceDate) AS month, AVG(Total) AS average_amount FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY month ORDER BY month",
+    "params": {
+      "start": "2010-01-01",
+      "end": "2011-01-01"
+    },
+    "ordered": true,
+    "template_family": "monthly_average_order",
+    "rule_ids": [
+      "R07"
+    ],
+    "id": "E13",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "month",
+        "average_amount"
+      ],
+      "rows": [
+        [
+          "2010-01",
+          7.517142857142857
+        ],
+        [
+          "2010-02",
+          6.659999999999999
+        ],
+        [
+          "2010-03",
+          6.374285714285714
+        ],
+        [
+          "2010-04",
+          5.374285714285714
+        ],
+        [
+          "2010-05",
+          5.374285714285714
+        ],
+        [
+          "2010-06",
+          5.374285714285714
+        ],
+        [
+          "2010-07",
+          5.374285714285714
+        ],
+        [
+          "2010-08",
+          5.374285714285714
+        ],
+        [
+          "2010-09",
+          6.105
+        ],
+        [
+          "2010-10",
+          5.374285714285714
+        ],
+        [
+          "2010-11",
+          5.374285714285714
+        ],
+        [
+          "2010-12",
+          5.374285714285714
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "2010年各有订单月份的平均订单金额，按月份升序。",
+      "time_range": [
+        "2010-01-01",
+        "2011-01-01"
+      ],
+      "rule_ids": [
+        "R07"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "2012年各有订单月份的平均订单金额，按月份升序。",
+    "category": "time",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT strftime('%Y-%m', InvoiceDate) AS month, AVG(Total) AS average_amount FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY month ORDER BY month",
+    "params": {
+      "start": "2012-01-01",
+      "end": "2013-01-01"
+    },
+    "ordered": true,
+    "template_family": "monthly_average_order",
+    "rule_ids": [
+      "R07"
+    ],
+    "id": "E14",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "month",
+        "average_amount"
+      ],
+      "rows": [
+        [
+          "2012-01",
+          5.374285714285714
+        ],
+        [
+          "2012-02",
+          5.374285714285714
+        ],
+        [
+          "2012-03",
+          5.374285714285714
+        ],
+        [
+          "2012-04",
+          5.374285714285714
+        ],
+        [
+          "2012-05",
+          5.374285714285714
+        ],
+        [
+          "2012-06",
+          5.374285714285714
+        ],
+        [
+          "2012-07",
+          5.659999999999999
+        ],
+        [
+          "2012-08",
+          6.8028571428571425
+        ],
+        [
+          "2012-09",
+          7.785
+        ],
+        [
+          "2012-10",
+          6.088571428571428
+        ],
+        [
+          "2012-11",
+          5.374285714285714
+        ],
+        [
+          "2012-12",
+          5.374285714285714
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "2012年各有订单月份的平均订单金额，按月份升序。",
+      "time_range": [
+        "2012-01-01",
+        "2013-01-01"
+      ],
+      "rule_ids": [
+        "R07"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "艺术家ID为1的目录曲目共有多少首？",
+    "category": "join",
+    "required_tables": [
+      "artists",
+      "albums",
+      "tracks"
+    ],
+    "reference_sql": "SELECT COUNT(t.TrackId) AS tracks FROM artists ar JOIN albums al ON al.ArtistId=ar.ArtistId JOIN tracks t ON t.AlbumId=al.AlbumId WHERE ar.ArtistId=:artist",
+    "params": {
+      "artist": 1
+    },
+    "ordered": false,
+    "template_family": "artist_catalog_track_count",
+    "rule_ids": [],
+    "id": "E15",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "tracks"
+      ],
+      "rows": [
+        [
+          18
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "艺术家ID为1的目录曲目共有多少首？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "艺术家ID为2的目录曲目共有多少首？",
+    "category": "join",
+    "required_tables": [
+      "artists",
+      "albums",
+      "tracks"
+    ],
+    "reference_sql": "SELECT COUNT(t.TrackId) AS tracks FROM artists ar JOIN albums al ON al.ArtistId=ar.ArtistId JOIN tracks t ON t.AlbumId=al.AlbumId WHERE ar.ArtistId=:artist",
+    "params": {
+      "artist": 2
+    },
+    "ordered": false,
+    "template_family": "artist_catalog_track_count",
+    "rule_ids": [],
+    "id": "E16",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "tracks"
+      ],
+      "rows": [
+        [
+          4
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "艺术家ID为2的目录曲目共有多少首？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "列出艺术家ID为1的专辑ID和标题，按专辑ID升序。",
+    "category": "join",
+    "required_tables": [
+      "albums"
+    ],
+    "reference_sql": "SELECT AlbumId, Title FROM albums WHERE ArtistId=:artist ORDER BY AlbumId",
+    "params": {
+      "artist": 1
+    },
+    "ordered": true,
+    "template_family": "artist_album_list",
+    "rule_ids": [],
+    "id": "E17",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "AlbumId",
+        "Title"
+      ],
+      "rows": [
+        [
+          1,
+          "For Those About To Rock We Salute You"
+        ],
+        [
+          4,
+          "Let There Be Rock"
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "列出艺术家ID为1的专辑ID和标题，按专辑ID升序。",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "列出艺术家ID为2的专辑ID和标题，按专辑ID升序。",
+    "category": "join",
+    "required_tables": [
+      "albums"
+    ],
+    "reference_sql": "SELECT AlbumId, Title FROM albums WHERE ArtistId=:artist ORDER BY AlbumId",
+    "params": {
+      "artist": 2
+    },
+    "ordered": true,
+    "template_family": "artist_album_list",
+    "rule_ids": [],
+    "id": "E18",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "AlbumId",
+        "Title"
+      ],
+      "rows": [
+        [
+          2,
+          "Balls to the Wall"
+        ],
+        [
+          3,
+          "Restless and Wild"
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "列出艺术家ID为2的专辑ID和标题，按专辑ID升序。",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "类型ID为1的目录曲目共有多少首？",
+    "category": "single",
+    "required_tables": [
+      "tracks"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS tracks FROM tracks WHERE GenreId=:genre",
+    "params": {
+      "genre": 1
+    },
+    "ordered": false,
+    "template_family": "genre_track_count",
+    "rule_ids": [],
+    "id": "E19",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "tracks"
+      ],
+      "rows": [
+        [
+          1297
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "easy",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "类型ID为1的目录曲目共有多少首？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "类型ID为2的目录曲目共有多少首？",
+    "category": "single",
+    "required_tables": [
+      "tracks"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS tracks FROM tracks WHERE GenreId=:genre",
+    "params": {
+      "genre": 2
+    },
+    "ordered": false,
+    "template_family": "genre_track_count",
+    "rule_ids": [],
+    "id": "E20",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "tracks"
+      ],
+      "rows": [
+        [
+          130
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "easy",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "类型ID为2的目录曲目共有多少首？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "类型ID为1的曲目当前目录标价平均值是多少？",
+    "category": "business",
+    "required_tables": [
+      "tracks"
+    ],
+    "reference_sql": "SELECT AVG(UnitPrice) AS average_catalog_price FROM tracks WHERE GenreId=:genre",
+    "params": {
+      "genre": 1
+    },
+    "ordered": false,
+    "template_family": "genre_catalog_average_price",
+    "rule_ids": [
+      "R04"
+    ],
+    "id": "E21",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "average_catalog_price"
+      ],
+      "rows": [
+        [
+          0.99
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "类型ID为1的曲目当前目录标价平均值是多少？",
+      "time_range": [],
+      "rule_ids": [
+        "R04"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "类型ID为2的曲目当前目录标价平均值是多少？",
+    "category": "business",
+    "required_tables": [
+      "tracks"
+    ],
+    "reference_sql": "SELECT AVG(UnitPrice) AS average_catalog_price FROM tracks WHERE GenreId=:genre",
+    "params": {
+      "genre": 2
+    },
+    "ordered": false,
+    "template_family": "genre_catalog_average_price",
+    "rule_ids": [
+      "R04"
+    ],
+    "id": "E22",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "average_catalog_price"
+      ],
+      "rows": [
+        [
+          0.9899999999999999
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "类型ID为2的曲目当前目录标价平均值是多少？",
+      "time_range": [],
+      "rule_ids": [
+        "R04"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "专辑ID为1的所有曲目总时长是多少毫秒？",
+    "category": "join",
+    "required_tables": [
+      "tracks"
+    ],
+    "reference_sql": "SELECT SUM(Milliseconds) AS duration_ms FROM tracks WHERE AlbumId=:album",
+    "params": {
+      "album": 1
+    },
+    "ordered": false,
+    "template_family": "album_duration",
+    "rule_ids": [],
+    "id": "E23",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "duration_ms"
+      ],
+      "rows": [
+        [
+          2400415
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "专辑ID为1的所有曲目总时长是多少毫秒？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "专辑ID为2的所有曲目总时长是多少毫秒？",
+    "category": "join",
+    "required_tables": [
+      "tracks"
+    ],
+    "reference_sql": "SELECT SUM(Milliseconds) AS duration_ms FROM tracks WHERE AlbumId=:album",
+    "params": {
+      "album": 2
+    },
+    "ordered": false,
+    "template_family": "album_duration",
+    "rule_ids": [],
+    "id": "E24",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "duration_ms"
+      ],
+      "rows": [
+        [
+          342562
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "专辑ID为2的所有曲目总时长是多少毫秒？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "列出订单ID为1的明细ID、曲目名、成交单价、数量和明细金额，按明细ID排序。",
+    "category": "join",
+    "required_tables": [
+      "invoice_items",
+      "tracks"
+    ],
+    "reference_sql": "SELECT ii.InvoiceLineId, t.Name, ii.UnitPrice, ii.Quantity, ii.UnitPrice*ii.Quantity AS line_amount FROM invoice_items ii JOIN tracks t ON t.TrackId=ii.TrackId WHERE ii.InvoiceId=:invoice ORDER BY ii.InvoiceLineId",
+    "params": {
+      "invoice": 1
+    },
+    "ordered": true,
+    "template_family": "invoice_detail_list",
+    "rule_ids": [
+      "R04"
+    ],
+    "id": "E25",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "InvoiceLineId",
+        "Name",
+        "UnitPrice",
+        "Quantity",
+        "line_amount"
+      ],
+      "rows": [
+        [
+          1,
+          "Balls to the Wall",
+          0.99,
+          1,
+          0.99
+        ],
+        [
+          2,
+          "Restless and Wild",
+          0.99,
+          1,
+          0.99
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "列出订单ID为1的明细ID、曲目名、成交单价、数量和明细金额，按明细ID排序。",
+      "time_range": [],
+      "rule_ids": [
+        "R04"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "列出订单ID为2的明细ID、曲目名、成交单价、数量和明细金额，按明细ID排序。",
+    "category": "join",
+    "required_tables": [
+      "invoice_items",
+      "tracks"
+    ],
+    "reference_sql": "SELECT ii.InvoiceLineId, t.Name, ii.UnitPrice, ii.Quantity, ii.UnitPrice*ii.Quantity AS line_amount FROM invoice_items ii JOIN tracks t ON t.TrackId=ii.TrackId WHERE ii.InvoiceId=:invoice ORDER BY ii.InvoiceLineId",
+    "params": {
+      "invoice": 2
+    },
+    "ordered": true,
+    "template_family": "invoice_detail_list",
+    "rule_ids": [
+      "R04"
+    ],
+    "id": "E26",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "InvoiceLineId",
+        "Name",
+        "UnitPrice",
+        "Quantity",
+        "line_amount"
+      ],
+      "rows": [
+        [
+          3,
+          "Put The Finger On You",
+          0.99,
+          1,
+          0.99
+        ],
+        [
+          4,
+          "Inject The Venom",
+          0.99,
+          1,
+          0.99
+        ],
+        [
+          5,
+          "Evil Walks",
+          0.99,
+          1,
+          0.99
+        ],
+        [
+          6,
+          "Breaking The Rules",
+          0.99,
+          1,
+          0.99
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "列出订单ID为2的明细ID、曲目名、成交单价、数量和明细金额，按明细ID排序。",
+      "time_range": [],
+      "rule_ids": [
+        "R04"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "列出客户ID为1的订单ID、日期和金额，按日期和订单ID排序。",
+    "category": "single",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT InvoiceId, InvoiceDate, Total FROM invoices WHERE CustomerId=:customer ORDER BY InvoiceDate, InvoiceId",
+    "params": {
+      "customer": 1
+    },
+    "ordered": true,
+    "template_family": "customer_order_history",
+    "rule_ids": [],
+    "id": "E27",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "InvoiceId",
+        "InvoiceDate",
+        "Total"
+      ],
+      "rows": [
+        [
+          98,
+          "2010-03-11 00:00:00",
+          3.98
+        ],
+        [
+          121,
+          "2010-06-13 00:00:00",
+          3.96
+        ],
+        [
+          143,
+          "2010-09-15 00:00:00",
+          5.94
+        ],
+        [
+          195,
+          "2011-05-06 00:00:00",
+          0.99
+        ],
+        [
+          316,
+          "2012-10-27 00:00:00",
+          1.98
+        ],
+        [
+          327,
+          "2012-12-07 00:00:00",
+          13.86
+        ],
+        [
+          382,
+          "2013-08-07 00:00:00",
+          8.91
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "easy",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "列出客户ID为1的订单ID、日期和金额，按日期和订单ID排序。",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "列出客户ID为2的订单ID、日期和金额，按日期和订单ID排序。",
+    "category": "single",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT InvoiceId, InvoiceDate, Total FROM invoices WHERE CustomerId=:customer ORDER BY InvoiceDate, InvoiceId",
+    "params": {
+      "customer": 2
+    },
+    "ordered": true,
+    "template_family": "customer_order_history",
+    "rule_ids": [],
+    "id": "E28",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "InvoiceId",
+        "InvoiceDate",
+        "Total"
+      ],
+      "rows": [
+        [
+          1,
+          "2009-01-01 00:00:00",
+          1.98
+        ],
+        [
+          12,
+          "2009-02-11 00:00:00",
+          13.86
+        ],
+        [
+          67,
+          "2009-10-12 00:00:00",
+          8.91
+        ],
+        [
+          196,
+          "2011-05-19 00:00:00",
+          1.98
+        ],
+        [
+          219,
+          "2011-08-21 00:00:00",
+          3.96
+        ],
+        [
+          241,
+          "2011-11-23 00:00:00",
+          5.94
+        ],
+        [
+          293,
+          "2012-07-13 00:00:00",
+          0.99
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "easy",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "列出客户ID为2的订单ID、日期和金额，按日期和订单ID排序。",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "客户ID为1在2013年的订单金额总和是多少？没有订单保留NULL。",
+    "category": "business",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT SUM(Total) AS revenue FROM invoices WHERE CustomerId=:customer AND InvoiceDate>=:start AND InvoiceDate<:end",
+    "params": {
+      "customer": 1,
+      "start": "2013-01-01",
+      "end": "2014-01-01"
+    },
+    "ordered": false,
+    "template_family": "customer_year_revenue",
+    "rule_ids": [
+      "R01",
+      "R11"
+    ],
+    "id": "E29",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "revenue"
+      ],
+      "rows": [
+        [
+          8.91
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "客户ID为1在2013年的订单金额总和是多少？没有订单保留NULL。",
+      "time_range": [
+        "2013-01-01",
+        "2014-01-01"
+      ],
+      "rule_ids": [
+        "R01",
+        "R11"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "客户ID为2在2013年的订单金额总和是多少？没有订单保留NULL。",
+    "category": "business",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT SUM(Total) AS revenue FROM invoices WHERE CustomerId=:customer AND InvoiceDate>=:start AND InvoiceDate<:end",
+    "params": {
+      "customer": 2,
+      "start": "2013-01-01",
+      "end": "2014-01-01"
+    },
+    "ordered": false,
+    "template_family": "customer_year_revenue",
+    "rule_ids": [
+      "R01",
+      "R11"
+    ],
+    "id": "E30",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "revenue"
+      ],
+      "rows": [
+        [
+          null
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "客户ID为2在2013年的订单金额总和是多少？没有订单保留NULL。",
+      "time_range": [
+        "2013-01-01",
+        "2014-01-01"
+      ],
+      "rule_ids": [
+        "R01",
+        "R11"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "艺术家ID为1的专辑共有多少张？",
+    "category": "single",
+    "required_tables": [
+      "albums"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS albums FROM albums WHERE ArtistId=:artist",
+    "params": {
+      "artist": 1
+    },
+    "ordered": false,
+    "template_family": "artist_album_count",
+    "rule_ids": [],
+    "id": "E31",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "albums"
+      ],
+      "rows": [
+        [
+          2
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "easy",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "艺术家ID为1的专辑共有多少张？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "艺术家ID为2的专辑共有多少张？",
+    "category": "single",
+    "required_tables": [
+      "albums"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS albums FROM albums WHERE ArtistId=:artist",
+    "params": {
+      "artist": 2
+    },
+    "ordered": false,
+    "template_family": "artist_album_count",
+    "rule_ids": [],
+    "id": "E32",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "albums"
+      ],
+      "rows": [
+        [
+          2
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "easy",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "艺术家ID为2的专辑共有多少张？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "列出曲目名称以Love开头的曲目ID和名称，按ID排序。",
+    "category": "single",
+    "required_tables": [
+      "tracks"
+    ],
+    "reference_sql": "SELECT TrackId, Name FROM tracks WHERE Name LIKE :prefix ORDER BY TrackId",
+    "params": {
+      "prefix": "Love%"
+    },
+    "ordered": true,
+    "template_family": "track_prefix_search",
+    "rule_ids": [],
+    "id": "E33",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "TrackId",
+        "Name"
+      ],
+      "rows": [
+        [
+          24,
+          "Love In An Elevator"
+        ],
+        [
+          56,
+          "Love, Hate, Love"
+        ],
+        [
+          413,
+          "Loverman"
+        ],
+        [
+          440,
+          "Love Gun"
+        ],
+        [
+          493,
+          "Love Is Blind"
+        ],
+        [
+          571,
+          "Love Of My Life"
+        ],
+        [
+          751,
+          "Love Child"
+        ],
+        [
+          803,
+          "Love Conquers All"
+        ],
+        [
+          808,
+          "Love Don't Mean a Thing"
+        ],
+        [
+          828,
+          "Love Bites"
+        ],
+        [
+          1042,
+          "Love And Marriage"
+        ],
+        [
+          1055,
+          "Loves Been Good To Me"
+        ],
+        [
+          1189,
+          "Love Is The Colour"
+        ],
+        [
+          1483,
+          "Love Or Confusion"
+        ],
+        [
+          1943,
+          "Love Me Like A Reptile"
+        ],
+        [
+          2180,
+          "Love Boat Captain"
+        ],
+        [
+          2540,
+          "Love Me Darlin'"
+        ],
+        [
+          2628,
+          "Love Removal Machine"
+        ],
+        [
+          2632,
+          "Love"
+        ],
+        [
+          2690,
+          "Love Is Strong"
+        ],
+        [
+          2937,
+          "Love Is Blindness"
+        ],
+        [
+          2952,
+          "Love Comes Tumbling"
+        ],
+        [
+          2967,
+          "Love And Peace Or Else"
+        ],
+        [
+          2997,
+          "Love Rescue Me"
+        ],
+        [
+          3135,
+          "Love Ain't No Stranger"
+        ],
+        [
+          3355,
+          "Love Comes"
+        ],
+        [
+          3460,
+          "Love Is a Losing Game"
+        ]
+      ]
+    },
+    "split": "dev",
+    "difficulty": "easy",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "列出曲目名称以Love开头的曲目ID和名称，按ID排序。",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "列出曲目名称以Rock开头的曲目ID和名称，按ID排序。",
+    "category": "single",
+    "required_tables": [
+      "tracks"
+    ],
+    "reference_sql": "SELECT TrackId, Name FROM tracks WHERE Name LIKE :prefix ORDER BY TrackId",
+    "params": {
+      "prefix": "Rock%"
+    },
+    "ordered": true,
+    "template_family": "track_prefix_search",
+    "rule_ids": [],
+    "id": "E34",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "TrackId",
+        "Name"
+      ],
+      "rows": [
+        [
+          117,
+          "Rock 'N' Roll Music"
+        ],
+        [
+          452,
+          "Rock And Roll All Nite"
+        ],
+        [
+          833,
+          "Rocket"
+        ],
+        [
+          839,
+          "Rock Of Ages"
+        ],
+        [
+          1157,
+          "Rocket Queen"
+        ],
+        [
+          1569,
+          "Rock Bottom"
+        ],
+        [
+          1576,
+          "Rock And Roll All Nite"
+        ],
+        [
+          1611,
+          "Rock & Roll"
+        ],
+        [
+          1662,
+          "Rock & Roll"
+        ],
+        [
+          1704,
+          "Rock And Roll Is Dead"
+        ],
+        [
+          2357,
+          "Rock Das Aranhas (Ao Vivo) (Live)"
+        ],
+        [
+          2430,
+          "Rock Me"
+        ],
+        [
+          2483,
+          "Rock On"
+        ],
+        [
+          2607,
+          "Rock The Casbah"
+        ],
+        [
+          3288,
+          "Rock You Like a Hurricane"
+        ]
+      ]
+    },
+    "split": "dev",
+    "difficulty": "easy",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "列出曲目名称以Rock开头的曲目ID和名称，按ID排序。",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "金额大于等于1且小于5的订单有多少个？",
+    "category": "single",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS orders FROM invoices WHERE Total>=:low AND Total<:high",
+    "params": {
+      "low": 1,
+      "high": 5
+    },
+    "ordered": false,
+    "template_family": "order_amount_interval",
+    "rule_ids": [],
+    "id": "E35",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "orders"
+      ],
+      "rows": [
+        [
+          178
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "easy",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "金额大于等于1且小于5的订单有多少个？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "金额大于等于5且小于10的订单有多少个？",
+    "category": "single",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS orders FROM invoices WHERE Total>=:low AND Total<:high",
+    "params": {
+      "low": 5,
+      "high": 10
+    },
+    "ordered": false,
+    "template_family": "order_amount_interval",
+    "rule_ids": [],
+    "id": "E36",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "orders"
+      ],
+      "rows": [
+        [
+          115
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "easy",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "金额大于等于5且小于10的订单有多少个？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "2013年1月有多少个订单？",
+    "category": "time",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS orders FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end",
+    "params": {
+      "start": "2013-01-01",
+      "end": "2013-02-01"
+    },
+    "ordered": false,
+    "template_family": "month_order_count",
+    "rule_ids": [],
+    "id": "E37",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "orders"
+      ],
+      "rows": [
+        [
+          7
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "2013年1月有多少个订单？",
+      "time_range": [
+        "2013-01-01",
+        "2013-02-01"
+      ],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "2013年2月有多少个订单？",
+    "category": "time",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS orders FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end",
+    "params": {
+      "start": "2013-02-01",
+      "end": "2013-03-01"
+    },
+    "ordered": false,
+    "template_family": "month_order_count",
+    "rule_ids": [],
+    "id": "E38",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "orders"
+      ],
+      "rows": [
+        [
+          5
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "2013年2月有多少个订单？",
+      "time_range": [
+        "2013-02-01",
+        "2013-03-01"
+      ],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "直属上级ID为1的员工有多少人？",
+    "category": "single",
+    "required_tables": [
+      "employees"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS direct_reports FROM employees WHERE ReportsTo=:manager",
+    "params": {
+      "manager": 1
+    },
+    "ordered": false,
+    "template_family": "manager_direct_reports",
+    "rule_ids": [],
+    "id": "E39",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "direct_reports"
+      ],
+      "rows": [
+        [
+          2
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "easy",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "直属上级ID为1的员工有多少人？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "直属上级ID为2的员工有多少人？",
+    "category": "single",
+    "required_tables": [
+      "employees"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS direct_reports FROM employees WHERE ReportsTo=:manager",
+    "params": {
+      "manager": 2
+    },
+    "ordered": false,
+    "template_family": "manager_direct_reports",
+    "rule_ids": [],
+    "id": "E40",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "direct_reports"
+      ],
+      "rows": [
+        [
+          3
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "easy",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "直属上级ID为2的员工有多少人？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "播放列表ID为1收录曲目的总时长是多少毫秒？",
+    "category": "join",
+    "required_tables": [
+      "playlist_track",
+      "tracks"
+    ],
+    "reference_sql": "SELECT SUM(t.Milliseconds) AS duration_ms FROM playlist_track pt JOIN tracks t ON t.TrackId=pt.TrackId WHERE pt.PlaylistId=:playlist",
+    "params": {
+      "playlist": 1
+    },
+    "ordered": false,
+    "template_family": "playlist_duration",
+    "rule_ids": [],
+    "id": "E41",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "duration_ms"
+      ],
+      "rows": [
+        [
+          877683083
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "播放列表ID为1收录曲目的总时长是多少毫秒？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "播放列表ID为5收录曲目的总时长是多少毫秒？",
+    "category": "join",
+    "required_tables": [
+      "playlist_track",
+      "tracks"
+    ],
+    "reference_sql": "SELECT SUM(t.Milliseconds) AS duration_ms FROM playlist_track pt JOIN tracks t ON t.TrackId=pt.TrackId WHERE pt.PlaylistId=:playlist",
+    "params": {
+      "playlist": 5
+    },
+    "ordered": false,
+    "template_family": "playlist_duration",
+    "rule_ids": [],
+    "id": "E42",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "duration_ms"
+      ],
+      "rows": [
+        [
+          398705153
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "播放列表ID为5收录曲目的总时长是多少毫秒？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "播放列表ID为1收录的曲目涉及多少位不同艺术家？",
+    "category": "complex",
+    "required_tables": [
+      "playlist_track",
+      "tracks",
+      "albums"
+    ],
+    "reference_sql": "SELECT COUNT(DISTINCT al.ArtistId) AS artists FROM playlist_track pt JOIN tracks t ON t.TrackId=pt.TrackId JOIN albums al ON al.AlbumId=t.AlbumId WHERE pt.PlaylistId=:playlist",
+    "params": {
+      "playlist": 1
+    },
+    "ordered": false,
+    "template_family": "playlist_distinct_artists",
+    "rule_ids": [],
+    "id": "E43",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "artists"
+      ],
+      "rows": [
+        [
+          198
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "hard",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "播放列表ID为1收录的曲目涉及多少位不同艺术家？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "播放列表ID为5收录的曲目涉及多少位不同艺术家？",
+    "category": "complex",
+    "required_tables": [
+      "playlist_track",
+      "tracks",
+      "albums"
+    ],
+    "reference_sql": "SELECT COUNT(DISTINCT al.ArtistId) AS artists FROM playlist_track pt JOIN tracks t ON t.TrackId=pt.TrackId JOIN albums al ON al.AlbumId=t.AlbumId WHERE pt.PlaylistId=:playlist",
+    "params": {
+      "playlist": 5
+    },
+    "ordered": false,
+    "template_family": "playlist_distinct_artists",
+    "rule_ids": [],
+    "id": "E44",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "artists"
+      ],
+      "rows": [
+        [
+          109
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "hard",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "播放列表ID为5收录的曲目涉及多少位不同艺术家？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "媒体类型ID为1的曲目历史售出多少件？",
+    "category": "join",
+    "required_tables": [
+      "tracks",
+      "invoice_items"
+    ],
+    "reference_sql": "SELECT SUM(ii.Quantity) AS units FROM tracks t JOIN invoice_items ii ON ii.TrackId=t.TrackId WHERE t.MediaTypeId=:media",
+    "params": {
+      "media": 1
+    },
+    "ordered": false,
+    "template_family": "media_type_units",
+    "rule_ids": [
+      "R02"
+    ],
+    "id": "E45",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "units"
+      ],
+      "rows": [
+        [
+          1976
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "媒体类型ID为1的曲目历史售出多少件？",
+      "time_range": [],
+      "rule_ids": [
+        "R02"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "媒体类型ID为2的曲目历史售出多少件？",
+    "category": "join",
+    "required_tables": [
+      "tracks",
+      "invoice_items"
+    ],
+    "reference_sql": "SELECT SUM(ii.Quantity) AS units FROM tracks t JOIN invoice_items ii ON ii.TrackId=t.TrackId WHERE t.MediaTypeId=:media",
+    "params": {
+      "media": 2
+    },
+    "ordered": false,
+    "template_family": "media_type_units",
+    "rule_ids": [
+      "R02"
+    ],
+    "id": "E46",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "units"
+      ],
+      "rows": [
+        [
+          146
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "媒体类型ID为2的曲目历史售出多少件？",
+      "time_range": [],
+      "rule_ids": [
+        "R02"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "账单国家为USA的已售音乐类型分别贡献多少成交金额？按金额降序、类型ID升序。",
+    "category": "complex",
+    "required_tables": [
+      "genres",
+      "tracks",
+      "invoice_items",
+      "invoices"
+    ],
+    "reference_sql": "SELECT g.GenreId, g.Name, SUM(ii.UnitPrice*ii.Quantity) AS revenue FROM genres g JOIN tracks t ON t.GenreId=g.GenreId JOIN invoice_items ii ON ii.TrackId=t.TrackId JOIN invoices i ON i.InvoiceId=ii.InvoiceId WHERE i.BillingCountry=:country GROUP BY g.GenreId ORDER BY ROUND(revenue, 2) DESC, g.GenreId",
+    "params": {
+      "country": "USA"
+    },
+    "ordered": true,
+    "template_family": "country_genre_revenue",
+    "rule_ids": [
+      "R01",
+      "R03"
+    ],
+    "id": "E47",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "GenreId",
+        "Name",
+        "revenue"
+      ],
+      "rows": [
+        [
+          1,
+          "Rock",
+          155.43
+        ],
+        [
+          7,
+          "Latin",
+          90.09
+        ],
+        [
+          3,
+          "Metal",
+          63.36
+        ],
+        [
+          4,
+          "Alternative & Punk",
+          49.5
+        ],
+        [
+          19,
+          "TV Shows",
+          27.86
+        ],
+        [
+          2,
+          "Jazz",
+          21.78
+        ],
+        [
+          22,
+          "Comedy",
+          15.92
+        ],
+        [
+          6,
+          "Blues",
+          14.85
+        ],
+        [
+          21,
+          "Drama",
+          11.94
+        ],
+        [
+          14,
+          "R&B/Soul",
+          11.879999999999999
+        ],
+        [
+          20,
+          "Sci Fi & Fantasy",
+          9.95
+        ],
+        [
+          24,
+          "Classical",
+          7.92
+        ],
+        [
+          11,
+          "Bossa Nova",
+          6.93
+        ],
+        [
+          8,
+          "Reggae",
+          5.9399999999999995
+        ],
+        [
+          9,
+          "Pop",
+          4.95
+        ],
+        [
+          23,
+          "Alternative",
+          4.95
+        ],
+        [
+          10,
+          "Soundtrack",
+          3.96
+        ],
+        [
+          13,
+          "Heavy Metal",
+          3.96
+        ],
+        [
+          17,
+          "Hip Hop/Rap",
+          3.96
+        ],
+        [
+          5,
+          "Rock And Roll",
+          2.9699999999999998
+        ],
+        [
+          12,
+          "Easy Listening",
+          2.9699999999999998
+        ],
+        [
+          18,
+          "Science Fiction",
+          1.99
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "hard",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "账单国家为USA的已售音乐类型分别贡献多少成交金额？按金额降序、类型ID升序。",
+      "time_range": [],
+      "rule_ids": [
+        "R01",
+        "R03"
+      ],
+      "assumptions": [
+        "金额以源数据两位小数精度比较并列，再用题目指定次级键排序。"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "账单国家为Canada的已售音乐类型分别贡献多少成交金额？按金额降序、类型ID升序。",
+    "category": "complex",
+    "required_tables": [
+      "genres",
+      "tracks",
+      "invoice_items",
+      "invoices"
+    ],
+    "reference_sql": "SELECT g.GenreId, g.Name, SUM(ii.UnitPrice*ii.Quantity) AS revenue FROM genres g JOIN tracks t ON t.GenreId=g.GenreId JOIN invoice_items ii ON ii.TrackId=t.TrackId JOIN invoices i ON i.InvoiceId=ii.InvoiceId WHERE i.BillingCountry=:country GROUP BY g.GenreId ORDER BY ROUND(revenue, 2) DESC, g.GenreId",
+    "params": {
+      "country": "Canada"
+    },
+    "ordered": true,
+    "template_family": "country_genre_revenue",
+    "rule_ids": [
+      "R01",
+      "R03"
+    ],
+    "id": "E48",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "GenreId",
+        "Name",
+        "revenue"
+      ],
+      "rows": [
+        [
+          1,
+          "Rock",
+          105.92999999999999
+        ],
+        [
+          7,
+          "Latin",
+          59.4
+        ],
+        [
+          3,
+          "Metal",
+          39.6
+        ],
+        [
+          4,
+          "Alternative & Punk",
+          35.64
+        ],
+        [
+          2,
+          "Jazz",
+          12.87
+        ],
+        [
+          8,
+          "Reggae",
+          6.93
+        ],
+        [
+          11,
+          "Bossa Nova",
+          6.93
+        ],
+        [
+          16,
+          "World",
+          5.9399999999999995
+        ],
+        [
+          14,
+          "R&B/Soul",
+          4.95
+        ],
+        [
+          17,
+          "Hip Hop/Rap",
+          4.95
+        ],
+        [
+          24,
+          "Classical",
+          4.95
+        ],
+        [
+          21,
+          "Drama",
+          3.98
+        ],
+        [
+          6,
+          "Blues",
+          3.96
+        ],
+        [
+          15,
+          "Electronica/Dance",
+          3.96
+        ],
+        [
+          19,
+          "TV Shows",
+          1.99
+        ],
+        [
+          5,
+          "Rock And Roll",
+          1.98
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "hard",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "账单国家为Canada的已售音乐类型分别贡献多少成交金额？按金额降序、类型ID升序。",
+      "time_range": [],
+      "rule_ids": [
+        "R01",
+        "R03"
+      ],
+      "assumptions": [
+        "金额以源数据两位小数精度比较并列，再用题目指定次级键排序。"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "艺术家ID为1的曲目向账单国家USA贡献多少成交金额？无销售保留NULL。",
+    "category": "complex",
+    "required_tables": [
+      "albums",
+      "tracks",
+      "invoice_items",
+      "invoices"
+    ],
+    "reference_sql": "SELECT SUM(ii.UnitPrice*ii.Quantity) AS revenue FROM albums al JOIN tracks t ON t.AlbumId=al.AlbumId JOIN invoice_items ii ON ii.TrackId=t.TrackId JOIN invoices i ON i.InvoiceId=ii.InvoiceId WHERE al.ArtistId=:artist AND i.BillingCountry=:country",
+    "params": {
+      "artist": 1,
+      "country": "USA"
+    },
+    "ordered": false,
+    "template_family": "artist_country_revenue",
+    "rule_ids": [
+      "R01",
+      "R03",
+      "R11"
+    ],
+    "id": "E49",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "revenue"
+      ],
+      "rows": [
+        [
+          null
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "hard",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "艺术家ID为1的曲目向账单国家USA贡献多少成交金额？无销售保留NULL。",
+      "time_range": [],
+      "rule_ids": [
+        "R01",
+        "R03",
+        "R11"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "艺术家ID为2的曲目向账单国家USA贡献多少成交金额？无销售保留NULL。",
+    "category": "complex",
+    "required_tables": [
+      "albums",
+      "tracks",
+      "invoice_items",
+      "invoices"
+    ],
+    "reference_sql": "SELECT SUM(ii.UnitPrice*ii.Quantity) AS revenue FROM albums al JOIN tracks t ON t.AlbumId=al.AlbumId JOIN invoice_items ii ON ii.TrackId=t.TrackId JOIN invoices i ON i.InvoiceId=ii.InvoiceId WHERE al.ArtistId=:artist AND i.BillingCountry=:country",
+    "params": {
+      "artist": 2,
+      "country": "USA"
+    },
+    "ordered": false,
+    "template_family": "artist_country_revenue",
+    "rule_ids": [
+      "R01",
+      "R03",
+      "R11"
+    ],
+    "id": "E50",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "revenue"
+      ],
+      "rows": [
+        [
+          null
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "hard",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "艺术家ID为2的曲目向账单国家USA贡献多少成交金额？无销售保留NULL。",
+      "time_range": [],
+      "rule_ids": [
+        "R01",
+        "R03",
+        "R11"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "客户ID为1最后一次订单的日期是什么？",
+    "category": "single",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT MAX(InvoiceDate) AS last_order FROM invoices WHERE CustomerId=:customer",
+    "params": {
+      "customer": 1
+    },
+    "ordered": false,
+    "template_family": "customer_last_order",
+    "rule_ids": [],
+    "id": "E51",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "last_order"
+      ],
+      "rows": [
+        [
+          "2013-08-07 00:00:00"
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "easy",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "客户ID为1最后一次订单的日期是什么？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "客户ID为2最后一次订单的日期是什么？",
+    "category": "single",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT MAX(InvoiceDate) AS last_order FROM invoices WHERE CustomerId=:customer",
+    "params": {
+      "customer": 2
+    },
+    "ordered": false,
+    "template_family": "customer_last_order",
+    "rule_ids": [],
+    "id": "E52",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "last_order"
+      ],
+      "rows": [
+        [
+          "2012-07-13 00:00:00"
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "easy",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "客户ID为2最后一次订单的日期是什么？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "2010年每个有订单月份有多少位不同购买客户，按月份升序？",
+    "category": "time",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT strftime('%Y-%m', InvoiceDate) AS month, COUNT(DISTINCT CustomerId) AS customers FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY month ORDER BY month",
+    "params": {
+      "start": "2010-01-01",
+      "end": "2011-01-01"
+    },
+    "ordered": true,
+    "template_family": "monthly_unique_buyers",
+    "rule_ids": [],
+    "id": "E53",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "month",
+        "customers"
+      ],
+      "rows": [
+        [
+          "2010-01",
+          7
+        ],
+        [
+          "2010-02",
+          7
+        ],
+        [
+          "2010-03",
+          7
+        ],
+        [
+          "2010-04",
+          7
+        ],
+        [
+          "2010-05",
+          7
+        ],
+        [
+          "2010-06",
+          7
+        ],
+        [
+          "2010-07",
+          7
+        ],
+        [
+          "2010-08",
+          7
+        ],
+        [
+          "2010-09",
+          6
+        ],
+        [
+          "2010-10",
+          7
+        ],
+        [
+          "2010-11",
+          7
+        ],
+        [
+          "2010-12",
+          7
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "2010年每个有订单月份有多少位不同购买客户，按月份升序？",
+      "time_range": [
+        "2010-01-01",
+        "2011-01-01"
+      ],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "2012年每个有订单月份有多少位不同购买客户，按月份升序？",
+    "category": "time",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT strftime('%Y-%m', InvoiceDate) AS month, COUNT(DISTINCT CustomerId) AS customers FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY month ORDER BY month",
+    "params": {
+      "start": "2012-01-01",
+      "end": "2013-01-01"
+    },
+    "ordered": true,
+    "template_family": "monthly_unique_buyers",
+    "rule_ids": [],
+    "id": "E54",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "month",
+        "customers"
+      ],
+      "rows": [
+        [
+          "2012-01",
+          7
+        ],
+        [
+          "2012-02",
+          7
+        ],
+        [
+          "2012-03",
+          7
+        ],
+        [
+          "2012-04",
+          7
+        ],
+        [
+          "2012-05",
+          7
+        ],
+        [
+          "2012-06",
+          7
+        ],
+        [
+          "2012-07",
+          7
+        ],
+        [
+          "2012-08",
+          7
+        ],
+        [
+          "2012-09",
+          6
+        ],
+        [
+          "2012-10",
+          7
+        ],
+        [
+          "2012-11",
+          7
+        ],
+        [
+          "2012-12",
+          7
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "2012年每个有订单月份有多少位不同购买客户，按月份升序？",
+      "time_range": [
+        "2012-01-01",
+        "2013-01-01"
+      ],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "2010年销售金额最高的是哪个月，金额多少？并列选月份最早的一个。",
+    "category": "complex",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT strftime('%Y-%m', InvoiceDate) AS month, SUM(Total) AS revenue FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY month ORDER BY ROUND(revenue, 2) DESC, month LIMIT 1",
+    "params": {
+      "start": "2010-01-01",
+      "end": "2011-01-01"
+    },
+    "ordered": true,
+    "template_family": "best_revenue_month",
+    "rule_ids": [],
+    "id": "E55",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "month",
+        "revenue"
+      ],
+      "rows": [
+        [
+          "2010-01",
+          52.62
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "hard",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "2010年销售金额最高的是哪个月，金额多少？并列选月份最早的一个。",
+      "time_range": [
+        "2010-01-01",
+        "2011-01-01"
+      ],
+      "rule_ids": [],
+      "assumptions": [
+        "金额以源数据两位小数精度比较并列，再用题目指定次级键排序。"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "2012年销售金额最高的是哪个月，金额多少？并列选月份最早的一个。",
+    "category": "complex",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT strftime('%Y-%m', InvoiceDate) AS month, SUM(Total) AS revenue FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY month ORDER BY ROUND(revenue, 2) DESC, month LIMIT 1",
+    "params": {
+      "start": "2012-01-01",
+      "end": "2013-01-01"
+    },
+    "ordered": true,
+    "template_family": "best_revenue_month",
+    "rule_ids": [],
+    "id": "E56",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "month",
+        "revenue"
+      ],
+      "rows": [
+        [
+          "2012-08",
+          47.62
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "hard",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "2012年销售金额最高的是哪个月，金额多少？并列选月份最早的一个。",
+      "time_range": [
+        "2012-01-01",
+        "2013-01-01"
+      ],
+      "rule_ids": [],
+      "assumptions": [
+        "金额以源数据两位小数精度比较并列，再用题目指定次级键排序。"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "2010年销售金额、上一年金额及同比增长率是多少？增长率用小数，基期为0时返回NULL。",
+    "category": "complex",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "WITH amounts AS (SELECT SUM(CASE WHEN InvoiceDate>=:start AND InvoiceDate<:end THEN Total ELSE 0 END) AS current_amount, SUM(CASE WHEN InvoiceDate>=:previous_start AND InvoiceDate<:start THEN Total ELSE 0 END) AS previous_amount FROM invoices) SELECT current_amount, previous_amount, (current_amount-previous_amount)*1.0/NULLIF(previous_amount,0) AS growth_rate FROM amounts",
+    "params": {
+      "start": "2010-01-01",
+      "end": "2011-01-01",
+      "previous_start": "2009-01-01"
+    },
+    "ordered": false,
+    "template_family": "annual_growth",
+    "rule_ids": [
+      "R12"
+    ],
+    "id": "E57",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "current_amount",
+        "previous_amount",
+        "growth_rate"
+      ],
+      "rows": [
+        [
+          481.45,
+          449.46,
+          0.07117429804654476
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "hard",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "2010年销售金额、上一年金额及同比增长率是多少？增长率用小数，基期为0时返回NULL。",
+      "time_range": [
+        "2010-01-01",
+        "2011-01-01"
+      ],
+      "rule_ids": [
+        "R12"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "2011年销售金额、上一年金额及同比增长率是多少？增长率用小数，基期为0时返回NULL。",
+    "category": "complex",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "WITH amounts AS (SELECT SUM(CASE WHEN InvoiceDate>=:start AND InvoiceDate<:end THEN Total ELSE 0 END) AS current_amount, SUM(CASE WHEN InvoiceDate>=:previous_start AND InvoiceDate<:start THEN Total ELSE 0 END) AS previous_amount FROM invoices) SELECT current_amount, previous_amount, (current_amount-previous_amount)*1.0/NULLIF(previous_amount,0) AS growth_rate FROM amounts",
+    "params": {
+      "start": "2011-01-01",
+      "end": "2012-01-01",
+      "previous_start": "2010-01-01"
+    },
+    "ordered": false,
+    "template_family": "annual_growth",
+    "rule_ids": [
+      "R12"
+    ],
+    "id": "E58",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "current_amount",
+        "previous_amount",
+        "growth_rate"
+      ],
+      "rows": [
+        [
+          469.58,
+          481.45,
+          -0.024654688960432037
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "hard",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "2011年销售金额、上一年金额及同比增长率是多少？增长率用小数，基期为0时返回NULL。",
+      "time_range": [
+        "2011-01-01",
+        "2012-01-01"
+      ],
+      "rule_ids": [
+        "R12"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "当前目录标价大于等于0.99的曲目有多少首？",
+    "category": "single",
+    "required_tables": [
+      "tracks"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS tracks FROM tracks WHERE UnitPrice>=:price",
+    "params": {
+      "price": 0.99
+    },
+    "ordered": false,
+    "template_family": "price_threshold_tracks",
+    "rule_ids": [
+      "R04"
+    ],
+    "id": "E59",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "tracks"
+      ],
+      "rows": [
+        [
+          3503
+        ]
+      ]
+    },
+    "split": "dev",
+    "difficulty": "easy",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "当前目录标价大于等于0.99的曲目有多少首？",
+      "time_range": [],
+      "rule_ids": [
+        "R04"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "当前目录标价大于等于1.99的曲目有多少首？",
+    "category": "single",
+    "required_tables": [
+      "tracks"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS tracks FROM tracks WHERE UnitPrice>=:price",
+    "params": {
+      "price": 1.99
+    },
+    "ordered": false,
+    "template_family": "price_threshold_tracks",
+    "rule_ids": [
+      "R04"
+    ],
+    "id": "E60",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "tracks"
+      ],
+      "rows": [
+        [
+          213
+        ]
+      ]
+    },
+    "split": "dev",
+    "difficulty": "easy",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "当前目录标价大于等于1.99的曲目有多少首？",
+      "time_range": [],
+      "rule_ids": [
+        "R04"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "居住在USA的客户中累计消费前三名的客户ID和金额，金额并列按客户ID升序取固定3人。",
+    "category": "join",
+    "required_tables": [
+      "customers",
+      "invoices"
+    ],
+    "reference_sql": "SELECT c.CustomerId, SUM(i.Total) AS revenue FROM customers c JOIN invoices i ON i.CustomerId=c.CustomerId WHERE c.Country=:country GROUP BY c.CustomerId ORDER BY ROUND(revenue, 2) DESC, c.CustomerId LIMIT 3",
+    "params": {
+      "country": "USA"
+    },
+    "ordered": true,
+    "template_family": "country_top_customers",
+    "rule_ids": [
+      "R03"
+    ],
+    "id": "E61",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "CustomerId",
+        "revenue"
+      ],
+      "rows": [
+        [
+          26,
+          47.62
+        ],
+        [
+          24,
+          43.62
+        ],
+        [
+          28,
+          43.62
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "居住在USA的客户中累计消费前三名的客户ID和金额，金额并列按客户ID升序取固定3人。",
+      "time_range": [],
+      "rule_ids": [
+        "R03"
+      ],
+      "assumptions": [
+        "金额以源数据两位小数精度比较并列，再用题目指定次级键排序。"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "居住在Canada的客户中累计消费前三名的客户ID和金额，金额并列按客户ID升序取固定3人。",
+    "category": "join",
+    "required_tables": [
+      "customers",
+      "invoices"
+    ],
+    "reference_sql": "SELECT c.CustomerId, SUM(i.Total) AS revenue FROM customers c JOIN invoices i ON i.CustomerId=c.CustomerId WHERE c.Country=:country GROUP BY c.CustomerId ORDER BY ROUND(revenue, 2) DESC, c.CustomerId LIMIT 3",
+    "params": {
+      "country": "Canada"
+    },
+    "ordered": true,
+    "template_family": "country_top_customers",
+    "rule_ids": [
+      "R03"
+    ],
+    "id": "E62",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "CustomerId",
+        "revenue"
+      ],
+      "rows": [
+        [
+          3,
+          39.62
+        ],
+        [
+          15,
+          38.62
+        ],
+        [
+          14,
+          37.62
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "居住在Canada的客户中累计消费前三名的客户ID和金额，金额并列按客户ID升序取固定3人。",
+      "time_range": [],
+      "rule_ids": [
+        "R03"
+      ],
+      "assumptions": [
+        "金额以源数据两位小数精度比较并列，再用题目指定次级键排序。"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "类型ID为1的曲目中，从未售出的有多少首？",
+    "category": "complex",
+    "required_tables": [
+      "tracks",
+      "invoice_items"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS unsold_tracks FROM tracks t WHERE t.GenreId=:genre AND NOT EXISTS (SELECT 1 FROM invoice_items ii WHERE ii.TrackId=t.TrackId)",
+    "params": {
+      "genre": 1
+    },
+    "ordered": false,
+    "template_family": "genre_unsold_count",
+    "rule_ids": [],
+    "id": "E63",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "unsold_tracks"
+      ],
+      "rows": [
+        [
+          552
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "hard",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "类型ID为1的曲目中，从未售出的有多少首？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "类型ID为2的曲目中，从未售出的有多少首？",
+    "category": "complex",
+    "required_tables": [
+      "tracks",
+      "invoice_items"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS unsold_tracks FROM tracks t WHERE t.GenreId=:genre AND NOT EXISTS (SELECT 1 FROM invoice_items ii WHERE ii.TrackId=t.TrackId)",
+    "params": {
+      "genre": 2
+    },
+    "ordered": false,
+    "template_family": "genre_unsold_count",
+    "rule_ids": [],
+    "id": "E64",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "unsold_tracks"
+      ],
+      "rows": [
+        [
+          62
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "hard",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "类型ID为2的曲目中，从未售出的有多少首？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "列出艺术家ID为1的从未发生销售的专辑ID和标题，按专辑ID升序。",
+    "category": "complex",
+    "required_tables": [
+      "albums",
+      "tracks",
+      "invoice_items"
+    ],
+    "reference_sql": "SELECT al.AlbumId, al.Title FROM albums al WHERE al.ArtistId=:artist AND NOT EXISTS (SELECT 1 FROM tracks t JOIN invoice_items ii ON ii.TrackId=t.TrackId WHERE t.AlbumId=al.AlbumId) ORDER BY al.AlbumId",
+    "params": {
+      "artist": 1
+    },
+    "ordered": true,
+    "template_family": "artist_unsold_albums",
+    "rule_ids": [],
+    "id": "E65",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "AlbumId",
+        "Title"
+      ],
+      "rows": []
+    },
+    "split": "test",
+    "difficulty": "hard",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "列出艺术家ID为1的从未发生销售的专辑ID和标题，按专辑ID升序。",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "列出艺术家ID为2的从未发生销售的专辑ID和标题，按专辑ID升序。",
+    "category": "complex",
+    "required_tables": [
+      "albums",
+      "tracks",
+      "invoice_items"
+    ],
+    "reference_sql": "SELECT al.AlbumId, al.Title FROM albums al WHERE al.ArtistId=:artist AND NOT EXISTS (SELECT 1 FROM tracks t JOIN invoice_items ii ON ii.TrackId=t.TrackId WHERE t.AlbumId=al.AlbumId) ORDER BY al.AlbumId",
+    "params": {
+      "artist": 2
+    },
+    "ordered": true,
+    "template_family": "artist_unsold_albums",
+    "rule_ids": [],
+    "id": "E66",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "AlbumId",
+        "Title"
+      ],
+      "rows": []
+    },
+    "split": "test",
+    "difficulty": "hard",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "列出艺术家ID为2的从未发生销售的专辑ID和标题，按专辑ID升序。",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "支持员工ID为3负责的客户按居住国家分别有多少人？按国家名排序。",
+    "category": "join",
+    "required_tables": [
+      "customers"
+    ],
+    "reference_sql": "SELECT Country, COUNT(*) AS customers FROM customers WHERE SupportRepId=:employee GROUP BY Country ORDER BY Country",
+    "params": {
+      "employee": 3
+    },
+    "ordered": true,
+    "template_family": "support_customer_country",
+    "rule_ids": [
+      "R10"
+    ],
+    "id": "E67",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "Country",
+        "customers"
+      ],
+      "rows": [
+        [
+          "Brazil",
+          2
+        ],
+        [
+          "Canada",
+          5
+        ],
+        [
+          "Finland",
+          1
+        ],
+        [
+          "France",
+          2
+        ],
+        [
+          "Germany",
+          2
+        ],
+        [
+          "Hungary",
+          1
+        ],
+        [
+          "India",
+          2
+        ],
+        [
+          "Ireland",
+          1
+        ],
+        [
+          "USA",
+          3
+        ],
+        [
+          "United Kingdom",
+          2
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "支持员工ID为3负责的客户按居住国家分别有多少人？按国家名排序。",
+      "time_range": [],
+      "rule_ids": [
+        "R10"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "支持员工ID为4负责的客户按居住国家分别有多少人？按国家名排序。",
+    "category": "join",
+    "required_tables": [
+      "customers"
+    ],
+    "reference_sql": "SELECT Country, COUNT(*) AS customers FROM customers WHERE SupportRepId=:employee GROUP BY Country ORDER BY Country",
+    "params": {
+      "employee": 4
+    },
+    "ordered": true,
+    "template_family": "support_customer_country",
+    "rule_ids": [
+      "R10"
+    ],
+    "id": "E68",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "Country",
+        "customers"
+      ],
+      "rows": [
+        [
+          "Argentina",
+          1
+        ],
+        [
+          "Australia",
+          1
+        ],
+        [
+          "Belgium",
+          1
+        ],
+        [
+          "Brazil",
+          2
+        ],
+        [
+          "Canada",
+          1
+        ],
+        [
+          "Czech Republic",
+          1
+        ],
+        [
+          "Denmark",
+          1
+        ],
+        [
+          "France",
+          2
+        ],
+        [
+          "Norway",
+          1
+        ],
+        [
+          "Poland",
+          1
+        ],
+        [
+          "Portugal",
+          2
+        ],
+        [
+          "USA",
+          6
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "支持员工ID为4负责的客户按居住国家分别有多少人？按国家名排序。",
+      "time_range": [],
+      "rule_ids": [
+        "R10"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "列出2010年账单国家为USA的订单ID、日期和金额，按日期和ID排序。",
+    "category": "time",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT InvoiceId, InvoiceDate, Total FROM invoices WHERE BillingCountry=:country AND InvoiceDate>=:start AND InvoiceDate<:end ORDER BY InvoiceDate, InvoiceId",
+    "params": {
+      "country": "USA",
+      "start": "2010-01-01",
+      "end": "2011-01-01"
+    },
+    "ordered": true,
+    "template_family": "country_year_order_list",
+    "rule_ids": [],
+    "id": "E69",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "InvoiceId",
+        "InvoiceDate",
+        "Total"
+      ],
+      "rows": [
+        [
+          90,
+          "2010-01-26 00:00:00",
+          0.99
+        ],
+        [
+          91,
+          "2010-02-08 00:00:00",
+          1.98
+        ],
+        [
+          92,
+          "2010-02-08 00:00:00",
+          1.98
+        ],
+        [
+          93,
+          "2010-02-09 00:00:00",
+          3.96
+        ],
+        [
+          103,
+          "2010-03-21 00:00:00",
+          15.86
+        ],
+        [
+          111,
+          "2010-04-29 00:00:00",
+          0.99
+        ],
+        [
+          112,
+          "2010-05-12 00:00:00",
+          1.98
+        ],
+        [
+          113,
+          "2010-05-12 00:00:00",
+          1.98
+        ],
+        [
+          114,
+          "2010-05-13 00:00:00",
+          3.96
+        ],
+        [
+          115,
+          "2010-05-14 00:00:00",
+          5.94
+        ],
+        [
+          124,
+          "2010-06-22 00:00:00",
+          13.86
+        ],
+        [
+          134,
+          "2010-08-13 00:00:00",
+          1.98
+        ],
+        [
+          135,
+          "2010-08-14 00:00:00",
+          3.96
+        ],
+        [
+          136,
+          "2010-08-15 00:00:00",
+          5.94
+        ],
+        [
+          137,
+          "2010-08-18 00:00:00",
+          8.91
+        ],
+        [
+          145,
+          "2010-09-23 00:00:00",
+          13.86
+        ],
+        [
+          157,
+          "2010-11-16 00:00:00",
+          5.94
+        ],
+        [
+          158,
+          "2010-11-19 00:00:00",
+          8.91
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "列出2010年账单国家为USA的订单ID、日期和金额，按日期和ID排序。",
+      "time_range": [
+        "2010-01-01",
+        "2011-01-01"
+      ],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "列出2012年账单国家为USA的订单ID、日期和金额，按日期和ID排序。",
+    "category": "time",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT InvoiceId, InvoiceDate, Total FROM invoices WHERE BillingCountry=:country AND InvoiceDate>=:start AND InvoiceDate<:end ORDER BY InvoiceDate, InvoiceId",
+    "params": {
+      "country": "USA",
+      "start": "2012-01-01",
+      "end": "2013-01-01"
+    },
+    "ordered": true,
+    "template_family": "country_year_order_list",
+    "rule_ids": [],
+    "id": "E70",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "InvoiceId",
+        "InvoiceDate",
+        "Total"
+      ],
+      "rows": [
+        [
+          255,
+          "2012-01-24 00:00:00",
+          5.94
+        ],
+        [
+          256,
+          "2012-01-27 00:00:00",
+          8.91
+        ],
+        [
+          265,
+          "2012-03-11 00:00:00",
+          0.99
+        ],
+        [
+          266,
+          "2012-03-24 00:00:00",
+          1.98
+        ],
+        [
+          277,
+          "2012-04-29 00:00:00",
+          8.91
+        ],
+        [
+          286,
+          "2012-06-12 00:00:00",
+          0.99
+        ],
+        [
+          287,
+          "2012-06-25 00:00:00",
+          1.98
+        ],
+        [
+          288,
+          "2012-06-25 00:00:00",
+          1.98
+        ],
+        [
+          289,
+          "2012-06-26 00:00:00",
+          3.96
+        ],
+        [
+          298,
+          "2012-07-31 00:00:00",
+          10.91
+        ],
+        [
+          299,
+          "2012-08-05 00:00:00",
+          23.86
+        ],
+        [
+          307,
+          "2012-09-13 00:00:00",
+          1.99
+        ],
+        [
+          308,
+          "2012-09-26 00:00:00",
+          3.98
+        ],
+        [
+          309,
+          "2012-09-26 00:00:00",
+          3.98
+        ],
+        [
+          310,
+          "2012-09-27 00:00:00",
+          7.96
+        ],
+        [
+          311,
+          "2012-09-28 00:00:00",
+          11.94
+        ],
+        [
+          320,
+          "2012-11-06 00:00:00",
+          13.86
+        ],
+        [
+          329,
+          "2012-12-28 00:00:00",
+          1.98
+        ],
+        [
+          330,
+          "2012-12-28 00:00:00",
+          1.98
+        ],
+        [
+          331,
+          "2012-12-29 00:00:00",
+          3.96
+        ],
+        [
+          332,
+          "2012-12-30 00:00:00",
+          5.94
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "列出2012年账单国家为USA的订单ID、日期和金额，按日期和ID排序。",
+      "time_range": [
+        "2012-01-01",
+        "2013-01-01"
+      ],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "时长大于等于60000且小于120000毫秒的曲目有多少首？",
+    "category": "single",
+    "required_tables": [
+      "tracks"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS tracks FROM tracks WHERE Milliseconds>=:low AND Milliseconds<:high",
+    "params": {
+      "low": 60000,
+      "high": 120000
+    },
+    "ordered": false,
+    "template_family": "duration_interval_tracks",
+    "rule_ids": [],
+    "id": "E71",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "tracks"
+      ],
+      "rows": [
+        [
+          66
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "easy",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "时长大于等于60000且小于120000毫秒的曲目有多少首？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "时长大于等于120000且小于180000毫秒的曲目有多少首？",
+    "category": "single",
+    "required_tables": [
+      "tracks"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS tracks FROM tracks WHERE Milliseconds>=:low AND Milliseconds<:high",
+    "params": {
+      "low": 120000,
+      "high": 180000
+    },
+    "ordered": false,
+    "template_family": "duration_interval_tracks",
+    "rule_ids": [],
+    "id": "E72",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "tracks"
+      ],
+      "rows": [
+        [
+          387
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "easy",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "时长大于等于120000且小于180000毫秒的曲目有多少首？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "艺术家ID为1、类型ID为1的曲目历史售出多少件？无销售保留NULL。",
+    "category": "complex",
+    "required_tables": [
+      "albums",
+      "tracks",
+      "invoice_items"
+    ],
+    "reference_sql": "SELECT SUM(ii.Quantity) AS units FROM albums al JOIN tracks t ON t.AlbumId=al.AlbumId JOIN invoice_items ii ON ii.TrackId=t.TrackId WHERE al.ArtistId=:artist AND t.GenreId=:genre",
+    "params": {
+      "artist": 1,
+      "genre": 1
+    },
+    "ordered": false,
+    "template_family": "artist_genre_units",
+    "rule_ids": [
+      "R02",
+      "R11"
+    ],
+    "id": "E73",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "units"
+      ],
+      "rows": [
+        [
+          16
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "hard",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "艺术家ID为1、类型ID为1的曲目历史售出多少件？无销售保留NULL。",
+      "time_range": [],
+      "rule_ids": [
+        "R02",
+        "R11"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "艺术家ID为2、类型ID为1的曲目历史售出多少件？无销售保留NULL。",
+    "category": "complex",
+    "required_tables": [
+      "albums",
+      "tracks",
+      "invoice_items"
+    ],
+    "reference_sql": "SELECT SUM(ii.Quantity) AS units FROM albums al JOIN tracks t ON t.AlbumId=al.AlbumId JOIN invoice_items ii ON ii.TrackId=t.TrackId WHERE al.ArtistId=:artist AND t.GenreId=:genre",
+    "params": {
+      "artist": 2,
+      "genre": 1
+    },
+    "ordered": false,
+    "template_family": "artist_genre_units",
+    "rule_ids": [
+      "R02",
+      "R11"
+    ],
+    "id": "E74",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "units"
+      ],
+      "rows": [
+        [
+          5
+        ]
+      ]
+    },
+    "split": "test",
+    "difficulty": "hard",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "艺术家ID为2、类型ID为1的曲目历史售出多少件？无销售保留NULL。",
+      "time_range": [],
+      "rule_ids": [
+        "R02",
+        "R11"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "类型ID为1的已售曲目，按售出件数加权的平均成交单价是多少？无销售返回NULL。",
+    "category": "business",
+    "required_tables": [
+      "tracks",
+      "invoice_items"
+    ],
+    "reference_sql": "SELECT SUM(ii.UnitPrice*ii.Quantity)*1.0/NULLIF(SUM(ii.Quantity),0) AS weighted_sale_price FROM tracks t JOIN invoice_items ii ON ii.TrackId=t.TrackId WHERE t.GenreId=:genre",
+    "params": {
+      "genre": 1
+    },
+    "ordered": false,
+    "template_family": "genre_weighted_sale_price",
+    "rule_ids": [
+      "R04",
+      "R07"
+    ],
+    "id": "E75",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "weighted_sale_price"
+      ],
+      "rows": [
+        [
+          0.99
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "类型ID为1的已售曲目，按售出件数加权的平均成交单价是多少？无销售返回NULL。",
+      "time_range": [],
+      "rule_ids": [
+        "R04",
+        "R07"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "类型ID为2的已售曲目，按售出件数加权的平均成交单价是多少？无销售返回NULL。",
+    "category": "business",
+    "required_tables": [
+      "tracks",
+      "invoice_items"
+    ],
+    "reference_sql": "SELECT SUM(ii.UnitPrice*ii.Quantity)*1.0/NULLIF(SUM(ii.Quantity),0) AS weighted_sale_price FROM tracks t JOIN invoice_items ii ON ii.TrackId=t.TrackId WHERE t.GenreId=:genre",
+    "params": {
+      "genre": 2
+    },
+    "ordered": false,
+    "template_family": "genre_weighted_sale_price",
+    "rule_ids": [
+      "R04",
+      "R07"
+    ],
+    "id": "E76",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "weighted_sale_price"
+      ],
+      "rows": [
+        [
+          0.99
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "类型ID为2的已售曲目，按售出件数加权的平均成交单价是多少？无销售返回NULL。",
+      "time_range": [],
+      "rule_ids": [
+        "R04",
+        "R07"
+      ]
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "2010年金额至少10的订单有多少个？",
+    "category": "time",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS orders FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end AND Total>=:amount",
+    "params": {
+      "start": "2010-01-01",
+      "end": "2011-01-01",
+      "amount": 10
+    },
+    "ordered": false,
+    "template_family": "year_high_value_orders",
+    "rule_ids": [],
+    "id": "E77",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "orders"
+      ],
+      "rows": [
+        [
+          13
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "2010年金额至少10的订单有多少个？",
+      "time_range": [
+        "2010-01-01",
+        "2011-01-01"
+      ],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "2012年金额至少10的订单有多少个？",
+    "category": "time",
+    "required_tables": [
+      "invoices"
+    ],
+    "reference_sql": "SELECT COUNT(*) AS orders FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end AND Total>=:amount",
+    "params": {
+      "start": "2012-01-01",
+      "end": "2013-01-01",
+      "amount": 10
+    },
+    "ordered": false,
+    "template_family": "year_high_value_orders",
+    "rule_ids": [],
+    "id": "E78",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "orders"
+      ],
+      "rows": [
+        [
+          15
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "2012年金额至少10的订单有多少个？",
+      "time_range": [
+        "2012-01-01",
+        "2013-01-01"
+      ],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "账单国家为USA的订单历史购买过多少首不同曲目？",
+    "category": "join",
+    "required_tables": [
+      "invoices",
+      "invoice_items"
+    ],
+    "reference_sql": "SELECT COUNT(DISTINCT ii.TrackId) AS tracks FROM invoice_items ii JOIN invoices i ON i.InvoiceId=ii.InvoiceId WHERE i.BillingCountry=:country",
+    "params": {
+      "country": "USA"
+    },
+    "ordered": false,
+    "template_family": "country_distinct_sold_tracks",
+    "rule_ids": [],
+    "id": "E79",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "tracks"
+      ],
+      "rows": [
+        [
+          486
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "账单国家为USA的订单历史购买过多少首不同曲目？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  },
+  {
+    "question": "账单国家为Canada的订单历史购买过多少首不同曲目？",
+    "category": "join",
+    "required_tables": [
+      "invoices",
+      "invoice_items"
+    ],
+    "reference_sql": "SELECT COUNT(DISTINCT ii.TrackId) AS tracks FROM invoice_items ii JOIN invoices i ON i.InvoiceId=ii.InvoiceId WHERE i.BillingCountry=:country",
+    "params": {
+      "country": "Canada"
+    },
+    "ordered": false,
+    "template_family": "country_distinct_sold_tracks",
+    "rule_ids": [],
+    "id": "E80",
+    "reference_date": "2014-01-15",
+    "expected_status": "success",
+    "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+    "reference_snapshot": {
+      "columns": [
+        "tracks"
+      ],
+      "rows": [
+        [
+          302
+        ]
+      ]
+    },
+    "split": "validation",
+    "difficulty": "medium",
+    "review_status": "agent_semantic_audit_and_execution_checked",
+    "review_note": "问题显式约束指标、实体、时间及排序；标准SQL按该模板实现，参数变体保持同一切分。",
+    "gold_intent": {
+      "status": "answerable",
+      "metric": "账单国家为Canada的订单历史购买过多少首不同曲目？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "key_facts": [
+      "参考数据列与值以reference_snapshot为准；不得推断未提供的因果或货币换算。"
+    ]
+  }
+]

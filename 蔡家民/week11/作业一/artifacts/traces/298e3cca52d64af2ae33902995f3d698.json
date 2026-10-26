@@ -1,0 +1,518 @@
+{
+  "run_id": "298e3cca52d64af2ae33902995f3d698",
+  "question": "列出每种音乐类型的目录曲目数，包括零首的类型，按类型ID排列。",
+  "status": "success",
+  "mode": "replay",
+  "reference_date": "2014-01-15",
+  "intent": {
+    "status": "answerable",
+    "metric": "列出每种音乐类型的目录曲目数，包括零首的类型，按类型ID排列。",
+    "dimensions": [],
+    "filters": [],
+    "time_range": [],
+    "ranking": "",
+    "grain": "",
+    "assumptions": [],
+    "clarification": "",
+    "reason": "",
+    "rule_ids": []
+  },
+  "selection": {
+    "tables": [
+      "genres",
+      "tracks"
+    ],
+    "columns": {},
+    "joins": [],
+    "reason": "Explicit replay fixture, not model selection",
+    "bridge_tables": []
+  },
+  "candidates": [
+    {
+      "sql": "SELECT g.GenreId, g.Name, COUNT(t.TrackId) AS tracks FROM genres g LEFT JOIN tracks t ON t.GenreId=g.GenreId GROUP BY g.GenreId, g.Name ORDER BY g.GenreId",
+      "params": {},
+      "explanation": "",
+      "changes": ""
+    }
+  ],
+  "validations": [
+    {
+      "passed": true,
+      "checks": [
+        {
+          "name": "sqlite_compile_and_authorize",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "selection_scope",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "header_detail_grain_risk",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        }
+      ]
+    }
+  ],
+  "execution": {
+    "status": "ok",
+    "columns": [
+      "GenreId",
+      "Name",
+      "tracks"
+    ],
+    "rows": [
+      [
+        1,
+        "Rock",
+        1297
+      ],
+      [
+        2,
+        "Jazz",
+        130
+      ],
+      [
+        3,
+        "Metal",
+        374
+      ],
+      [
+        4,
+        "Alternative & Punk",
+        332
+      ],
+      [
+        5,
+        "Rock And Roll",
+        12
+      ],
+      [
+        6,
+        "Blues",
+        81
+      ],
+      [
+        7,
+        "Latin",
+        579
+      ],
+      [
+        8,
+        "Reggae",
+        58
+      ],
+      [
+        9,
+        "Pop",
+        48
+      ],
+      [
+        10,
+        "Soundtrack",
+        43
+      ],
+      [
+        11,
+        "Bossa Nova",
+        15
+      ],
+      [
+        12,
+        "Easy Listening",
+        24
+      ],
+      [
+        13,
+        "Heavy Metal",
+        28
+      ],
+      [
+        14,
+        "R&B/Soul",
+        61
+      ],
+      [
+        15,
+        "Electronica/Dance",
+        30
+      ],
+      [
+        16,
+        "World",
+        28
+      ],
+      [
+        17,
+        "Hip Hop/Rap",
+        35
+      ],
+      [
+        18,
+        "Science Fiction",
+        13
+      ],
+      [
+        19,
+        "TV Shows",
+        93
+      ],
+      [
+        20,
+        "Sci Fi & Fantasy",
+        26
+      ],
+      [
+        21,
+        "Drama",
+        64
+      ],
+      [
+        22,
+        "Comedy",
+        17
+      ],
+      [
+        23,
+        "Alternative",
+        40
+      ],
+      [
+        24,
+        "Classical",
+        74
+      ],
+      [
+        25,
+        "Opera",
+        1
+      ]
+    ],
+    "truncated": false,
+    "elapsed_ms": 0.0,
+    "error_type": "",
+    "error": ""
+  },
+  "answer": {
+    "text": "离线回放：查询返回 25 行。\n{\"columns\": [\"GenreId\", \"Name\", \"tracks\"], \"rows\": [[1, \"Rock\", 1297], [2, \"Jazz\", 130], [3, \"Metal\", 374], [4, \"Alternative & Punk\", 332], [5, \"Rock And Roll\", 12], [6, \"Blues\", 81], [7, \"Latin\", 579], [8, \"Reggae\", 58], [9, \"Pop\", 48], [10, \"Soundtrack\", 43], [11, \"Bossa Nova\", 15], [12, \"Easy Listening\", 24], [13, \"Heavy Metal\", 28], [14, \"R&B/Soul\", 61], [15, \"Electronica/Dance\", 30], [16, \"World\", 28], [17, \"Hip Hop/Rap\", 35], [18, \"Science Fiction\", 13], [19, \"TV Shows\", 93], [20, \"Sci Fi & Fantasy\", 26], [21, \"Drama\", 64], [22, \"Comedy\", 17], [23, \"Alternative\", 40], [24, \"Classical\", 74], [25, \"Opera\", 1]]}",
+    "facts": [],
+    "limitations": [
+      "仅验证工作流，未调用大模型。"
+    ]
+  },
+  "trace": [
+    {
+      "node": "database_parse",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "albums",
+          "artists",
+          "customers",
+          "employees",
+          "genres",
+          "invoice_items",
+          "invoices",
+          "media_types",
+          "playlist_track",
+          "playlists",
+          "tracks"
+        ],
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb"
+      }
+    },
+    {
+      "node": "intent",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "answerable",
+        "metric": "列出每种音乐类型的目录曲目数，包括零首的类型，按类型ID排列。",
+        "time_range": []
+      }
+    },
+    {
+      "node": "table_selection",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "tables": [
+          "genres",
+          "tracks"
+        ],
+        "reason": "Explicit replay fixture, not model selection"
+      }
+    },
+    {
+      "node": "bridge_completion",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "genres",
+          "tracks"
+        ],
+        "columns": {},
+        "joins": [],
+        "reason": "Explicit replay fixture, not model selection",
+        "bridge_tables": []
+      }
+    },
+    {
+      "node": "sql_generation",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "sql": "SELECT g.GenreId, g.Name, COUNT(t.TrackId) AS tracks FROM genres g LEFT JOIN tracks t ON t.GenreId=g.GenreId GROUP BY g.GenreId, g.Name ORDER BY g.GenreId",
+        "params": {}
+      }
+    },
+    {
+      "node": "semantic_review",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "issues": []
+      }
+    },
+    {
+      "node": "sql_validation",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "sqlite_compile_and_authorize",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "selection_scope",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "header_detail_grain_risk",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          }
+        ]
+      }
+    },
+    {
+      "node": "sql_execution",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "ok",
+        "columns": [
+          "GenreId",
+          "Name",
+          "tracks"
+        ],
+        "rows": [
+          [
+            1,
+            "Rock",
+            1297
+          ],
+          [
+            2,
+            "Jazz",
+            130
+          ],
+          [
+            3,
+            "Metal",
+            374
+          ],
+          [
+            4,
+            "Alternative & Punk",
+            332
+          ],
+          [
+            5,
+            "Rock And Roll",
+            12
+          ],
+          [
+            6,
+            "Blues",
+            81
+          ],
+          [
+            7,
+            "Latin",
+            579
+          ],
+          [
+            8,
+            "Reggae",
+            58
+          ],
+          [
+            9,
+            "Pop",
+            48
+          ],
+          [
+            10,
+            "Soundtrack",
+            43
+          ],
+          [
+            11,
+            "Bossa Nova",
+            15
+          ],
+          [
+            12,
+            "Easy Listening",
+            24
+          ],
+          [
+            13,
+            "Heavy Metal",
+            28
+          ],
+          [
+            14,
+            "R&B/Soul",
+            61
+          ],
+          [
+            15,
+            "Electronica/Dance",
+            30
+          ],
+          [
+            16,
+            "World",
+            28
+          ],
+          [
+            17,
+            "Hip Hop/Rap",
+            35
+          ],
+          [
+            18,
+            "Science Fiction",
+            13
+          ],
+          [
+            19,
+            "TV Shows",
+            93
+          ],
+          [
+            20,
+            "Sci Fi & Fantasy",
+            26
+          ],
+          [
+            21,
+            "Drama",
+            64
+          ],
+          [
+            22,
+            "Comedy",
+            17
+          ],
+          [
+            23,
+            "Alternative",
+            40
+          ],
+          [
+            24,
+            "Classical",
+            74
+          ],
+          [
+            25,
+            "Opera",
+            1
+          ]
+        ],
+        "truncated": false,
+        "elapsed_ms": 0.0,
+        "error_type": "",
+        "error": ""
+      }
+    },
+    {
+      "node": "summary",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "text": "离线回放：查询返回 25 行。\n{\"columns\": [\"GenreId\", \"Name\", \"tracks\"], \"rows\": [[1, \"Rock\", 1297], [2, \"Jazz\", 130], [3, \"Metal\", 374], [4, \"Alternative & Punk\", 332], [5, \"Rock And Roll\", 12], [6, \"Blues\", 81], [7, \"Latin\", 579], [8, \"Reggae\", 58], [9, \"Pop\", 48], [10, \"Soundtrack\", 43], [11, \"Bossa Nova\", 15], [12, \"Easy Listening\", 24], [13, \"Heavy Metal\", 28], [14, \"R&B/Soul\", 61], [15, \"Electronica/Dance\", 30], [16, \"World\", 28], [17, \"Hip Hop/Rap\", 35], [18, \"Science Fiction\", 13], [19, \"TV Shows\", 93], [20, \"Sci Fi & Fantasy\", 26], [21, \"Drama\", 64], [22, \"Comedy\", 17], [23, \"Alternative\", 40], [24, \"Classical\", 74], [25, \"Opera\", 1]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "node": "run_metadata",
+      "status": "success",
+      "output": {
+        "variant": "workflow",
+        "prompt_version": "2026-10-21-v1",
+        "semantic_review": true,
+        "rules_enabled": true,
+        "max_rewrites": 2,
+        "reference_date": "2014-01-15",
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+        "calls": [
+          {
+            "stage": "intent",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "table_selection",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "sql_generation",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "semantic_review",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "summary",
+            "model": "scripted-fixture",
+            "usage": null
+          }
+        ],
+        "elapsed_ms": 0.0
+      }
+    }
+  ],
+  "error": ""
+}

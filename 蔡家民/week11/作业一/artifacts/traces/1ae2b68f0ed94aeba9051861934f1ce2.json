@@ -1,0 +1,458 @@
+{
+  "run_id": "1ae2b68f0ed94aeba9051861934f1ce2",
+  "question": "按账单国家统计销量，按销量降序和国家名升序排列。",
+  "status": "success",
+  "mode": "replay",
+  "reference_date": "2014-01-15",
+  "intent": {
+    "status": "answerable",
+    "metric": "按账单国家统计销量，按销量降序和国家名升序排列。",
+    "dimensions": [],
+    "filters": [],
+    "time_range": [],
+    "ranking": "",
+    "grain": "",
+    "assumptions": [],
+    "clarification": "",
+    "reason": "",
+    "rule_ids": []
+  },
+  "selection": {
+    "tables": [
+      "invoices",
+      "invoice_items"
+    ],
+    "columns": {},
+    "joins": [],
+    "reason": "Explicit replay fixture, not model selection",
+    "bridge_tables": []
+  },
+  "candidates": [
+    {
+      "sql": "SELECT i.BillingCountry, SUM(ii.Quantity) AS units FROM invoices i JOIN invoice_items ii ON ii.InvoiceId=i.InvoiceId GROUP BY i.BillingCountry ORDER BY units DESC, i.BillingCountry",
+      "params": {},
+      "explanation": "",
+      "changes": ""
+    }
+  ],
+  "validations": [
+    {
+      "passed": true,
+      "checks": [
+        {
+          "name": "sqlite_compile_and_authorize",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "selection_scope",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "header_detail_grain_risk",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        }
+      ]
+    }
+  ],
+  "execution": {
+    "status": "ok",
+    "columns": [
+      "BillingCountry",
+      "units"
+    ],
+    "rows": [
+      [
+        "USA",
+        494
+      ],
+      [
+        "Canada",
+        304
+      ],
+      [
+        "Brazil",
+        190
+      ],
+      [
+        "France",
+        190
+      ],
+      [
+        "Germany",
+        152
+      ],
+      [
+        "United Kingdom",
+        114
+      ],
+      [
+        "Czech Republic",
+        76
+      ],
+      [
+        "Portugal",
+        76
+      ],
+      [
+        "India",
+        74
+      ],
+      [
+        "Argentina",
+        38
+      ],
+      [
+        "Australia",
+        38
+      ],
+      [
+        "Austria",
+        38
+      ],
+      [
+        "Belgium",
+        38
+      ],
+      [
+        "Chile",
+        38
+      ],
+      [
+        "Denmark",
+        38
+      ],
+      [
+        "Finland",
+        38
+      ],
+      [
+        "Hungary",
+        38
+      ],
+      [
+        "Ireland",
+        38
+      ],
+      [
+        "Italy",
+        38
+      ],
+      [
+        "Netherlands",
+        38
+      ],
+      [
+        "Norway",
+        38
+      ],
+      [
+        "Poland",
+        38
+      ],
+      [
+        "Spain",
+        38
+      ],
+      [
+        "Sweden",
+        38
+      ]
+    ],
+    "truncated": false,
+    "elapsed_ms": 0.0,
+    "error_type": "",
+    "error": ""
+  },
+  "answer": {
+    "text": "离线回放：查询返回 24 行。\n{\"columns\": [\"BillingCountry\", \"units\"], \"rows\": [[\"USA\", 494], [\"Canada\", 304], [\"Brazil\", 190], [\"France\", 190], [\"Germany\", 152], [\"United Kingdom\", 114], [\"Czech Republic\", 76], [\"Portugal\", 76], [\"India\", 74], [\"Argentina\", 38], [\"Australia\", 38], [\"Austria\", 38], [\"Belgium\", 38], [\"Chile\", 38], [\"Denmark\", 38], [\"Finland\", 38], [\"Hungary\", 38], [\"Ireland\", 38], [\"Italy\", 38], [\"Netherlands\", 38], [\"Norway\", 38], [\"Poland\", 38], [\"Spain\", 38], [\"Sweden\", 38]]}",
+    "facts": [],
+    "limitations": [
+      "仅验证工作流，未调用大模型。"
+    ]
+  },
+  "trace": [
+    {
+      "node": "database_parse",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "albums",
+          "artists",
+          "customers",
+          "employees",
+          "genres",
+          "invoice_items",
+          "invoices",
+          "media_types",
+          "playlist_track",
+          "playlists",
+          "tracks"
+        ],
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb"
+      }
+    },
+    {
+      "node": "intent",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "answerable",
+        "metric": "按账单国家统计销量，按销量降序和国家名升序排列。",
+        "time_range": []
+      }
+    },
+    {
+      "node": "table_selection",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "tables": [
+          "invoices",
+          "invoice_items"
+        ],
+        "reason": "Explicit replay fixture, not model selection"
+      }
+    },
+    {
+      "node": "bridge_completion",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "invoices",
+          "invoice_items"
+        ],
+        "columns": {},
+        "joins": [],
+        "reason": "Explicit replay fixture, not model selection",
+        "bridge_tables": []
+      }
+    },
+    {
+      "node": "sql_generation",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "sql": "SELECT i.BillingCountry, SUM(ii.Quantity) AS units FROM invoices i JOIN invoice_items ii ON ii.InvoiceId=i.InvoiceId GROUP BY i.BillingCountry ORDER BY units DESC, i.BillingCountry",
+        "params": {}
+      }
+    },
+    {
+      "node": "semantic_review",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "issues": []
+      }
+    },
+    {
+      "node": "sql_validation",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "sqlite_compile_and_authorize",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "selection_scope",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "header_detail_grain_risk",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          }
+        ]
+      }
+    },
+    {
+      "node": "sql_execution",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "ok",
+        "columns": [
+          "BillingCountry",
+          "units"
+        ],
+        "rows": [
+          [
+            "USA",
+            494
+          ],
+          [
+            "Canada",
+            304
+          ],
+          [
+            "Brazil",
+            190
+          ],
+          [
+            "France",
+            190
+          ],
+          [
+            "Germany",
+            152
+          ],
+          [
+            "United Kingdom",
+            114
+          ],
+          [
+            "Czech Republic",
+            76
+          ],
+          [
+            "Portugal",
+            76
+          ],
+          [
+            "India",
+            74
+          ],
+          [
+            "Argentina",
+            38
+          ],
+          [
+            "Australia",
+            38
+          ],
+          [
+            "Austria",
+            38
+          ],
+          [
+            "Belgium",
+            38
+          ],
+          [
+            "Chile",
+            38
+          ],
+          [
+            "Denmark",
+            38
+          ],
+          [
+            "Finland",
+            38
+          ],
+          [
+            "Hungary",
+            38
+          ],
+          [
+            "Ireland",
+            38
+          ],
+          [
+            "Italy",
+            38
+          ],
+          [
+            "Netherlands",
+            38
+          ],
+          [
+            "Norway",
+            38
+          ],
+          [
+            "Poland",
+            38
+          ],
+          [
+            "Spain",
+            38
+          ],
+          [
+            "Sweden",
+            38
+          ]
+        ],
+        "truncated": false,
+        "elapsed_ms": 0.0,
+        "error_type": "",
+        "error": ""
+      }
+    },
+    {
+      "node": "summary",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "text": "离线回放：查询返回 24 行。\n{\"columns\": [\"BillingCountry\", \"units\"], \"rows\": [[\"USA\", 494], [\"Canada\", 304], [\"Brazil\", 190], [\"France\", 190], [\"Germany\", 152], [\"United Kingdom\", 114], [\"Czech Republic\", 76], [\"Portugal\", 76], [\"India\", 74], [\"Argentina\", 38], [\"Australia\", 38], [\"Austria\", 38], [\"Belgium\", 38], [\"Chile\", 38], [\"Denmark\", 38], [\"Finland\", 38], [\"Hungary\", 38], [\"Ireland\", 38], [\"Italy\", 38], [\"Netherlands\", 38], [\"Norway\", 38], [\"Poland\", 38], [\"Spain\", 38], [\"Sweden\", 38]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "node": "run_metadata",
+      "status": "success",
+      "output": {
+        "variant": "workflow",
+        "prompt_version": "2026-10-21-v1",
+        "semantic_review": true,
+        "rules_enabled": true,
+        "max_rewrites": 2,
+        "reference_date": "2014-01-15",
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+        "calls": [
+          {
+            "stage": "intent",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "table_selection",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "sql_generation",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "semantic_review",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "summary",
+            "model": "scripted-fixture",
+            "usage": null
+          }
+        ],
+        "elapsed_ms": 0.0
+      }
+    }
+  ],
+  "error": ""
+}

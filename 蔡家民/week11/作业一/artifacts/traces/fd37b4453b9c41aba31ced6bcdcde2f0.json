@@ -1,0 +1,484 @@
+{
+  "run_id": "fd37b4453b9c41aba31ced6bcdcde2f0",
+  "question": "列出曲目名称以Love开头的曲目ID和名称，按ID排序。",
+  "status": "success",
+  "mode": "replay",
+  "reference_date": "2014-01-15",
+  "intent": {
+    "status": "answerable",
+    "metric": "列出曲目名称以Love开头的曲目ID和名称，按ID排序。",
+    "dimensions": [],
+    "filters": [],
+    "time_range": [],
+    "ranking": "",
+    "grain": "",
+    "assumptions": [],
+    "clarification": "",
+    "reason": "",
+    "rule_ids": []
+  },
+  "selection": {
+    "tables": [
+      "tracks"
+    ],
+    "columns": {},
+    "joins": [],
+    "reason": "Explicit replay fixture",
+    "bridge_tables": []
+  },
+  "candidates": [
+    {
+      "sql": "SELECT TrackId, Name FROM tracks WHERE Name LIKE :prefix ORDER BY TrackId",
+      "params": {
+        "prefix": "Love%"
+      },
+      "explanation": "",
+      "changes": ""
+    }
+  ],
+  "validations": [
+    {
+      "passed": true,
+      "checks": [
+        {
+          "name": "sqlite_compile_and_authorize",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "selection_scope",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "header_detail_grain_risk",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        }
+      ]
+    }
+  ],
+  "execution": {
+    "status": "ok",
+    "columns": [
+      "TrackId",
+      "Name"
+    ],
+    "rows": [
+      [
+        24,
+        "Love In An Elevator"
+      ],
+      [
+        56,
+        "Love, Hate, Love"
+      ],
+      [
+        413,
+        "Loverman"
+      ],
+      [
+        440,
+        "Love Gun"
+      ],
+      [
+        493,
+        "Love Is Blind"
+      ],
+      [
+        571,
+        "Love Of My Life"
+      ],
+      [
+        751,
+        "Love Child"
+      ],
+      [
+        803,
+        "Love Conquers All"
+      ],
+      [
+        808,
+        "Love Don't Mean a Thing"
+      ],
+      [
+        828,
+        "Love Bites"
+      ],
+      [
+        1042,
+        "Love And Marriage"
+      ],
+      [
+        1055,
+        "Loves Been Good To Me"
+      ],
+      [
+        1189,
+        "Love Is The Colour"
+      ],
+      [
+        1483,
+        "Love Or Confusion"
+      ],
+      [
+        1943,
+        "Love Me Like A Reptile"
+      ],
+      [
+        2180,
+        "Love Boat Captain"
+      ],
+      [
+        2540,
+        "Love Me Darlin'"
+      ],
+      [
+        2628,
+        "Love Removal Machine"
+      ],
+      [
+        2632,
+        "Love"
+      ],
+      [
+        2690,
+        "Love Is Strong"
+      ],
+      [
+        2937,
+        "Love Is Blindness"
+      ],
+      [
+        2952,
+        "Love Comes Tumbling"
+      ],
+      [
+        2967,
+        "Love And Peace Or Else"
+      ],
+      [
+        2997,
+        "Love Rescue Me"
+      ],
+      [
+        3135,
+        "Love Ain't No Stranger"
+      ],
+      [
+        3355,
+        "Love Comes"
+      ],
+      [
+        3460,
+        "Love Is a Losing Game"
+      ]
+    ],
+    "truncated": false,
+    "elapsed_ms": 0.0,
+    "error_type": "",
+    "error": ""
+  },
+  "answer": {
+    "text": "离线回放：查询返回 27 行。\n{\"columns\": [\"TrackId\", \"Name\"], \"rows\": [[24, \"Love In An Elevator\"], [56, \"Love, Hate, Love\"], [413, \"Loverman\"], [440, \"Love Gun\"], [493, \"Love Is Blind\"], [571, \"Love Of My Life\"], [751, \"Love Child\"], [803, \"Love Conquers All\"], [808, \"Love Don't Mean a Thing\"], [828, \"Love Bites\"], [1042, \"Love And Marriage\"], [1055, \"Loves Been Good To Me\"], [1189, \"Love Is The Colour\"], [1483, \"Love Or Confusion\"], [1943, \"Love Me Like A Reptile\"], [2180, \"Love Boat Captain\"], [2540, \"Love Me Darlin'\"], [2628, \"Love Removal Machine\"], [2632, \"Love\"], [2690, \"Love Is Strong\"], [2937, \"Love Is Blindness\"], [2952, \"Love Comes Tumbling\"], [2967, \"Love And Peace Or Else\"], [2997, \"Love Rescue Me\"], [3135, \"Love Ain't No Stranger\"], [3355, \"Love Comes\"], [3460, \"Love Is a Losing Game\"]]}",
+    "facts": [],
+    "limitations": [
+      "仅验证工作流，未调用大模型。"
+    ]
+  },
+  "trace": [
+    {
+      "node": "database_parse",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "albums",
+          "artists",
+          "customers",
+          "employees",
+          "genres",
+          "invoice_items",
+          "invoices",
+          "media_types",
+          "playlist_track",
+          "playlists",
+          "tracks"
+        ],
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb"
+      }
+    },
+    {
+      "node": "intent",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "answerable",
+        "metric": "列出曲目名称以Love开头的曲目ID和名称，按ID排序。",
+        "time_range": [],
+        "rule_ids": []
+      }
+    },
+    {
+      "node": "table_selection",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "tables": [
+          "tracks"
+        ],
+        "reason": "Explicit replay fixture"
+      }
+    },
+    {
+      "node": "bridge_completion",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "tracks"
+        ],
+        "columns": {},
+        "joins": [],
+        "reason": "Explicit replay fixture",
+        "bridge_tables": []
+      }
+    },
+    {
+      "node": "sql_generation",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "sql": "SELECT TrackId, Name FROM tracks WHERE Name LIKE :prefix ORDER BY TrackId",
+        "params": {
+          "prefix": "Love%"
+        }
+      }
+    },
+    {
+      "node": "semantic_review",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "issues": []
+      }
+    },
+    {
+      "node": "sql_validation",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "sqlite_compile_and_authorize",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "selection_scope",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "header_detail_grain_risk",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          }
+        ]
+      }
+    },
+    {
+      "node": "sql_execution",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "ok",
+        "columns": [
+          "TrackId",
+          "Name"
+        ],
+        "rows": [
+          [
+            24,
+            "Love In An Elevator"
+          ],
+          [
+            56,
+            "Love, Hate, Love"
+          ],
+          [
+            413,
+            "Loverman"
+          ],
+          [
+            440,
+            "Love Gun"
+          ],
+          [
+            493,
+            "Love Is Blind"
+          ],
+          [
+            571,
+            "Love Of My Life"
+          ],
+          [
+            751,
+            "Love Child"
+          ],
+          [
+            803,
+            "Love Conquers All"
+          ],
+          [
+            808,
+            "Love Don't Mean a Thing"
+          ],
+          [
+            828,
+            "Love Bites"
+          ],
+          [
+            1042,
+            "Love And Marriage"
+          ],
+          [
+            1055,
+            "Loves Been Good To Me"
+          ],
+          [
+            1189,
+            "Love Is The Colour"
+          ],
+          [
+            1483,
+            "Love Or Confusion"
+          ],
+          [
+            1943,
+            "Love Me Like A Reptile"
+          ],
+          [
+            2180,
+            "Love Boat Captain"
+          ],
+          [
+            2540,
+            "Love Me Darlin'"
+          ],
+          [
+            2628,
+            "Love Removal Machine"
+          ],
+          [
+            2632,
+            "Love"
+          ],
+          [
+            2690,
+            "Love Is Strong"
+          ],
+          [
+            2937,
+            "Love Is Blindness"
+          ],
+          [
+            2952,
+            "Love Comes Tumbling"
+          ],
+          [
+            2967,
+            "Love And Peace Or Else"
+          ],
+          [
+            2997,
+            "Love Rescue Me"
+          ],
+          [
+            3135,
+            "Love Ain't No Stranger"
+          ],
+          [
+            3355,
+            "Love Comes"
+          ],
+          [
+            3460,
+            "Love Is a Losing Game"
+          ]
+        ],
+        "truncated": false,
+        "elapsed_ms": 0.0,
+        "error_type": "",
+        "error": ""
+      }
+    },
+    {
+      "node": "summary",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "text": "离线回放：查询返回 27 行。\n{\"columns\": [\"TrackId\", \"Name\"], \"rows\": [[24, \"Love In An Elevator\"], [56, \"Love, Hate, Love\"], [413, \"Loverman\"], [440, \"Love Gun\"], [493, \"Love Is Blind\"], [571, \"Love Of My Life\"], [751, \"Love Child\"], [803, \"Love Conquers All\"], [808, \"Love Don't Mean a Thing\"], [828, \"Love Bites\"], [1042, \"Love And Marriage\"], [1055, \"Loves Been Good To Me\"], [1189, \"Love Is The Colour\"], [1483, \"Love Or Confusion\"], [1943, \"Love Me Like A Reptile\"], [2180, \"Love Boat Captain\"], [2540, \"Love Me Darlin'\"], [2628, \"Love Removal Machine\"], [2632, \"Love\"], [2690, \"Love Is Strong\"], [2937, \"Love Is Blindness\"], [2952, \"Love Comes Tumbling\"], [2967, \"Love And Peace Or Else\"], [2997, \"Love Rescue Me\"], [3135, \"Love Ain't No Stranger\"], [3355, \"Love Comes\"], [3460, \"Love Is a Losing Game\"]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "node": "run_metadata",
+      "status": "success",
+      "output": {
+        "variant": "workflow",
+        "prompt_version": "2026-10-21-v1",
+        "semantic_review": true,
+        "rules_enabled": true,
+        "max_rewrites": 2,
+        "reference_date": "2014-01-15",
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+        "calls": [
+          {
+            "stage": "intent",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "table_selection",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "sql_generation",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "semantic_review",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "summary",
+            "model": "scripted-fixture",
+            "usage": null
+          }
+        ],
+        "elapsed_ms": 0.0
+      }
+    }
+  ],
+  "error": ""
+}

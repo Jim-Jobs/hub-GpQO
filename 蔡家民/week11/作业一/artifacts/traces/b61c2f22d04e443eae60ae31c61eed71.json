@@ -1,0 +1,84 @@
+{
+  "run_id": "b61c2f22d04e443eae60ae31c61eed71",
+  "question": "活跃客户有多少？",
+  "status": "needs_clarification",
+  "mode": "replay",
+  "reference_date": "2014-01-15",
+  "intent": {
+    "status": "needs_clarification",
+    "metric": "",
+    "dimensions": [],
+    "filters": [],
+    "time_range": [],
+    "ranking": "",
+    "grain": "",
+    "assumptions": [],
+    "clarification": "活跃的时间范围和购买条件是什么？",
+    "reason": "活跃的时间范围和购买条件是什么？",
+    "rule_ids": []
+  },
+  "selection": null,
+  "candidates": [],
+  "validations": [],
+  "execution": null,
+  "answer": {
+    "text": "活跃的时间范围和购买条件是什么？",
+    "facts": [],
+    "limitations": []
+  },
+  "trace": [
+    {
+      "node": "database_parse",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "albums",
+          "artists",
+          "customers",
+          "employees",
+          "genres",
+          "invoice_items",
+          "invoices",
+          "media_types",
+          "playlist_track",
+          "playlists",
+          "tracks"
+        ],
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb"
+      }
+    },
+    {
+      "node": "intent",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "needs_clarification",
+        "clarification": "活跃的时间范围和购买条件是什么？",
+        "reason": "活跃的时间范围和购买条件是什么？"
+      }
+    },
+    {
+      "node": "run_metadata",
+      "status": "needs_clarification",
+      "output": {
+        "variant": "workflow",
+        "prompt_version": "2026-10-21-v1",
+        "semantic_review": true,
+        "rules_enabled": true,
+        "max_rewrites": 2,
+        "reference_date": "2014-01-15",
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+        "calls": [
+          {
+            "stage": "intent",
+            "model": "scripted-fixture",
+            "usage": null
+          }
+        ],
+        "elapsed_ms": 0.0
+      }
+    }
+  ],
+  "error": ""
+}

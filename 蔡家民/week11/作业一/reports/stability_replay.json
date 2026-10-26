@@ -1,0 +1,50 @@
+{
+  "mode": "replay",
+  "cases": {
+    "baseline:S01": {
+      "observed": 3,
+      "consistent": true,
+      "correct_runs": 3
+    },
+    "baseline:S07": {
+      "observed": 3,
+      "consistent": true,
+      "correct_runs": 3
+    },
+    "baseline:S10": {
+      "observed": 3,
+      "consistent": true,
+      "correct_runs": 3
+    },
+    "workflow:S01": {
+      "observed": 3,
+      "consistent": true,
+      "correct_runs": 3
+    },
+    "workflow:S07": {
+      "observed": 3,
+      "consistent": true,
+      "correct_runs": 3
+    },
+    "workflow:S10": {
+      "observed": 3,
+      "consistent": true,
+      "correct_runs": 3
+    },
+    "no_rewrite:S01": {
+      "observed": 3,
+      "consistent": true,
+      "correct_runs": 3
+    },
+    "no_rewrite:S07": {
+      "observed": 3,
+      "consistent": true,
+      "correct_runs": 3
+    },
+    "no_rewrite:S10": {
+      "observed": 3,
+      "consistent": true,
+      "correct_runs": 3
+    }
+  }
+}

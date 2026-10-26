@@ -1,0 +1,308 @@
+{
+  "run_id": "dcd4ca3e47834f0c832e6e6b1c52dc2b",
+  "question": "2011年销售金额、上一年金额及同比增长率是多少？增长率用小数，基期为0时返回NULL。",
+  "status": "success",
+  "mode": "replay",
+  "reference_date": "2014-01-15",
+  "intent": {
+    "status": "answerable",
+    "metric": "2011年销售金额、上一年金额及同比增长率是多少？增长率用小数，基期为0时返回NULL。",
+    "dimensions": [],
+    "filters": [],
+    "time_range": [
+      "2011-01-01",
+      "2012-01-01"
+    ],
+    "ranking": "",
+    "grain": "",
+    "assumptions": [],
+    "clarification": "",
+    "reason": "",
+    "rule_ids": [
+      "R12"
+    ]
+  },
+  "selection": {
+    "tables": [
+      "invoices"
+    ],
+    "columns": {},
+    "joins": [],
+    "reason": "Explicit replay fixture",
+    "bridge_tables": []
+  },
+  "candidates": [
+    {
+      "sql": "WITH amounts AS (SELECT SUM(CASE WHEN InvoiceDate>=:start AND InvoiceDate<:end THEN Total ELSE 0 END) AS current_amount, SUM(CASE WHEN InvoiceDate>=:previous_start AND InvoiceDate<:start THEN Total ELSE 0 END) AS previous_amount FROM invoices) SELECT current_amount, previous_amount, (current_amount-previous_amount)*1.0/NULLIF(previous_amount,0) AS growth_rate FROM amounts",
+      "params": {
+        "start": "2011-01-01",
+        "end": "2012-01-01",
+        "previous_start": "2010-01-01"
+      },
+      "explanation": "",
+      "changes": ""
+    }
+  ],
+  "validations": [
+    {
+      "passed": true,
+      "checks": [
+        {
+          "name": "sqlite_compile_and_authorize",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "selection_scope",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "header_detail_grain_risk",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "confirmed_time_boundaries",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        }
+      ]
+    }
+  ],
+  "execution": {
+    "status": "ok",
+    "columns": [
+      "current_amount",
+      "previous_amount",
+      "growth_rate"
+    ],
+    "rows": [
+      [
+        469.58,
+        481.45,
+        -0.024654688960432037
+      ]
+    ],
+    "truncated": false,
+    "elapsed_ms": 0.0,
+    "error_type": "",
+    "error": ""
+  },
+  "answer": {
+    "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"current_amount\", \"previous_amount\", \"growth_rate\"], \"rows\": [[469.58, 481.45, -0.024654688960432037]]}",
+    "facts": [],
+    "limitations": [
+      "仅验证工作流，未调用大模型。"
+    ]
+  },
+  "trace": [
+    {
+      "node": "database_parse",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "albums",
+          "artists",
+          "customers",
+          "employees",
+          "genres",
+          "invoice_items",
+          "invoices",
+          "media_types",
+          "playlist_track",
+          "playlists",
+          "tracks"
+        ],
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb"
+      }
+    },
+    {
+      "node": "intent",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "answerable",
+        "metric": "2011年销售金额、上一年金额及同比增长率是多少？增长率用小数，基期为0时返回NULL。",
+        "time_range": [
+          "2011-01-01",
+          "2012-01-01"
+        ],
+        "rule_ids": [
+          "R12"
+        ]
+      }
+    },
+    {
+      "node": "table_selection",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "tables": [
+          "invoices"
+        ],
+        "reason": "Explicit replay fixture"
+      }
+    },
+    {
+      "node": "bridge_completion",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "invoices"
+        ],
+        "columns": {},
+        "joins": [],
+        "reason": "Explicit replay fixture",
+        "bridge_tables": []
+      }
+    },
+    {
+      "node": "sql_generation",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "sql": "WITH amounts AS (SELECT SUM(CASE WHEN InvoiceDate>=:start AND InvoiceDate<:end THEN Total ELSE 0 END) AS current_amount, SUM(CASE WHEN InvoiceDate>=:previous_start AND InvoiceDate<:start THEN Total ELSE 0 END) AS previous_amount FROM invoices) SELECT current_amount, previous_amount, (current_amount-previous_amount)*1.0/NULLIF(previous_amount,0) AS growth_rate FROM amounts",
+        "params": {
+          "start": "2011-01-01",
+          "end": "2012-01-01",
+          "previous_start": "2010-01-01"
+        }
+      }
+    },
+    {
+      "node": "semantic_review",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "issues": []
+      }
+    },
+    {
+      "node": "sql_validation",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "sqlite_compile_and_authorize",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "selection_scope",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "header_detail_grain_risk",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "confirmed_time_boundaries",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          }
+        ]
+      }
+    },
+    {
+      "node": "sql_execution",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "ok",
+        "columns": [
+          "current_amount",
+          "previous_amount",
+          "growth_rate"
+        ],
+        "rows": [
+          [
+            469.58,
+            481.45,
+            -0.024654688960432037
+          ]
+        ],
+        "truncated": false,
+        "elapsed_ms": 0.0,
+        "error_type": "",
+        "error": ""
+      }
+    },
+    {
+      "node": "summary",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "text": "离线回放：查询返回 1 行。\n{\"columns\": [\"current_amount\", \"previous_amount\", \"growth_rate\"], \"rows\": [[469.58, 481.45, -0.024654688960432037]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "node": "run_metadata",
+      "status": "success",
+      "output": {
+        "variant": "workflow",
+        "prompt_version": "2026-10-21-v1",
+        "semantic_review": true,
+        "rules_enabled": true,
+        "max_rewrites": 2,
+        "reference_date": "2014-01-15",
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+        "calls": [
+          {
+            "stage": "intent",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "table_selection",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "sql_generation",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "semantic_review",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "summary",
+            "model": "scripted-fixture",
+            "usage": null
+          }
+        ],
+        "elapsed_ms": 0.0
+      }
+    }
+  ],
+  "error": ""
+}

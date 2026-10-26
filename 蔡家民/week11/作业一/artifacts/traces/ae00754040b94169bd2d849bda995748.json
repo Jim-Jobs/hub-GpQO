@@ -1,0 +1,353 @@
+{
+  "run_id": "ae00754040b94169bd2d849bda995748",
+  "question": "2013年销售金额前5名艺术家，金额并列按艺术家ID升序。",
+  "status": "success",
+  "mode": "replay",
+  "reference_date": "2014-01-15",
+  "intent": {
+    "status": "answerable",
+    "metric": "2013年销售金额前5名艺术家，金额并列按艺术家ID升序。",
+    "dimensions": [],
+    "filters": [],
+    "time_range": [
+      "2013-01-01",
+      "2014-01-01"
+    ],
+    "ranking": "",
+    "grain": "",
+    "assumptions": [],
+    "clarification": "",
+    "reason": "",
+    "rule_ids": []
+  },
+  "selection": {
+    "tables": [
+      "artists",
+      "albums",
+      "tracks",
+      "invoice_items",
+      "invoices"
+    ],
+    "columns": {},
+    "joins": [],
+    "reason": "Explicit replay fixture, not model selection",
+    "bridge_tables": []
+  },
+  "candidates": [
+    {
+      "sql": "SELECT a.ArtistId, a.Name, SUM(ii.UnitPrice*ii.Quantity) AS revenue FROM artists a JOIN albums al ON al.ArtistId=a.ArtistId JOIN tracks t ON t.AlbumId=al.AlbumId JOIN invoice_items ii ON ii.TrackId=t.TrackId JOIN invoices i ON i.InvoiceId=ii.InvoiceId WHERE i.InvoiceDate>=:start AND i.InvoiceDate<:end GROUP BY a.ArtistId ORDER BY revenue DESC, a.ArtistId LIMIT 5",
+      "params": {
+        "start": "2013-01-01",
+        "end": "2014-01-01"
+      },
+      "explanation": "",
+      "changes": ""
+    }
+  ],
+  "validations": [
+    {
+      "passed": true,
+      "checks": [
+        {
+          "name": "sqlite_compile_and_authorize",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "selection_scope",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "header_detail_grain_risk",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "confirmed_time_boundaries",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        }
+      ]
+    }
+  ],
+  "execution": {
+    "status": "ok",
+    "columns": [
+      "ArtistId",
+      "Name",
+      "revenue"
+    ],
+    "rows": [
+      [
+        90,
+        "Iron Maiden",
+        35.64
+      ],
+      [
+        150,
+        "U2",
+        24.75
+      ],
+      [
+        50,
+        "Metallica",
+        16.83
+      ],
+      [
+        149,
+        "Lost",
+        15.92
+      ],
+      [
+        22,
+        "Led Zeppelin",
+        14.85
+      ]
+    ],
+    "truncated": false,
+    "elapsed_ms": 0.0,
+    "error_type": "",
+    "error": ""
+  },
+  "answer": {
+    "text": "离线回放：查询返回 5 行。\n{\"columns\": [\"ArtistId\", \"Name\", \"revenue\"], \"rows\": [[90, \"Iron Maiden\", 35.64], [150, \"U2\", 24.75], [50, \"Metallica\", 16.83], [149, \"Lost\", 15.92], [22, \"Led Zeppelin\", 14.85]]}",
+    "facts": [],
+    "limitations": [
+      "仅验证工作流，未调用大模型。"
+    ]
+  },
+  "trace": [
+    {
+      "node": "database_parse",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "albums",
+          "artists",
+          "customers",
+          "employees",
+          "genres",
+          "invoice_items",
+          "invoices",
+          "media_types",
+          "playlist_track",
+          "playlists",
+          "tracks"
+        ],
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb"
+      }
+    },
+    {
+      "node": "intent",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "answerable",
+        "metric": "2013年销售金额前5名艺术家，金额并列按艺术家ID升序。",
+        "time_range": [
+          "2013-01-01",
+          "2014-01-01"
+        ]
+      }
+    },
+    {
+      "node": "table_selection",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "tables": [
+          "artists",
+          "albums",
+          "tracks",
+          "invoice_items",
+          "invoices"
+        ],
+        "reason": "Explicit replay fixture, not model selection"
+      }
+    },
+    {
+      "node": "bridge_completion",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "artists",
+          "albums",
+          "tracks",
+          "invoice_items",
+          "invoices"
+        ],
+        "columns": {},
+        "joins": [],
+        "reason": "Explicit replay fixture, not model selection",
+        "bridge_tables": []
+      }
+    },
+    {
+      "node": "sql_generation",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "sql": "SELECT a.ArtistId, a.Name, SUM(ii.UnitPrice*ii.Quantity) AS revenue FROM artists a JOIN albums al ON al.ArtistId=a.ArtistId JOIN tracks t ON t.AlbumId=al.AlbumId JOIN invoice_items ii ON ii.TrackId=t.TrackId JOIN invoices i ON i.InvoiceId=ii.InvoiceId WHERE i.InvoiceDate>=:start AND i.InvoiceDate<:end GROUP BY a.ArtistId ORDER BY revenue DESC, a.ArtistId LIMIT 5",
+        "params": {
+          "start": "2013-01-01",
+          "end": "2014-01-01"
+        }
+      }
+    },
+    {
+      "node": "semantic_review",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "issues": []
+      }
+    },
+    {
+      "node": "sql_validation",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "sqlite_compile_and_authorize",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "selection_scope",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "header_detail_grain_risk",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "confirmed_time_boundaries",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          }
+        ]
+      }
+    },
+    {
+      "node": "sql_execution",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "ok",
+        "columns": [
+          "ArtistId",
+          "Name",
+          "revenue"
+        ],
+        "rows": [
+          [
+            90,
+            "Iron Maiden",
+            35.64
+          ],
+          [
+            150,
+            "U2",
+            24.75
+          ],
+          [
+            50,
+            "Metallica",
+            16.83
+          ],
+          [
+            149,
+            "Lost",
+            15.92
+          ],
+          [
+            22,
+            "Led Zeppelin",
+            14.85
+          ]
+        ],
+        "truncated": false,
+        "elapsed_ms": 0.0,
+        "error_type": "",
+        "error": ""
+      }
+    },
+    {
+      "node": "summary",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "text": "离线回放：查询返回 5 行。\n{\"columns\": [\"ArtistId\", \"Name\", \"revenue\"], \"rows\": [[90, \"Iron Maiden\", 35.64], [150, \"U2\", 24.75], [50, \"Metallica\", 16.83], [149, \"Lost\", 15.92], [22, \"Led Zeppelin\", 14.85]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "node": "run_metadata",
+      "status": "success",
+      "output": {
+        "variant": "workflow",
+        "prompt_version": "2026-10-21-v1",
+        "semantic_review": true,
+        "rules_enabled": true,
+        "max_rewrites": 2,
+        "reference_date": "2014-01-15",
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+        "calls": [
+          {
+            "stage": "intent",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "table_selection",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "sql_generation",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "semantic_review",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "summary",
+            "model": "scripted-fixture",
+            "usage": null
+          }
+        ],
+        "elapsed_ms": 0.0
+      }
+    }
+  ],
+  "error": ""
+}

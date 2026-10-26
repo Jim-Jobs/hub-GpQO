@@ -1,0 +1,518 @@
+{
+  "run_id": "7a96fa34ae50416d9769d6ba65fddf99",
+  "question": "每种有曲目的音乐类型平均曲目时长是多少毫秒，按类型ID排序？",
+  "status": "success",
+  "mode": "replay",
+  "reference_date": "2014-01-15",
+  "intent": {
+    "status": "answerable",
+    "metric": "每种有曲目的音乐类型平均曲目时长是多少毫秒，按类型ID排序？",
+    "dimensions": [],
+    "filters": [],
+    "time_range": [],
+    "ranking": "",
+    "grain": "",
+    "assumptions": [],
+    "clarification": "",
+    "reason": "",
+    "rule_ids": []
+  },
+  "selection": {
+    "tables": [
+      "genres",
+      "tracks"
+    ],
+    "columns": {},
+    "joins": [],
+    "reason": "Explicit replay fixture, not model selection",
+    "bridge_tables": []
+  },
+  "candidates": [
+    {
+      "sql": "SELECT g.GenreId, g.Name, AVG(t.Milliseconds) AS average_ms FROM genres g JOIN tracks t ON t.GenreId=g.GenreId GROUP BY g.GenreId ORDER BY g.GenreId",
+      "params": {},
+      "explanation": "",
+      "changes": ""
+    }
+  ],
+  "validations": [
+    {
+      "passed": true,
+      "checks": [
+        {
+          "name": "sqlite_compile_and_authorize",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "selection_scope",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "header_detail_grain_risk",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        }
+      ]
+    }
+  ],
+  "execution": {
+    "status": "ok",
+    "columns": [
+      "GenreId",
+      "Name",
+      "average_ms"
+    ],
+    "rows": [
+      [
+        1,
+        "Rock",
+        283910.0431765613
+      ],
+      [
+        2,
+        "Jazz",
+        291755.3769230769
+      ],
+      [
+        3,
+        "Metal",
+        309749.4438502674
+      ],
+      [
+        4,
+        "Alternative & Punk",
+        234353.84939759035
+      ],
+      [
+        5,
+        "Rock And Roll",
+        134643.5
+      ],
+      [
+        6,
+        "Blues",
+        270359.77777777775
+      ],
+      [
+        7,
+        "Latin",
+        232859.26252158894
+      ],
+      [
+        8,
+        "Reggae",
+        247177.75862068965
+      ],
+      [
+        9,
+        "Pop",
+        229034.10416666666
+      ],
+      [
+        10,
+        "Soundtrack",
+        244370.88372093023
+      ],
+      [
+        11,
+        "Bossa Nova",
+        219590.0
+      ],
+      [
+        12,
+        "Easy Listening",
+        189164.20833333334
+      ],
+      [
+        13,
+        "Heavy Metal",
+        297452.9285714286
+      ],
+      [
+        14,
+        "R&B/Soul",
+        220066.8524590164
+      ],
+      [
+        15,
+        "Electronica/Dance",
+        302985.8
+      ],
+      [
+        16,
+        "World",
+        224923.82142857142
+      ],
+      [
+        17,
+        "Hip Hop/Rap",
+        178176.2857142857
+      ],
+      [
+        18,
+        "Science Fiction",
+        2625549.076923077
+      ],
+      [
+        19,
+        "TV Shows",
+        2145041.0215053763
+      ],
+      [
+        20,
+        "Sci Fi & Fantasy",
+        2911783.0384615385
+      ],
+      [
+        21,
+        "Drama",
+        2575283.78125
+      ],
+      [
+        22,
+        "Comedy",
+        1585263.705882353
+      ],
+      [
+        23,
+        "Alternative",
+        264058.525
+      ],
+      [
+        24,
+        "Classical",
+        293867.5675675676
+      ],
+      [
+        25,
+        "Opera",
+        174813.0
+      ]
+    ],
+    "truncated": false,
+    "elapsed_ms": 0.0,
+    "error_type": "",
+    "error": ""
+  },
+  "answer": {
+    "text": "离线回放：查询返回 25 行。\n{\"columns\": [\"GenreId\", \"Name\", \"average_ms\"], \"rows\": [[1, \"Rock\", 283910.0431765613], [2, \"Jazz\", 291755.3769230769], [3, \"Metal\", 309749.4438502674], [4, \"Alternative & Punk\", 234353.84939759035], [5, \"Rock And Roll\", 134643.5], [6, \"Blues\", 270359.77777777775], [7, \"Latin\", 232859.26252158894], [8, \"Reggae\", 247177.75862068965], [9, \"Pop\", 229034.10416666666], [10, \"Soundtrack\", 244370.88372093023], [11, \"Bossa Nova\", 219590.0], [12, \"Easy Listening\", 189164.20833333334], [13, \"Heavy Metal\", 297452.9285714286], [14, \"R&B/Soul\", 220066.8524590164], [15, \"Electronica/Dance\", 302985.8], [16, \"World\", 224923.82142857142], [17, \"Hip Hop/Rap\", 178176.2857142857], [18, \"Science Fiction\", 2625549.076923077], [19, \"TV Shows\", 2145041.0215053763], [20, \"Sci Fi & Fantasy\", 2911783.0384615385], [21, \"Drama\", 2575283.78125], [22, \"Comedy\", 1585263.705882353], [23, \"Alternative\", 264058.525], [24, \"Classical\", 293867.5675675676], [25, \"Opera\", 174813.0]]}",
+    "facts": [],
+    "limitations": [
+      "仅验证工作流，未调用大模型。"
+    ]
+  },
+  "trace": [
+    {
+      "node": "database_parse",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "albums",
+          "artists",
+          "customers",
+          "employees",
+          "genres",
+          "invoice_items",
+          "invoices",
+          "media_types",
+          "playlist_track",
+          "playlists",
+          "tracks"
+        ],
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb"
+      }
+    },
+    {
+      "node": "intent",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "answerable",
+        "metric": "每种有曲目的音乐类型平均曲目时长是多少毫秒，按类型ID排序？",
+        "time_range": []
+      }
+    },
+    {
+      "node": "table_selection",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "tables": [
+          "genres",
+          "tracks"
+        ],
+        "reason": "Explicit replay fixture, not model selection"
+      }
+    },
+    {
+      "node": "bridge_completion",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "genres",
+          "tracks"
+        ],
+        "columns": {},
+        "joins": [],
+        "reason": "Explicit replay fixture, not model selection",
+        "bridge_tables": []
+      }
+    },
+    {
+      "node": "sql_generation",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "sql": "SELECT g.GenreId, g.Name, AVG(t.Milliseconds) AS average_ms FROM genres g JOIN tracks t ON t.GenreId=g.GenreId GROUP BY g.GenreId ORDER BY g.GenreId",
+        "params": {}
+      }
+    },
+    {
+      "node": "semantic_review",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "issues": []
+      }
+    },
+    {
+      "node": "sql_validation",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "sqlite_compile_and_authorize",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "selection_scope",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "header_detail_grain_risk",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          }
+        ]
+      }
+    },
+    {
+      "node": "sql_execution",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "ok",
+        "columns": [
+          "GenreId",
+          "Name",
+          "average_ms"
+        ],
+        "rows": [
+          [
+            1,
+            "Rock",
+            283910.0431765613
+          ],
+          [
+            2,
+            "Jazz",
+            291755.3769230769
+          ],
+          [
+            3,
+            "Metal",
+            309749.4438502674
+          ],
+          [
+            4,
+            "Alternative & Punk",
+            234353.84939759035
+          ],
+          [
+            5,
+            "Rock And Roll",
+            134643.5
+          ],
+          [
+            6,
+            "Blues",
+            270359.77777777775
+          ],
+          [
+            7,
+            "Latin",
+            232859.26252158894
+          ],
+          [
+            8,
+            "Reggae",
+            247177.75862068965
+          ],
+          [
+            9,
+            "Pop",
+            229034.10416666666
+          ],
+          [
+            10,
+            "Soundtrack",
+            244370.88372093023
+          ],
+          [
+            11,
+            "Bossa Nova",
+            219590.0
+          ],
+          [
+            12,
+            "Easy Listening",
+            189164.20833333334
+          ],
+          [
+            13,
+            "Heavy Metal",
+            297452.9285714286
+          ],
+          [
+            14,
+            "R&B/Soul",
+            220066.8524590164
+          ],
+          [
+            15,
+            "Electronica/Dance",
+            302985.8
+          ],
+          [
+            16,
+            "World",
+            224923.82142857142
+          ],
+          [
+            17,
+            "Hip Hop/Rap",
+            178176.2857142857
+          ],
+          [
+            18,
+            "Science Fiction",
+            2625549.076923077
+          ],
+          [
+            19,
+            "TV Shows",
+            2145041.0215053763
+          ],
+          [
+            20,
+            "Sci Fi & Fantasy",
+            2911783.0384615385
+          ],
+          [
+            21,
+            "Drama",
+            2575283.78125
+          ],
+          [
+            22,
+            "Comedy",
+            1585263.705882353
+          ],
+          [
+            23,
+            "Alternative",
+            264058.525
+          ],
+          [
+            24,
+            "Classical",
+            293867.5675675676
+          ],
+          [
+            25,
+            "Opera",
+            174813.0
+          ]
+        ],
+        "truncated": false,
+        "elapsed_ms": 0.0,
+        "error_type": "",
+        "error": ""
+      }
+    },
+    {
+      "node": "summary",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "text": "离线回放：查询返回 25 行。\n{\"columns\": [\"GenreId\", \"Name\", \"average_ms\"], \"rows\": [[1, \"Rock\", 283910.0431765613], [2, \"Jazz\", 291755.3769230769], [3, \"Metal\", 309749.4438502674], [4, \"Alternative & Punk\", 234353.84939759035], [5, \"Rock And Roll\", 134643.5], [6, \"Blues\", 270359.77777777775], [7, \"Latin\", 232859.26252158894], [8, \"Reggae\", 247177.75862068965], [9, \"Pop\", 229034.10416666666], [10, \"Soundtrack\", 244370.88372093023], [11, \"Bossa Nova\", 219590.0], [12, \"Easy Listening\", 189164.20833333334], [13, \"Heavy Metal\", 297452.9285714286], [14, \"R&B/Soul\", 220066.8524590164], [15, \"Electronica/Dance\", 302985.8], [16, \"World\", 224923.82142857142], [17, \"Hip Hop/Rap\", 178176.2857142857], [18, \"Science Fiction\", 2625549.076923077], [19, \"TV Shows\", 2145041.0215053763], [20, \"Sci Fi & Fantasy\", 2911783.0384615385], [21, \"Drama\", 2575283.78125], [22, \"Comedy\", 1585263.705882353], [23, \"Alternative\", 264058.525], [24, \"Classical\", 293867.5675675676], [25, \"Opera\", 174813.0]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "node": "run_metadata",
+      "status": "success",
+      "output": {
+        "variant": "workflow",
+        "prompt_version": "2026-10-21-v1",
+        "semantic_review": true,
+        "rules_enabled": true,
+        "max_rewrites": 2,
+        "reference_date": "2014-01-15",
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+        "calls": [
+          {
+            "stage": "intent",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "table_selection",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "sql_generation",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "semantic_review",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "summary",
+            "model": "scripted-fixture",
+            "usage": null
+          }
+        ],
+        "elapsed_ms": 0.0
+      }
+    }
+  ],
+  "error": ""
+}

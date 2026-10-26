@@ -1,0 +1,26 @@
+{
+  "intent": {
+    "status": "answerable",
+    "metric": "客户总人数是多少？",
+    "time_range": []
+  },
+  "table_selection": {
+    "tables": [
+      "customers"
+    ],
+    "reason": "Explicit replay fixture, not model selection"
+  },
+  "semantic_review": {
+    "issues": []
+  },
+  "candidates": [
+    {
+      "sql": "SELECT COUNT(NonexistentId) FROM customers",
+      "params": {}
+    },
+    {
+      "sql": "SELECT COUNT(*) AS customer_count FROM customers",
+      "params": {}
+    }
+  ]
+}

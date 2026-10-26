@@ -1,0 +1,325 @@
+{
+  "mode": "deterministic validation + injected replay repair; NOT model scores",
+  "total": 30,
+  "classification_correct": 30,
+  "error_detection": {
+    "detected": 24,
+    "total": 24
+  },
+  "false_positives": {
+    "count": 0,
+    "total": 6
+  },
+  "scripted_repair": {
+    "successful": 16,
+    "total": 16
+  },
+  "records": [
+    {
+      "id": "V01",
+      "expected": "compile_error",
+      "passed": false,
+      "detected": [
+        "compile_error"
+      ],
+      "classification_correct": true,
+      "repair_status": "success",
+      "repair_candidates": 2,
+      "run_id": "f650999c85a0461896161df42340e0aa"
+    },
+    {
+      "id": "V02",
+      "expected": "compile_error",
+      "passed": false,
+      "detected": [
+        "compile_error"
+      ],
+      "classification_correct": true,
+      "repair_status": "success",
+      "repair_candidates": 2,
+      "run_id": "f5065b3f596e4a3fb2648bf776952d03"
+    },
+    {
+      "id": "V03",
+      "expected": "compile_error",
+      "passed": false,
+      "detected": [
+        "compile_error"
+      ],
+      "classification_correct": true,
+      "repair_status": "success",
+      "repair_candidates": 2,
+      "run_id": "b4a2060bc37f4a8c9ebb728ac77794a6"
+    },
+    {
+      "id": "V04",
+      "expected": "compile_error",
+      "passed": false,
+      "detected": [
+        "compile_error"
+      ],
+      "classification_correct": true,
+      "repair_status": "success",
+      "repair_candidates": 2,
+      "run_id": "e4f77c8753d54cc68d6b87d0c357587c"
+    },
+    {
+      "id": "V05",
+      "expected": "compile_error",
+      "passed": false,
+      "detected": [
+        "compile_error"
+      ],
+      "classification_correct": true,
+      "repair_status": "success",
+      "repair_candidates": 2,
+      "run_id": "32438d3d01e540bf97208f2a225fed34"
+    },
+    {
+      "id": "V06",
+      "expected": "compile_error",
+      "passed": false,
+      "detected": [
+        "compile_error"
+      ],
+      "classification_correct": true,
+      "repair_status": "success",
+      "repair_candidates": 2,
+      "run_id": "8dd6c319ae8e4da4b05ac760be5ae10f"
+    },
+    {
+      "id": "V07",
+      "expected": "compile_error",
+      "passed": false,
+      "detected": [
+        "compile_error"
+      ],
+      "classification_correct": true,
+      "repair_status": "success",
+      "repair_candidates": 2,
+      "run_id": "d7303b2765d643b190cd844ee52e3348"
+    },
+    {
+      "id": "V08",
+      "expected": "compile_error",
+      "passed": false,
+      "detected": [
+        "compile_error"
+      ],
+      "classification_correct": true,
+      "repair_status": "success",
+      "repair_candidates": 2,
+      "run_id": "2936ea12a67342c6bcebf5385bc7135f"
+    },
+    {
+      "id": "V09",
+      "expected": "aggregation_grain",
+      "passed": false,
+      "detected": [
+        "aggregation_grain"
+      ],
+      "classification_correct": true,
+      "repair_status": "success",
+      "repair_candidates": 2,
+      "run_id": "7651177a40414e6d863464f2ab685c32"
+    },
+    {
+      "id": "V10",
+      "expected": "aggregation_grain",
+      "passed": false,
+      "detected": [
+        "aggregation_grain"
+      ],
+      "classification_correct": true,
+      "repair_status": "success",
+      "repair_candidates": 2,
+      "run_id": "7dc69918e10e4d4f97bf3f99220a0ff4"
+    },
+    {
+      "id": "V11",
+      "expected": "aggregation_grain",
+      "passed": false,
+      "detected": [
+        "aggregation_grain"
+      ],
+      "classification_correct": true,
+      "repair_status": "success",
+      "repair_candidates": 2,
+      "run_id": "5a4f300c6f71421aa1e739a5d3302bc6"
+    },
+    {
+      "id": "V12",
+      "expected": "aggregation_grain",
+      "passed": false,
+      "detected": [
+        "aggregation_grain"
+      ],
+      "classification_correct": true,
+      "repair_status": "success",
+      "repair_candidates": 2,
+      "run_id": "91331c98eb6e4573bf3e09d3ba9dd037"
+    },
+    {
+      "id": "V13",
+      "expected": "missing_time_filter",
+      "passed": false,
+      "detected": [
+        "missing_time_filter"
+      ],
+      "classification_correct": true,
+      "repair_status": "success",
+      "repair_candidates": 2,
+      "run_id": "7780e750914f4d749390222581fdac8e"
+    },
+    {
+      "id": "V14",
+      "expected": "missing_time_filter",
+      "passed": false,
+      "detected": [
+        "missing_time_filter"
+      ],
+      "classification_correct": true,
+      "repair_status": "success",
+      "repair_candidates": 2,
+      "run_id": "f8767ec65c55453c80c462cc84e6c592"
+    },
+    {
+      "id": "V15",
+      "expected": "missing_time_filter",
+      "passed": false,
+      "detected": [
+        "missing_time_filter"
+      ],
+      "classification_correct": true,
+      "repair_status": "success",
+      "repair_candidates": 2,
+      "run_id": "91f20d05423f4e909d497f7ca852249a"
+    },
+    {
+      "id": "V16",
+      "expected": "missing_time_filter",
+      "passed": false,
+      "detected": [
+        "missing_time_filter"
+      ],
+      "classification_correct": true,
+      "repair_status": "success",
+      "repair_candidates": 2,
+      "run_id": "3f4e006ee02d40068109a0b30aa2c4dd"
+    },
+    {
+      "id": "V17",
+      "expected": "forbidden_operation",
+      "passed": false,
+      "detected": [
+        "forbidden_operation"
+      ],
+      "classification_correct": true
+    },
+    {
+      "id": "V18",
+      "expected": "forbidden_operation",
+      "passed": false,
+      "detected": [
+        "forbidden_operation"
+      ],
+      "classification_correct": true
+    },
+    {
+      "id": "V19",
+      "expected": "forbidden_operation",
+      "passed": false,
+      "detected": [
+        "forbidden_operation"
+      ],
+      "classification_correct": true
+    },
+    {
+      "id": "V20",
+      "expected": "forbidden_operation",
+      "passed": false,
+      "detected": [
+        "forbidden_operation"
+      ],
+      "classification_correct": true
+    },
+    {
+      "id": "V21",
+      "expected": "forbidden_operation",
+      "passed": false,
+      "detected": [
+        "forbidden_operation"
+      ],
+      "classification_correct": true
+    },
+    {
+      "id": "V22",
+      "expected": "forbidden_operation",
+      "passed": false,
+      "detected": [
+        "forbidden_operation"
+      ],
+      "classification_correct": true
+    },
+    {
+      "id": "V23",
+      "expected": "forbidden_operation",
+      "passed": false,
+      "detected": [
+        "forbidden_operation"
+      ],
+      "classification_correct": true
+    },
+    {
+      "id": "V24",
+      "expected": "forbidden_operation",
+      "passed": false,
+      "detected": [
+        "forbidden_operation"
+      ],
+      "classification_correct": true
+    },
+    {
+      "id": "V25",
+      "expected": "valid",
+      "passed": true,
+      "detected": [],
+      "classification_correct": true
+    },
+    {
+      "id": "V26",
+      "expected": "valid",
+      "passed": true,
+      "detected": [],
+      "classification_correct": true
+    },
+    {
+      "id": "V27",
+      "expected": "valid",
+      "passed": true,
+      "detected": [],
+      "classification_correct": true
+    },
+    {
+      "id": "V28",
+      "expected": "valid",
+      "passed": true,
+      "detected": [],
+      "classification_correct": true
+    },
+    {
+      "id": "V29",
+      "expected": "valid",
+      "passed": true,
+      "detected": [],
+      "classification_correct": true
+    },
+    {
+      "id": "V30",
+      "expected": "valid",
+      "passed": true,
+      "detected": [],
+      "classification_correct": true
+    }
+  ]
+}

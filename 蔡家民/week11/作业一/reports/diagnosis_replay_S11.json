@@ -1,0 +1,72 @@
+{
+  "case_id": "S11",
+  "protocol": "controlled upstream replacement; not ordinary end-to-end scores",
+  "trials": {
+    "none": {
+      "status": "success",
+      "run_id": "02f8e04f18f0474c941adc7a9440a23a",
+      "result_correct": true,
+      "answer": {
+        "text": "离线回放：查询返回 5 行。\n{\"columns\": [\"ArtistId\", \"Name\", \"revenue\"], \"rows\": [[90, \"Iron Maiden\", 35.64], [150, \"U2\", 24.75], [50, \"Metallica\", 16.83], [149, \"Lost\", 15.92], [22, \"Led Zeppelin\", 14.85]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      },
+      "error": "",
+      "interventions": []
+    },
+    "gold_intent": {
+      "status": "success",
+      "run_id": "b177ce9bd1c742e8b092f5c161fa89ce",
+      "result_correct": true,
+      "answer": {
+        "text": "离线回放：查询返回 5 行。\n{\"columns\": [\"ArtistId\", \"Name\", \"revenue\"], \"rows\": [[90, \"Iron Maiden\", 35.64], [150, \"U2\", 24.75], [50, \"Metallica\", 16.83], [149, \"Lost\", 15.92], [22, \"Led Zeppelin\", 14.85]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      },
+      "error": "",
+      "interventions": [
+        "intent"
+      ]
+    },
+    "gold_tables": {
+      "status": "success",
+      "run_id": "b8fe30db8ef042efa1ae15d8c7fe4c67",
+      "result_correct": true,
+      "answer": {
+        "text": "离线回放：查询返回 5 行。\n{\"columns\": [\"ArtistId\", \"Name\", \"revenue\"], \"rows\": [[90, \"Iron Maiden\", 35.64], [150, \"U2\", 24.75], [50, \"Metallica\", 16.83], [149, \"Lost\", 15.92], [22, \"Led Zeppelin\", 14.85]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      },
+      "error": "",
+      "interventions": [
+        "intent",
+        "table_selection"
+      ]
+    },
+    "gold_sql": {
+      "status": "success",
+      "run_id": "361d5fd922e84be4bb645bf4f5cef8a1",
+      "result_correct": true,
+      "answer": {
+        "text": "离线回放：查询返回 5 行。\n{\"columns\": [\"ArtistId\", \"Name\", \"revenue\"], \"rows\": [[90, \"Iron Maiden\", 35.64], [150, \"U2\", 24.75], [50, \"Metallica\", 16.83], [149, \"Lost\", 15.92], [22, \"Led Zeppelin\", 14.85]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      },
+      "error": "",
+      "interventions": [
+        "intent",
+        "table_selection",
+        "sql_generation"
+      ]
+    }
+  },
+  "note": "Compare answers separately. Restoring SQL results does not prove summary quality or a unique cause."
+}

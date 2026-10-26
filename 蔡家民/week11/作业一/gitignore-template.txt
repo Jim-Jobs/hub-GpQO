@@ -1,0 +1,8 @@
+# Optional: add these patterns to your repository's existing ignore rules.
+# This file does not modify any parent repository configuration.
+__pycache__/
+*.pyc
+.venv/
+.env
+artifacts/traces/
+artifacts/catalog/

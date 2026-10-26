@@ -1,0 +1,97 @@
+{
+  "summary": {
+    "mode": "replay",
+    "warning": "REPLAY: orchestration checks only; NOT LLM performance",
+    "total": 3,
+    "answerable_correct": 3,
+    "answerable_total": 3,
+    "nonanswerable_status_correct": 0,
+    "nonanswerable_total": 0,
+    "categories": {
+      "business": {
+        "correct": 2,
+        "total": 2
+      },
+      "single": {
+        "correct": 1,
+        "total": 1
+      }
+    },
+    "total_model_calls": 15,
+    "mean_elapsed_ms": 0.0,
+    "first_sql_executable": {
+      "correct": 3,
+      "total": 3
+    },
+    "mean_necessary_table_recall": 1.0,
+    "judge_errors": 0
+  },
+  "records": [
+    {
+      "case_id": "S01",
+      "split": "dev",
+      "category": "single",
+      "mode": "replay",
+      "run_id": "f87da078a61441318721f629fb8ac9fd",
+      "expected_status": "success",
+      "actual_status": "success",
+      "status_correct": true,
+      "result_correct": true,
+      "first_sql_executable": true,
+      "necessary_table_recall": 1.0,
+      "extra_table_count": 0,
+      "rewrites": 0,
+      "error": "",
+      "first_detected_failure": null,
+      "reference_execution_ok": true,
+      "task_correct": true,
+      "elapsed_ms": 0.0,
+      "model_calls": 5,
+      "usage": []
+    },
+    {
+      "case_id": "S07",
+      "split": "dev",
+      "category": "business",
+      "mode": "replay",
+      "run_id": "b43f40667d464f53b64585afdb1e3d8d",
+      "expected_status": "success",
+      "actual_status": "success",
+      "status_correct": true,
+      "result_correct": true,
+      "first_sql_executable": true,
+      "necessary_table_recall": 1.0,
+      "extra_table_count": 0,
+      "rewrites": 0,
+      "error": "",
+      "first_detected_failure": null,
+      "reference_execution_ok": true,
+      "task_correct": true,
+      "elapsed_ms": 0.0,
+      "model_calls": 5,
+      "usage": []
+    },
+    {
+      "case_id": "S10",
+      "split": "dev",
+      "category": "business",
+      "mode": "replay",
+      "run_id": "8503108d808140c2bc62b4660ca58274",
+      "expected_status": "success",
+      "actual_status": "success",
+      "status_correct": true,
+      "result_correct": true,
+      "first_sql_executable": true,
+      "necessary_table_recall": 1.0,
+      "extra_table_count": 0,
+      "rewrites": 0,
+      "error": "",
+      "first_detected_failure": null,
+      "reference_execution_ok": true,
+      "task_correct": true,
+      "elapsed_ms": 0.0,
+      "model_calls": 5,
+      "usage": []
+    }
+  ]
+}

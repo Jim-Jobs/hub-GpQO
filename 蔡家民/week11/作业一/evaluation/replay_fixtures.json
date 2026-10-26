@@ -1,0 +1,3076 @@
+{
+  "S01": {
+    "intent": {
+      "status": "answerable",
+      "metric": "客户总人数是多少？",
+      "time_range": []
+    },
+    "table_selection": {
+      "tables": [
+        "customers"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS customer_count FROM customers",
+        "params": {}
+      }
+    ]
+  },
+  "S02": {
+    "intent": {
+      "status": "answerable",
+      "metric": "曲目目录共有多少首曲目？",
+      "time_range": []
+    },
+    "table_selection": {
+      "tables": [
+        "tracks"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS track_count FROM tracks",
+        "params": {}
+      }
+    ]
+  },
+  "S03": {
+    "intent": {
+      "status": "answerable",
+      "metric": "时长最长的5首曲目及毫秒时长，时长并列按曲目ID升序。",
+      "time_range": []
+    },
+    "table_selection": {
+      "tables": [
+        "tracks"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT TrackId, Name, Milliseconds FROM tracks ORDER BY Milliseconds DESC, TrackId LIMIT 5",
+        "params": {}
+      }
+    ]
+  },
+  "S04": {
+    "intent": {
+      "status": "answerable",
+      "metric": "列出每种音乐类型的目录曲目数，包括零首的类型，按类型ID排列。",
+      "time_range": []
+    },
+    "table_selection": {
+      "tables": [
+        "genres",
+        "tracks"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT g.GenreId, g.Name, COUNT(t.TrackId) AS tracks FROM genres g LEFT JOIN tracks t ON t.GenreId=g.GenreId GROUP BY g.GenreId, g.Name ORDER BY g.GenreId",
+        "params": {}
+      }
+    ]
+  },
+  "S05": {
+    "intent": {
+      "status": "answerable",
+      "metric": "列出居住在Brazil的客户ID和姓名，按客户ID排序。",
+      "time_range": []
+    },
+    "table_selection": {
+      "tables": [
+        "customers"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT CustomerId, FirstName, LastName FROM customers WHERE Country=:country ORDER BY CustomerId",
+        "params": {
+          "country": "Brazil"
+        }
+      }
+    ]
+  },
+  "S06": {
+    "intent": {
+      "status": "answerable",
+      "metric": "2026年的订单总数是多少？",
+      "time_range": [
+        "2026-01-01",
+        "2027-01-01"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS orders FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end",
+        "params": {
+          "start": "2026-01-01",
+          "end": "2027-01-01"
+        }
+      }
+    ]
+  },
+  "S07": {
+    "intent": {
+      "status": "answerable",
+      "metric": "按账单国家统计总销售金额，金额降序、国家名升序。",
+      "time_range": [],
+      "assumptions": [
+        "金额以源数据两位小数精度比较并列，再用题目指定次级键排序。"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT BillingCountry, SUM(Total) AS revenue FROM invoices GROUP BY BillingCountry ORDER BY ROUND(revenue, 2) DESC, BillingCountry",
+        "params": {}
+      }
+    ]
+  },
+  "S08": {
+    "intent": {
+      "status": "answerable",
+      "metric": "2013年每个有订单月份的订单销售金额是多少，按月份排序？",
+      "time_range": [
+        "2013-01-01",
+        "2014-01-01"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT strftime('%Y-%m', InvoiceDate) AS month, SUM(Total) AS revenue FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY month ORDER BY month",
+        "params": {
+          "start": "2013-01-01",
+          "end": "2014-01-01"
+        }
+      }
+    ]
+  },
+  "S09": {
+    "intent": {
+      "status": "answerable",
+      "metric": "累计消费金额前3名客户的ID、姓名和金额，金额并列按客户ID升序。",
+      "time_range": [],
+      "assumptions": [
+        "金额以源数据两位小数精度比较并列，再用题目指定次级键排序。"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "customers",
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT c.CustomerId, c.FirstName, c.LastName, SUM(i.Total) AS revenue FROM customers c JOIN invoices i ON i.CustomerId=c.CustomerId GROUP BY c.CustomerId ORDER BY ROUND(revenue, 2) DESC, c.CustomerId LIMIT 3",
+        "params": {}
+      }
+    ]
+  },
+  "S10": {
+    "intent": {
+      "status": "answerable",
+      "metric": "按音乐类型统计已成交销售金额，金额降序、类型ID升序。",
+      "time_range": [],
+      "assumptions": [
+        "金额以源数据两位小数精度比较并列，再用题目指定次级键排序。"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "genres",
+        "tracks",
+        "invoice_items"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT g.GenreId, g.Name, SUM(ii.UnitPrice*ii.Quantity) AS revenue FROM genres g JOIN tracks t ON t.GenreId=g.GenreId JOIN invoice_items ii ON ii.TrackId=t.TrackId GROUP BY g.GenreId ORDER BY ROUND(revenue, 2) DESC, g.GenreId",
+        "params": {}
+      }
+    ]
+  },
+  "S11": {
+    "intent": {
+      "status": "answerable",
+      "metric": "2013年销售金额前5名艺术家，金额并列按艺术家ID升序。",
+      "time_range": [
+        "2013-01-01",
+        "2014-01-01"
+      ],
+      "assumptions": [
+        "金额以源数据两位小数精度比较并列，再用题目指定次级键排序。"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "artists",
+        "albums",
+        "tracks",
+        "invoice_items",
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT a.ArtistId, a.Name, SUM(ii.UnitPrice*ii.Quantity) AS revenue FROM artists a JOIN albums al ON al.ArtistId=a.ArtistId JOIN tracks t ON t.AlbumId=al.AlbumId JOIN invoice_items ii ON ii.TrackId=t.TrackId JOIN invoices i ON i.InvoiceId=ii.InvoiceId WHERE i.InvoiceDate>=:start AND i.InvoiceDate<:end GROUP BY a.ArtistId ORDER BY ROUND(revenue, 2) DESC, a.ArtistId LIMIT 5",
+        "params": {
+          "start": "2013-01-01",
+          "end": "2014-01-01"
+        }
+      }
+    ]
+  },
+  "S12": {
+    "intent": {
+      "status": "answerable",
+      "metric": "哪些专辑包含超过15首曲目？返回专辑ID、标题和数量，按ID排序。",
+      "time_range": []
+    },
+    "table_selection": {
+      "tables": [
+        "albums",
+        "tracks"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT a.AlbumId, a.Title, COUNT(t.TrackId) AS tracks FROM albums a JOIN tracks t ON t.AlbumId=a.AlbumId GROUP BY a.AlbumId HAVING COUNT(t.TrackId)>15 ORDER BY a.AlbumId",
+        "params": {}
+      }
+    ]
+  },
+  "S13": {
+    "intent": {
+      "status": "answerable",
+      "metric": "所有订单的平均订单金额是多少？",
+      "time_range": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT AVG(Total) AS average_order_amount FROM invoices",
+        "params": {}
+      }
+    ]
+  },
+  "S14": {
+    "intent": {
+      "status": "answerable",
+      "metric": "每位支持员工负责多少客户，包括没有客户的员工，按员工ID排序。",
+      "time_range": []
+    },
+    "table_selection": {
+      "tables": [
+        "employees",
+        "customers"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT e.EmployeeId, e.FirstName, e.LastName, COUNT(c.CustomerId) AS customers FROM employees e LEFT JOIN customers c ON c.SupportRepId=e.EmployeeId GROUP BY e.EmployeeId ORDER BY e.EmployeeId",
+        "params": {}
+      }
+    ]
+  },
+  "S15": {
+    "intent": {
+      "status": "answerable",
+      "metric": "每个播放列表收录多少首曲目，包括空列表，按列表ID排序。",
+      "time_range": []
+    },
+    "table_selection": {
+      "tables": [
+        "playlists",
+        "playlist_track"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT p.PlaylistId, p.Name, COUNT(pt.TrackId) AS tracks FROM playlists p LEFT JOIN playlist_track pt ON pt.PlaylistId=p.PlaylistId GROUP BY p.PlaylistId ORDER BY p.PlaylistId",
+        "params": {}
+      }
+    ]
+  },
+  "S16": {
+    "intent": {
+      "status": "answerable",
+      "metric": "按媒体类型统计目录曲目数，包括零首类型，按媒体类型ID排序。",
+      "time_range": []
+    },
+    "table_selection": {
+      "tables": [
+        "media_types",
+        "tracks"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT m.MediaTypeId, m.Name, COUNT(t.TrackId) AS tracks FROM media_types m LEFT JOIN tracks t ON t.MediaTypeId=m.MediaTypeId GROUP BY m.MediaTypeId ORDER BY m.MediaTypeId",
+        "params": {}
+      }
+    ]
+  },
+  "S17": {
+    "intent": {
+      "status": "answerable",
+      "metric": "从未售出的曲目共有多少首？",
+      "time_range": []
+    },
+    "table_selection": {
+      "tables": [
+        "tracks",
+        "invoice_items"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS unsold_tracks FROM tracks t WHERE NOT EXISTS (SELECT 1 FROM invoice_items ii WHERE ii.TrackId=t.TrackId)",
+        "params": {}
+      }
+    ]
+  },
+  "S18": {
+    "intent": {
+      "status": "answerable",
+      "metric": "2013年内至少下过2个订单的客户ID和订单数，按客户ID排序。",
+      "time_range": [
+        "2013-01-01",
+        "2014-01-01"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT CustomerId, COUNT(*) AS orders FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY CustomerId HAVING COUNT(*)>=2 ORDER BY CustomerId",
+        "params": {
+          "start": "2013-01-01",
+          "end": "2014-01-01"
+        }
+      }
+    ]
+  },
+  "S19": {
+    "intent": {
+      "status": "answerable",
+      "metric": "所有销售明细对应多少个不同订单，以及一共售出多少件？",
+      "time_range": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoice_items"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(DISTINCT InvoiceId) AS orders, SUM(Quantity) AS units FROM invoice_items",
+        "params": {}
+      }
+    ]
+  },
+  "S20": {
+    "intent": {
+      "status": "answerable",
+      "metric": "按年份统计订单金额和订单数，按年份排序。",
+      "time_range": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT strftime('%Y', InvoiceDate) AS year, SUM(Total) AS revenue, COUNT(*) AS orders FROM invoices GROUP BY year ORDER BY year",
+        "params": {}
+      }
+    ]
+  },
+  "S21": {
+    "intent": {
+      "status": "answerable",
+      "metric": "计算2013年有订单月份的销售额与从年初开始的累计销售额，按月排序。",
+      "time_range": [
+        "2013-01-01",
+        "2014-01-01"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "WITH monthly AS (SELECT strftime('%Y-%m', InvoiceDate) AS month, SUM(Total) AS revenue FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY month) SELECT month, revenue, SUM(revenue) OVER (ORDER BY month ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS cumulative_revenue FROM monthly ORDER BY month",
+        "params": {
+          "start": "2013-01-01",
+          "end": "2014-01-01"
+        }
+      }
+    ]
+  },
+  "S22": {
+    "intent": {
+      "status": "answerable",
+      "metric": "销量排名前三的音乐类型，按销量降序、类型ID升序取固定3个，并显示名次。",
+      "time_range": []
+    },
+    "table_selection": {
+      "tables": [
+        "genres",
+        "tracks",
+        "invoice_items"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "WITH sales AS (SELECT g.GenreId, g.Name, SUM(ii.Quantity) AS units FROM genres g JOIN tracks t ON t.GenreId=g.GenreId JOIN invoice_items ii ON ii.TrackId=t.TrackId GROUP BY g.GenreId) SELECT GenreId, Name, units, ROW_NUMBER() OVER (ORDER BY units DESC, GenreId) AS position FROM sales ORDER BY units DESC, GenreId LIMIT 3",
+        "params": {}
+      }
+    ]
+  },
+  "S23": {
+    "intent": {
+      "status": "answerable",
+      "metric": "金额严格大于10的订单有多少个？",
+      "time_range": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS orders FROM invoices WHERE Total>:amount",
+        "params": {
+          "amount": 10
+        }
+      }
+    ]
+  },
+  "S24": {
+    "intent": {
+      "status": "answerable",
+      "metric": "Company字段为NULL的客户有多少人？",
+      "time_range": []
+    },
+    "table_selection": {
+      "tables": [
+        "customers"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS customers_without_company FROM customers WHERE Company IS NULL",
+        "params": {}
+      }
+    ]
+  },
+  "S25": {
+    "intent": {
+      "status": "answerable",
+      "metric": "成交单价与当前目录标价不同的销售明细有多少条？",
+      "time_range": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoice_items",
+        "tracks"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS differing_lines FROM invoice_items ii JOIN tracks t ON t.TrackId=ii.TrackId WHERE ii.UnitPrice<>t.UnitPrice",
+        "params": {}
+      }
+    ]
+  },
+  "S26": {
+    "intent": {
+      "status": "answerable",
+      "metric": "列出从未下单的客户ID和姓名，按客户ID排序。",
+      "time_range": []
+    },
+    "table_selection": {
+      "tables": [
+        "customers",
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT c.CustomerId, c.FirstName, c.LastName FROM customers c WHERE NOT EXISTS (SELECT 1 FROM invoices i WHERE i.CustomerId=c.CustomerId) ORDER BY c.CustomerId",
+        "params": {}
+      }
+    ]
+  },
+  "S27": {
+    "intent": {
+      "status": "answerable",
+      "metric": "每种有曲目的音乐类型平均曲目时长是多少毫秒，按类型ID排序？",
+      "time_range": []
+    },
+    "table_selection": {
+      "tables": [
+        "genres",
+        "tracks"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT g.GenreId, g.Name, AVG(t.Milliseconds) AS average_ms FROM genres g JOIN tracks t ON t.GenreId=g.GenreId GROUP BY g.GenreId ORDER BY g.GenreId",
+        "params": {}
+      }
+    ]
+  },
+  "S28": {
+    "intent": {
+      "status": "answerable",
+      "metric": "根据历史成交单价乘数量，全部销售明细的金额总和是多少？",
+      "time_range": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoice_items"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT SUM(UnitPrice*Quantity) AS revenue FROM invoice_items",
+        "params": {}
+      }
+    ]
+  },
+  "S29": {
+    "intent": {
+      "status": "answerable",
+      "metric": "按账单国家统计销量，按销量降序和国家名升序排列。",
+      "time_range": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoices",
+        "invoice_items"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT i.BillingCountry, SUM(ii.Quantity) AS units FROM invoices i JOIN invoice_items ii ON ii.InvoiceId=i.InvoiceId GROUP BY i.BillingCountry ORDER BY units DESC, i.BillingCountry",
+        "params": {}
+      }
+    ]
+  },
+  "S30": {
+    "intent": {
+      "status": "answerable",
+      "metric": "历史上售出过多少首不同曲目？",
+      "time_range": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoice_items"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(DISTINCT TrackId) AS sold_tracks FROM invoice_items",
+        "params": {}
+      }
+    ]
+  },
+  "S31": {
+    "intent": {
+      "status": "answerable",
+      "metric": "列出有直属上级的员工ID、员工姓、上级ID和上级姓，按员工ID排序。",
+      "time_range": []
+    },
+    "table_selection": {
+      "tables": [
+        "employees"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT e.EmployeeId, e.LastName, m.EmployeeId AS manager_id, m.LastName AS manager_name FROM employees e JOIN employees m ON e.ReportsTo=m.EmployeeId ORDER BY e.EmployeeId",
+        "params": {}
+      }
+    ]
+  },
+  "S32": {
+    "intent": {
+      "status": "answerable",
+      "metric": "哪些订单总金额与其明细成交金额之和相差超过0.01？返回订单ID及两种金额，按订单ID排序。",
+      "time_range": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoices",
+        "invoice_items"
+      ],
+      "reason": "Explicit replay fixture, not model selection"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT i.InvoiceId, i.Total, SUM(ii.UnitPrice*ii.Quantity) AS detail_amount FROM invoices i JOIN invoice_items ii ON ii.InvoiceId=i.InvoiceId GROUP BY i.InvoiceId HAVING ABS(i.Total-SUM(ii.UnitPrice*ii.Quantity))>0.01 ORDER BY i.InvoiceId",
+        "params": {}
+      }
+    ]
+  },
+  "C01": {
+    "intent": {
+      "status": "needs_clarification",
+      "clarification": "国家是指客户居住国家还是账单国家？",
+      "reason": "国家是指客户居住国家还是账单国家？"
+    }
+  },
+  "C02": {
+    "intent": {
+      "status": "needs_clarification",
+      "clarification": "最近具体是哪个起止日期？",
+      "reason": "最近具体是哪个起止日期？"
+    }
+  },
+  "C03": {
+    "intent": {
+      "status": "needs_clarification",
+      "clarification": "最好是按销售金额、销量还是其他指标衡量？",
+      "reason": "最好是按销售金额、销量还是其他指标衡量？"
+    }
+  },
+  "C04": {
+    "intent": {
+      "status": "needs_clarification",
+      "clarification": "活跃的时间范围和购买条件是什么？",
+      "reason": "活跃的时间范围和购买条件是什么？"
+    }
+  },
+  "U01": {
+    "intent": {
+      "status": "unsupported",
+      "clarification": "",
+      "reason": "数据库没有成本数据，不能计算利润。"
+    }
+  },
+  "U02": {
+    "intent": {
+      "status": "unsupported",
+      "clarification": "",
+      "reason": "数据库没有播放日志，播放列表不是播放次数。"
+    }
+  },
+  "U03": {
+    "intent": {
+      "status": "unsupported",
+      "clarification": "",
+      "reason": "只读问数系统不执行数据删除。"
+    }
+  },
+  "U04": {
+    "intent": {
+      "status": "unsupported",
+      "clarification": "",
+      "reason": "只允许查询配置的数据库业务表。"
+    }
+  },
+  "E01": {
+    "intent": {
+      "status": "answerable",
+      "metric": "居住在USA的客户有多少人？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "customers"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS customers FROM customers WHERE Country=:country",
+        "params": {
+          "country": "USA"
+        }
+      }
+    ]
+  },
+  "E02": {
+    "intent": {
+      "status": "answerable",
+      "metric": "居住在Canada的客户有多少人？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "customers"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS customers FROM customers WHERE Country=:country",
+        "params": {
+          "country": "Canada"
+        }
+      }
+    ]
+  },
+  "E03": {
+    "intent": {
+      "status": "answerable",
+      "metric": "账单国家为USA的订单有多少个？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS orders FROM invoices WHERE BillingCountry=:country",
+        "params": {
+          "country": "USA"
+        }
+      }
+    ]
+  },
+  "E04": {
+    "intent": {
+      "status": "answerable",
+      "metric": "账单国家为Germany的订单有多少个？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS orders FROM invoices WHERE BillingCountry=:country",
+        "params": {
+          "country": "Germany"
+        }
+      }
+    ]
+  },
+  "E05": {
+    "intent": {
+      "status": "answerable",
+      "metric": "账单国家为Brazil的订单金额总和是多少？",
+      "time_range": [],
+      "rule_ids": [
+        "R01",
+        "R03"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT SUM(Total) AS revenue FROM invoices WHERE BillingCountry=:country",
+        "params": {
+          "country": "Brazil"
+        }
+      }
+    ]
+  },
+  "E06": {
+    "intent": {
+      "status": "answerable",
+      "metric": "账单国家为France的订单金额总和是多少？",
+      "time_range": [],
+      "rule_ids": [
+        "R01",
+        "R03"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT SUM(Total) AS revenue FROM invoices WHERE BillingCountry=:country",
+        "params": {
+          "country": "France"
+        }
+      }
+    ]
+  },
+  "E07": {
+    "intent": {
+      "status": "answerable",
+      "metric": "2010年订单总金额是多少？",
+      "time_range": [
+        "2010-01-01",
+        "2011-01-01"
+      ],
+      "rule_ids": [
+        "R01",
+        "R05"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT SUM(Total) AS revenue FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end",
+        "params": {
+          "start": "2010-01-01",
+          "end": "2011-01-01"
+        }
+      }
+    ]
+  },
+  "E08": {
+    "intent": {
+      "status": "answerable",
+      "metric": "2012年订单总金额是多少？",
+      "time_range": [
+        "2012-01-01",
+        "2013-01-01"
+      ],
+      "rule_ids": [
+        "R01",
+        "R05"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT SUM(Total) AS revenue FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end",
+        "params": {
+          "start": "2012-01-01",
+          "end": "2013-01-01"
+        }
+      }
+    ]
+  },
+  "E09": {
+    "intent": {
+      "status": "answerable",
+      "metric": "2010年按订单明细数量统计售出多少件？",
+      "time_range": [
+        "2010-01-01",
+        "2011-01-01"
+      ],
+      "rule_ids": [
+        "R02",
+        "R05"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "invoices",
+        "invoice_items"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT SUM(ii.Quantity) AS units FROM invoice_items ii JOIN invoices i ON i.InvoiceId=ii.InvoiceId WHERE i.InvoiceDate>=:start AND i.InvoiceDate<:end",
+        "params": {
+          "start": "2010-01-01",
+          "end": "2011-01-01"
+        }
+      }
+    ]
+  },
+  "E10": {
+    "intent": {
+      "status": "answerable",
+      "metric": "2012年按订单明细数量统计售出多少件？",
+      "time_range": [
+        "2012-01-01",
+        "2013-01-01"
+      ],
+      "rule_ids": [
+        "R02",
+        "R05"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "invoices",
+        "invoice_items"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT SUM(ii.Quantity) AS units FROM invoice_items ii JOIN invoices i ON i.InvoiceId=ii.InvoiceId WHERE i.InvoiceDate>=:start AND i.InvoiceDate<:end",
+        "params": {
+          "start": "2012-01-01",
+          "end": "2013-01-01"
+        }
+      }
+    ]
+  },
+  "E11": {
+    "intent": {
+      "status": "answerable",
+      "metric": "2010年有订单的各月份分别有多少个订单，按月份升序？",
+      "time_range": [
+        "2010-01-01",
+        "2011-01-01"
+      ],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT strftime('%Y-%m', InvoiceDate) AS month, COUNT(*) AS orders FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY month ORDER BY month",
+        "params": {
+          "start": "2010-01-01",
+          "end": "2011-01-01"
+        }
+      }
+    ]
+  },
+  "E12": {
+    "intent": {
+      "status": "answerable",
+      "metric": "2012年有订单的各月份分别有多少个订单，按月份升序？",
+      "time_range": [
+        "2012-01-01",
+        "2013-01-01"
+      ],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT strftime('%Y-%m', InvoiceDate) AS month, COUNT(*) AS orders FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY month ORDER BY month",
+        "params": {
+          "start": "2012-01-01",
+          "end": "2013-01-01"
+        }
+      }
+    ]
+  },
+  "E13": {
+    "intent": {
+      "status": "answerable",
+      "metric": "2010年各有订单月份的平均订单金额，按月份升序。",
+      "time_range": [
+        "2010-01-01",
+        "2011-01-01"
+      ],
+      "rule_ids": [
+        "R07"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT strftime('%Y-%m', InvoiceDate) AS month, AVG(Total) AS average_amount FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY month ORDER BY month",
+        "params": {
+          "start": "2010-01-01",
+          "end": "2011-01-01"
+        }
+      }
+    ]
+  },
+  "E14": {
+    "intent": {
+      "status": "answerable",
+      "metric": "2012年各有订单月份的平均订单金额，按月份升序。",
+      "time_range": [
+        "2012-01-01",
+        "2013-01-01"
+      ],
+      "rule_ids": [
+        "R07"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT strftime('%Y-%m', InvoiceDate) AS month, AVG(Total) AS average_amount FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY month ORDER BY month",
+        "params": {
+          "start": "2012-01-01",
+          "end": "2013-01-01"
+        }
+      }
+    ]
+  },
+  "E15": {
+    "intent": {
+      "status": "answerable",
+      "metric": "艺术家ID为1的目录曲目共有多少首？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "artists",
+        "albums",
+        "tracks"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(t.TrackId) AS tracks FROM artists ar JOIN albums al ON al.ArtistId=ar.ArtistId JOIN tracks t ON t.AlbumId=al.AlbumId WHERE ar.ArtistId=:artist",
+        "params": {
+          "artist": 1
+        }
+      }
+    ]
+  },
+  "E16": {
+    "intent": {
+      "status": "answerable",
+      "metric": "艺术家ID为2的目录曲目共有多少首？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "artists",
+        "albums",
+        "tracks"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(t.TrackId) AS tracks FROM artists ar JOIN albums al ON al.ArtistId=ar.ArtistId JOIN tracks t ON t.AlbumId=al.AlbumId WHERE ar.ArtistId=:artist",
+        "params": {
+          "artist": 2
+        }
+      }
+    ]
+  },
+  "E17": {
+    "intent": {
+      "status": "answerable",
+      "metric": "列出艺术家ID为1的专辑ID和标题，按专辑ID升序。",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "albums"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT AlbumId, Title FROM albums WHERE ArtistId=:artist ORDER BY AlbumId",
+        "params": {
+          "artist": 1
+        }
+      }
+    ]
+  },
+  "E18": {
+    "intent": {
+      "status": "answerable",
+      "metric": "列出艺术家ID为2的专辑ID和标题，按专辑ID升序。",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "albums"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT AlbumId, Title FROM albums WHERE ArtistId=:artist ORDER BY AlbumId",
+        "params": {
+          "artist": 2
+        }
+      }
+    ]
+  },
+  "E19": {
+    "intent": {
+      "status": "answerable",
+      "metric": "类型ID为1的目录曲目共有多少首？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "tracks"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS tracks FROM tracks WHERE GenreId=:genre",
+        "params": {
+          "genre": 1
+        }
+      }
+    ]
+  },
+  "E20": {
+    "intent": {
+      "status": "answerable",
+      "metric": "类型ID为2的目录曲目共有多少首？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "tracks"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS tracks FROM tracks WHERE GenreId=:genre",
+        "params": {
+          "genre": 2
+        }
+      }
+    ]
+  },
+  "E21": {
+    "intent": {
+      "status": "answerable",
+      "metric": "类型ID为1的曲目当前目录标价平均值是多少？",
+      "time_range": [],
+      "rule_ids": [
+        "R04"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "tracks"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT AVG(UnitPrice) AS average_catalog_price FROM tracks WHERE GenreId=:genre",
+        "params": {
+          "genre": 1
+        }
+      }
+    ]
+  },
+  "E22": {
+    "intent": {
+      "status": "answerable",
+      "metric": "类型ID为2的曲目当前目录标价平均值是多少？",
+      "time_range": [],
+      "rule_ids": [
+        "R04"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "tracks"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT AVG(UnitPrice) AS average_catalog_price FROM tracks WHERE GenreId=:genre",
+        "params": {
+          "genre": 2
+        }
+      }
+    ]
+  },
+  "E23": {
+    "intent": {
+      "status": "answerable",
+      "metric": "专辑ID为1的所有曲目总时长是多少毫秒？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "tracks"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT SUM(Milliseconds) AS duration_ms FROM tracks WHERE AlbumId=:album",
+        "params": {
+          "album": 1
+        }
+      }
+    ]
+  },
+  "E24": {
+    "intent": {
+      "status": "answerable",
+      "metric": "专辑ID为2的所有曲目总时长是多少毫秒？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "tracks"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT SUM(Milliseconds) AS duration_ms FROM tracks WHERE AlbumId=:album",
+        "params": {
+          "album": 2
+        }
+      }
+    ]
+  },
+  "E25": {
+    "intent": {
+      "status": "answerable",
+      "metric": "列出订单ID为1的明细ID、曲目名、成交单价、数量和明细金额，按明细ID排序。",
+      "time_range": [],
+      "rule_ids": [
+        "R04"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "invoice_items",
+        "tracks"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT ii.InvoiceLineId, t.Name, ii.UnitPrice, ii.Quantity, ii.UnitPrice*ii.Quantity AS line_amount FROM invoice_items ii JOIN tracks t ON t.TrackId=ii.TrackId WHERE ii.InvoiceId=:invoice ORDER BY ii.InvoiceLineId",
+        "params": {
+          "invoice": 1
+        }
+      }
+    ]
+  },
+  "E26": {
+    "intent": {
+      "status": "answerable",
+      "metric": "列出订单ID为2的明细ID、曲目名、成交单价、数量和明细金额，按明细ID排序。",
+      "time_range": [],
+      "rule_ids": [
+        "R04"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "invoice_items",
+        "tracks"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT ii.InvoiceLineId, t.Name, ii.UnitPrice, ii.Quantity, ii.UnitPrice*ii.Quantity AS line_amount FROM invoice_items ii JOIN tracks t ON t.TrackId=ii.TrackId WHERE ii.InvoiceId=:invoice ORDER BY ii.InvoiceLineId",
+        "params": {
+          "invoice": 2
+        }
+      }
+    ]
+  },
+  "E27": {
+    "intent": {
+      "status": "answerable",
+      "metric": "列出客户ID为1的订单ID、日期和金额，按日期和订单ID排序。",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT InvoiceId, InvoiceDate, Total FROM invoices WHERE CustomerId=:customer ORDER BY InvoiceDate, InvoiceId",
+        "params": {
+          "customer": 1
+        }
+      }
+    ]
+  },
+  "E28": {
+    "intent": {
+      "status": "answerable",
+      "metric": "列出客户ID为2的订单ID、日期和金额，按日期和订单ID排序。",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT InvoiceId, InvoiceDate, Total FROM invoices WHERE CustomerId=:customer ORDER BY InvoiceDate, InvoiceId",
+        "params": {
+          "customer": 2
+        }
+      }
+    ]
+  },
+  "E29": {
+    "intent": {
+      "status": "answerable",
+      "metric": "客户ID为1在2013年的订单金额总和是多少？没有订单保留NULL。",
+      "time_range": [
+        "2013-01-01",
+        "2014-01-01"
+      ],
+      "rule_ids": [
+        "R01",
+        "R11"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT SUM(Total) AS revenue FROM invoices WHERE CustomerId=:customer AND InvoiceDate>=:start AND InvoiceDate<:end",
+        "params": {
+          "customer": 1,
+          "start": "2013-01-01",
+          "end": "2014-01-01"
+        }
+      }
+    ]
+  },
+  "E30": {
+    "intent": {
+      "status": "answerable",
+      "metric": "客户ID为2在2013年的订单金额总和是多少？没有订单保留NULL。",
+      "time_range": [
+        "2013-01-01",
+        "2014-01-01"
+      ],
+      "rule_ids": [
+        "R01",
+        "R11"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT SUM(Total) AS revenue FROM invoices WHERE CustomerId=:customer AND InvoiceDate>=:start AND InvoiceDate<:end",
+        "params": {
+          "customer": 2,
+          "start": "2013-01-01",
+          "end": "2014-01-01"
+        }
+      }
+    ]
+  },
+  "E31": {
+    "intent": {
+      "status": "answerable",
+      "metric": "艺术家ID为1的专辑共有多少张？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "albums"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS albums FROM albums WHERE ArtistId=:artist",
+        "params": {
+          "artist": 1
+        }
+      }
+    ]
+  },
+  "E32": {
+    "intent": {
+      "status": "answerable",
+      "metric": "艺术家ID为2的专辑共有多少张？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "albums"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS albums FROM albums WHERE ArtistId=:artist",
+        "params": {
+          "artist": 2
+        }
+      }
+    ]
+  },
+  "E33": {
+    "intent": {
+      "status": "answerable",
+      "metric": "列出曲目名称以Love开头的曲目ID和名称，按ID排序。",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "tracks"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT TrackId, Name FROM tracks WHERE Name LIKE :prefix ORDER BY TrackId",
+        "params": {
+          "prefix": "Love%"
+        }
+      }
+    ]
+  },
+  "E34": {
+    "intent": {
+      "status": "answerable",
+      "metric": "列出曲目名称以Rock开头的曲目ID和名称，按ID排序。",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "tracks"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT TrackId, Name FROM tracks WHERE Name LIKE :prefix ORDER BY TrackId",
+        "params": {
+          "prefix": "Rock%"
+        }
+      }
+    ]
+  },
+  "E35": {
+    "intent": {
+      "status": "answerable",
+      "metric": "金额大于等于1且小于5的订单有多少个？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS orders FROM invoices WHERE Total>=:low AND Total<:high",
+        "params": {
+          "low": 1,
+          "high": 5
+        }
+      }
+    ]
+  },
+  "E36": {
+    "intent": {
+      "status": "answerable",
+      "metric": "金额大于等于5且小于10的订单有多少个？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS orders FROM invoices WHERE Total>=:low AND Total<:high",
+        "params": {
+          "low": 5,
+          "high": 10
+        }
+      }
+    ]
+  },
+  "E37": {
+    "intent": {
+      "status": "answerable",
+      "metric": "2013年1月有多少个订单？",
+      "time_range": [
+        "2013-01-01",
+        "2013-02-01"
+      ],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS orders FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end",
+        "params": {
+          "start": "2013-01-01",
+          "end": "2013-02-01"
+        }
+      }
+    ]
+  },
+  "E38": {
+    "intent": {
+      "status": "answerable",
+      "metric": "2013年2月有多少个订单？",
+      "time_range": [
+        "2013-02-01",
+        "2013-03-01"
+      ],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS orders FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end",
+        "params": {
+          "start": "2013-02-01",
+          "end": "2013-03-01"
+        }
+      }
+    ]
+  },
+  "E39": {
+    "intent": {
+      "status": "answerable",
+      "metric": "直属上级ID为1的员工有多少人？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "employees"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS direct_reports FROM employees WHERE ReportsTo=:manager",
+        "params": {
+          "manager": 1
+        }
+      }
+    ]
+  },
+  "E40": {
+    "intent": {
+      "status": "answerable",
+      "metric": "直属上级ID为2的员工有多少人？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "employees"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS direct_reports FROM employees WHERE ReportsTo=:manager",
+        "params": {
+          "manager": 2
+        }
+      }
+    ]
+  },
+  "E41": {
+    "intent": {
+      "status": "answerable",
+      "metric": "播放列表ID为1收录曲目的总时长是多少毫秒？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "playlist_track",
+        "tracks"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT SUM(t.Milliseconds) AS duration_ms FROM playlist_track pt JOIN tracks t ON t.TrackId=pt.TrackId WHERE pt.PlaylistId=:playlist",
+        "params": {
+          "playlist": 1
+        }
+      }
+    ]
+  },
+  "E42": {
+    "intent": {
+      "status": "answerable",
+      "metric": "播放列表ID为5收录曲目的总时长是多少毫秒？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "playlist_track",
+        "tracks"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT SUM(t.Milliseconds) AS duration_ms FROM playlist_track pt JOIN tracks t ON t.TrackId=pt.TrackId WHERE pt.PlaylistId=:playlist",
+        "params": {
+          "playlist": 5
+        }
+      }
+    ]
+  },
+  "E43": {
+    "intent": {
+      "status": "answerable",
+      "metric": "播放列表ID为1收录的曲目涉及多少位不同艺术家？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "playlist_track",
+        "tracks",
+        "albums"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(DISTINCT al.ArtistId) AS artists FROM playlist_track pt JOIN tracks t ON t.TrackId=pt.TrackId JOIN albums al ON al.AlbumId=t.AlbumId WHERE pt.PlaylistId=:playlist",
+        "params": {
+          "playlist": 1
+        }
+      }
+    ]
+  },
+  "E44": {
+    "intent": {
+      "status": "answerable",
+      "metric": "播放列表ID为5收录的曲目涉及多少位不同艺术家？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "playlist_track",
+        "tracks",
+        "albums"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(DISTINCT al.ArtistId) AS artists FROM playlist_track pt JOIN tracks t ON t.TrackId=pt.TrackId JOIN albums al ON al.AlbumId=t.AlbumId WHERE pt.PlaylistId=:playlist",
+        "params": {
+          "playlist": 5
+        }
+      }
+    ]
+  },
+  "E45": {
+    "intent": {
+      "status": "answerable",
+      "metric": "媒体类型ID为1的曲目历史售出多少件？",
+      "time_range": [],
+      "rule_ids": [
+        "R02"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "tracks",
+        "invoice_items"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT SUM(ii.Quantity) AS units FROM tracks t JOIN invoice_items ii ON ii.TrackId=t.TrackId WHERE t.MediaTypeId=:media",
+        "params": {
+          "media": 1
+        }
+      }
+    ]
+  },
+  "E46": {
+    "intent": {
+      "status": "answerable",
+      "metric": "媒体类型ID为2的曲目历史售出多少件？",
+      "time_range": [],
+      "rule_ids": [
+        "R02"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "tracks",
+        "invoice_items"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT SUM(ii.Quantity) AS units FROM tracks t JOIN invoice_items ii ON ii.TrackId=t.TrackId WHERE t.MediaTypeId=:media",
+        "params": {
+          "media": 2
+        }
+      }
+    ]
+  },
+  "E47": {
+    "intent": {
+      "status": "answerable",
+      "metric": "账单国家为USA的已售音乐类型分别贡献多少成交金额？按金额降序、类型ID升序。",
+      "time_range": [],
+      "rule_ids": [
+        "R01",
+        "R03"
+      ],
+      "assumptions": [
+        "金额以源数据两位小数精度比较并列，再用题目指定次级键排序。"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "genres",
+        "tracks",
+        "invoice_items",
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT g.GenreId, g.Name, SUM(ii.UnitPrice*ii.Quantity) AS revenue FROM genres g JOIN tracks t ON t.GenreId=g.GenreId JOIN invoice_items ii ON ii.TrackId=t.TrackId JOIN invoices i ON i.InvoiceId=ii.InvoiceId WHERE i.BillingCountry=:country GROUP BY g.GenreId ORDER BY ROUND(revenue, 2) DESC, g.GenreId",
+        "params": {
+          "country": "USA"
+        }
+      }
+    ]
+  },
+  "E48": {
+    "intent": {
+      "status": "answerable",
+      "metric": "账单国家为Canada的已售音乐类型分别贡献多少成交金额？按金额降序、类型ID升序。",
+      "time_range": [],
+      "rule_ids": [
+        "R01",
+        "R03"
+      ],
+      "assumptions": [
+        "金额以源数据两位小数精度比较并列，再用题目指定次级键排序。"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "genres",
+        "tracks",
+        "invoice_items",
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT g.GenreId, g.Name, SUM(ii.UnitPrice*ii.Quantity) AS revenue FROM genres g JOIN tracks t ON t.GenreId=g.GenreId JOIN invoice_items ii ON ii.TrackId=t.TrackId JOIN invoices i ON i.InvoiceId=ii.InvoiceId WHERE i.BillingCountry=:country GROUP BY g.GenreId ORDER BY ROUND(revenue, 2) DESC, g.GenreId",
+        "params": {
+          "country": "Canada"
+        }
+      }
+    ]
+  },
+  "E49": {
+    "intent": {
+      "status": "answerable",
+      "metric": "艺术家ID为1的曲目向账单国家USA贡献多少成交金额？无销售保留NULL。",
+      "time_range": [],
+      "rule_ids": [
+        "R01",
+        "R03",
+        "R11"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "albums",
+        "tracks",
+        "invoice_items",
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT SUM(ii.UnitPrice*ii.Quantity) AS revenue FROM albums al JOIN tracks t ON t.AlbumId=al.AlbumId JOIN invoice_items ii ON ii.TrackId=t.TrackId JOIN invoices i ON i.InvoiceId=ii.InvoiceId WHERE al.ArtistId=:artist AND i.BillingCountry=:country",
+        "params": {
+          "artist": 1,
+          "country": "USA"
+        }
+      }
+    ]
+  },
+  "E50": {
+    "intent": {
+      "status": "answerable",
+      "metric": "艺术家ID为2的曲目向账单国家USA贡献多少成交金额？无销售保留NULL。",
+      "time_range": [],
+      "rule_ids": [
+        "R01",
+        "R03",
+        "R11"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "albums",
+        "tracks",
+        "invoice_items",
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT SUM(ii.UnitPrice*ii.Quantity) AS revenue FROM albums al JOIN tracks t ON t.AlbumId=al.AlbumId JOIN invoice_items ii ON ii.TrackId=t.TrackId JOIN invoices i ON i.InvoiceId=ii.InvoiceId WHERE al.ArtistId=:artist AND i.BillingCountry=:country",
+        "params": {
+          "artist": 2,
+          "country": "USA"
+        }
+      }
+    ]
+  },
+  "E51": {
+    "intent": {
+      "status": "answerable",
+      "metric": "客户ID为1最后一次订单的日期是什么？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT MAX(InvoiceDate) AS last_order FROM invoices WHERE CustomerId=:customer",
+        "params": {
+          "customer": 1
+        }
+      }
+    ]
+  },
+  "E52": {
+    "intent": {
+      "status": "answerable",
+      "metric": "客户ID为2最后一次订单的日期是什么？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT MAX(InvoiceDate) AS last_order FROM invoices WHERE CustomerId=:customer",
+        "params": {
+          "customer": 2
+        }
+      }
+    ]
+  },
+  "E53": {
+    "intent": {
+      "status": "answerable",
+      "metric": "2010年每个有订单月份有多少位不同购买客户，按月份升序？",
+      "time_range": [
+        "2010-01-01",
+        "2011-01-01"
+      ],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT strftime('%Y-%m', InvoiceDate) AS month, COUNT(DISTINCT CustomerId) AS customers FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY month ORDER BY month",
+        "params": {
+          "start": "2010-01-01",
+          "end": "2011-01-01"
+        }
+      }
+    ]
+  },
+  "E54": {
+    "intent": {
+      "status": "answerable",
+      "metric": "2012年每个有订单月份有多少位不同购买客户，按月份升序？",
+      "time_range": [
+        "2012-01-01",
+        "2013-01-01"
+      ],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT strftime('%Y-%m', InvoiceDate) AS month, COUNT(DISTINCT CustomerId) AS customers FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY month ORDER BY month",
+        "params": {
+          "start": "2012-01-01",
+          "end": "2013-01-01"
+        }
+      }
+    ]
+  },
+  "E55": {
+    "intent": {
+      "status": "answerable",
+      "metric": "2010年销售金额最高的是哪个月，金额多少？并列选月份最早的一个。",
+      "time_range": [
+        "2010-01-01",
+        "2011-01-01"
+      ],
+      "rule_ids": [],
+      "assumptions": [
+        "金额以源数据两位小数精度比较并列，再用题目指定次级键排序。"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT strftime('%Y-%m', InvoiceDate) AS month, SUM(Total) AS revenue FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY month ORDER BY ROUND(revenue, 2) DESC, month LIMIT 1",
+        "params": {
+          "start": "2010-01-01",
+          "end": "2011-01-01"
+        }
+      }
+    ]
+  },
+  "E56": {
+    "intent": {
+      "status": "answerable",
+      "metric": "2012年销售金额最高的是哪个月，金额多少？并列选月份最早的一个。",
+      "time_range": [
+        "2012-01-01",
+        "2013-01-01"
+      ],
+      "rule_ids": [],
+      "assumptions": [
+        "金额以源数据两位小数精度比较并列，再用题目指定次级键排序。"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT strftime('%Y-%m', InvoiceDate) AS month, SUM(Total) AS revenue FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end GROUP BY month ORDER BY ROUND(revenue, 2) DESC, month LIMIT 1",
+        "params": {
+          "start": "2012-01-01",
+          "end": "2013-01-01"
+        }
+      }
+    ]
+  },
+  "E57": {
+    "intent": {
+      "status": "answerable",
+      "metric": "2010年销售金额、上一年金额及同比增长率是多少？增长率用小数，基期为0时返回NULL。",
+      "time_range": [
+        "2010-01-01",
+        "2011-01-01"
+      ],
+      "rule_ids": [
+        "R12"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "WITH amounts AS (SELECT SUM(CASE WHEN InvoiceDate>=:start AND InvoiceDate<:end THEN Total ELSE 0 END) AS current_amount, SUM(CASE WHEN InvoiceDate>=:previous_start AND InvoiceDate<:start THEN Total ELSE 0 END) AS previous_amount FROM invoices) SELECT current_amount, previous_amount, (current_amount-previous_amount)*1.0/NULLIF(previous_amount,0) AS growth_rate FROM amounts",
+        "params": {
+          "start": "2010-01-01",
+          "end": "2011-01-01",
+          "previous_start": "2009-01-01"
+        }
+      }
+    ]
+  },
+  "E58": {
+    "intent": {
+      "status": "answerable",
+      "metric": "2011年销售金额、上一年金额及同比增长率是多少？增长率用小数，基期为0时返回NULL。",
+      "time_range": [
+        "2011-01-01",
+        "2012-01-01"
+      ],
+      "rule_ids": [
+        "R12"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "WITH amounts AS (SELECT SUM(CASE WHEN InvoiceDate>=:start AND InvoiceDate<:end THEN Total ELSE 0 END) AS current_amount, SUM(CASE WHEN InvoiceDate>=:previous_start AND InvoiceDate<:start THEN Total ELSE 0 END) AS previous_amount FROM invoices) SELECT current_amount, previous_amount, (current_amount-previous_amount)*1.0/NULLIF(previous_amount,0) AS growth_rate FROM amounts",
+        "params": {
+          "start": "2011-01-01",
+          "end": "2012-01-01",
+          "previous_start": "2010-01-01"
+        }
+      }
+    ]
+  },
+  "E59": {
+    "intent": {
+      "status": "answerable",
+      "metric": "当前目录标价大于等于0.99的曲目有多少首？",
+      "time_range": [],
+      "rule_ids": [
+        "R04"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "tracks"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS tracks FROM tracks WHERE UnitPrice>=:price",
+        "params": {
+          "price": 0.99
+        }
+      }
+    ]
+  },
+  "E60": {
+    "intent": {
+      "status": "answerable",
+      "metric": "当前目录标价大于等于1.99的曲目有多少首？",
+      "time_range": [],
+      "rule_ids": [
+        "R04"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "tracks"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS tracks FROM tracks WHERE UnitPrice>=:price",
+        "params": {
+          "price": 1.99
+        }
+      }
+    ]
+  },
+  "E61": {
+    "intent": {
+      "status": "answerable",
+      "metric": "居住在USA的客户中累计消费前三名的客户ID和金额，金额并列按客户ID升序取固定3人。",
+      "time_range": [],
+      "rule_ids": [
+        "R03"
+      ],
+      "assumptions": [
+        "金额以源数据两位小数精度比较并列，再用题目指定次级键排序。"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "customers",
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT c.CustomerId, SUM(i.Total) AS revenue FROM customers c JOIN invoices i ON i.CustomerId=c.CustomerId WHERE c.Country=:country GROUP BY c.CustomerId ORDER BY ROUND(revenue, 2) DESC, c.CustomerId LIMIT 3",
+        "params": {
+          "country": "USA"
+        }
+      }
+    ]
+  },
+  "E62": {
+    "intent": {
+      "status": "answerable",
+      "metric": "居住在Canada的客户中累计消费前三名的客户ID和金额，金额并列按客户ID升序取固定3人。",
+      "time_range": [],
+      "rule_ids": [
+        "R03"
+      ],
+      "assumptions": [
+        "金额以源数据两位小数精度比较并列，再用题目指定次级键排序。"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "customers",
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT c.CustomerId, SUM(i.Total) AS revenue FROM customers c JOIN invoices i ON i.CustomerId=c.CustomerId WHERE c.Country=:country GROUP BY c.CustomerId ORDER BY ROUND(revenue, 2) DESC, c.CustomerId LIMIT 3",
+        "params": {
+          "country": "Canada"
+        }
+      }
+    ]
+  },
+  "E63": {
+    "intent": {
+      "status": "answerable",
+      "metric": "类型ID为1的曲目中，从未售出的有多少首？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "tracks",
+        "invoice_items"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS unsold_tracks FROM tracks t WHERE t.GenreId=:genre AND NOT EXISTS (SELECT 1 FROM invoice_items ii WHERE ii.TrackId=t.TrackId)",
+        "params": {
+          "genre": 1
+        }
+      }
+    ]
+  },
+  "E64": {
+    "intent": {
+      "status": "answerable",
+      "metric": "类型ID为2的曲目中，从未售出的有多少首？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "tracks",
+        "invoice_items"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS unsold_tracks FROM tracks t WHERE t.GenreId=:genre AND NOT EXISTS (SELECT 1 FROM invoice_items ii WHERE ii.TrackId=t.TrackId)",
+        "params": {
+          "genre": 2
+        }
+      }
+    ]
+  },
+  "E65": {
+    "intent": {
+      "status": "answerable",
+      "metric": "列出艺术家ID为1的从未发生销售的专辑ID和标题，按专辑ID升序。",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "albums",
+        "tracks",
+        "invoice_items"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT al.AlbumId, al.Title FROM albums al WHERE al.ArtistId=:artist AND NOT EXISTS (SELECT 1 FROM tracks t JOIN invoice_items ii ON ii.TrackId=t.TrackId WHERE t.AlbumId=al.AlbumId) ORDER BY al.AlbumId",
+        "params": {
+          "artist": 1
+        }
+      }
+    ]
+  },
+  "E66": {
+    "intent": {
+      "status": "answerable",
+      "metric": "列出艺术家ID为2的从未发生销售的专辑ID和标题，按专辑ID升序。",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "albums",
+        "tracks",
+        "invoice_items"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT al.AlbumId, al.Title FROM albums al WHERE al.ArtistId=:artist AND NOT EXISTS (SELECT 1 FROM tracks t JOIN invoice_items ii ON ii.TrackId=t.TrackId WHERE t.AlbumId=al.AlbumId) ORDER BY al.AlbumId",
+        "params": {
+          "artist": 2
+        }
+      }
+    ]
+  },
+  "E67": {
+    "intent": {
+      "status": "answerable",
+      "metric": "支持员工ID为3负责的客户按居住国家分别有多少人？按国家名排序。",
+      "time_range": [],
+      "rule_ids": [
+        "R10"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "customers"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT Country, COUNT(*) AS customers FROM customers WHERE SupportRepId=:employee GROUP BY Country ORDER BY Country",
+        "params": {
+          "employee": 3
+        }
+      }
+    ]
+  },
+  "E68": {
+    "intent": {
+      "status": "answerable",
+      "metric": "支持员工ID为4负责的客户按居住国家分别有多少人？按国家名排序。",
+      "time_range": [],
+      "rule_ids": [
+        "R10"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "customers"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT Country, COUNT(*) AS customers FROM customers WHERE SupportRepId=:employee GROUP BY Country ORDER BY Country",
+        "params": {
+          "employee": 4
+        }
+      }
+    ]
+  },
+  "E69": {
+    "intent": {
+      "status": "answerable",
+      "metric": "列出2010年账单国家为USA的订单ID、日期和金额，按日期和ID排序。",
+      "time_range": [
+        "2010-01-01",
+        "2011-01-01"
+      ],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT InvoiceId, InvoiceDate, Total FROM invoices WHERE BillingCountry=:country AND InvoiceDate>=:start AND InvoiceDate<:end ORDER BY InvoiceDate, InvoiceId",
+        "params": {
+          "country": "USA",
+          "start": "2010-01-01",
+          "end": "2011-01-01"
+        }
+      }
+    ]
+  },
+  "E70": {
+    "intent": {
+      "status": "answerable",
+      "metric": "列出2012年账单国家为USA的订单ID、日期和金额，按日期和ID排序。",
+      "time_range": [
+        "2012-01-01",
+        "2013-01-01"
+      ],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT InvoiceId, InvoiceDate, Total FROM invoices WHERE BillingCountry=:country AND InvoiceDate>=:start AND InvoiceDate<:end ORDER BY InvoiceDate, InvoiceId",
+        "params": {
+          "country": "USA",
+          "start": "2012-01-01",
+          "end": "2013-01-01"
+        }
+      }
+    ]
+  },
+  "E71": {
+    "intent": {
+      "status": "answerable",
+      "metric": "时长大于等于60000且小于120000毫秒的曲目有多少首？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "tracks"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS tracks FROM tracks WHERE Milliseconds>=:low AND Milliseconds<:high",
+        "params": {
+          "low": 60000,
+          "high": 120000
+        }
+      }
+    ]
+  },
+  "E72": {
+    "intent": {
+      "status": "answerable",
+      "metric": "时长大于等于120000且小于180000毫秒的曲目有多少首？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "tracks"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS tracks FROM tracks WHERE Milliseconds>=:low AND Milliseconds<:high",
+        "params": {
+          "low": 120000,
+          "high": 180000
+        }
+      }
+    ]
+  },
+  "E73": {
+    "intent": {
+      "status": "answerable",
+      "metric": "艺术家ID为1、类型ID为1的曲目历史售出多少件？无销售保留NULL。",
+      "time_range": [],
+      "rule_ids": [
+        "R02",
+        "R11"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "albums",
+        "tracks",
+        "invoice_items"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT SUM(ii.Quantity) AS units FROM albums al JOIN tracks t ON t.AlbumId=al.AlbumId JOIN invoice_items ii ON ii.TrackId=t.TrackId WHERE al.ArtistId=:artist AND t.GenreId=:genre",
+        "params": {
+          "artist": 1,
+          "genre": 1
+        }
+      }
+    ]
+  },
+  "E74": {
+    "intent": {
+      "status": "answerable",
+      "metric": "艺术家ID为2、类型ID为1的曲目历史售出多少件？无销售保留NULL。",
+      "time_range": [],
+      "rule_ids": [
+        "R02",
+        "R11"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "albums",
+        "tracks",
+        "invoice_items"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT SUM(ii.Quantity) AS units FROM albums al JOIN tracks t ON t.AlbumId=al.AlbumId JOIN invoice_items ii ON ii.TrackId=t.TrackId WHERE al.ArtistId=:artist AND t.GenreId=:genre",
+        "params": {
+          "artist": 2,
+          "genre": 1
+        }
+      }
+    ]
+  },
+  "E75": {
+    "intent": {
+      "status": "answerable",
+      "metric": "类型ID为1的已售曲目，按售出件数加权的平均成交单价是多少？无销售返回NULL。",
+      "time_range": [],
+      "rule_ids": [
+        "R04",
+        "R07"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "tracks",
+        "invoice_items"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT SUM(ii.UnitPrice*ii.Quantity)*1.0/NULLIF(SUM(ii.Quantity),0) AS weighted_sale_price FROM tracks t JOIN invoice_items ii ON ii.TrackId=t.TrackId WHERE t.GenreId=:genre",
+        "params": {
+          "genre": 1
+        }
+      }
+    ]
+  },
+  "E76": {
+    "intent": {
+      "status": "answerable",
+      "metric": "类型ID为2的已售曲目，按售出件数加权的平均成交单价是多少？无销售返回NULL。",
+      "time_range": [],
+      "rule_ids": [
+        "R04",
+        "R07"
+      ]
+    },
+    "table_selection": {
+      "tables": [
+        "tracks",
+        "invoice_items"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT SUM(ii.UnitPrice*ii.Quantity)*1.0/NULLIF(SUM(ii.Quantity),0) AS weighted_sale_price FROM tracks t JOIN invoice_items ii ON ii.TrackId=t.TrackId WHERE t.GenreId=:genre",
+        "params": {
+          "genre": 2
+        }
+      }
+    ]
+  },
+  "E77": {
+    "intent": {
+      "status": "answerable",
+      "metric": "2010年金额至少10的订单有多少个？",
+      "time_range": [
+        "2010-01-01",
+        "2011-01-01"
+      ],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS orders FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end AND Total>=:amount",
+        "params": {
+          "start": "2010-01-01",
+          "end": "2011-01-01",
+          "amount": 10
+        }
+      }
+    ]
+  },
+  "E78": {
+    "intent": {
+      "status": "answerable",
+      "metric": "2012年金额至少10的订单有多少个？",
+      "time_range": [
+        "2012-01-01",
+        "2013-01-01"
+      ],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoices"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(*) AS orders FROM invoices WHERE InvoiceDate>=:start AND InvoiceDate<:end AND Total>=:amount",
+        "params": {
+          "start": "2012-01-01",
+          "end": "2013-01-01",
+          "amount": 10
+        }
+      }
+    ]
+  },
+  "E79": {
+    "intent": {
+      "status": "answerable",
+      "metric": "账单国家为USA的订单历史购买过多少首不同曲目？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoices",
+        "invoice_items"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(DISTINCT ii.TrackId) AS tracks FROM invoice_items ii JOIN invoices i ON i.InvoiceId=ii.InvoiceId WHERE i.BillingCountry=:country",
+        "params": {
+          "country": "USA"
+        }
+      }
+    ]
+  },
+  "E80": {
+    "intent": {
+      "status": "answerable",
+      "metric": "账单国家为Canada的订单历史购买过多少首不同曲目？",
+      "time_range": [],
+      "rule_ids": []
+    },
+    "table_selection": {
+      "tables": [
+        "invoices",
+        "invoice_items"
+      ],
+      "reason": "Explicit replay fixture"
+    },
+    "semantic_review": {
+      "issues": []
+    },
+    "candidates": [
+      {
+        "sql": "SELECT COUNT(DISTINCT ii.TrackId) AS tracks FROM invoice_items ii JOIN invoices i ON i.InvoiceId=ii.InvoiceId WHERE i.BillingCountry=:country",
+        "params": {
+          "country": "Canada"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "base_url_env": "SQL_AGENT_BASE_URL",
+  "api_key_env": "SQL_AGENT_API_KEY",
+  "model_env": "SQL_AGENT_MODEL",
+  "temperature": 0,
+  "request_timeout_seconds": 60,
+  "json_mode": false,
+  "max_output_tokens": 3000
+}

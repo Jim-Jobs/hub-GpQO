@@ -1,0 +1,274 @@
+{
+  "run_id": "263e036bde7841938c7eeca6c8b59f70",
+  "question": "列出艺术家ID为1的从未发生销售的专辑ID和标题，按专辑ID升序。",
+  "status": "success",
+  "mode": "replay",
+  "reference_date": "2014-01-15",
+  "intent": {
+    "status": "answerable",
+    "metric": "列出艺术家ID为1的从未发生销售的专辑ID和标题，按专辑ID升序。",
+    "dimensions": [],
+    "filters": [],
+    "time_range": [],
+    "ranking": "",
+    "grain": "",
+    "assumptions": [],
+    "clarification": "",
+    "reason": "",
+    "rule_ids": []
+  },
+  "selection": {
+    "tables": [
+      "albums",
+      "tracks",
+      "invoice_items"
+    ],
+    "columns": {},
+    "joins": [],
+    "reason": "Explicit replay fixture",
+    "bridge_tables": []
+  },
+  "candidates": [
+    {
+      "sql": "SELECT al.AlbumId, al.Title FROM albums al WHERE al.ArtistId=:artist AND NOT EXISTS (SELECT 1 FROM tracks t JOIN invoice_items ii ON ii.TrackId=t.TrackId WHERE t.AlbumId=al.AlbumId) ORDER BY al.AlbumId",
+      "params": {
+        "artist": 1
+      },
+      "explanation": "",
+      "changes": ""
+    }
+  ],
+  "validations": [
+    {
+      "passed": true,
+      "checks": [
+        {
+          "name": "sqlite_compile_and_authorize",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "selection_scope",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "header_detail_grain_risk",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        }
+      ]
+    }
+  ],
+  "execution": {
+    "status": "ok",
+    "columns": [
+      "AlbumId",
+      "Title"
+    ],
+    "rows": [],
+    "truncated": false,
+    "elapsed_ms": 0.0,
+    "error_type": "",
+    "error": ""
+  },
+  "answer": {
+    "text": "离线回放：查询返回 0 行。\n{\"columns\": [\"AlbumId\", \"Title\"], \"rows\": []}",
+    "facts": [],
+    "limitations": [
+      "仅验证工作流，未调用大模型。",
+      "查询未返回记录；不能据此自动认定为0。"
+    ]
+  },
+  "trace": [
+    {
+      "node": "database_parse",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "albums",
+          "artists",
+          "customers",
+          "employees",
+          "genres",
+          "invoice_items",
+          "invoices",
+          "media_types",
+          "playlist_track",
+          "playlists",
+          "tracks"
+        ],
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb"
+      }
+    },
+    {
+      "node": "intent",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "answerable",
+        "metric": "列出艺术家ID为1的从未发生销售的专辑ID和标题，按专辑ID升序。",
+        "time_range": [],
+        "rule_ids": []
+      }
+    },
+    {
+      "node": "table_selection",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "tables": [
+          "albums",
+          "tracks",
+          "invoice_items"
+        ],
+        "reason": "Explicit replay fixture"
+      }
+    },
+    {
+      "node": "bridge_completion",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "albums",
+          "tracks",
+          "invoice_items"
+        ],
+        "columns": {},
+        "joins": [],
+        "reason": "Explicit replay fixture",
+        "bridge_tables": []
+      }
+    },
+    {
+      "node": "sql_generation",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "sql": "SELECT al.AlbumId, al.Title FROM albums al WHERE al.ArtistId=:artist AND NOT EXISTS (SELECT 1 FROM tracks t JOIN invoice_items ii ON ii.TrackId=t.TrackId WHERE t.AlbumId=al.AlbumId) ORDER BY al.AlbumId",
+        "params": {
+          "artist": 1
+        }
+      }
+    },
+    {
+      "node": "semantic_review",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "issues": []
+      }
+    },
+    {
+      "node": "sql_validation",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "sqlite_compile_and_authorize",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "selection_scope",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "header_detail_grain_risk",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          }
+        ]
+      }
+    },
+    {
+      "node": "sql_execution",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "ok",
+        "columns": [
+          "AlbumId",
+          "Title"
+        ],
+        "rows": [],
+        "truncated": false,
+        "elapsed_ms": 0.0,
+        "error_type": "",
+        "error": ""
+      }
+    },
+    {
+      "node": "summary",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "text": "离线回放：查询返回 0 行。\n{\"columns\": [\"AlbumId\", \"Title\"], \"rows\": []}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。",
+          "查询未返回记录；不能据此自动认定为0。"
+        ]
+      }
+    },
+    {
+      "node": "run_metadata",
+      "status": "success",
+      "output": {
+        "variant": "workflow",
+        "prompt_version": "2026-10-21-v1",
+        "semantic_review": true,
+        "rules_enabled": true,
+        "max_rewrites": 2,
+        "reference_date": "2014-01-15",
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+        "calls": [
+          {
+            "stage": "intent",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "table_selection",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "sql_generation",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "semantic_review",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "summary",
+            "model": "scripted-fixture",
+            "usage": null
+          }
+        ],
+        "elapsed_ms": 0.0
+      }
+    }
+  ],
+  "error": ""
+}

@@ -1,0 +1,60 @@
+{
+  "cases": 120,
+  "reference_queries_checked": 112,
+  "errors": [],
+  "split_counts": {
+    "dev": 20,
+    "validation": 40,
+    "test": 60
+  },
+  "template_families": 79,
+  "independent_python_checks": [
+    {
+      "case": "S07",
+      "independent_python_matches": true
+    },
+    {
+      "case": "S08",
+      "independent_python_matches": true
+    },
+    {
+      "case": "S10",
+      "independent_python_matches": true
+    },
+    {
+      "case": "S11",
+      "independent_python_matches": true
+    },
+    {
+      "case": "S13",
+      "independent_python_matches": true
+    },
+    {
+      "case": "S19",
+      "independent_python_matches": true
+    },
+    {
+      "case": "S20",
+      "independent_python_matches": true
+    },
+    {
+      "case": "S21",
+      "independent_python_matches": true
+    },
+    {
+      "case": "S22",
+      "independent_python_matches": true
+    },
+    {
+      "case": "S28",
+      "independent_python_matches": true
+    },
+    {
+      "case": "S30",
+      "independent_python_matches": true
+    }
+  ],
+  "header_detail_reconciles": true,
+  "review": "Agent-authored semantic review + executable checks; not independent human certification",
+  "limits": "Exact-template grouping and 11 independent accounting checks do not prove all semantic equivalents were grouped."
+}

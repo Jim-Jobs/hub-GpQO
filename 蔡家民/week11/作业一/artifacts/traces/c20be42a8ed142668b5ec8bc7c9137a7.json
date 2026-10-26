@@ -1,0 +1,448 @@
+{
+  "run_id": "c20be42a8ed142668b5ec8bc7c9137a7",
+  "question": "每个播放列表收录多少首曲目，包括空列表，按列表ID排序。",
+  "status": "success",
+  "mode": "replay",
+  "reference_date": "2014-01-15",
+  "intent": {
+    "status": "answerable",
+    "metric": "每个播放列表收录多少首曲目，包括空列表，按列表ID排序。",
+    "dimensions": [],
+    "filters": [],
+    "time_range": [],
+    "ranking": "",
+    "grain": "",
+    "assumptions": [],
+    "clarification": "",
+    "reason": "",
+    "rule_ids": []
+  },
+  "selection": {
+    "tables": [
+      "playlists",
+      "playlist_track"
+    ],
+    "columns": {},
+    "joins": [],
+    "reason": "Explicit replay fixture, not model selection",
+    "bridge_tables": []
+  },
+  "candidates": [
+    {
+      "sql": "SELECT p.PlaylistId, p.Name, COUNT(pt.TrackId) AS tracks FROM playlists p LEFT JOIN playlist_track pt ON pt.PlaylistId=p.PlaylistId GROUP BY p.PlaylistId ORDER BY p.PlaylistId",
+      "params": {},
+      "explanation": "",
+      "changes": ""
+    }
+  ],
+  "validations": [
+    {
+      "passed": true,
+      "checks": [
+        {
+          "name": "sqlite_compile_and_authorize",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "selection_scope",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "header_detail_grain_risk",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        }
+      ]
+    }
+  ],
+  "execution": {
+    "status": "ok",
+    "columns": [
+      "PlaylistId",
+      "Name",
+      "tracks"
+    ],
+    "rows": [
+      [
+        1,
+        "Music",
+        3290
+      ],
+      [
+        2,
+        "Movies",
+        0
+      ],
+      [
+        3,
+        "TV Shows",
+        213
+      ],
+      [
+        4,
+        "Audiobooks",
+        0
+      ],
+      [
+        5,
+        "90’s Music",
+        1477
+      ],
+      [
+        6,
+        "Audiobooks",
+        0
+      ],
+      [
+        7,
+        "Movies",
+        0
+      ],
+      [
+        8,
+        "Music",
+        3290
+      ],
+      [
+        9,
+        "Music Videos",
+        1
+      ],
+      [
+        10,
+        "TV Shows",
+        213
+      ],
+      [
+        11,
+        "Brazilian Music",
+        39
+      ],
+      [
+        12,
+        "Classical",
+        75
+      ],
+      [
+        13,
+        "Classical 101 - Deep Cuts",
+        25
+      ],
+      [
+        14,
+        "Classical 101 - Next Steps",
+        25
+      ],
+      [
+        15,
+        "Classical 101 - The Basics",
+        25
+      ],
+      [
+        16,
+        "Grunge",
+        15
+      ],
+      [
+        17,
+        "Heavy Metal Classic",
+        26
+      ],
+      [
+        18,
+        "On-The-Go 1",
+        1
+      ]
+    ],
+    "truncated": false,
+    "elapsed_ms": 0.0,
+    "error_type": "",
+    "error": ""
+  },
+  "answer": {
+    "text": "离线回放：查询返回 18 行。\n{\"columns\": [\"PlaylistId\", \"Name\", \"tracks\"], \"rows\": [[1, \"Music\", 3290], [2, \"Movies\", 0], [3, \"TV Shows\", 213], [4, \"Audiobooks\", 0], [5, \"90’s Music\", 1477], [6, \"Audiobooks\", 0], [7, \"Movies\", 0], [8, \"Music\", 3290], [9, \"Music Videos\", 1], [10, \"TV Shows\", 213], [11, \"Brazilian Music\", 39], [12, \"Classical\", 75], [13, \"Classical 101 - Deep Cuts\", 25], [14, \"Classical 101 - Next Steps\", 25], [15, \"Classical 101 - The Basics\", 25], [16, \"Grunge\", 15], [17, \"Heavy Metal Classic\", 26], [18, \"On-The-Go 1\", 1]]}",
+    "facts": [],
+    "limitations": [
+      "仅验证工作流，未调用大模型。"
+    ]
+  },
+  "trace": [
+    {
+      "node": "database_parse",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "albums",
+          "artists",
+          "customers",
+          "employees",
+          "genres",
+          "invoice_items",
+          "invoices",
+          "media_types",
+          "playlist_track",
+          "playlists",
+          "tracks"
+        ],
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb"
+      }
+    },
+    {
+      "node": "intent",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "answerable",
+        "metric": "每个播放列表收录多少首曲目，包括空列表，按列表ID排序。",
+        "time_range": []
+      }
+    },
+    {
+      "node": "table_selection",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "tables": [
+          "playlists",
+          "playlist_track"
+        ],
+        "reason": "Explicit replay fixture, not model selection"
+      }
+    },
+    {
+      "node": "bridge_completion",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "playlists",
+          "playlist_track"
+        ],
+        "columns": {},
+        "joins": [],
+        "reason": "Explicit replay fixture, not model selection",
+        "bridge_tables": []
+      }
+    },
+    {
+      "node": "sql_generation",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "sql": "SELECT p.PlaylistId, p.Name, COUNT(pt.TrackId) AS tracks FROM playlists p LEFT JOIN playlist_track pt ON pt.PlaylistId=p.PlaylistId GROUP BY p.PlaylistId ORDER BY p.PlaylistId",
+        "params": {}
+      }
+    },
+    {
+      "node": "semantic_review",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "issues": []
+      }
+    },
+    {
+      "node": "sql_validation",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "sqlite_compile_and_authorize",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "selection_scope",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "header_detail_grain_risk",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          }
+        ]
+      }
+    },
+    {
+      "node": "sql_execution",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "ok",
+        "columns": [
+          "PlaylistId",
+          "Name",
+          "tracks"
+        ],
+        "rows": [
+          [
+            1,
+            "Music",
+            3290
+          ],
+          [
+            2,
+            "Movies",
+            0
+          ],
+          [
+            3,
+            "TV Shows",
+            213
+          ],
+          [
+            4,
+            "Audiobooks",
+            0
+          ],
+          [
+            5,
+            "90’s Music",
+            1477
+          ],
+          [
+            6,
+            "Audiobooks",
+            0
+          ],
+          [
+            7,
+            "Movies",
+            0
+          ],
+          [
+            8,
+            "Music",
+            3290
+          ],
+          [
+            9,
+            "Music Videos",
+            1
+          ],
+          [
+            10,
+            "TV Shows",
+            213
+          ],
+          [
+            11,
+            "Brazilian Music",
+            39
+          ],
+          [
+            12,
+            "Classical",
+            75
+          ],
+          [
+            13,
+            "Classical 101 - Deep Cuts",
+            25
+          ],
+          [
+            14,
+            "Classical 101 - Next Steps",
+            25
+          ],
+          [
+            15,
+            "Classical 101 - The Basics",
+            25
+          ],
+          [
+            16,
+            "Grunge",
+            15
+          ],
+          [
+            17,
+            "Heavy Metal Classic",
+            26
+          ],
+          [
+            18,
+            "On-The-Go 1",
+            1
+          ]
+        ],
+        "truncated": false,
+        "elapsed_ms": 0.0,
+        "error_type": "",
+        "error": ""
+      }
+    },
+    {
+      "node": "summary",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "text": "离线回放：查询返回 18 行。\n{\"columns\": [\"PlaylistId\", \"Name\", \"tracks\"], \"rows\": [[1, \"Music\", 3290], [2, \"Movies\", 0], [3, \"TV Shows\", 213], [4, \"Audiobooks\", 0], [5, \"90’s Music\", 1477], [6, \"Audiobooks\", 0], [7, \"Movies\", 0], [8, \"Music\", 3290], [9, \"Music Videos\", 1], [10, \"TV Shows\", 213], [11, \"Brazilian Music\", 39], [12, \"Classical\", 75], [13, \"Classical 101 - Deep Cuts\", 25], [14, \"Classical 101 - Next Steps\", 25], [15, \"Classical 101 - The Basics\", 25], [16, \"Grunge\", 15], [17, \"Heavy Metal Classic\", 26], [18, \"On-The-Go 1\", 1]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "node": "run_metadata",
+      "status": "success",
+      "output": {
+        "variant": "workflow",
+        "prompt_version": "2026-10-21-v1",
+        "semantic_review": true,
+        "rules_enabled": true,
+        "max_rewrites": 2,
+        "reference_date": "2014-01-15",
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+        "calls": [
+          {
+            "stage": "intent",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "table_selection",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "sql_generation",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "semantic_review",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "summary",
+            "model": "scripted-fixture",
+            "usage": null
+          }
+        ],
+        "elapsed_ms": 15.000000013969839
+      }
+    }
+  ],
+  "error": ""
+}

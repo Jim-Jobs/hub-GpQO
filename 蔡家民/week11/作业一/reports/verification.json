@@ -1,0 +1,126 @@
+{
+  "checked_at_utc": "2026-10-22T13:06:51.649887+00:00",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "checks": [
+    {
+      "check": 1,
+      "arguments": [
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "test_all_replay_routes (test_system.SystemTests.test_all_replay_routes) ... ok\ntest_automatic_repair_preserves_error_evidence (test_system.SystemTests.test_automatic_repair_preserves_error_evidence) ... ok\ntest_bridge_completion_includes_intermediate_tables (test_system.SystemTests.test_bridge_completion_includes_intermediate_tables) ... ok\ntest_catalog_cache_stable (test_system.SystemTests.test_catalog_cache_stable) ... ok\ntest_catalog_discovers_business_tables_and_fk (test_system.SystemTests.test_catalog_discovers_business_tables_and_fk) ... ok\ntest_catalog_empty_table (test_system.SystemTests.test_catalog_empty_table) ... ok\ntest_catalog_excludes_sensitive_samples (test_system.SystemTests.test_catalog_excludes_sensitive_samples) ... ok\ntest_clarification_exits_without_sql (test_system.SystemTests.test_clarification_exits_without_sql) ... ok\ntest_controlled_replacement_localizes_table_fault (test_system.SystemTests.test_controlled_replacement_localizes_table_fault) ... ok\ntest_correct_detail_amount_passes (test_system.SystemTests.test_correct_detail_amount_passes) ... ok\ntest_dataset_reference_queries_and_no_family_leakage (test_system.SystemTests.test_dataset_reference_queries_and_no_family_leakage) ... ok\ntest_empty_result_null_and_zero_distinct (test_system.SystemTests.test_empty_result_null_and_zero_distinct) ... ok\ntest_forbidden_sql_never_rewritten_or_executed (test_system.SystemTests.test_forbidden_sql_never_rewritten_or_executed) ... ok\ntest_header_amount_join_risk_detected (test_system.SystemTests.test_header_amount_join_risk_detected) ... ok\ntest_http_failure_preserves_attempt_without_printing_key (test_system.SystemTests.test_http_failure_preserves_attempt_without_printing_key) ... ok\ntest_invalid_column_is_compile_error (test_system.SystemTests.test_invalid_column_is_compile_error) ... ok\ntest_json_and_intent_contracts_reject_bad_outputs (test_system.SystemTests.test_json_and_intent_contracts_reject_bad_outputs) ... ok\ntest_live_requires_explicit_environment (test_system.SystemTests.test_live_requires_explicit_environment) ... ok\ntest_missing_confirmed_dates_detected (test_system.SystemTests.test_missing_confirmed_dates_detected) ... ok\ntest_model_http_adapter_with_mock_response (test_system.SystemTests.test_model_http_adapter_with_mock_response) ... ok\ntest_model_judge_failure_does_not_erase_query_result (test_system.SystemTests.test_model_judge_failure_does_not_erase_query_result) ... ok\ntest_multi_statement_rejected (test_system.SystemTests.test_multi_statement_rejected) ... ok\ntest_no_repair_ablation_exhausts_first_candidate (test_system.SystemTests.test_no_repair_ablation_exhausts_first_candidate) ... ok\ntest_notebook_offline_cells_run_without_model (test_system.SystemTests.test_notebook_offline_cells_run_without_model) ... ok\ntest_numeric_tolerance_and_duplicate_rows (test_system.SystemTests.test_numeric_tolerance_and_duplicate_rows) ... ok\ntest_order_policy (test_system.SystemTests.test_order_policy) ... ok\ntest_parameter_variants_remain_in_one_split (test_system.SystemTests.test_parameter_variants_remain_in_one_split) ... ok\ntest_per_run_usage_not_accumulated (test_system.SystemTests.test_per_run_usage_not_accumulated) ... ok\ntest_plain_numeric_string_is_not_numeric_result (test_system.SystemTests.test_plain_numeric_string_is_not_numeric_result) ... ok\ntest_preflight_never_reads_or_prints_secret_values (test_system.SystemTests.test_preflight_never_reads_or_prints_secret_values) ... ok\ntest_readonly_and_named_parameters (test_system.SystemTests.test_readonly_and_named_parameters) ... ok\ntest_repeated_bad_sql_terminates (test_system.SystemTests.test_repeated_bad_sql_terminates) ... ok\ntest_replay_metrics_explicitly_not_model_scores (test_system.SystemTests.test_replay_metrics_explicitly_not_model_scores) ... ok\ntest_resource_budget_interrupts_recursive_query (test_system.SystemTests.test_resource_budget_interrupts_recursive_query) ... ok\ntest_result_truncation_is_explicit (test_system.SystemTests.test_result_truncation_is_explicit) ... ok\ntest_selected_table_scope_mismatch_detected (test_system.SystemTests.test_selected_table_scope_mismatch_detected) ... ok\ntest_shared_request_budget_prevents_extra_model_call (test_system.SystemTests.test_shared_request_budget_prevents_extra_model_call) ... ok\ntest_snapshot_drift_is_detected (test_system.SystemTests.test_snapshot_drift_is_detected) ... ok\ntest_stage_benchmark_has_30_distinct_cases (test_system.SystemTests.test_stage_benchmark_has_30_distinct_cases) ... ok\ntest_stage_isolation_with_reference_upstream (test_system.SystemTests.test_stage_isolation_with_reference_upstream) ... ok\ntest_truncated_result_cannot_receive_match (test_system.SystemTests.test_truncated_result_cannot_receive_match) ... ok\ntest_unknown_table_rejected (test_system.SystemTests.test_unknown_table_rejected) ... ok\ntest_unsupported_exits_without_sql (test_system.SystemTests.test_unsupported_exits_without_sql) ... ok\ntest_unused_date_parameters_do_not_satisfy_filter (test_system.SystemTests.test_unused_date_parameters_do_not_satisfy_filter) ... ok\ntest_user_value_does_not_inject_sql (test_system.SystemTests.test_user_value_does_not_inject_sql) ... ok\ntest_workflow_success_and_trace (test_system.SystemTests.test_workflow_success_and_trace) ... ok\ntest_write_attach_and_metadata_denied (test_system.SystemTests.test_write_attach_and_metadata_denied) ... ok\n\n----------------------------------------------------------------------\nRan 47 tests in 1.536s\n\nOK\n"
+    },
+    {
+      "check": 2,
+      "arguments": [
+        "-m",
+        "sql_agent",
+        "check-dataset"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"cases\": 120,\n  \"errors\": [],\n  \"review\": \"Agent-reviewed templates and executed references; not independent human certification\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "check": 3,
+      "arguments": [
+        "-m",
+        "sql_agent",
+        "audit"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"cases\": 120,\n  \"reference_queries_checked\": 112,\n  \"errors\": [],\n  \"split_counts\": {\n    \"dev\": 20,\n    \"validation\": 40,\n    \"test\": 60\n  },\n  \"template_families\": 79,\n  \"independent_python_checks\": [\n    {\n      \"case\": \"S07\",\n      \"independent_python_matches\": true\n    },\n    {\n      \"case\": \"S08\",\n      \"independent_python_matches\": true\n    },\n    {\n      \"case\": \"S10\",\n      \"independent_python_matches\": true\n    },\n    {\n      \"case\": \"S11\",\n      \"independent_python_matches\": true\n    },\n    {\n      \"case\": \"S13\",\n      \"independent_python_matches\": true\n    },\n    {\n      \"case\": \"S19\",\n      \"independent_python_matches\": true\n    },\n    {\n      \"case\": \"S20\",\n      \"independent_python_matches\": true\n    },\n    {\n      \"case\": \"S21\",\n      \"independent_python_matches\": true\n    },\n    {\n      \"case\": \"S22\",\n      \"independent_python_matches\": true\n    },\n    {\n      \"case\": \"S28\",\n      \"independent_python_matches\": true\n    },\n    {\n      \"case\": \"S30\",\n      \"independent_python_matches\": true\n    }\n  ],\n  \"header_detail_reconciles\": true,\n  \"review\": \"Agent-authored semantic review + executable checks; not independent human certification\",\n  \"limits\": \"Exact-template grouping and 11 independent accounting checks do not prove all semantic equivalents were grouped.\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "check": 4,
+      "arguments": [
+        "-m",
+        "sql_agent",
+        "diagnostics"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"validation\": {\n    \"mode\": \"deterministic validation + injected replay repair; NOT model scores\",\n    \"total\": 30,\n    \"classification_correct\": 30,\n    \"error_detection\": {\n      \"detected\": 24,\n      \"total\": 24\n    },\n    \"false_positives\": {\n      \"count\": 0,\n      \"total\": 6\n    },\n    \"scripted_repair\": {\n      \"successful\": 16,\n      \"total\": 16\n    }\n  },\n  \"counterexamples\": {\n    \"total\": 3,\n    \"passed\": 3,\n    \"records\": [\n      {\n        \"name\": \"header_join_double_count\",\n        \"passed\": true,\n        \"wrong\": [\n          [\n            40.0\n          ]\n        ],\n        \"correct_header\": [\n          [\n            30.0\n          ]\n        ],\n        \"correct_detail\": [\n          [\n            30.0\n          ]\n        ]\n      },\n      {\n        \"name\": \"lines_units_orders_differ\",\n        \"passed\": true,\n        \"values\": [\n          [\n            3,\n            4,\n            2\n          ]\n        ]\n      },\n      {\n        \"name\": \"empty_null_zero_differ\",\n        \"passed\": true,\n        \"empty\": [],\n        \"null\": [\n          [\n            null\n          ]\n        ],\n        \"zero\": [\n          [\n            0\n          ]\n        ]\n      }\n    ]\n  }\n}\n",
+      "stderr": ""
+    },
+    {
+      "check": 5,
+      "arguments": [
+        "-m",
+        "sql_agent",
+        "evaluate",
+        "--mode",
+        "replay",
+        "--split",
+        "all",
+        "--report",
+        "replay_smoke"
+      ],
+      "returncode": 0,
+      "stdout": "S01 success result_match= True\nS02 success result_match= True\nS03 success result_match= True\nS04 success result_match= True\nS05 success result_match= True\nS06 success result_match= True\nS07 success result_match= True\nS08 success result_match= True\nS09 success result_match= True\nS10 success result_match= True\nS11 success result_match= True\nS12 success result_match= True\nS13 success result_match= True\nS14 success result_match= True\nS15 success result_match= True\nS16 success result_match= True\nS17 success result_match= True\nS18 success result_match= True\nS19 success result_match= True\nS20 success result_match= True\nS21 success result_match= True\nS22 success result_match= True\nS23 success result_match= True\nS24 success result_match= True\nS25 success result_match= True\nS26 success result_match= True\nS27 success result_match= True\nS28 success result_match= True\nS29 success result_match= True\nS30 success result_match= True\nS31 success result_match= True\nS32 success result_match= True\nC01 needs_clarification result_match= None\nC02 needs_clarification result_match= None\nC03 needs_clarification result_match= None\nC04 needs_clarification result_match= None\nU01 unsupported result_match= None\nU02 unsupported result_match= None\nU03 unsupported result_match= None\nU04 unsupported result_match= None\nE01 success result_match= True\nE02 success result_match= True\nE03 success result_match= True\nE04 success result_match= True\nE05 success result_match= True\nE06 success result_match= True\nE07 success result_match= True\nE08 success result_match= True\nE09 success result_match= True\nE10 success result_match= True\nE11 success result_match= True\nE12 success result_match= True\nE13 success result_match= True\nE14 success result_match= True\nE15 success result_match= True\nE16 success result_match= True\nE17 success result_match= True\nE18 success result_match= True\nE19 success result_match= True\nE20 success result_match= True\nE21 success result_match= True\nE22 success result_match= True\nE23 success result_match= True\nE24 success result_match= True\nE25 success result_match= True\nE26 success result_match= True\nE27 success result_match= True\nE28 success result_match= True\nE29 success result_match= True\nE30 success result_match= True\nE31 success result_match= True\nE32 success result_match= True\nE33 success result_match= True\nE34 success result_match= True\nE35 success result_match= True\nE36 success result_match= True\nE37 success result_match= True\nE38 success result_match= True\nE39 success result_match= True\nE40 success result_match= True\nE41 success result_match= True\nE42 success result_match= True\nE43 success result_match= True\nE44 success result_match= True\nE45 success result_match= True\nE46 success result_match= True\nE47 success result_match= True\nE48 success result_match= True\nE49 success result_match= True\nE50 success result_match= True\nE51 success result_match= True\nE52 success result_match= True\nE53 success result_match= True\nE54 success result_match= True\nE55 success result_match= True\nE56 success result_match= True\nE57 success result_match= True\nE58 success result_match= True\nE59 success result_match= True\nE60 success result_match= True\nE61 success result_match= True\nE62 success result_match= True\nE63 success result_match= True\nE64 success result_match= True\nE65 success result_match= True\nE66 success result_match= True\nE67 success result_match= True\nE68 success result_match= True\nE69 success result_match= True\nE70 success result_match= True\nE71 success result_match= True\nE72 success result_match= True\nE73 success result_match= True\nE74 success result_match= True\nE75 success result_match= True\nE76 success result_match= True\nE77 success result_match= True\nE78 success result_match= True\nE79 success result_match= True\nE80 success result_match= True\nReport: C:\\Users\\15853\\hub-GpQO\\蔡家民\\week11\\作业一\\reports\\replay_smoke.md\n",
+      "stderr": ""
+    },
+    {
+      "check": 6,
+      "arguments": [
+        "-m",
+        "sql_agent",
+        "stages",
+        "--mode",
+        "replay",
+        "--split",
+        "all",
+        "--limit",
+        "120"
+      ],
+      "returncode": 0,
+      "stdout": "Report: C:\\Users\\15853\\hub-GpQO\\蔡家民\\week11\\作业一\\reports\\stages_replay_all.json\n",
+      "stderr": ""
+    },
+    {
+      "check": 7,
+      "arguments": [
+        "-m",
+        "sql_agent",
+        "stages",
+        "--mode",
+        "replay",
+        "--diagnose-case",
+        "S11"
+      ],
+      "returncode": 0,
+      "stdout": "Report: C:\\Users\\15853\\hub-GpQO\\蔡家民\\week11\\作业一\\reports\\diagnosis_replay_S11.json\n",
+      "stderr": ""
+    },
+    {
+      "check": 8,
+      "arguments": [
+        "scripts/run_experiments.py",
+        "--mode",
+        "replay",
+        "--split",
+        "dev",
+        "--limit",
+        "3",
+        "--repeats",
+        "3",
+        "--variants",
+        "baseline",
+        "workflow",
+        "no_rewrite",
+        "--max-requests",
+        "300",
+        "--execute"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"mode\": \"replay\",\n  \"split\": \"dev\",\n  \"case_ids\": [\n    \"S01\",\n    \"S07\",\n    \"S10\"\n  ],\n  \"variants\": [\n    \"baseline\",\n    \"workflow\",\n    \"no_rewrite\"\n  ],\n  \"repeats\": 3,\n  \"max_requests\": 300,\n  \"database_sha256\": \"d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb\",\n  \"dataset_sha256\": \"886cb10ef4cab0b11b17be60ea6392674621319d8739156a948f303688892d62\",\n  \"executed\": true,\n  \"warning\": \"Replay does not measure model quality. Live runs incur provider usage.\"\n}\n",
+      "stderr": ""
+    }
+  ]
+}

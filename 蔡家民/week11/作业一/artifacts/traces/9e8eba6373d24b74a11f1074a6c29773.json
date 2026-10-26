@@ -1,0 +1,878 @@
+{
+  "run_id": "9e8eba6373d24b74a11f1074a6c29773",
+  "question": "哪些专辑包含超过15首曲目？返回专辑ID、标题和数量，按ID排序。",
+  "status": "success",
+  "mode": "replay",
+  "reference_date": "2014-01-15",
+  "intent": {
+    "status": "answerable",
+    "metric": "哪些专辑包含超过15首曲目？返回专辑ID、标题和数量，按ID排序。",
+    "dimensions": [],
+    "filters": [],
+    "time_range": [],
+    "ranking": "",
+    "grain": "",
+    "assumptions": [],
+    "clarification": "",
+    "reason": "",
+    "rule_ids": []
+  },
+  "selection": {
+    "tables": [
+      "albums",
+      "tracks"
+    ],
+    "columns": {},
+    "joins": [],
+    "reason": "Explicit replay fixture, not model selection",
+    "bridge_tables": []
+  },
+  "candidates": [
+    {
+      "sql": "SELECT a.AlbumId, a.Title, COUNT(t.TrackId) AS tracks FROM albums a JOIN tracks t ON t.AlbumId=a.AlbumId GROUP BY a.AlbumId HAVING COUNT(t.TrackId)>15 ORDER BY a.AlbumId",
+      "params": {},
+      "explanation": "",
+      "changes": ""
+    }
+  ],
+  "validations": [
+    {
+      "passed": true,
+      "checks": [
+        {
+          "name": "sqlite_compile_and_authorize",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "selection_scope",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "header_detail_grain_risk",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        }
+      ]
+    }
+  ],
+  "execution": {
+    "status": "ok",
+    "columns": [
+      "AlbumId",
+      "Title",
+      "tracks"
+    ],
+    "rows": [
+      [
+        18,
+        "Body Count",
+        17
+      ],
+      [
+        21,
+        "Prenda Minha",
+        18
+      ],
+      [
+        23,
+        "Minha Historia",
+        34
+      ],
+      [
+        24,
+        "Afrociberdelia",
+        23
+      ],
+      [
+        26,
+        "Acústico MTV [Live]",
+        17
+      ],
+      [
+        33,
+        "Chill: Brazil (Disc 1)",
+        17
+      ],
+      [
+        34,
+        "Chill: Brazil (Disc 2)",
+        17
+      ],
+      [
+        36,
+        "Greatest Hits II",
+        17
+      ],
+      [
+        37,
+        "Greatest Kiss",
+        20
+      ],
+      [
+        39,
+        "International Superhits",
+        21
+      ],
+      [
+        51,
+        "Up An' Atom",
+        22
+      ],
+      [
+        54,
+        "Chronicle, Vol. 1",
+        20
+      ],
+      [
+        55,
+        "Chronicle, Vol. 2",
+        20
+      ],
+      [
+        67,
+        "Vault: Def Leppard's Greatest Hits",
+        16
+      ],
+      [
+        72,
+        "The Cream Of Clapton",
+        18
+      ],
+      [
+        73,
+        "Unplugged",
+        30
+      ],
+      [
+        83,
+        "My Way: The Best Of Frank Sinatra [Disc 1]",
+        24
+      ],
+      [
+        84,
+        "Roda De Funk",
+        16
+      ],
+      [
+        91,
+        "Use Your Illusion I",
+        16
+      ],
+      [
+        102,
+        "Live After Death",
+        18
+      ],
+      [
+        115,
+        "Sex Machine",
+        20
+      ],
+      [
+        120,
+        "Are You Experienced?",
+        17
+      ],
+      [
+        125,
+        "Living After Midnight",
+        16
+      ],
+      [
+        140,
+        "Mais Do Mesmo",
+        16
+      ],
+      [
+        141,
+        "Greatest Hits",
+        57
+      ],
+      [
+        145,
+        "Barulhinho Bom",
+        18
+      ],
+      [
+        146,
+        "Seek And Shall Find: More Of The Best (1963-1981)",
+        18
+      ],
+      [
+        149,
+        "Garage Inc. (Disc 2)",
+        16
+      ],
+      [
+        162,
+        "Motley Crue Greatest Hits",
+        17
+      ],
+      [
+        163,
+        "From The Muddy Banks Of The Wishkah [Live]",
+        17
+      ],
+      [
+        167,
+        "Acústico MTV",
+        21
+      ],
+      [
+        169,
+        "Arquivo Os Paralamas Do Sucesso",
+        16
+      ],
+      [
+        178,
+        "Live On Two Legs [Live]",
+        16
+      ],
+      [
+        184,
+        "Os Cães Ladram Mas A Caravana Não Pára",
+        16
+      ],
+      [
+        185,
+        "Greatest Hits I",
+        17
+      ],
+      [
+        190,
+        "The Best Of R.E.M.: The IRS Years",
+        16
+      ],
+      [
+        193,
+        "Blood Sugar Sex Magik",
+        17
+      ],
+      [
+        194,
+        "By The Way",
+        16
+      ],
+      [
+        201,
+        "Judas 0: B-Sides and Rarities",
+        16
+      ],
+      [
+        202,
+        "Rotten Apples: Greatest Hits",
+        18
+      ],
+      [
+        203,
+        "A-Sides",
+        17
+      ],
+      [
+        211,
+        "The Singles",
+        18
+      ],
+      [
+        213,
+        "Pure Cult: The Best Of The Cult (For Rockers, Ravers, Lovers & Sinners) [UK]",
+        18
+      ],
+      [
+        221,
+        "My Generation - The Very Best Of The Who",
+        20
+      ],
+      [
+        224,
+        "Acústico",
+        22
+      ],
+      [
+        225,
+        "Volume Dois",
+        16
+      ],
+      [
+        227,
+        "Battlestar Galactica, Season 3",
+        19
+      ],
+      [
+        228,
+        "Heroes, Season 1",
+        23
+      ],
+      [
+        229,
+        "Lost, Season 3",
+        26
+      ],
+      [
+        230,
+        "Lost, Season 1",
+        25
+      ],
+      [
+        231,
+        "Lost, Season 2",
+        24
+      ],
+      [
+        237,
+        "Rattle And Hum",
+        17
+      ],
+      [
+        243,
+        "The Best Of Van Halen, Vol. I",
+        17
+      ],
+      [
+        248,
+        "Ao Vivo [IMPORT]",
+        19
+      ],
+      [
+        250,
+        "The Office, Season 2",
+        22
+      ],
+      [
+        251,
+        "The Office, Season 3",
+        25
+      ],
+      [
+        253,
+        "Battlestar Galactica (Classic), Season 1",
+        24
+      ],
+      [
+        255,
+        "Instant Karma: The Amnesty International Campaign to Save Darfur",
+        23
+      ],
+      [
+        258,
+        "House of Pain",
+        19
+      ],
+      [
+        259,
+        "Radio Brasil (O Som da Jovem Vanguarda) - Seleccao de Henrique Amaro",
+        17
+      ],
+      [
+        261,
+        "LOST, Season 4",
+        17
+      ]
+    ],
+    "truncated": false,
+    "elapsed_ms": 0.0,
+    "error_type": "",
+    "error": ""
+  },
+  "answer": {
+    "text": "离线回放：查询返回 61 行。\n{\"columns\": [\"AlbumId\", \"Title\", \"tracks\"], \"rows\": [[18, \"Body Count\", 17], [21, \"Prenda Minha\", 18], [23, \"Minha Historia\", 34], [24, \"Afrociberdelia\", 23], [26, \"Acústico MTV [Live]\", 17], [33, \"Chill: Brazil (Disc 1)\", 17], [34, \"Chill: Brazil (Disc 2)\", 17], [36, \"Greatest Hits II\", 17], [37, \"Greatest Kiss\", 20], [39, \"International Superhits\", 21], [51, \"Up An' Atom\", 22], [54, \"Chronicle, Vol. 1\", 20], [55, \"Chronicle, Vol. 2\", 20], [67, \"Vault: Def Leppard's Greatest Hits\", 16], [72, \"The Cream Of Clapton\", 18], [73, \"Unplugged\", 30], [83, \"My Way: The Best Of Frank Sinatra [Disc 1]\", 24], [84, \"Roda De Funk\", 16], [91, \"Use Your Illusion I\", 16], [102, \"Live After Death\", 18], [115, \"Sex Machine\", 20], [120, \"Are You Experienced?\", 17], [125, \"Living After Midnight\", 16], [140, \"Mais Do Mesmo\", 16], [141, \"Greatest Hits\", 57], [145, \"Barulhinho Bom\", 18], [146, \"Seek And Shall Find: More Of The Best (1963-1981)\", 18], [149, \"Garage Inc. (Disc 2)\", 16], [162, \"Motley Crue Greatest Hits\", 17], [163, \"From The Muddy Banks Of The Wishkah [Live]\", 17], [167, \"Acústico MTV\", 21], [169, \"Arquivo Os Paralamas Do Sucesso\", 16], [178, \"Live On Two Legs [Live]\", 16], [184, \"Os Cães Ladram Mas A Caravana Não Pára\", 16], [185, \"Greatest Hits I\", 17], [190, \"The Best Of R.E.M.: The IRS Years\", 16], [193, \"Blood Sugar Sex Magik\", 17], [194, \"By The Way\", 16], [201, \"Judas 0: B-Sides and Rarities\", 16], [202, \"Rotten Apples: Greatest Hits\", 18], [203, \"A-Sides\", 17], [211, \"The Singles\", 18], [213, \"Pure Cult: The Best Of The Cult (For Rockers, Ravers, Lovers & Sinners) [UK]\", 18], [221, \"My Generation - The Very Best Of The Who\", 20], [224, \"Acústico\", 22], [225, \"Volume Dois\", 16], [227, \"Battlestar Galactica, Season 3\", 19], [228, \"Heroes, Season 1\", 23], [229, \"Lost, Season 3\", 26], [230, \"Lost, Season 1\", 25], [231, \"Lost, Season 2\", 24], [237, \"Rattle And Hum\", 17], [243, \"The Best Of Van Halen, Vol. I\", 17], [248, \"Ao Vivo [IMPORT]\", 19], [250, \"The Office, Season 2\", 22], [251, \"The Office, Season 3\", 25], [253, \"Battlestar Galactica (Classic), Season 1\", 24], [255, \"Instant Karma: The Amnesty International Campaign to Save Darfur\", 23], [258, \"House of Pain\", 19], [259, \"Radio Brasil (O Som da Jovem Vanguarda) - Seleccao de Henrique Amaro\", 17], [261, \"LOST, Season 4\", 17]]}",
+    "facts": [],
+    "limitations": [
+      "仅验证工作流，未调用大模型。"
+    ]
+  },
+  "trace": [
+    {
+      "node": "database_parse",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "albums",
+          "artists",
+          "customers",
+          "employees",
+          "genres",
+          "invoice_items",
+          "invoices",
+          "media_types",
+          "playlist_track",
+          "playlists",
+          "tracks"
+        ],
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb"
+      }
+    },
+    {
+      "node": "intent",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "answerable",
+        "metric": "哪些专辑包含超过15首曲目？返回专辑ID、标题和数量，按ID排序。",
+        "time_range": []
+      }
+    },
+    {
+      "node": "table_selection",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "tables": [
+          "albums",
+          "tracks"
+        ],
+        "reason": "Explicit replay fixture, not model selection"
+      }
+    },
+    {
+      "node": "bridge_completion",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "albums",
+          "tracks"
+        ],
+        "columns": {},
+        "joins": [],
+        "reason": "Explicit replay fixture, not model selection",
+        "bridge_tables": []
+      }
+    },
+    {
+      "node": "sql_generation",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "sql": "SELECT a.AlbumId, a.Title, COUNT(t.TrackId) AS tracks FROM albums a JOIN tracks t ON t.AlbumId=a.AlbumId GROUP BY a.AlbumId HAVING COUNT(t.TrackId)>15 ORDER BY a.AlbumId",
+        "params": {}
+      }
+    },
+    {
+      "node": "semantic_review",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "issues": []
+      }
+    },
+    {
+      "node": "sql_validation",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "sqlite_compile_and_authorize",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "selection_scope",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "header_detail_grain_risk",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          }
+        ]
+      }
+    },
+    {
+      "node": "sql_execution",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "ok",
+        "columns": [
+          "AlbumId",
+          "Title",
+          "tracks"
+        ],
+        "rows": [
+          [
+            18,
+            "Body Count",
+            17
+          ],
+          [
+            21,
+            "Prenda Minha",
+            18
+          ],
+          [
+            23,
+            "Minha Historia",
+            34
+          ],
+          [
+            24,
+            "Afrociberdelia",
+            23
+          ],
+          [
+            26,
+            "Acústico MTV [Live]",
+            17
+          ],
+          [
+            33,
+            "Chill: Brazil (Disc 1)",
+            17
+          ],
+          [
+            34,
+            "Chill: Brazil (Disc 2)",
+            17
+          ],
+          [
+            36,
+            "Greatest Hits II",
+            17
+          ],
+          [
+            37,
+            "Greatest Kiss",
+            20
+          ],
+          [
+            39,
+            "International Superhits",
+            21
+          ],
+          [
+            51,
+            "Up An' Atom",
+            22
+          ],
+          [
+            54,
+            "Chronicle, Vol. 1",
+            20
+          ],
+          [
+            55,
+            "Chronicle, Vol. 2",
+            20
+          ],
+          [
+            67,
+            "Vault: Def Leppard's Greatest Hits",
+            16
+          ],
+          [
+            72,
+            "The Cream Of Clapton",
+            18
+          ],
+          [
+            73,
+            "Unplugged",
+            30
+          ],
+          [
+            83,
+            "My Way: The Best Of Frank Sinatra [Disc 1]",
+            24
+          ],
+          [
+            84,
+            "Roda De Funk",
+            16
+          ],
+          [
+            91,
+            "Use Your Illusion I",
+            16
+          ],
+          [
+            102,
+            "Live After Death",
+            18
+          ],
+          [
+            115,
+            "Sex Machine",
+            20
+          ],
+          [
+            120,
+            "Are You Experienced?",
+            17
+          ],
+          [
+            125,
+            "Living After Midnight",
+            16
+          ],
+          [
+            140,
+            "Mais Do Mesmo",
+            16
+          ],
+          [
+            141,
+            "Greatest Hits",
+            57
+          ],
+          [
+            145,
+            "Barulhinho Bom",
+            18
+          ],
+          [
+            146,
+            "Seek And Shall Find: More Of The Best (1963-1981)",
+            18
+          ],
+          [
+            149,
+            "Garage Inc. (Disc 2)",
+            16
+          ],
+          [
+            162,
+            "Motley Crue Greatest Hits",
+            17
+          ],
+          [
+            163,
+            "From The Muddy Banks Of The Wishkah [Live]",
+            17
+          ],
+          [
+            167,
+            "Acústico MTV",
+            21
+          ],
+          [
+            169,
+            "Arquivo Os Paralamas Do Sucesso",
+            16
+          ],
+          [
+            178,
+            "Live On Two Legs [Live]",
+            16
+          ],
+          [
+            184,
+            "Os Cães Ladram Mas A Caravana Não Pára",
+            16
+          ],
+          [
+            185,
+            "Greatest Hits I",
+            17
+          ],
+          [
+            190,
+            "The Best Of R.E.M.: The IRS Years",
+            16
+          ],
+          [
+            193,
+            "Blood Sugar Sex Magik",
+            17
+          ],
+          [
+            194,
+            "By The Way",
+            16
+          ],
+          [
+            201,
+            "Judas 0: B-Sides and Rarities",
+            16
+          ],
+          [
+            202,
+            "Rotten Apples: Greatest Hits",
+            18
+          ],
+          [
+            203,
+            "A-Sides",
+            17
+          ],
+          [
+            211,
+            "The Singles",
+            18
+          ],
+          [
+            213,
+            "Pure Cult: The Best Of The Cult (For Rockers, Ravers, Lovers & Sinners) [UK]",
+            18
+          ],
+          [
+            221,
+            "My Generation - The Very Best Of The Who",
+            20
+          ],
+          [
+            224,
+            "Acústico",
+            22
+          ],
+          [
+            225,
+            "Volume Dois",
+            16
+          ],
+          [
+            227,
+            "Battlestar Galactica, Season 3",
+            19
+          ],
+          [
+            228,
+            "Heroes, Season 1",
+            23
+          ],
+          [
+            229,
+            "Lost, Season 3",
+            26
+          ],
+          [
+            230,
+            "Lost, Season 1",
+            25
+          ],
+          [
+            231,
+            "Lost, Season 2",
+            24
+          ],
+          [
+            237,
+            "Rattle And Hum",
+            17
+          ],
+          [
+            243,
+            "The Best Of Van Halen, Vol. I",
+            17
+          ],
+          [
+            248,
+            "Ao Vivo [IMPORT]",
+            19
+          ],
+          [
+            250,
+            "The Office, Season 2",
+            22
+          ],
+          [
+            251,
+            "The Office, Season 3",
+            25
+          ],
+          [
+            253,
+            "Battlestar Galactica (Classic), Season 1",
+            24
+          ],
+          [
+            255,
+            "Instant Karma: The Amnesty International Campaign to Save Darfur",
+            23
+          ],
+          [
+            258,
+            "House of Pain",
+            19
+          ],
+          [
+            259,
+            "Radio Brasil (O Som da Jovem Vanguarda) - Seleccao de Henrique Amaro",
+            17
+          ],
+          [
+            261,
+            "LOST, Season 4",
+            17
+          ]
+        ],
+        "truncated": false,
+        "elapsed_ms": 0.0,
+        "error_type": "",
+        "error": ""
+      }
+    },
+    {
+      "node": "summary",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "text": "离线回放：查询返回 61 行。\n{\"columns\": [\"AlbumId\", \"Title\", \"tracks\"], \"rows\": [[18, \"Body Count\", 17], [21, \"Prenda Minha\", 18], [23, \"Minha Historia\", 34], [24, \"Afrociberdelia\", 23], [26, \"Acústico MTV [Live]\", 17], [33, \"Chill: Brazil (Disc 1)\", 17], [34, \"Chill: Brazil (Disc 2)\", 17], [36, \"Greatest Hits II\", 17], [37, \"Greatest Kiss\", 20], [39, \"International Superhits\", 21], [51, \"Up An' Atom\", 22], [54, \"Chronicle, Vol. 1\", 20], [55, \"Chronicle, Vol. 2\", 20], [67, \"Vault: Def Leppard's Greatest Hits\", 16], [72, \"The Cream Of Clapton\", 18], [73, \"Unplugged\", 30], [83, \"My Way: The Best Of Frank Sinatra [Disc 1]\", 24], [84, \"Roda De Funk\", 16], [91, \"Use Your Illusion I\", 16], [102, \"Live After Death\", 18], [115, \"Sex Machine\", 20], [120, \"Are You Experienced?\", 17], [125, \"Living After Midnight\", 16], [140, \"Mais Do Mesmo\", 16], [141, \"Greatest Hits\", 57], [145, \"Barulhinho Bom\", 18], [146, \"Seek And Shall Find: More Of The Best (1963-1981)\", 18], [149, \"Garage Inc. (Disc 2)\", 16], [162, \"Motley Crue Greatest Hits\", 17], [163, \"From The Muddy Banks Of The Wishkah [Live]\", 17], [167, \"Acústico MTV\", 21], [169, \"Arquivo Os Paralamas Do Sucesso\", 16], [178, \"Live On Two Legs [Live]\", 16], [184, \"Os Cães Ladram Mas A Caravana Não Pára\", 16], [185, \"Greatest Hits I\", 17], [190, \"The Best Of R.E.M.: The IRS Years\", 16], [193, \"Blood Sugar Sex Magik\", 17], [194, \"By The Way\", 16], [201, \"Judas 0: B-Sides and Rarities\", 16], [202, \"Rotten Apples: Greatest Hits\", 18], [203, \"A-Sides\", 17], [211, \"The Singles\", 18], [213, \"Pure Cult: The Best Of The Cult (For Rockers, Ravers, Lovers & Sinners) [UK]\", 18], [221, \"My Generation - The Very Best Of The Who\", 20], [224, \"Acústico\", 22], [225, \"Volume Dois\", 16], [227, \"Battlestar Galactica, Season 3\", 19], [228, \"Heroes, Season 1\", 23], [229, \"Lost, Season 3\", 26], [230, \"Lost, Season 1\", 25], [231, \"Lost, Season 2\", 24], [237, \"Rattle And Hum\", 17], [243, \"The Best Of Van Halen, Vol. I\", 17], [248, \"Ao Vivo [IMPORT]\", 19], [250, \"The Office, Season 2\", 22], [251, \"The Office, Season 3\", 25], [253, \"Battlestar Galactica (Classic), Season 1\", 24], [255, \"Instant Karma: The Amnesty International Campaign to Save Darfur\", 23], [258, \"House of Pain\", 19], [259, \"Radio Brasil (O Som da Jovem Vanguarda) - Seleccao de Henrique Amaro\", 17], [261, \"LOST, Season 4\", 17]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "node": "run_metadata",
+      "status": "success",
+      "output": {
+        "variant": "workflow",
+        "prompt_version": "2026-10-21-v1",
+        "semantic_review": true,
+        "rules_enabled": true,
+        "max_rewrites": 2,
+        "reference_date": "2014-01-15",
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+        "calls": [
+          {
+            "stage": "intent",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "table_selection",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "sql_generation",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "semantic_review",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "summary",
+            "model": "scripted-fixture",
+            "usage": null
+          }
+        ],
+        "elapsed_ms": 0.0
+      }
+    }
+  ],
+  "error": ""
+}

@@ -1,0 +1,511 @@
+{
+  "run_id": "a2abfe580c5f479c8931b2507744d818",
+  "question": "按音乐类型统计已成交销售金额，金额降序、类型ID升序。",
+  "status": "success",
+  "mode": "replay",
+  "reference_date": "2014-01-15",
+  "intent": {
+    "status": "answerable",
+    "metric": "按音乐类型统计已成交销售金额，金额降序、类型ID升序。",
+    "dimensions": [],
+    "filters": [],
+    "time_range": [],
+    "ranking": "",
+    "grain": "",
+    "assumptions": [],
+    "clarification": "",
+    "reason": "",
+    "rule_ids": []
+  },
+  "selection": {
+    "tables": [
+      "genres",
+      "tracks",
+      "invoice_items"
+    ],
+    "columns": {},
+    "joins": [],
+    "reason": "Explicit replay fixture, not model selection",
+    "bridge_tables": []
+  },
+  "candidates": [
+    {
+      "sql": "SELECT g.GenreId, g.Name, SUM(ii.UnitPrice*ii.Quantity) AS revenue FROM genres g JOIN tracks t ON t.GenreId=g.GenreId JOIN invoice_items ii ON ii.TrackId=t.TrackId GROUP BY g.GenreId ORDER BY revenue DESC, g.GenreId",
+      "params": {},
+      "explanation": "",
+      "changes": ""
+    }
+  ],
+  "validations": [
+    {
+      "passed": true,
+      "checks": [
+        {
+          "name": "sqlite_compile_and_authorize",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "selection_scope",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        },
+        {
+          "name": "header_detail_grain_risk",
+          "passed": true,
+          "error_type": "",
+          "evidence": "",
+          "retryable": true
+        }
+      ]
+    }
+  ],
+  "execution": {
+    "status": "ok",
+    "columns": [
+      "GenreId",
+      "Name",
+      "revenue"
+    ],
+    "rows": [
+      [
+        1,
+        "Rock",
+        826.65
+      ],
+      [
+        7,
+        "Latin",
+        382.14
+      ],
+      [
+        3,
+        "Metal",
+        261.36
+      ],
+      [
+        4,
+        "Alternative & Punk",
+        241.56
+      ],
+      [
+        19,
+        "TV Shows",
+        93.53
+      ],
+      [
+        2,
+        "Jazz",
+        79.2
+      ],
+      [
+        6,
+        "Blues",
+        60.39
+      ],
+      [
+        21,
+        "Drama",
+        57.71
+      ],
+      [
+        14,
+        "R&B/Soul",
+        40.589999999999996
+      ],
+      [
+        24,
+        "Classical",
+        40.589999999999996
+      ],
+      [
+        20,
+        "Sci Fi & Fantasy",
+        39.8
+      ],
+      [
+        8,
+        "Reggae",
+        29.7
+      ],
+      [
+        9,
+        "Pop",
+        27.72
+      ],
+      [
+        10,
+        "Soundtrack",
+        19.8
+      ],
+      [
+        22,
+        "Comedy",
+        17.91
+      ],
+      [
+        17,
+        "Hip Hop/Rap",
+        16.83
+      ],
+      [
+        11,
+        "Bossa Nova",
+        14.85
+      ],
+      [
+        23,
+        "Alternative",
+        13.86
+      ],
+      [
+        16,
+        "World",
+        12.87
+      ],
+      [
+        18,
+        "Science Fiction",
+        11.94
+      ],
+      [
+        13,
+        "Heavy Metal",
+        11.879999999999999
+      ],
+      [
+        15,
+        "Electronica/Dance",
+        11.879999999999999
+      ],
+      [
+        12,
+        "Easy Listening",
+        9.9
+      ],
+      [
+        5,
+        "Rock And Roll",
+        5.9399999999999995
+      ]
+    ],
+    "truncated": false,
+    "elapsed_ms": 0.0,
+    "error_type": "",
+    "error": ""
+  },
+  "answer": {
+    "text": "离线回放：查询返回 24 行。\n{\"columns\": [\"GenreId\", \"Name\", \"revenue\"], \"rows\": [[1, \"Rock\", 826.65], [7, \"Latin\", 382.14], [3, \"Metal\", 261.36], [4, \"Alternative & Punk\", 241.56], [19, \"TV Shows\", 93.53], [2, \"Jazz\", 79.2], [6, \"Blues\", 60.39], [21, \"Drama\", 57.71], [14, \"R&B/Soul\", 40.589999999999996], [24, \"Classical\", 40.589999999999996], [20, \"Sci Fi & Fantasy\", 39.8], [8, \"Reggae\", 29.7], [9, \"Pop\", 27.72], [10, \"Soundtrack\", 19.8], [22, \"Comedy\", 17.91], [17, \"Hip Hop/Rap\", 16.83], [11, \"Bossa Nova\", 14.85], [23, \"Alternative\", 13.86], [16, \"World\", 12.87], [18, \"Science Fiction\", 11.94], [13, \"Heavy Metal\", 11.879999999999999], [15, \"Electronica/Dance\", 11.879999999999999], [12, \"Easy Listening\", 9.9], [5, \"Rock And Roll\", 5.9399999999999995]]}",
+    "facts": [],
+    "limitations": [
+      "仅验证工作流，未调用大模型。"
+    ]
+  },
+  "trace": [
+    {
+      "node": "database_parse",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "albums",
+          "artists",
+          "customers",
+          "employees",
+          "genres",
+          "invoice_items",
+          "invoices",
+          "media_types",
+          "playlist_track",
+          "playlists",
+          "tracks"
+        ],
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb"
+      }
+    },
+    {
+      "node": "intent",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "answerable",
+        "metric": "按音乐类型统计已成交销售金额，金额降序、类型ID升序。",
+        "time_range": []
+      }
+    },
+    {
+      "node": "table_selection",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "tables": [
+          "genres",
+          "tracks",
+          "invoice_items"
+        ],
+        "reason": "Explicit replay fixture, not model selection"
+      }
+    },
+    {
+      "node": "bridge_completion",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "tables": [
+          "genres",
+          "tracks",
+          "invoice_items"
+        ],
+        "columns": {},
+        "joins": [],
+        "reason": "Explicit replay fixture, not model selection",
+        "bridge_tables": []
+      }
+    },
+    {
+      "node": "sql_generation",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "sql": "SELECT g.GenreId, g.Name, SUM(ii.UnitPrice*ii.Quantity) AS revenue FROM genres g JOIN tracks t ON t.GenreId=g.GenreId JOIN invoice_items ii ON ii.TrackId=t.TrackId GROUP BY g.GenreId ORDER BY revenue DESC, g.GenreId",
+        "params": {}
+      }
+    },
+    {
+      "node": "semantic_review",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "issues": []
+      }
+    },
+    {
+      "node": "sql_validation",
+      "status": "ok",
+      "elapsed_ms": 0,
+      "output": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "sqlite_compile_and_authorize",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "selection_scope",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          },
+          {
+            "name": "header_detail_grain_risk",
+            "passed": true,
+            "error_type": "",
+            "evidence": "",
+            "retryable": true
+          }
+        ]
+      }
+    },
+    {
+      "node": "sql_execution",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "status": "ok",
+        "columns": [
+          "GenreId",
+          "Name",
+          "revenue"
+        ],
+        "rows": [
+          [
+            1,
+            "Rock",
+            826.65
+          ],
+          [
+            7,
+            "Latin",
+            382.14
+          ],
+          [
+            3,
+            "Metal",
+            261.36
+          ],
+          [
+            4,
+            "Alternative & Punk",
+            241.56
+          ],
+          [
+            19,
+            "TV Shows",
+            93.53
+          ],
+          [
+            2,
+            "Jazz",
+            79.2
+          ],
+          [
+            6,
+            "Blues",
+            60.39
+          ],
+          [
+            21,
+            "Drama",
+            57.71
+          ],
+          [
+            14,
+            "R&B/Soul",
+            40.589999999999996
+          ],
+          [
+            24,
+            "Classical",
+            40.589999999999996
+          ],
+          [
+            20,
+            "Sci Fi & Fantasy",
+            39.8
+          ],
+          [
+            8,
+            "Reggae",
+            29.7
+          ],
+          [
+            9,
+            "Pop",
+            27.72
+          ],
+          [
+            10,
+            "Soundtrack",
+            19.8
+          ],
+          [
+            22,
+            "Comedy",
+            17.91
+          ],
+          [
+            17,
+            "Hip Hop/Rap",
+            16.83
+          ],
+          [
+            11,
+            "Bossa Nova",
+            14.85
+          ],
+          [
+            23,
+            "Alternative",
+            13.86
+          ],
+          [
+            16,
+            "World",
+            12.87
+          ],
+          [
+            18,
+            "Science Fiction",
+            11.94
+          ],
+          [
+            13,
+            "Heavy Metal",
+            11.879999999999999
+          ],
+          [
+            15,
+            "Electronica/Dance",
+            11.879999999999999
+          ],
+          [
+            12,
+            "Easy Listening",
+            9.9
+          ],
+          [
+            5,
+            "Rock And Roll",
+            5.9399999999999995
+          ]
+        ],
+        "truncated": false,
+        "elapsed_ms": 0.0,
+        "error_type": "",
+        "error": ""
+      }
+    },
+    {
+      "node": "summary",
+      "status": "ok",
+      "elapsed_ms": 0.0,
+      "output": {
+        "text": "离线回放：查询返回 24 行。\n{\"columns\": [\"GenreId\", \"Name\", \"revenue\"], \"rows\": [[1, \"Rock\", 826.65], [7, \"Latin\", 382.14], [3, \"Metal\", 261.36], [4, \"Alternative & Punk\", 241.56], [19, \"TV Shows\", 93.53], [2, \"Jazz\", 79.2], [6, \"Blues\", 60.39], [21, \"Drama\", 57.71], [14, \"R&B/Soul\", 40.589999999999996], [24, \"Classical\", 40.589999999999996], [20, \"Sci Fi & Fantasy\", 39.8], [8, \"Reggae\", 29.7], [9, \"Pop\", 27.72], [10, \"Soundtrack\", 19.8], [22, \"Comedy\", 17.91], [17, \"Hip Hop/Rap\", 16.83], [11, \"Bossa Nova\", 14.85], [23, \"Alternative\", 13.86], [16, \"World\", 12.87], [18, \"Science Fiction\", 11.94], [13, \"Heavy Metal\", 11.879999999999999], [15, \"Electronica/Dance\", 11.879999999999999], [12, \"Easy Listening\", 9.9], [5, \"Rock And Roll\", 5.9399999999999995]]}",
+        "facts": [],
+        "limitations": [
+          "仅验证工作流，未调用大模型。"
+        ]
+      }
+    },
+    {
+      "node": "run_metadata",
+      "status": "success",
+      "output": {
+        "variant": "workflow",
+        "prompt_version": "2026-10-21-v1",
+        "semantic_review": true,
+        "rules_enabled": true,
+        "max_rewrites": 2,
+        "reference_date": "2014-01-15",
+        "database_sha256": "d6c11e2ccda2a36883af57f031f76fbd55e247f3be1710c4c8aaa72ec06a18cb",
+        "calls": [
+          {
+            "stage": "intent",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "table_selection",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "sql_generation",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "semantic_review",
+            "model": "scripted-fixture",
+            "usage": null
+          },
+          {
+            "stage": "summary",
+            "model": "scripted-fixture",
+            "usage": null
+          }
+        ],
+        "elapsed_ms": 0.0
+      }
+    }
+  ],
+  "error": ""
+}
