@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+sse-starlette
+sqlalchemy
+openai
+pydantic-settings
+pandas
+tabulate
+pytest
+httpx
