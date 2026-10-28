@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chinook-sql-agent"
+version = "0.1.0"
+description = "SQL agent workflow over the Chinook SQLite database"
+requires-python = ">=3.10"
+dependencies = [
+    "langchain-core>=1.6,<2",
+    "langchain-openai>=1.1,<2",
+    "sqlalchemy>=2.0",
+    "python-dotenv>=1.0",
+]
+
+[project.scripts]
+sql-agent = "sql_agent.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint.per-file-ignores]
+# 数据库层是"尽最大努力解析"的防御式代码，宽泛捕获是刻意设计。
+"src/sql_agent/db/*.py" = ["BLE001"]

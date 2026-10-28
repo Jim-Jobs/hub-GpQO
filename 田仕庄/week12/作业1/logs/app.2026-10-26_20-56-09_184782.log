@@ -1,0 +1,305 @@
+2026-10-26 17:22:27.517 | INFO     | app.main:lifespan:25 | 服务启动中... model=deepseek-flash base_url=https://api.deepseek.com
+2026-10-26 17:22:27.534 | INFO     | app.main:lifespan:28 | VisionService 初始化成功
+2026-10-26 17:22:27.542 | INFO     | app.main:lifespan:33 | 服务已停止
+2026-10-26 17:22:27.554 | INFO     | app.main:lifespan:25 | 服务启动中... model=deepseek-flash base_url=https://api.deepseek.com
+2026-10-26 17:22:27.569 | INFO     | app.main:lifespan:28 | VisionService 初始化成功
+2026-10-26 17:22:27.574 | INFO     | app.main:recognize:94 | [86d88546] 收到识别请求: mime=image/png size=0KB
+2026-10-26 17:22:27.574 | INFO     | app.main:recognize:114 | 识别完成 request_id=86d88546 category=高风险 level=4 latency_ms=123 size_kb=0 reason=电动车 evidence=['电动车']
+2026-10-26 17:22:27.576 | INFO     | app.main:recognize:119 | [86d88546] 识别结果: 高风险 (level=4, 123ms)
+2026-10-26 17:22:27.578 | INFO     | app.main:lifespan:33 | 服务已停止
+2026-10-26 17:22:27.588 | INFO     | app.main:lifespan:25 | 服务启动中... model=deepseek-flash base_url=https://api.deepseek.com
+2026-10-26 17:22:27.601 | INFO     | app.main:lifespan:28 | VisionService 初始化成功
+2026-10-26 17:22:27.603 | INFO     | app.main:recognize:94 | [f1fe5887] 收到识别请求: mime=image/png size=0KB
+2026-10-26 17:22:27.603 | INFO     | app.main:recognize:114 | 识别完成 request_id=f1fe5887 category=无风险 level=1 latency_ms=123 size_kb=0 reason= evidence=[]
+2026-10-26 17:22:27.606 | INFO     | app.main:recognize:119 | [f1fe5887] 识别结果: 无风险 (level=1, 123ms)
+2026-10-26 17:22:27.609 | INFO     | app.main:lifespan:33 | 服务已停止
+2026-10-26 17:22:27.618 | INFO     | app.main:lifespan:25 | 服务启动中... model=deepseek-flash base_url=https://api.deepseek.com
+2026-10-26 17:22:27.632 | INFO     | app.main:lifespan:28 | VisionService 初始化成功
+2026-10-26 17:22:27.636 | INFO     | app.main:lifespan:33 | 服务已停止
+2026-10-26 17:22:27.649 | INFO     | app.main:lifespan:25 | 服务启动中... model=deepseek-flash base_url=https://api.deepseek.com
+2026-10-26 17:22:27.664 | INFO     | app.main:lifespan:28 | VisionService 初始化成功
+2026-10-26 17:22:27.670 | INFO     | app.main:lifespan:33 | 服务已停止
+2026-10-26 17:22:27.680 | INFO     | app.main:lifespan:25 | 服务启动中... model=deepseek-flash base_url=https://api.deepseek.com
+2026-10-26 17:22:27.693 | INFO     | app.main:lifespan:28 | VisionService 初始化成功
+2026-10-26 17:22:27.695 | WARNING  | app.main:recognize:77 | [b3f2f36a] 图片超限: 70 bytes
+2026-10-26 17:22:27.697 | INFO     | app.main:lifespan:33 | 服务已停止
+2026-10-26 17:22:27.707 | INFO     | app.main:lifespan:25 | 服务启动中... model=deepseek-flash base_url=https://api.deepseek.com
+2026-10-26 17:22:27.720 | INFO     | app.main:lifespan:28 | VisionService 初始化成功
+2026-10-26 17:22:27.725 | INFO     | app.main:lifespan:33 | 服务已停止
+2026-10-26 17:22:27.734 | INFO     | app.main:lifespan:25 | 服务启动中... model=deepseek-flash base_url=https://api.deepseek.com
+2026-10-26 17:22:27.747 | INFO     | app.main:lifespan:28 | VisionService 初始化成功
+2026-10-26 17:22:27.750 | ERROR    | app.main:recognize:88 | [d2709fa3] 识别服务不可用（API Key 未配置）
+2026-10-26 17:22:27.752 | INFO     | app.main:lifespan:33 | 服务已停止
+2026-10-26 17:22:27.762 | INFO     | app.main:lifespan:25 | 服务启动中... model=deepseek-flash base_url=https://api.deepseek.com
+2026-10-26 17:22:27.776 | INFO     | app.main:lifespan:28 | VisionService 初始化成功
+2026-10-26 17:22:27.778 | INFO     | app.main:recognize:94 | [0c55dd03] 收到识别请求: mime=image/png size=0KB
+2026-10-26 17:22:27.778 | ERROR    | app.main:recognize:99 | [0c55dd03] 模型调用失败: 连接超时
+2026-10-26 17:22:27.778 | ERROR    | app.main:recognize:100 | 识别失败 request_id=0c55dd03 原因=模型调用失败: 连接超时
+2026-10-26 17:22:27.781 | INFO     | app.main:lifespan:33 | 服务已停止
+2026-10-26 17:22:27.792 | INFO     | app.main:lifespan:25 | 服务启动中... model=deepseek-flash base_url=https://api.deepseek.com
+2026-10-26 17:22:27.804 | INFO     | app.main:lifespan:28 | VisionService 初始化成功
+2026-10-26 17:22:27.808 | INFO     | app.main:recognize:94 | [d05d2a21] 收到识别请求: mime=image/png size=0KB
+2026-10-26 17:22:27.858 | ERROR    | app.main:recognize:106 | [d05d2a21] 结果解析失败: 无法解析
+2026-10-26 17:22:27.859 | ERROR    | app.main:recognize:107 | 识别失败 request_id=d05d2a21 原因=模型输出解析失败
+2026-10-26 17:22:27.862 | INFO     | app.main:lifespan:33 | 服务已停止
+2026-10-26 17:22:27.871 | INFO     | app.main:lifespan:25 | 服务启动中... model=deepseek-flash base_url=https://api.deepseek.com
+2026-10-26 17:22:27.884 | INFO     | app.main:lifespan:28 | VisionService 初始化成功
+2026-10-26 17:22:27.939 | INFO     | app.main:lifespan:33 | 服务已停止
+2026-10-26 17:22:51.403 | INFO     | app.main:lifespan:25 | 服务启动中... model=deepseek-flash base_url=https://api.deepseek.com
+2026-10-26 17:22:51.570 | INFO     | app.main:lifespan:28 | VisionService 初始化成功
+2026-10-26 17:24:59.122 | INFO     | app.main:recognize:94 | [6348dae9] 收到识别请求: mime=image/jpeg size=0KB
+2026-10-26 17:25:03.307 | ERROR    | app.main:recognize:99 | [6348dae9] 模型调用失败: 模型服务返回错误: Error code: 401 - {'error': {'message': 'Authentication Fails, Your api key: ****here is invalid (request_id: 79612b3a-85b9-41ce-9fbd-3171f25ba7d9)', 'type': 'authentication_error', 'param': None, 'code': 'invalid_request_error'}}
+2026-10-26 17:25:03.307 | ERROR    | app.main:recognize:100 | 识别失败 request_id=6348dae9 原因=模型调用失败: 模型服务返回错误: Error code: 401 - {'error': {'message': 'Authentication Fails, Your api key: ****here is invalid (request_id: 79612b3a-85b9-41ce-9fbd-3171f25ba7d9)', 'type': 'authentication_error', 'param': None, 'code': 'invalid_request_error'}}
+2026-10-26 17:34:21.397 | INFO     | __main__:main:102 | ============================================================
+2026-10-26 17:34:21.401 | INFO     | __main__:main:103 | 开始准确率验收 | 模式=直连 | 样本数=6 | 阈值=80%
+2026-10-26 17:34:21.401 | INFO     | __main__:main:105 | ============================================================
+2026-10-26 17:34:28.991 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: 
+2026-10-26 17:34:28.992 | WARNING  | app.services.vision:recognize:72 | 第 1 次尝试解析失败: 模型返回为空
+2026-10-26 17:34:31.542 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: 
+2026-10-26 17:34:31.543 | WARNING  | app.services.vision:recognize:72 | 第 2 次尝试解析失败: 模型返回为空
+2026-10-26 17:34:31.543 | ERROR    | __main__:main:122 | [1/6] Snipaste_2026-10-26_17-26-01.png | 期望=高风险 识别异常: 重试 1 次后仍无法解析: 模型返回为空
+2026-10-26 17:34:33.544 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "无风险", "reason": "画面显示楼道地面平整干净，通道畅通无阻，未发现电动车、易燃堆积物等消防隐患。", "evidence": ["楼道地面干净", "通道畅通无堆积物", "未见电动车或充电线"]}
+2026-10-26 17:34:33.544 | INFO     | __main__:main:118 | [2/6] Snipaste_2026-10-26_17-25-17.png | 期望=中风险 预测=无风险 ✗
+2026-10-26 17:34:36.562 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: 
+2026-10-26 17:34:36.563 | WARNING  | app.services.vision:recognize:72 | 第 1 次尝试解析失败: 模型返回为空
+2026-10-26 17:34:39.264 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "中风险", "reason": "楼道角落堆放较多纸箱、包装盒和塑料瓶
+2026-10-26 17:34:39.264 | INFO     | app.services.vision:recognize:68 | 第 1 次重试后解析成功
+2026-10-26 17:34:39.265 | INFO     | __main__:main:118 | [3/6] Snipaste_2026-10-26_17-25-28.png | 期望=中风险 预测=中风险 ✓
+2026-10-26 17:34:41.468 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: 
+2026-10-26 17:34:41.468 | WARNING  | app.services.vision:recognize:72 | 第 1 次尝试解析失败: 模型返回为空
+2026-10-26 17:34:43.651 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: 
+2026-10-26 17:34:43.651 | WARNING  | app.services.vision:recognize:72 | 第 2 次尝试解析失败: 模型返回为空
+2026-10-26 17:34:43.651 | ERROR    | __main__:main:122 | [4/6] Snipaste_2026-10-26_17-25-45.png | 期望=低风险 识别异常: 重试 1 次后仍无法解析: 模型返回为空
+2026-10-26 17:34:45.320 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "无风险", "reason": "楼道楼梯及平台干净整洁，未见任何堆积物、电动车或充电设备，通行畅通，无起火风险。", "evidence": ["空旷的楼梯平台", "墙壁扶手", "金属栏杆", "无堆放物品"]}
+2026-10-26 17:34:45.320 | INFO     | __main__:main:118 | [5/6] Snipaste_2026-10-26_17-25-45.png | 期望=无风险 预测=无风险 ✓
+2026-10-26 17:34:47.769 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: 
+2026-10-26 17:34:47.769 | WARNING  | app.services.vision:recognize:72 | 第 1 次尝试解析失败: 模型返回为空
+2026-10-26 17:34:50.044 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: 
+2026-10-26 17:34:50.045 | WARNING  | app.services.vision:recognize:72 | 第 2 次尝试解析失败: 模型返回为空
+2026-10-26 17:34:50.045 | ERROR    | __main__:main:122 | [6/6] Snipaste_2026-10-26_17-26-10.png | 期望=非楼道 识别异常: 重试 1 次后仍无法解析: 模型返回为空
+2026-10-26 17:34:50.045 | INFO     | __main__:main:128 | ============================================================
+2026-10-26 17:34:50.045 | INFO     | __main__:main:129 | 验收结果: 总数=6 正确=2 异常=3 准确率=33.3%（阈值 80%）
+2026-10-26 17:34:50.045 | INFO     | __main__:main:132 | 混淆矩阵:
+期望\预测	高风险	中风险	低风险	无风险	非楼道
+2026-10-26 17:34:50.045 | INFO     | __main__:main:137 | 中风险	0	1	0	1	0
+2026-10-26 17:34:50.045 | INFO     | __main__:main:137 | 无风险	0	0	0	1	0
+2026-10-26 17:34:50.045 | INFO     | __main__:main:138 | ============================================================
+2026-10-26 17:34:50.045 | INFO     | __main__:main:141 | 验收结论: 未通过 ✗
+2026-10-26 17:36:16.964 | INFO     | __main__:main:102 | ============================================================
+2026-10-26 17:36:16.966 | INFO     | __main__:main:103 | 开始准确率验收 | 模式=直连 | 样本数=6 | 阈值=80%
+2026-10-26 17:36:16.967 | INFO     | __main__:main:105 | ============================================================
+2026-10-26 17:36:27.274 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "中风险", "reason": "楼道内大量堆积纸箱、泡沫箱等易燃杂物，且紧邻带有触电危险标识的配电箱，严重堵塞通道。一旦起火不仅极易蔓延，还会影响人员疏散和救援。", "evidence": ["大量堆积的纸箱等易燃物", "紧邻危险警示配电箱", "通道被严重堵塞"]}
+2026-10-26 17:36:27.275 | INFO     | __main__:main:118 | [1/6] Snipaste_2026-10-26_17-26-01.png | 期望=高风险 预测=中风险 ✗
+2026-10-26 17:36:30.129 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "无风险", "reason": "照片中的楼道虽光线较暗，但地面平整，通道内未见纸箱、家具等任何物品堆积，也无电动车等起火源，通道保持畅通。", "evidence": ["通道畅通", "地面无杂物堆积", "无电动车或飞线"]}
+2026-10-26 17:36:30.129 | INFO     | __main__:main:118 | [2/6] Snipaste_2026-10-26_17-25-17.png | 期望=中风险 预测=无风险 ✗
+2026-10-26 17:36:34.916 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "中风险", "reason": "楼道角落堆积了大量纸箱、包装盒等可燃杂物，不仅占用空间影响通行，且极易被引燃造成火势蔓延，存在明显的消防安全隐患。", "evidence": ["大量纸箱和包装盒堆积", "角落堆放可燃杂物", "占用公共通行空间"]}
+2026-10-26 17:36:34.916 | INFO     | __main__:main:118 | [3/6] Snipaste_2026-10-26_17-25-28.png | 期望=中风险 预测=中风险 ✓
+2026-10-26 17:36:36.226 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "无风险", "reason": "照片显示的是楼道楼梯区域，台阶和平台干净整洁，没有堆放任何物品，也没有电动车、电瓶或飞线充电等可能起火的元素，通行通畅。", "evidence": ["楼梯台阶", "金属扶手", "空旷的平台", "无堆放物"]}
+2026-10-26 17:36:36.226 | INFO     | __main__:main:118 | [4/6] Snipaste_2026-10-26_17-25-45.png | 期望=低风险 预测=无风险 ✗
+2026-10-26 17:36:39.336 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "无风险", "reason": "照片显示楼梯及转角平台区域干净整洁，无任何杂物或堆积物，未见电动车、电瓶或飞线充电等起火隐患。", "evidence": ["干净的楼梯台阶", "空旷的转角平台", "无杂物堆放"]}
+2026-10-26 17:36:39.336 | INFO     | __main__:main:118 | [5/6] Snipaste_2026-10-26_17-25-45.png | 期望=无风险 预测=无风险 ✓
+2026-10-26 17:36:43.018 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "低风险", "reason": "楼道内停放了一辆自行车并用黄色物品遮盖，占用了公共通行空间，存在轻微堆物现象，但未发现电动车、充电设备或大量可燃堆积物，不属于严重安全隐患。", "evidence": ["停放的自行车", "黄色遮盖布", "墙上的信箱"]}
+2026-10-26 17:36:43.018 | INFO     | __main__:main:118 | [6/6] Snipaste_2026-10-26_17-26-10.png | 期望=非楼道 预测=低风险 ✗
+2026-10-26 17:36:43.018 | INFO     | __main__:main:128 | ============================================================
+2026-10-26 17:36:43.018 | INFO     | __main__:main:129 | 验收结果: 总数=6 正确=2 异常=0 准确率=33.3%（阈值 80%）
+2026-10-26 17:36:43.019 | INFO     | __main__:main:132 | 混淆矩阵:
+期望\预测	高风险	中风险	低风险	无风险	非楼道
+2026-10-26 17:36:43.019 | INFO     | __main__:main:137 | 高风险	0	1	0	0	0
+2026-10-26 17:36:43.019 | INFO     | __main__:main:137 | 中风险	0	1	0	1	0
+2026-10-26 17:36:43.019 | INFO     | __main__:main:137 | 低风险	0	0	0	1	0
+2026-10-26 17:36:43.019 | INFO     | __main__:main:137 | 无风险	0	0	0	1	0
+2026-10-26 17:36:43.019 | INFO     | __main__:main:137 | 非楼道	0	0	1	0	0
+2026-10-26 17:36:43.019 | INFO     | __main__:main:138 | ============================================================
+2026-10-26 17:36:43.020 | INFO     | __main__:main:141 | 验收结论: 未通过 ✗
+2026-10-26 17:40:03.404 | INFO     | __main__:main:102 | ============================================================
+2026-10-26 17:40:03.406 | INFO     | __main__:main:103 | 开始准确率验收 | 模式=直连 | 样本数=5 | 阈值=80%
+2026-10-26 17:40:03.406 | INFO     | __main__:main:105 | ============================================================
+2026-10-26 17:40:13.577 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "中风险", "reason": "楼道角落堆放较多废旧纸箱和塑料瓶等可燃杂物，集中堆积不仅影响通行，还存在火势蔓延风险。", "evidence": ["角落堆放的纸箱", "塑料瓶等可燃物", "杂物占据楼道空间"]}
+2026-10-26 17:40:13.578 | INFO     | __main__:main:118 | [1/5] Snipaste_2026-10-26_17-25-28.png | 期望=中风险 预测=中风险 ✓
+2026-10-26 17:40:17.401 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "中风险", "reason": "楼梯口和配电箱前堆积了大量纸箱、泡沫箱等可燃杂物，数量巨大且严重堵塞通道，一旦起火极易蔓延并影响人员疏散。", "evidence": ["大量纸箱和泡沫箱等可燃杂物堆积", "堆积物严重堵塞通道", "杂物紧邻带有触电警示标志的配电箱"]}
+2026-10-26 17:40:17.401 | INFO     | __main__:main:118 | [2/5] Snipaste_2026-10-26_17-26-01.png | 期望=中风险 预测=中风险 ✓
+2026-10-26 17:40:22.339 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "低风险", "reason": "楼道内停放一辆被黄色防雨布遮盖的自行车，占用部分通道，未见电动车或充电行为，属于一般性楼道堆物，未严重堵塞通道。", "evidence": ["被黄色布料遮盖的自行车", "停放在楼道地面"]}
+2026-10-26 17:40:22.339 | INFO     | __main__:main:118 | [3/5] Snipaste_2026-10-26_17-26-10.png | 期望=低风险 预测=低风险 ✓
+2026-10-26 17:40:25.466 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "无风险", "reason": "楼道内较为干净，地面无堆积物，视野开阔，未见电动车或充电设备，通行顺畅，无明显消防隐患。", "evidence": ["空旷的楼道地面", "尽头敞开的房门", "无堆积杂物或车辆"]}
+2026-10-26 17:40:25.466 | INFO     | __main__:main:118 | [4/5] Snipaste_2026-10-26_17-25-17.png | 期望=无风险 预测=无风险 ✓
+2026-10-26 17:40:27.750 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "无风险", "reason": "照片为楼梯间楼道，台阶和平台干净通畅，未见堆积物、电动车、电瓶或飞线充电，无起火风险。", "evidence": ["楼梯台阶", "两侧扶手和栏杆", "楼道内无杂物和车辆"]}
+2026-10-26 17:40:27.750 | INFO     | __main__:main:118 | [5/5] Snipaste_2026-10-26_17-25-45.png | 期望=无风险 预测=无风险 ✓
+2026-10-26 17:40:27.750 | INFO     | __main__:main:128 | ============================================================
+2026-10-26 17:40:27.750 | INFO     | __main__:main:129 | 验收结果: 总数=5 正确=5 异常=0 准确率=100.0%（阈值 80%）
+2026-10-26 17:40:27.750 | INFO     | __main__:main:132 | 混淆矩阵:
+期望\预测	高风险	中风险	低风险	无风险	非楼道
+2026-10-26 17:40:27.750 | INFO     | __main__:main:137 | 中风险	0	2	0	0	0
+2026-10-26 17:40:27.750 | INFO     | __main__:main:137 | 低风险	0	0	1	0	0
+2026-10-26 17:40:27.751 | INFO     | __main__:main:137 | 无风险	0	0	0	2	0
+2026-10-26 17:40:27.751 | INFO     | __main__:main:138 | ============================================================
+2026-10-26 17:40:27.751 | INFO     | __main__:main:141 | 验收结论: 通过 ✓
+2026-10-26 17:51:21.329 | INFO     | __main__:main:102 | ============================================================
+2026-10-26 17:51:21.333 | INFO     | __main__:main:103 | 开始准确率验收 | 模式=直连 | 样本数=15 | 阈值=80%
+2026-10-26 17:51:21.333 | INFO     | __main__:main:105 | ============================================================
+2026-10-26 17:51:30.891 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "高风险", "reason": "楼道内停放了一辆电动滑板车。电动车及类似设备存在电池自燃起火风险，且该楼道空间狭窄，一旦起火极易产生有毒烟气并阻断逃生通道。", "evidence": ["楼道正中间停放的电动滑板车", "两侧紧闭的防盗门", "狭窄封闭的走廊空间"]}
+2026-10-26 17:51:30.891 | INFO     | __main__:main:118 | [1/15] high_01.jpg | 期望=高风险 预测=高风险 ✓
+2026-10-26 17:51:33.664 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "高风险", "reason": "楼道内违规放置电瓶并私拉插排和电线进行充电，属于典型的飞线充电行为，极易引发火灾。", "evidence": ["黑色电瓶", "插排", "地上缠绕的电线", "墙面插座"]}
+2026-10-26 17:51:33.664 | INFO     | __main__:main:118 | [2/15] high_02.jpg | 期望=高风险 预测=高风险 ✓
+2026-10-26 17:51:43.787 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "高风险", "reason": "照片显示从二楼窗户垂下黄色延长线连接楼下停放的电动车进行充电，属于典型的“飞线充电”行为，极易因线路过载或短路引发火灾。", "evidence": ["二楼窗户垂下的黄色电线", "停放在楼下的电动车", "飞线充电行为"]}
+2026-10-26 17:51:43.787 | INFO     | __main__:main:118 | [3/15] high_03.jpg | 期望=高风险 预测=高风险 ✓
+2026-10-26 17:51:45.711 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "高风险", "reason": "楼道内停放多辆电动自行车，地面散放多个电瓶电池，存在电池起火和阻碍疏散的风险，符合高风险情形。", "evidence": ["楼道内停放多辆电动自行车", "地面放置多个电瓶电池", "疏散通道被车辆占据"]}
+2026-10-26 17:51:45.711 | INFO     | __main__:main:118 | [4/15] high_04.jpg | 期望=高风险 预测=高风险 ✓
+2026-10-26 17:51:48.687 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "高风险", "reason": "楼道内停放电动自行车，墙上插座连有杂乱电线疑似充电，且大量纸箱和泡沫箱等可燃物堆积严重堵塞通道，极易引发火灾。", "evidence": ["电动自行车", "墙面插座及杂乱电线", "大量纸箱和泡沫堆积物"]}
+2026-10-26 17:51:48.687 | INFO     | __main__:main:118 | [5/15] high_05.jpg | 期望=高风险 预测=高风险 ✓
+2026-10-26 17:51:52.356 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "中风险", "reason": "楼道墙角堆放多个纸箱、塑料瓶和泡沫等可燃杂物，形成较大堆积，可能加速火势蔓延并影响通行，但未见电动车或充电行为。", "evidence": ["多个纸箱堆叠", "塑料瓶等可燃杂物", "靠近门侧墙角"]}
+2026-10-26 17:51:52.356 | INFO     | __main__:main:118 | [6/15] Snipaste_2026-10-26_17-25-28.png | 期望=中风险 预测=中风险 ✓
+2026-10-26 17:51:57.102 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "中风险", "reason": "楼道内堆放大量纸箱、泡沫箱等可燃杂物，数量庞大且严重堵塞通道，紧邻配电箱，存在较大火灾隐患。", "evidence": ["大量纸箱和泡沫箱堆积", "杂物严重堵塞通道", "紧邻带有触电危险的配电箱"]}
+2026-10-26 17:51:57.102 | INFO     | __main__:main:118 | [7/15] Snipaste_2026-10-26_17-26-01.png | 期望=中风险 预测=中风险 ✓
+2026-10-26 17:52:01.681 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "高风险", "reason": "楼道内停放了一辆被黄色罩布覆盖的疑似电动车，旁边还停放了一辆自行车，占用疏散通道，电动车存在电池热失控起火的风险。", "evidence": ["黄色罩布覆盖的疑似电动车", "蓝色自行车", "狭窄的楼道通道"]}
+2026-10-26 17:52:01.681 | INFO     | __main__:main:118 | [8/15] Snipaste_2026-10-26_17-26-10.png | 期望=低风险 预测=高风险 ✗
+2026-10-26 17:52:03.633 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "无风险", "reason": "照片中楼道地面较为空旷，视野内未发现电动车、电瓶、飞线充电或纸箱、家具等杂物堆积，通道保持基本畅通，无明显消防安全隐患。", "evidence": ["空旷的楼道地面", "未见杂物堆积", "未发现电动车或充电线"]}
+2026-10-26 17:52:03.633 | INFO     | __main__:main:118 | [9/15] Snipaste_2026-10-26_17-25-17.png | 期望=无风险 预测=无风险 ✓
+2026-10-26 17:52:05.383 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "无风险", "reason": "照片为建筑内楼梯间及转角平台，地面干净整洁，未见任何堆积物、可燃杂物或电动车、飞线充电等起火要素，通行畅通无阻。", "evidence": ["楼梯台阶及转角平台", "墙面扶手和金属栏杆", "地面无任何堆放物品"]}
+2026-10-26 17:52:05.384 | INFO     | __main__:main:118 | [10/15] Snipaste_2026-10-26_17-25-45.png | 期望=无风险 预测=无风险 ✓
+2026-10-26 17:52:07.808 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "非楼道", "reason": "照片展示的是公园绿地、湖泊、树木和长椅，没有楼道、建筑内部或消防通道，与楼道场景无关。", "evidence": ["湖泊与倒影", "草坪和碎石步道", "树木与长椅"]}
+2026-10-26 17:52:07.809 | INFO     | __main__:main:118 | [11/15] other_01.jpg | 期望=非楼道 预测=非楼道 ✓
+2026-10-26 17:52:09.897 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "非楼道", "reason": "照片展示的是室内书桌场景，有笔记本电脑、咖啡杯、笔记本和笔，未见楼道结构、公共通道或堆放物，因此不属于楼道场景。", "evidence": ["笔记本电脑", "咖啡杯", "笔记本和笔", "靠窗书桌"]}
+2026-10-26 17:52:09.898 | INFO     | __main__:main:118 | [12/15] other_02.jpg | 期望=非楼道 预测=非楼道 ✓
+2026-10-26 17:52:12.013 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "非楼道", "reason": "照片内容为餐厅内的餐桌和食物，未包含任何楼道结构或相关物品，与楼道消防安全无关。", "evidence": ["摆满菜肴的圆桌", "餐厅卡座", "食物和餐具"]}
+2026-10-26 17:52:12.013 | INFO     | __main__:main:118 | [13/15] other_03.jpg | 期望=非楼道 预测=非楼道 ✓
+2026-10-26 17:52:14.078 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "非楼道", "reason": "照片展示的是城市街道十字路口，有车辆、行人、交通信号灯和沿街商铺，没有楼道或室内疏散通道场景。", "evidence": ["城市街道十字路口", "行驶车辆与斑马线行人", "交通信号灯与沿街商铺"]}
+2026-10-26 17:52:14.078 | INFO     | __main__:main:118 | [14/15] other_04.jpg | 期望=非楼道 预测=非楼道 ✓
+2026-10-26 17:52:16.567 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "非楼道", "reason": "照片展示的是包含沙发、茶几、电视柜和地毯的室内客厅场景，属于家庭生活区域，并非公共楼道或疏散通道，因此不适用楼道隐患分类。", "evidence": ["沙发", "茶几", "电视柜", "地毯"]}
+2026-10-26 17:52:16.567 | INFO     | __main__:main:118 | [15/15] other_05.jpg | 期望=非楼道 预测=非楼道 ✓
+2026-10-26 17:52:16.567 | INFO     | __main__:main:128 | ============================================================
+2026-10-26 17:52:16.567 | INFO     | __main__:main:129 | 验收结果: 总数=15 正确=14 异常=0 准确率=93.3%（阈值 80%）
+2026-10-26 17:52:16.567 | INFO     | __main__:main:132 | 混淆矩阵:
+期望\预测	高风险	中风险	低风险	无风险	非楼道
+2026-10-26 17:52:16.567 | INFO     | __main__:main:137 | 高风险	5	0	0	0	0
+2026-10-26 17:52:16.567 | INFO     | __main__:main:137 | 中风险	0	2	0	0	0
+2026-10-26 17:52:16.567 | INFO     | __main__:main:137 | 低风险	1	0	0	0	0
+2026-10-26 17:52:16.568 | INFO     | __main__:main:137 | 无风险	0	0	0	2	0
+2026-10-26 17:52:16.568 | INFO     | __main__:main:137 | 非楼道	0	0	0	0	5
+2026-10-26 17:52:16.568 | INFO     | __main__:main:138 | ============================================================
+2026-10-26 17:52:16.568 | INFO     | __main__:main:141 | 验收结论: 通过 ✓
+2026-10-26 21:20:44.499 | INFO     | backend.app.main:lifespan:25 | 服务启动中... model=deepseek-flash base_url=https://api.deepseek.com
+2026-10-26 21:20:44.590 | INFO     | backend.app.main:lifespan:28 | VisionService 初始化成功
+2026-10-26 21:21:13.958 | INFO     | backend.app.main:recognize:94 | [fd89a051] 收到识别请求: mime=image/jpeg size=115KB
+2026-10-26 21:21:19.298 | DEBUG    | backend.app.services.vision:_call_model:51 | 模型原始输出: {"category": "非楼道", "reason": "照片显示的是室内天花板、墙壁、电视及木质门框，属于居民住宅内部环境，并非公共楼道场景，因此无法评估楼道消防隐患。", "evidence": ["室内天花板", "电视机屏幕", "门框/衣柜边缘", "室内吸顶灯"]}
+2026-10-26 21:21:19.298 | INFO     | backend.app.main:recognize:114 | 识别完成 request_id=fd89a051 category=非楼道 level=0 latency_ms=5341 size_kb=115 reason=照片显示的是室内天花板、墙壁、电视及木质门框，属于居民住宅内部环境，并非公共楼道场景，因此无法评估楼道消防隐患。 evidence=['室内天花板', '电视机屏幕', '门框/衣柜边缘', '室内吸顶灯']
+2026-10-26 21:21:19.298 | INFO     | backend.app.main:recognize:119 | [fd89a051] 识别结果: 非楼道 (level=0, 5341ms)
+2026-10-26 21:21:50.058 | INFO     | backend.app.main:recognize:94 | [2f48d49d] 收到识别请求: mime=image/jpeg size=124KB
+2026-10-26 21:21:53.923 | DEBUG    | backend.app.services.vision:_call_model:51 | 模型原始输出: {"category": "高风险", "reason": "楼道内停放电动自行车，且两侧堆放大量纸箱等易燃物，严重堵塞疏散通道，电动车一旦起火极易引燃周边杂物造成严重后果。", "evidence": ["电动自行车", "大量纸箱堆积", "通道被严重堵塞", "墙面插座及裸露电线"]}
+2026-10-26 21:21:53.923 | INFO     | backend.app.main:recognize:114 | 识别完成 request_id=2f48d49d category=高风险 level=4 latency_ms=3864 size_kb=124 reason=楼道内停放电动自行车，且两侧堆放大量纸箱等易燃物，严重堵塞疏散通道，电动车一旦起火极易引燃周边杂物造成严重后果。 evidence=['电动自行车', '大量纸箱堆积', '通道被严重堵塞', '墙面插座及裸露电线']
+2026-10-26 21:21:53.923 | INFO     | backend.app.main:recognize:119 | [2f48d49d] 识别结果: 高风险 (level=4, 3864ms)
+2026-10-26 21:22:32.412 | INFO     | backend.app.main:recognize:94 | [42d482db] 收到识别请求: mime=image/jpeg size=112KB
+2026-10-26 21:22:35.524 | DEBUG    | backend.app.services.vision:_call_model:51 | 模型原始输出: {"category": "非楼道", "reason": "照片主要显示室内吊顶、吸顶灯、门框和带福字柜子局部，未见楼道公共通道及堆放物，无法作为楼道消防隐患判定。", "evidence": ["室内吊顶与吸顶灯", "门框及柜子局部", "未见楼道堆积物或电动车充电"]}
+2026-10-26 21:22:35.524 | INFO     | backend.app.main:recognize:114 | 识别完成 request_id=42d482db category=非楼道 level=0 latency_ms=3107 size_kb=112 reason=照片主要显示室内吊顶、吸顶灯、门框和带福字柜子局部，未见楼道公共通道及堆放物，无法作为楼道消防隐患判定。 evidence=['室内吊顶与吸顶灯', '门框及柜子局部', '未见楼道堆积物或电动车充电']
+2026-10-26 21:22:35.524 | INFO     | backend.app.main:recognize:119 | [42d482db] 识别结果: 非楼道 (level=0, 3107ms)
+2026-10-26 21:22:55.795 | INFO     | backend.app.main:recognize:94 | [b566d813] 收到识别请求: mime=image/jpeg size=145KB
+2026-10-26 21:22:59.134 | DEBUG    | backend.app.services.vision:_call_model:51 | 模型原始输出: {"category": "高风险", "reason": "楼道内违规停放多辆电动车，且地面散落大量电瓶。电动车及电池易发生短路起火，且产生剧毒烟气，严重阻碍逃生，危险程度极高。", "evidence": ["多辆停放的电动车", "地面散落的电瓶", "楼道环境"]}
+2026-10-26 21:22:59.134 | INFO     | backend.app.main:recognize:114 | 识别完成 request_id=b566d813 category=高风险 level=4 latency_ms=3334 size_kb=145 reason=楼道内违规停放多辆电动车，且地面散落大量电瓶。电动车及电池易发生短路起火，且产生剧毒烟气，严重阻碍逃生，危险程度极高。 evidence=['多辆停放的电动车', '地面散落的电瓶', '楼道环境']
+2026-10-26 21:22:59.134 | INFO     | backend.app.main:recognize:119 | [b566d813] 识别结果: 高风险 (level=4, 3334ms)
+2026-10-26 21:23:17.153 | INFO     | backend.app.main:recognize:94 | [12ae6d35] 收到识别请求: mime=image/jpeg size=125KB
+2026-10-26 21:23:23.472 | DEBUG    | backend.app.services.vision:_call_model:51 | 模型原始输出: {"category": "中风险", "reason": "楼道内堆放大量纸箱、泡沫等易燃物，且紧邻配电箱，严重堵塞公共通道，存在较大火灾隐患。", "evidence": ["大量纸箱与泡沫箱堆积", "背景有带电危险标志的配电箱", "废轮胎及其他杂物"]}
+2026-10-26 21:23:23.472 | INFO     | backend.app.main:recognize:114 | 识别完成 request_id=12ae6d35 category=中风险 level=3 latency_ms=6313 size_kb=125 reason=楼道内堆放大量纸箱、泡沫等易燃物，且紧邻配电箱，严重堵塞公共通道，存在较大火灾隐患。 evidence=['大量纸箱与泡沫箱堆积', '背景有带电危险标志的配电箱', '废轮胎及其他杂物']
+2026-10-26 21:23:23.472 | INFO     | backend.app.main:recognize:119 | [12ae6d35] 识别结果: 中风险 (level=3, 6313ms)
+2026-10-26 21:23:33.454 | INFO     | backend.app.main:recognize:94 | [75f6ae30] 收到识别请求: mime=image/jpeg size=16KB
+2026-10-26 21:23:36.005 | DEBUG    | backend.app.services.vision:_call_model:51 | 模型原始输出: {"category": "中风险", "reason": "楼道角落堆放大量纸箱、纸盒和塑料瓶等可燃杂物，易被引燃并造成火势蔓延，且占用通行空间。", "evidence": ["大量纸箱纸盒堆积", "塑料瓶等可燃杂物", "楼道门旁角落堆物"]}
+2026-10-26 21:23:36.005 | INFO     | backend.app.main:recognize:114 | 识别完成 request_id=75f6ae30 category=中风险 level=3 latency_ms=2552 size_kb=16 reason=楼道角落堆放大量纸箱、纸盒和塑料瓶等可燃杂物，易被引燃并造成火势蔓延，且占用通行空间。 evidence=['大量纸箱纸盒堆积', '塑料瓶等可燃杂物', '楼道门旁角落堆物']
+2026-10-26 21:23:36.005 | INFO     | backend.app.main:recognize:119 | [75f6ae30] 识别结果: 中风险 (level=3, 2552ms)
+2026-10-26 21:23:54.912 | INFO     | backend.app.main:recognize:94 | [7fb1e802] 收到识别请求: mime=image/jpeg size=144KB
+2026-10-26 21:23:58.295 | DEBUG    | backend.app.services.vision:_call_model:51 | 模型原始输出: {"category": "非楼道", "reason": "照片展示的是一张摆满中餐菜肴的圆桌及餐厅卡座，完全没有楼道的特征，与消防安全隐患无关。", "evidence": ["满桌的中餐菜肴", "餐厅卡座与吊灯", "右下角AI生成水印"]}
+2026-10-26 21:23:58.295 | INFO     | backend.app.main:recognize:114 | 识别完成 request_id=7fb1e802 category=非楼道 level=0 latency_ms=3383 size_kb=144 reason=照片展示的是一张摆满中餐菜肴的圆桌及餐厅卡座，完全没有楼道的特征，与消防安全隐患无关。 evidence=['满桌的中餐菜肴', '餐厅卡座与吊灯', '右下角AI生成水印']
+2026-10-26 21:23:58.295 | INFO     | backend.app.main:recognize:119 | [7fb1e802] 识别结果: 非楼道 (level=0, 3383ms)
+2026-10-26 21:24:31.159 | INFO     | backend.app.main:recognize:94 | [b3281b6f] 收到识别请求: mime=image/jpeg size=144KB
+2026-10-26 21:24:33.109 | DEBUG    | backend.app.services.vision:_call_model:51 | 模型原始输出: {"category": "非楼道", "reason": "照片内容为餐桌上的饭菜和餐具，属于餐饮场景，并非楼道通道，无法依据楼道堆物或充电情况判定消防隐患。", "evidence": ["圆形餐桌", "多道饭菜和餐具", "餐厅卡座环境"]}
+2026-10-26 21:24:33.115 | INFO     | backend.app.main:recognize:114 | 识别完成 request_id=b3281b6f category=非楼道 level=0 latency_ms=1950 size_kb=144 reason=照片内容为餐桌上的饭菜和餐具，属于餐饮场景，并非楼道通道，无法依据楼道堆物或充电情况判定消防隐患。 evidence=['圆形餐桌', '多道饭菜和餐具', '餐厅卡座环境']
+2026-10-26 21:24:33.115 | INFO     | backend.app.main:recognize:119 | [b3281b6f] 识别结果: 非楼道 (level=0, 1950ms)
+2026-10-26 21:24:45.917 | INFO     | backend.app.main:lifespan:33 | 服务已停止
+2026-10-26 21:29:17.369 | INFO     | app.main:lifespan:25 | 服务启动中... model=deepseek-flash base_url=https://api.deepseek.com
+2026-10-26 21:29:17.379 | INFO     | app.main:lifespan:28 | VisionService 初始化成功
+2026-10-26 21:29:17.389 | INFO     | app.main:lifespan:33 | 服务已停止
+2026-10-26 21:29:17.400 | INFO     | app.main:lifespan:25 | 服务启动中... model=deepseek-flash base_url=https://api.deepseek.com
+2026-10-26 21:29:17.409 | INFO     | app.main:lifespan:28 | VisionService 初始化成功
+2026-10-26 21:29:17.409 | INFO     | app.main:recognize:94 | [dcdb3b6d] 收到识别请求: mime=image/png size=0KB
+2026-10-26 21:29:17.409 | INFO     | app.main:recognize:114 | 识别完成 request_id=dcdb3b6d category=高风险 level=4 latency_ms=123 size_kb=0 reason=电动车 evidence=['电动车']
+2026-10-26 21:29:17.409 | INFO     | app.main:recognize:119 | [dcdb3b6d] 识别结果: 高风险 (level=4, 123ms)
+2026-10-26 21:29:17.409 | INFO     | app.main:lifespan:33 | 服务已停止
+2026-10-26 21:29:17.420 | INFO     | app.main:lifespan:25 | 服务启动中... model=deepseek-flash base_url=https://api.deepseek.com
+2026-10-26 21:29:17.430 | INFO     | app.main:lifespan:28 | VisionService 初始化成功
+2026-10-26 21:29:17.430 | INFO     | app.main:recognize:94 | [131bec5a] 收到识别请求: mime=image/png size=0KB
+2026-10-26 21:29:17.440 | INFO     | app.main:recognize:114 | 识别完成 request_id=131bec5a category=无风险 level=1 latency_ms=123 size_kb=0 reason= evidence=[]
+2026-10-26 21:29:17.440 | INFO     | app.main:recognize:119 | [131bec5a] 识别结果: 无风险 (level=1, 123ms)
+2026-10-26 21:29:17.440 | INFO     | app.main:lifespan:33 | 服务已停止
+2026-10-26 21:29:17.450 | INFO     | app.main:lifespan:25 | 服务启动中... model=deepseek-flash base_url=https://api.deepseek.com
+2026-10-26 21:29:17.460 | INFO     | app.main:lifespan:28 | VisionService 初始化成功
+2026-10-26 21:29:17.460 | INFO     | app.main:lifespan:33 | 服务已停止
+2026-10-26 21:29:17.471 | INFO     | app.main:lifespan:25 | 服务启动中... model=deepseek-flash base_url=https://api.deepseek.com
+2026-10-26 21:29:17.481 | INFO     | app.main:lifespan:28 | VisionService 初始化成功
+2026-10-26 21:29:17.492 | INFO     | app.main:lifespan:33 | 服务已停止
+2026-10-26 21:29:17.492 | INFO     | app.main:lifespan:25 | 服务启动中... model=deepseek-flash base_url=https://api.deepseek.com
+2026-10-26 21:29:17.512 | INFO     | app.main:lifespan:28 | VisionService 初始化成功
+2026-10-26 21:29:17.512 | WARNING  | app.main:recognize:77 | [39e9ab28] 图片超限: 70 bytes
+2026-10-26 21:29:17.512 | INFO     | app.main:lifespan:33 | 服务已停止
+2026-10-26 21:29:17.522 | INFO     | app.main:lifespan:25 | 服务启动中... model=deepseek-flash base_url=https://api.deepseek.com
+2026-10-26 21:29:17.532 | INFO     | app.main:lifespan:28 | VisionService 初始化成功
+2026-10-26 21:29:17.532 | INFO     | app.main:lifespan:33 | 服务已停止
+2026-10-26 21:29:17.542 | INFO     | app.main:lifespan:25 | 服务启动中... model=deepseek-flash base_url=https://api.deepseek.com
+2026-10-26 21:29:17.563 | INFO     | app.main:lifespan:28 | VisionService 初始化成功
+2026-10-26 21:29:17.563 | ERROR    | app.main:recognize:88 | [c28c877c] 识别服务不可用（API Key 未配置）
+2026-10-26 21:29:17.563 | INFO     | app.main:lifespan:33 | 服务已停止
+2026-10-26 21:29:17.573 | INFO     | app.main:lifespan:25 | 服务启动中... model=deepseek-flash base_url=https://api.deepseek.com
+2026-10-26 21:29:17.583 | INFO     | app.main:lifespan:28 | VisionService 初始化成功
+2026-10-26 21:29:17.583 | INFO     | app.main:recognize:94 | [4fae25da] 收到识别请求: mime=image/png size=0KB
+2026-10-26 21:29:17.583 | ERROR    | app.main:recognize:99 | [4fae25da] 模型调用失败: 连接超时
+2026-10-26 21:29:17.583 | ERROR    | app.main:recognize:100 | 识别失败 request_id=4fae25da 原因=模型调用失败: 连接超时
+2026-10-26 21:29:17.593 | INFO     | app.main:lifespan:33 | 服务已停止
+2026-10-26 21:29:17.593 | INFO     | app.main:lifespan:25 | 服务启动中... model=deepseek-flash base_url=https://api.deepseek.com
+2026-10-26 21:29:17.614 | INFO     | app.main:lifespan:28 | VisionService 初始化成功
+2026-10-26 21:29:17.614 | INFO     | app.main:recognize:94 | [30ac5dad] 收到识别请求: mime=image/png size=0KB
+2026-10-26 21:29:17.614 | ERROR    | app.main:recognize:106 | [30ac5dad] 结果解析失败: 无法解析
+2026-10-26 21:29:17.614 | ERROR    | app.main:recognize:107 | 识别失败 request_id=30ac5dad 原因=模型输出解析失败
+2026-10-26 21:29:17.624 | INFO     | app.main:lifespan:33 | 服务已停止
+2026-10-26 21:29:17.625 | INFO     | app.main:lifespan:25 | 服务启动中... model=deepseek-flash base_url=https://api.deepseek.com
+2026-10-26 21:29:17.635 | INFO     | app.main:lifespan:28 | VisionService 初始化成功
+2026-10-26 21:29:17.696 | INFO     | app.main:lifespan:33 | 服务已停止
+2026-10-26 21:29:36.574 | INFO     | __main__:main:102 | ============================================================
+2026-10-26 21:29:36.574 | INFO     | __main__:main:103 | 开始准确率验收 | 模式=直连 | 样本数=15 | 阈值=80%
+2026-10-26 21:29:36.574 | INFO     | __main__:main:105 | ============================================================
+2026-10-26 21:29:44.343 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "高风险", "reason": "楼道内停放了一辆电动滑板车，属于典型的电动车进楼。电动车电池存在自燃起火风险，且停放位置占用了公共疏散通道，一旦起火将产生毒烟并阻断逃生路线，属于高风险隐患。", "evidence": ["楼道中央停放着一辆黑色电动滑板车", "狭窄的走廊疏散通道被占用", "两侧为住户防盗门"]}
+2026-10-26 21:29:44.343 | INFO     | __main__:main:118 | [1/15] high_01.jpg | 期望=高风险 预测=高风险 ✓
+2026-10-26 21:29:48.162 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "高风险", "reason": "楼道内直接放置电瓶，并使用排插连接墙壁插座进行飞线充电，电线杂乱散落于地面，极易引发电气火灾。", "evidence": ["地面上的黑色电瓶", "放在地上的排插", "散乱的充电黑线", "墙角的电源插座"]}
+2026-10-26 21:29:48.162 | INFO     | __main__:main:118 | [2/15] high_02.jpg | 期望=高风险 预测=高风险 ✓
+2026-10-26 21:29:57.042 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "高风险", "reason": "照片中显示从二楼窗户垂下一根长电线，直接为停在一楼的电动自行车充电，属于典型的飞线充电行为，极易因线路老化或短路引发火灾。", "evidence": ["从二楼窗户垂下的黄色充电线", "一楼门口停放的电动自行车"]}
+2026-10-26 21:29:57.042 | INFO     | __main__:main:118 | [3/15] high_03.jpg | 期望=高风险 预测=高风险 ✓
+2026-10-26 21:29:59.525 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "高风险", "reason": "楼道内违规停放多辆电动自行车，且地面散落多个电瓶，存在极大的起火和阻碍逃生风险，极易造成严重事故。", "evidence": ["楼道内停放多辆电动自行车", "地面散落多个电瓶"]}
+2026-10-26 21:29:59.525 | INFO     | __main__:main:118 | [4/15] high_04.jpg | 期望=高风险 预测=高风险 ✓
+2026-10-26 21:30:02.904 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "高风险", "reason": "楼道内停放电动自行车，且周围堆满大量纸箱等可燃物，存在极大的起火和蔓延风险。", "evidence": ["电动自行车", "大量纸箱堆物", "墙面插座及线缆"]}
+2026-10-26 21:30:02.904 | INFO     | __main__:main:118 | [5/15] high_05.jpg | 期望=高风险 预测=高风险 ✓
+2026-10-26 21:30:08.213 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "中风险", "reason": "楼道角落堆放多个纸箱、包装盒和塑料瓶等可燃杂物，堆积较明显，存在被引燃并造成火势蔓延的风险，但未见电动车或充电设备。", "evidence": ["楼道角落堆放多个纸箱和包装盒", "存在塑料瓶等杂物", "未发现电动车、电瓶或飞线充电"]}
+2026-10-26 21:30:08.213 | INFO     | __main__:main:118 | [6/15] Snipaste_2026-10-26_17-25-28.png | 期望=中风险 预测=中风险 ✓
+2026-10-26 21:30:12.834 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "中风险", "reason": "楼道内堆放大量纸箱、泡沫箱等易燃杂物，且紧邻配电箱，严重堵塞通道，极易引发火灾并阻碍逃生，但未发现电动车或充电行为。", "evidence": ["大量纸箱和泡沫箱堆积", "紧邻带电表箱", "通道被严重堵塞", "废旧轮胎"]}
+2026-10-26 21:30:12.834 | INFO     | __main__:main:118 | [7/15] Snipaste_2026-10-26_17-26-01.png | 期望=中风险 预测=中风险 ✓
+2026-10-26 21:30:18.191 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "低风险", "reason": "楼道内停放了一辆盖着黄色雨布的自行车，占用了一定公共空间，但未发现电动车充电或大量易燃堆积物，属于轻微堆物。", "evidence": ["停放的自行车", "黄色遮盖布", "楼道信箱"]}
+2026-10-26 21:30:18.191 | INFO     | __main__:main:118 | [8/15] Snipaste_2026-10-26_17-26-10.png | 期望=低风险 预测=低风险 ✓
+2026-10-26 21:30:22.065 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "无风险", "reason": "照片中楼道地面干净整洁，通道畅通，未发现任何堆积物、可燃物或电动车充电等消防隐患。", "evidence": ["地面无杂物", "无堆积物", "通道畅通"]}
+2026-10-26 21:30:22.065 | INFO     | __main__:main:118 | [9/15] Snipaste_2026-10-26_17-25-17.png | 期望=无风险 预测=无风险 ✓
+2026-10-26 21:30:25.335 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "无风险", "reason": "照片中的楼道楼梯和平台干净整洁，空无一物。既没有堆放纸箱、家具等可燃杂物，也没有电动车、电瓶或飞线充电等危险源，通行顺畅，不存在消防安全隐患。", "evidence": ["干净的楼梯台阶", "空荡的楼道平台", "无任何杂物或充电设备"]}
+2026-10-26 21:30:25.335 | INFO     | __main__:main:118 | [10/15] Snipaste_2026-10-26_17-25-45.png | 期望=无风险 预测=无风险 ✓
+2026-10-26 21:30:27.868 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "非楼道", "reason": "照片展示的是公园湖泊、草地、树木和长椅等自然风景，完全没有楼道建筑结构，与楼道场景无关。", "evidence": ["湖泊", "草地", "树木", "长椅", "碎石小路"]}
+2026-10-26 21:30:27.868 | INFO     | __main__:main:118 | [11/15] other_01.jpg | 期望=非楼道 预测=非楼道 ✓
+2026-10-26 21:30:30.721 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "非楼道", "reason": "照片内容为室内办公桌面场景，未出现楼道、堆积物、电动车或充电设施，与楼道消防安全检查无关。", "evidence": ["笔记本电脑", "咖啡杯", "笔记本和笔", "木桌", "窗户"]}
+2026-10-26 21:30:30.721 | INFO     | __main__:main:118 | [12/15] other_02.jpg | 期望=非楼道 预测=非楼道 ✓
+2026-10-26 21:30:33.138 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "非楼道", "reason": "照片为餐桌用餐场景，摆放饭菜、餐具及座椅，未见楼道通道、墙面或堆积物，与楼道无关。", "evidence": ["圆桌上的多道菜肴", "饭碗、筷子和调料碟", "餐桌与卡座座椅", "吊灯照明"]}
+2026-10-26 21:30:33.138 | INFO     | __main__:main:118 | [13/15] other_03.jpg | 期望=非楼道 预测=非楼道 ✓
+2026-10-26 21:30:35.286 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "非楼道", "reason": "照片展示的是城市街道十字路口、机动车道、商铺和行人，并非建筑内部楼道场景，因此不存在楼道堆积物或充电等消防隐患判断对象。", "evidence": ["城市街道与斑马线", "行驶车辆和红绿灯", "临街商铺与行人"]}
+2026-10-26 21:30:35.286 | INFO     | __main__:main:118 | [14/15] other_04.jpg | 期望=非楼道 预测=非楼道 ✓
+2026-10-26 21:30:38.691 | DEBUG    | app.services.vision:_call_model:51 | 模型原始输出: {"category": "非楼道", "reason": "图片展示的是住宅客厅内部场景，包含沙发、电视柜等家具，并非公共楼道区域，因此不适用楼道消防隐患分类。", "evidence": ["沙发、茶几、电视柜等客厅家具", "地毯、绿植、装饰画等室内陈设", "画面右下角带有'AI生成'标识"]}
+2026-10-26 21:30:38.691 | INFO     | __main__:main:118 | [15/15] other_05.jpg | 期望=非楼道 预测=非楼道 ✓
+2026-10-26 21:30:38.691 | INFO     | __main__:main:128 | ============================================================
+2026-10-26 21:30:38.691 | INFO     | __main__:main:129 | 验收结果: 总数=15 正确=15 异常=0 准确率=100.0%（阈值 80%）
+2026-10-26 21:30:38.691 | INFO     | __main__:main:132 | 混淆矩阵:
+期望\预测	高风险	中风险	低风险	无风险	非楼道
+2026-10-26 21:30:38.691 | INFO     | __main__:main:137 | 高风险	5	0	0	0	0
+2026-10-26 21:30:38.691 | INFO     | __main__:main:137 | 中风险	0	2	0	0	0
+2026-10-26 21:30:38.691 | INFO     | __main__:main:137 | 低风险	0	0	1	0	0
+2026-10-26 21:30:38.691 | INFO     | __main__:main:137 | 无风险	0	0	0	2	0
+2026-10-26 21:30:38.691 | INFO     | __main__:main:137 | 非楼道	0	0	0	0	5
+2026-10-26 21:30:38.691 | INFO     | __main__:main:138 | ============================================================
+2026-10-26 21:30:38.691 | INFO     | __main__:main:141 | 验收结论: 通过 ✓
