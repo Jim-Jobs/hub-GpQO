@@ -1,0 +1,9 @@
+langgraph>=0.2.0
+langchain-core>=0.3.0
+sqlalchemy>=2.0
+httpx>=0.27
+python-dotenv>=1.0
+pandas>=2.0          # 仅 DBParser 的 DataFrame API（延迟导入，不进热路径）
+pytest>=8.0
+# 可选：LLM_BACKEND=langchain 时使用（默认 native 后端无需安装）
+# langchain-openai>=0.2.0

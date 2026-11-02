@@ -1,0 +1,17 @@
+2026-10-26 17:22:27.574 | INFO     | app.main:recognize:114 | 识别完成 request_id=86d88546 category=高风险 level=4 latency_ms=123 size_kb=0 reason=电动车 evidence=['电动车']
+2026-10-26 17:22:27.603 | INFO     | app.main:recognize:114 | 识别完成 request_id=f1fe5887 category=无风险 level=1 latency_ms=123 size_kb=0 reason= evidence=[]
+2026-10-26 17:22:27.778 | ERROR    | app.main:recognize:100 | 识别失败 request_id=0c55dd03 原因=模型调用失败: 连接超时
+2026-10-26 17:22:27.859 | ERROR    | app.main:recognize:107 | 识别失败 request_id=d05d2a21 原因=模型输出解析失败
+2026-10-26 17:25:03.307 | ERROR    | app.main:recognize:100 | 识别失败 request_id=6348dae9 原因=模型调用失败: 模型服务返回错误: Error code: 401 - {'error': {'message': 'Authentication Fails, Your api key: ****here is invalid (request_id: 79612b3a-85b9-41ce-9fbd-3171f25ba7d9)', 'type': 'authentication_error', 'param': None, 'code': 'invalid_request_error'}}
+2026-10-26 21:21:19.298 | INFO     | backend.app.main:recognize:114 | 识别完成 request_id=fd89a051 category=非楼道 level=0 latency_ms=5341 size_kb=115 reason=照片显示的是室内天花板、墙壁、电视及木质门框，属于居民住宅内部环境，并非公共楼道场景，因此无法评估楼道消防隐患。 evidence=['室内天花板', '电视机屏幕', '门框/衣柜边缘', '室内吸顶灯']
+2026-10-26 21:21:53.923 | INFO     | backend.app.main:recognize:114 | 识别完成 request_id=2f48d49d category=高风险 level=4 latency_ms=3864 size_kb=124 reason=楼道内停放电动自行车，且两侧堆放大量纸箱等易燃物，严重堵塞疏散通道，电动车一旦起火极易引燃周边杂物造成严重后果。 evidence=['电动自行车', '大量纸箱堆积', '通道被严重堵塞', '墙面插座及裸露电线']
+2026-10-26 21:22:35.524 | INFO     | backend.app.main:recognize:114 | 识别完成 request_id=42d482db category=非楼道 level=0 latency_ms=3107 size_kb=112 reason=照片主要显示室内吊顶、吸顶灯、门框和带福字柜子局部，未见楼道公共通道及堆放物，无法作为楼道消防隐患判定。 evidence=['室内吊顶与吸顶灯', '门框及柜子局部', '未见楼道堆积物或电动车充电']
+2026-10-26 21:22:59.134 | INFO     | backend.app.main:recognize:114 | 识别完成 request_id=b566d813 category=高风险 level=4 latency_ms=3334 size_kb=145 reason=楼道内违规停放多辆电动车，且地面散落大量电瓶。电动车及电池易发生短路起火，且产生剧毒烟气，严重阻碍逃生，危险程度极高。 evidence=['多辆停放的电动车', '地面散落的电瓶', '楼道环境']
+2026-10-26 21:23:23.472 | INFO     | backend.app.main:recognize:114 | 识别完成 request_id=12ae6d35 category=中风险 level=3 latency_ms=6313 size_kb=125 reason=楼道内堆放大量纸箱、泡沫等易燃物，且紧邻配电箱，严重堵塞公共通道，存在较大火灾隐患。 evidence=['大量纸箱与泡沫箱堆积', '背景有带电危险标志的配电箱', '废轮胎及其他杂物']
+2026-10-26 21:23:36.005 | INFO     | backend.app.main:recognize:114 | 识别完成 request_id=75f6ae30 category=中风险 level=3 latency_ms=2552 size_kb=16 reason=楼道角落堆放大量纸箱、纸盒和塑料瓶等可燃杂物，易被引燃并造成火势蔓延，且占用通行空间。 evidence=['大量纸箱纸盒堆积', '塑料瓶等可燃杂物', '楼道门旁角落堆物']
+2026-10-26 21:23:58.295 | INFO     | backend.app.main:recognize:114 | 识别完成 request_id=7fb1e802 category=非楼道 level=0 latency_ms=3383 size_kb=144 reason=照片展示的是一张摆满中餐菜肴的圆桌及餐厅卡座，完全没有楼道的特征，与消防安全隐患无关。 evidence=['满桌的中餐菜肴', '餐厅卡座与吊灯', '右下角AI生成水印']
+2026-10-26 21:24:33.115 | INFO     | backend.app.main:recognize:114 | 识别完成 request_id=b3281b6f category=非楼道 level=0 latency_ms=1950 size_kb=144 reason=照片内容为餐桌上的饭菜和餐具，属于餐饮场景，并非楼道通道，无法依据楼道堆物或充电情况判定消防隐患。 evidence=['圆形餐桌', '多道饭菜和餐具', '餐厅卡座环境']
+2026-10-26 21:29:17.409 | INFO     | app.main:recognize:114 | 识别完成 request_id=dcdb3b6d category=高风险 level=4 latency_ms=123 size_kb=0 reason=电动车 evidence=['电动车']
+2026-10-26 21:29:17.440 | INFO     | app.main:recognize:114 | 识别完成 request_id=131bec5a category=无风险 level=1 latency_ms=123 size_kb=0 reason= evidence=[]
+2026-10-26 21:29:17.583 | ERROR    | app.main:recognize:100 | 识别失败 request_id=4fae25da 原因=模型调用失败: 连接超时
+2026-10-26 21:29:17.614 | ERROR    | app.main:recognize:107 | 识别失败 request_id=30ac5dad 原因=模型输出解析失败

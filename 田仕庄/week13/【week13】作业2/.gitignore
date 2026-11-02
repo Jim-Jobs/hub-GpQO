@@ -1,0 +1,12 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+.pytest_cache/
+logs/
+.env
+
+# ---- 前端 ----
+# node_modules 是构建期缓存（约 40MB），npm install 可重建，不入库
+web/frontend/node_modules/
+web/frontend/.vite/
+# 注意：web/frontend/dist 是运行时产物，server.py 直接托管，必须保留
