@@ -1,0 +1,2 @@
+{"question": "对比这两张图的差异", "expected_answer": "图片展示了不同的系统架构", "expected_filename": "架构图.pdf", "expected_page": "2"}
+{"question": "这张图里的流程是什么？", "expected_answer": "上传后进入解析队列并写入向量库", "expected_filename": "流程图.pdf", "expected_page": "1"}

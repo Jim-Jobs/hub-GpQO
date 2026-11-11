@@ -1,0 +1,3 @@
+{"question": "产品A销售额何时下降？", "expected_answer": "Q3销售额下降18%", "expected_filename": "年报.pdf", "expected_page": "3"}
+{"question": "系统支持哪些功能？", "expected_answer": "通过Kafka异步解析PDF并支持多模态问答", "expected_filename": "doc.pdf", "expected_page": "1"}
+{"question": "结论是什么？", "expected_answer": "结论与后续计划", "expected_filename": "doc.pdf", "expected_page": "3"}

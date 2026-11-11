@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.pytest-tmp/
+tests/.pytest-tmp/
+tests/.runtime/
+pytest-of-*/
+.ruff_cache/
+.mypy_cache/
+
+# 运行时数据（统一在 data/，不入库）
+data/
+uploads/
+processed/
+logs/
+*.log
+*.db
+*.db-wal
+*.db-shm
+
+# 配置与密钥
+.env
+.env.*
+!.env.example
+
+# 模型权重
+models/
+*.safetensors
+*.bin
+*.onnx
+
+# 前端（无构建，但保留调试产物忽略）
+node_modules/
+.DS_Store
+
+# 中间件本地卷
+deploy/volumes/
+
+# 本机环境脚本（含本机绝对路径；克隆后按环境自行创建）
+scripts/local-env.ps1
+
+# 参考实现：只读对照，不提交
+reference/

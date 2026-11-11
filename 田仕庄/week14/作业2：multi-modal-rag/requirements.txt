@@ -1,0 +1,16 @@
+# Core runtime and tests (py312)
+fastapi>=0.110
+uvicorn[standard]>=0.27
+sqlalchemy>=2.0
+confluent-kafka>=2.3
+# Milvus standalone: keep 2.4-compatible client; Lite uses requirements-lite.txt
+pymilvus>=2.4
+openai>=1.0
+pillow>=10.0
+python-multipart>=0.0.9
+httpx>=0.27
+pytest>=8.0
+
+# BGE / Chinese-CLIP are loaded directly by transformers (no datasets dependency)
+transformers>=4.40,<6
+torch>=2.0

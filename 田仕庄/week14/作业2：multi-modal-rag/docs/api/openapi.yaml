@@ -1,0 +1,1032 @@
+openapi: 3.1.0
+info:
+  title: Multimodal RAG API
+  description: 批量 PDF 上传、Kafka 异步解析、状态追踪、多模态问答
+  version: 0.1.0
+paths:
+  /health:
+    get:
+      tags:
+      - health
+      summary: Health
+      operationId: health_health_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+  /health/deps:
+    get:
+      tags:
+      - health
+      summary: Health Deps
+      operationId: health_deps_health_deps_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepsResponse'
+  /upload/documents:
+    post:
+      tags:
+      - documents
+      summary: Upload Documents
+      operationId: upload_documents_upload_documents_post
+      parameters:
+      - name: x-api-key
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Api-Key
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_upload_documents_upload_documents_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadBatchResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - documents
+      summary: Legacy List Documents
+      operationId: legacy_list_documents_upload_documents_get
+      parameters:
+      - name: knowledge_base_id
+        in: query
+        required: false
+        schema:
+          type: string
+          default: default
+          title: Knowledge Base Id
+      - name: x-api-key
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LegacyDocumentListResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /upload/document:
+    post:
+      tags:
+      - documents
+      summary: Upload Document
+      description: 兼容旧版单文件上传。
+      operationId: upload_document_upload_document_post
+      parameters:
+      - name: x-api-key
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Api-Key
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_upload_document_upload_document_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadDocumentResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /documents:
+    get:
+      tags:
+      - documents
+      summary: List Documents
+      operationId: list_documents_documents_get
+      parameters:
+      - name: knowledge_base_id
+        in: query
+        required: false
+        schema:
+          type: string
+          default: default
+          title: Knowledge Base Id
+      - name: status
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 500
+          minimum: 1
+          default: 100
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: x-api-key
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentListResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /documents/status:
+    get:
+      tags:
+      - documents
+      summary: Documents Status
+      operationId: documents_status_documents_status_get
+      parameters:
+      - name: file_ids
+        in: query
+        required: true
+        schema:
+          type: string
+          description: 逗号分隔的 file_id
+          title: File Ids
+        description: 逗号分隔的 file_id
+      - name: x-api-key
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusBatchResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /documents/{file_id}/reparse:
+    post:
+      tags:
+      - documents
+      summary: Reparse Document
+      operationId: reparse_document_documents__file_id__reparse_post
+      parameters:
+      - name: file_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: File Id
+      - name: x-api-key
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReparseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /documents/{file_id}:
+    delete:
+      tags:
+      - documents
+      summary: Delete Document
+      operationId: delete_document_documents__file_id__delete
+      parameters:
+      - name: file_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: File Id
+      - name: x-api-key
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteDocumentResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /upload/document/{file_id}:
+    delete:
+      tags:
+      - documents
+      summary: Legacy Delete Document
+      operationId: legacy_delete_document_upload_document__file_id__delete
+      parameters:
+      - name: file_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: File Id
+      - name: x-api-key
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteDocumentResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /chat:
+    post:
+      tags:
+      - chat
+      summary: Chat Endpoint
+      operationId: chat_endpoint_chat_post
+      parameters:
+      - name: x-api-key
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                question:
+                  type: string
+                  maxLength: 4000
+                knowledge_base_id:
+                  type: string
+                  default: default
+                top_k:
+                  type: integer
+                  minimum: 1
+                  maximum: 20
+                use_clip:
+                  type: boolean
+                  default: true
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                question:
+                  type: string
+                  maxLength: 4000
+                knowledge_base_id:
+                  type: string
+                  default: default
+                top_k:
+                  type: integer
+                use_clip:
+                  type: boolean
+                images:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+  /kb/api-keys:
+    post:
+      tags:
+      - kb
+      summary: Create Api Key
+      operationId: create_api_key_kb_api_keys_post
+      parameters:
+      - name: x-api-key
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Api-Key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiKeyCreateRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKeyCreateResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ApiKeyCreateRequest:
+      properties:
+        knowledge_base_id:
+          type: string
+          title: Knowledge Base Id
+        api_key:
+          type: string
+          maxLength: 128
+          minLength: 6
+          title: Api Key
+        role:
+          type: string
+          pattern: ^(read|write|admin)$
+          title: Role
+          default: write
+      type: object
+      required:
+      - knowledge_base_id
+      - api_key
+      title: ApiKeyCreateRequest
+    ApiKeyCreateResponse:
+      properties:
+        id:
+          type: integer
+          title: Id
+        knowledge_base_id:
+          type: string
+          title: Knowledge Base Id
+        role:
+          type: string
+          title: Role
+        status:
+          type: string
+          title: Status
+          default: created
+      type: object
+      required:
+      - id
+      - knowledge_base_id
+      - role
+      title: ApiKeyCreateResponse
+    Body_upload_document_upload_document_post:
+      properties:
+        knowledge_base_id:
+          type: string
+          title: Knowledge Base Id
+          default: default
+        file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: File
+      type: object
+      required:
+      - file
+      title: Body_upload_document_upload_document_post
+    Body_upload_documents_upload_documents_post:
+      properties:
+        knowledge_base_id:
+          type: string
+          title: Knowledge Base Id
+          default: default
+        files:
+          items:
+            type: string
+            contentMediaType: application/octet-stream
+          type: array
+          title: Files
+      type: object
+      required:
+      - files
+      title: Body_upload_documents_upload_documents_post
+    ChatResponse:
+      properties:
+        answer:
+          type: string
+          title: Answer
+        sources:
+          items:
+            $ref: '#/components/schemas/SourceItem'
+          type: array
+          title: Sources
+          default: []
+        used_images:
+          items:
+            $ref: '#/components/schemas/UsedImage'
+          type: array
+          title: Used Images
+          default: []
+        degraded:
+          additionalProperties:
+            anyOf:
+            - type: number
+            - type: integer
+          type: object
+          title: Degraded
+          default: {}
+        timings:
+          additionalProperties:
+            type: number
+          type: object
+          title: Timings
+          default: {}
+        trace_id:
+          type: string
+          title: Trace Id
+      type: object
+      required:
+      - answer
+      - trace_id
+      title: ChatResponse
+    DeleteDocumentResponse:
+      properties:
+        file_id:
+          type: integer
+          title: File Id
+        status:
+          type: string
+          title: Status
+          description: deleted | not_found
+      type: object
+      required:
+      - file_id
+      - status
+      title: DeleteDocumentResponse
+    DependencyStatus:
+      properties:
+        ok:
+          type: boolean
+          title: Ok
+        detail:
+          type: string
+          title: Detail
+      type: object
+      required:
+      - ok
+      - detail
+      title: DependencyStatus
+    DepsResponse:
+      properties:
+        status:
+          type: string
+          title: Status
+        deps:
+          additionalProperties:
+            $ref: '#/components/schemas/DependencyStatus'
+          type: object
+          title: Deps
+      type: object
+      required:
+      - status
+      - deps
+      title: DepsResponse
+    DocumentItem:
+      properties:
+        file_id:
+          type: integer
+          title: File Id
+        filename:
+          type: string
+          title: Filename
+        status:
+          type: string
+          title: Status
+        status_text:
+          type: string
+          title: Status Text
+        knowledge_base_id:
+          type: string
+          title: Knowledge Base Id
+        batch_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Batch Id
+        filepath:
+          type: string
+          title: Filepath
+        size_bytes:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Size Bytes
+        page_count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Page Count
+        chunk_count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Chunk Count
+        error_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error Code
+        error_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error Message
+        attempts:
+          type: integer
+          title: Attempts
+          default: 0
+        kafka_sent:
+          type: boolean
+          title: Kafka Sent
+          default: false
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+        started_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Started At
+        finished_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Finished At
+        elapsed_sec:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Elapsed Sec
+      type: object
+      required:
+      - file_id
+      - filename
+      - status
+      - status_text
+      - knowledge_base_id
+      - filepath
+      title: DocumentItem
+    DocumentListResponse:
+      properties:
+        knowledge_base_id:
+          type: string
+          title: Knowledge Base Id
+        total:
+          type: integer
+          title: Total
+        items:
+          items:
+            $ref: '#/components/schemas/DocumentItem'
+          type: array
+          title: Items
+      type: object
+      required:
+      - knowledge_base_id
+      - total
+      - items
+      title: DocumentListResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    HealthResponse:
+      properties:
+        status:
+          type: string
+          title: Status
+        version:
+          type: string
+          title: Version
+        mock:
+          type: boolean
+          title: Mock
+        parse_backend:
+          type: string
+          title: Parse Backend
+        db:
+          type: string
+          title: Db
+        log_dir:
+          type: string
+          title: Log Dir
+      type: object
+      required:
+      - status
+      - version
+      - mock
+      - parse_backend
+      - db
+      - log_dir
+      title: HealthResponse
+    LegacyDocumentItem:
+      properties:
+        file_id:
+          type: integer
+          title: File Id
+        filename:
+          type: string
+          title: Filename
+        filestate:
+          type: string
+          title: Filestate
+        status:
+          type: string
+          title: Status
+        knowledge_base_id:
+          type: string
+          title: Knowledge Base Id
+        filepath:
+          type: string
+          title: Filepath
+      type: object
+      required:
+      - file_id
+      - filename
+      - filestate
+      - status
+      - knowledge_base_id
+      - filepath
+      title: LegacyDocumentItem
+    LegacyDocumentListResponse:
+      properties:
+        knowledge_base_id:
+          type: string
+          title: Knowledge Base Id
+        documents:
+          items:
+            $ref: '#/components/schemas/LegacyDocumentItem'
+          type: array
+          title: Documents
+      type: object
+      required:
+      - knowledge_base_id
+      - documents
+      title: LegacyDocumentListResponse
+    ReparseResponse:
+      properties:
+        file_id:
+          type: integer
+          title: File Id
+        status:
+          type: string
+          title: Status
+        status_text:
+          type: string
+          title: Status Text
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - file_id
+      - status
+      - status_text
+      - message
+      title: ReparseResponse
+    SourceItem:
+      properties:
+        file_id:
+          type: integer
+          title: File Id
+        file_name:
+          type: string
+          title: File Name
+        file_path:
+          type: string
+          title: File Path
+        text_snippet:
+          type: string
+          title: Text Snippet
+        page:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Page
+        image_urls:
+          items:
+            type: string
+          type: array
+          title: Image Urls
+          default: []
+        retrieval_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Retrieval Method
+        score:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Score
+      type: object
+      required:
+      - file_id
+      - file_name
+      - file_path
+      - text_snippet
+      title: SourceItem
+    StatusBatchResponse:
+      properties:
+        server_time:
+          type: string
+          format: date-time
+          title: Server Time
+        items:
+          items:
+            $ref: '#/components/schemas/StatusItem'
+          type: array
+          title: Items
+      type: object
+      required:
+      - server_time
+      - items
+      title: StatusBatchResponse
+    StatusItem:
+      properties:
+        file_id:
+          type: integer
+          title: File Id
+        status:
+          type: string
+          title: Status
+        status_text:
+          type: string
+          title: Status Text
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+      type: object
+      required:
+      - file_id
+      - status
+      - status_text
+      title: StatusItem
+    UploadBatchResponse:
+      properties:
+        batch_id:
+          type: string
+          title: Batch Id
+        knowledge_base_id:
+          type: string
+          title: Knowledge Base Id
+        accepted:
+          type: integer
+          title: Accepted
+        rejected:
+          type: integer
+          title: Rejected
+        duplicates:
+          type: integer
+          title: Duplicates
+        items:
+          items:
+            $ref: '#/components/schemas/UploadItemResult'
+          type: array
+          title: Items
+      type: object
+      required:
+      - batch_id
+      - knowledge_base_id
+      - accepted
+      - rejected
+      - duplicates
+      - items
+      title: UploadBatchResponse
+    UploadDocumentResponse:
+      properties:
+        file_id:
+          type: integer
+          title: File Id
+        filename:
+          type: string
+          title: Filename
+        knowledge_base_id:
+          type: string
+          title: Knowledge Base Id
+        status:
+          type: string
+          title: Status
+          default: queued
+      type: object
+      required:
+      - file_id
+      - filename
+      - knowledge_base_id
+      title: UploadDocumentResponse
+      description: 兼容旧版单文件上传。
+    UploadItemResult:
+      properties:
+        filename:
+          type: string
+          title: Filename
+        file_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: File Id
+        status:
+          type: string
+          title: Status
+          description: PENDING | FAILED | DUPLICATE | REJECTED
+        status_text:
+          type: string
+          title: Status Text
+        action:
+          type: string
+          title: Action
+          description: queued | duplicate | rejected
+        error_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error Code
+        error_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error Message
+        existing_file_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Existing File Id
+      type: object
+      required:
+      - filename
+      - status
+      - status_text
+      - action
+      title: UploadItemResult
+    UsedImage:
+      properties:
+        slot:
+          type: integer
+          title: Slot
+        label:
+          type: string
+          title: Label
+        source:
+          type: string
+          title: Source
+          description: user | retrieved
+        file_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: File Id
+      type: object
+      required:
+      - slot
+      - label
+      - source
+      title: UsedImage
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

@@ -1,0 +1,3 @@
+# Milvus Lite (local file/server mode) — optional, mainly for Windows/local dev
+-r requirements.txt
+milvus-lite>=2.4
