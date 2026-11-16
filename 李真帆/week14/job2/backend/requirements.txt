@@ -1,0 +1,11 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+pydantic>=2.7
+pydantic-settings>=2.3
+python-multipart>=0.0.9
+kafka-python-ng>=2.2.3
+redis>=5.0
+numpy>=1.26
+openai>=1.40
+# EMBEDDING_PROVIDER=local 时才需要安装（默认走 vLLM API，可不装）
+# fastembed>=0.3
