@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>多模态 RAG 问答 · Kafka 版</title>
+    <link rel="stylesheet" href="/app.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <span class="logo" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22">
+              <rect x="3" y="3" width="8" height="8" rx="2" fill="currentColor" opacity=".85" />
+              <rect x="13" y="3" width="8" height="8" rx="2" fill="currentColor" opacity=".45" />
+              <rect x="3" y="13" width="8" height="8" rx="2" fill="currentColor" opacity=".45" />
+              <rect x="13" y="13" width="8" height="8" rx="2" fill="currentColor" opacity=".85" />
+            </svg>
+          </span>
+          <div class="brand-text">
+            <h1>多模态 RAG 问答</h1>
+            <p>Kafka 异步解析 · MinerU · bge / CLIP · 图文混排</p>
+          </div>
+        </div>
+        <div class="chips">
+          <span class="chip" id="chip-kafka"><i class="dot dot-wait"></i><span>Kafka 连接中</span></span>
+          <span class="chip" id="chip-parser">解析引擎 —</span>
+          <span class="chip" id="chip-llm">模型 —</span>
+        </div>
+      </header>
+
+      <main class="layout">
+        <section class="panel panel-docs">
+          <div class="panel-head">
+            <h2>知识库文档</h2>
+            <button class="ghost" id="btn-refresh" type="button">刷新</button>
+          </div>
+
+          <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="上传 PDF">
+            <input type="file" id="file-input" accept="application/pdf,.pdf" multiple hidden />
+            <div class="dz-plus" aria-hidden="true">+</div>
+            <p class="dz-title">点击或拖拽上传 PDF</p>
+            <p class="dz-hint">支持一次多选；上传成功即进入 Kafka 解析队列</p>
+          </div>
+          <div class="upload-status hidden" id="upload-status"></div>
+
+          <div class="doc-list" id="doc-list"></div>
+          <div class="panel-foot" id="doc-summary">—</div>
+        </section>
+
+        <section class="panel panel-chat">
+          <div class="panel-head">
+            <h2>图文问答</h2>
+            <div class="chat-actions">
+              <span class="hint" id="ready-hint"></span>
+              <button class="ghost" id="btn-clear" type="button">清空对话</button>
+            </div>
+          </div>
+
+          <div class="messages" id="messages">
+            <div class="empty-state" id="empty-state">
+              <h3>开始一次图文问答</h3>
+              <p>在左侧上传 PDF，等状态变成 <strong>解析完成</strong> 后直接提问。</p>
+              <p>支持两种多模态玩法：答案里自动插入原文图片；提问时也可以附上一张图片让模型一起看。</p>
+              <div class="samples">
+                <button type="button" class="sample" data-q="这份文档的核心结论是什么？请标注来源页码。">这份文档的核心结论是什么？</button>
+                <button type="button" class="sample" data-q="文档里的架构图展示了哪些模块？请把相关图片放在答案中。">架构图展示了哪些模块？</button>
+                <button type="button" class="sample" data-q="根据文中的图表，哪个季度的增长最明显？">图表里哪个季度增长最明显？</button>
+              </div>
+            </div>
+          </div>
+
+          <form class="composer" id="chat-form">
+            <div class="attachment hidden" id="attachment">
+              <img id="attachment-thumb" alt="待发送图片" />
+              <div class="attachment-meta">
+                <strong id="attachment-name">图片</strong>
+                <span>将和问题一起送入多模态模型</span>
+              </div>
+              <button type="button" class="icon-btn" id="btn-remove-image" title="移除图片">×</button>
+            </div>
+
+            <div class="composer-row">
+              <textarea id="question" rows="1" placeholder="例如：第 3 页的架构图里，检索模块用了什么向量库？"></textarea>
+              <div class="composer-buttons">
+                <button type="button" class="ghost" id="btn-attach" title="上传图片提问">图片提问</button>
+                <input type="file" id="image-input" accept="image/*" hidden />
+                <button type="submit" class="primary" id="btn-send">发送</button>
+              </div>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
