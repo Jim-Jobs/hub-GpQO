@@ -1,0 +1,16 @@
+# week14 作业二 · py312 依赖（mineru/mlx-lm 单独安装，体积大）
+fastapi
+uvicorn
+sse-starlette
+sqlalchemy
+pydantic-settings
+python-dotenv
+python-multipart
+kafka-python
+pymilvus
+sentence-transformers
+openai
+httpx
+pytest
+ruff
+# 大件（已装）：mineru mlx-lm torch

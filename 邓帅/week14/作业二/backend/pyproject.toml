@@ -1,0 +1,19 @@
+[project]
+name = "mrag"
+version = "0.1.0"
+description = "week14 作业二：基于 Kafka 的多模态 RAG 问答"
+requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+# slow = 需加载/下载 embedding 模型（首跑数百秒）；日常跑排除，交付前用 `pytest -m slow` 单独跑
+addopts = "-m 'not slow'"
+markers = ["slow: 需要模型缓存与较长加载时间"]
+
+[tool.ruff]
+line-length = 110
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP", "B"]
