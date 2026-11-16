@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>多模态 RAG 问答 · Kafka 实验室</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">R</div>
+        <div>
+          <h1>多模态 RAG 问答</h1>
+          <p>PDF 上传 → Kafka → MinerU 解析 → 图文混排问答</p>
+        </div>
+      </div>
+      <div class="pills" id="pills">
+        <span class="pill" id="pillRedis">Redis …</span>
+        <span class="pill" id="pillKafka">Kafka …</span>
+        <span class="pill" id="pillMineru">MinerU …</span>
+        <span class="pill" id="pillLLM">LLM …</span>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <section class="card">
+          <div class="card-head">
+            <h2>① 上传 PDF</h2>
+            <span class="hint">支持多选 / 拖拽</span>
+          </div>
+          <div class="dropzone" id="dropzone">
+            <div class="dz-icon">⇪</div>
+            <div class="dz-title">把 PDF 拖到这里</div>
+            <div class="dz-sub">或点击选择多个文件</div>
+            <input type="file" id="fileInput" accept=".pdf,application/pdf" multiple hidden />
+          </div>
+          <div class="file-queue" id="fileQueue"></div>
+          <button class="primary full" id="uploadBtn">上传到 Kafka</button>
+          <div class="summary" id="statusSummary">待解析 0 · 解析中 0 · 解析完成 0</div>
+          <div class="doc-list" id="docList"></div>
+        </section>
+
+        <section class="card events-card">
+          <div class="card-head">
+            <h2>Kafka 事件流</h2>
+            <span class="live"><i></i>LIVE</span>
+          </div>
+          <div class="event-list" id="eventList"></div>
+        </section>
+      </aside>
+
+      <main class="main">
+        <section class="card chat-card">
+          <div class="chat-toolbar">
+            <label class="field">
+              知识库范围
+              <select id="docScope"><option value="">全部文档</option></select>
+            </label>
+            <label class="check"><input type="checkbox" id="useVision" checked /> 回答携带检索图片</label>
+            <span class="spacer"></span>
+            <button class="ghost" id="clearBtn">清空会话</button>
+          </div>
+
+          <div class="chat" id="chat"></div>
+
+          <form class="composer" id="qaForm">
+            <div class="image-preview hidden" id="imagePreview">
+              <img id="previewImg" alt="待发送图片" />
+              <span>图片将随问题一起送入大模型</span>
+              <button type="button" id="removeImage">移除</button>
+            </div>
+            <textarea id="question" rows="2" placeholder="输入问题，例如：文档里的架构图说明了什么？Enter 发送，Shift+Enter 换行"></textarea>
+            <div class="composer-actions">
+              <label class="attach">
+                <input type="file" id="imageInput" accept="image/*" hidden />
+                <span>＋ 图片提问</span>
+              </label>
+              <span class="tip">用户的提问 + 上传图片 + 检索到的图文片段 → LLM</span>
+              <button class="primary" type="submit" id="askBtn">发送提问</button>
+            </div>
+          </form>
+        </section>
+
+        <div class="pipeline">
+          <span>网页</span><b>→</b><span>FastAPI</span><b>→</b><span class="topic">pdf.tasks</span><b>→</b>
+          <span>MinerU Worker</span><b>→</b><span>Redis 状态 / 向量索引</span><b>·</b>
+          <span class="topic">qa.requests</span><b>→</b><span>LLM</span><b>→</b><span class="topic">qa.responses</span><b>→</b><span>图文回答</span>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="modal">
+    <div class="modal-box">
+      <div class="modal-head"><h3 id="modalTitle">解析内容预览</h3><button id="modalClose">×</button></div>
+      <div class="modal-body md" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

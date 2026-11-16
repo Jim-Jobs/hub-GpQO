@@ -1,0 +1,16 @@
+# 作业 1 + 作业 2 运行依赖（Python 3.10+）
+fastapi>=0.110,<1.0
+uvicorn[standard]>=0.27,<1.0
+python-multipart>=0.0.9
+python-dotenv>=1.0,<2.0
+redis>=5.0,<6.0
+confluent-kafka>=2.3,<3.0
+openai>=1.30,<2.0
+requests>=2.31,<3.0
+numpy>=1.24,<3.0
+Pillow>=10.0,<12.0
+PyMuPDF>=1.23
+
+# MinerU 体积较大（含模型），按课程文档单独安装：
+#   uv pip install -U "mineru[core]" -i https://mirrors.aliyun.com/pypi/simple
+# 不安装时解析器会自动降级为 PyMuPDF（见 README）。
