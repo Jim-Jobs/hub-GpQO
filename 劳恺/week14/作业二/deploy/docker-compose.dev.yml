@@ -1,0 +1,91 @@
+# 本地开发用编排：Kafka (KRaft) + Elasticsearch 8
+#
+# 与生产编排（docs/07 §5.2）的区别：
+#   * Kafka / ES **只绑定 127.0.0.1**，不对外暴露；
+#   * Kafka 额外开一个 PLAINTEXT_HOST 监听器（29092）供宿主机上的 API/Worker 连接；
+#   * API / Worker 放在 `app` profile 下，默认不启动（本地直接跑 uvicorn 更方便热重载）。
+#
+# 用法：
+#   docker compose -f docker-compose.dev.yml up -d                    # 只起基础设施
+#   docker compose -f docker-compose.dev.yml --profile app up -d      # 连 API 一起起
+#
+# 前置：宿主机需要 vm.max_map_count >= 262144（ES 8 要求）
+#   sudo sysctl -w vm.max_map_count=262144
+
+services:
+  kafka:
+    image: apache/kafka:3.9.0
+    container_name: mmrag-kafka-dev
+    ports:
+      - "127.0.0.1:9092:29092"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      # PLAINTEXT 供 compose 内网（kafka:9092），PLAINTEXT_HOST 供宿主机（localhost:9092）
+      KAFKA_LISTENERS: CONTROLLER://:9093,PLAINTEXT://:9092,PLAINTEXT_HOST://:29092
+      # 必须写 127.0.0.1 而不是 localhost：Windows 上 localhost 会先解析成 IPv6 ::1，
+      # 而端口映射只监听 IPv4，客户端会卡在"取不到 metadata"最后超时
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://127.0.0.1:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_NUM_PARTITIONS: 2
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
+    volumes:
+      - kafka-data:/var/lib/kafka/data
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 20s
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.3
+    container_name: mmrag-es-dev
+    ports:
+      - "127.0.0.1:9200:9200"
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: "false"
+      ES_JAVA_OPTS: "-Xms4g -Xmx4g"
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fs 'http://localhost:9200/_cluster/health' >/dev/null"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+
+  # ---------------------------------------------------------------------
+  # 可选：把 API 也放进容器（--profile app）。默认在宿主机跑 uvicorn 便于热重载。
+  # ---------------------------------------------------------------------
+  api:
+    profiles: ["app"]
+    build: ../backend
+    container_name: mmrag-api-dev
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8080
+    env_file: [.env]
+    environment:
+      DATA_DIR: /data
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      ES_URL: http://elasticsearch:9200
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - ./data:/data
+    depends_on:
+      kafka:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+
+volumes:
+  kafka-data:
+  es-data:
