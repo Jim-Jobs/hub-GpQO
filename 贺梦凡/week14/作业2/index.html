@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>多模态文档问答</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #1c2430;
+      --muted: #5d6b7c;
+      --line: #d9e1ea;
+      --paper: #f5f7fa;
+      --card: #fff;
+      --blue: #1f6feb;
+      --green: #1a7f4b;
+      --amber: #9a6700;
+      --red: #b42318;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Noto Sans SC", sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+    }
+    header {
+      padding: 20px 28px 8px;
+    }
+    h1 { margin: 0 0 6px; font-size: 22px; }
+    header p { margin: 0; color: var(--muted); }
+    main {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 16px;
+      padding: 16px 28px 28px;
+      min-height: calc(100vh - 84px);
+    }
+    section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .docs { display: flex; flex-direction: column; gap: 12px; }
+    label.upload {
+      display: block;
+      border: 1px dashed #9eb4cc;
+      border-radius: 10px;
+      padding: 18px;
+      text-align: center;
+      cursor: pointer;
+      background: #f8fbff;
+    }
+    input[type="file"] { display: none; }
+    ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+    li.doc {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 10px;
+    }
+    .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .badge { flex: none; font-size: 12px; border-radius: 999px; padding: 2px 8px; }
+    .pending { color: var(--amber); background: #fff7e6; }
+    .parsing { color: var(--blue); background: #e8f1ff; }
+    .done { color: var(--green); background: #e8f7ee; }
+    .failed { color: var(--red); background: #fff0ee; }
+    .chat { display: flex; flex-direction: column; min-height: 70vh; }
+    #log { flex: 1; overflow: auto; display: flex; flex-direction: column; gap: 12px; }
+    .msg { max-width: 820px; border-radius: 10px; padding: 10px 12px; line-height: 1.6; }
+    .user { align-self: flex-end; background: #e7f0ff; }
+    .assistant { align-self: flex-start; background: #f3f5f7; }
+    .msg img { max-width: 100%; border-radius: 8px; margin: 8px 0; }
+    figure { margin: 8px 0; }
+    figcaption { color: var(--muted); font-size: 12px; }
+    form.ask { display: flex; gap: 8px; margin-top: 12px; align-items: end; }
+    textarea { flex: 1; min-height: 72px; resize: vertical; padding: 8px; border-radius: 8px; border: 1px solid var(--line); font: inherit; }
+    button { font: inherit; border: 0; background: var(--blue); color: white; border-radius: 8px; padding: 10px 14px; cursor: pointer; }
+    button.ghost { background: #e8eef6; color: var(--ink); }
+    .error { color: var(--red); min-height: 1.2em; }
+    .preview { max-height: 72px; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>多模态文档问答</h1>
+    <p>PDF 经 Kafka 交给 MinerU 解析，状态保存在 Redis。提问可以附上一张图片。</p>
+  </header>
+  <main>
+    <section class="docs">
+      <label class="upload">
+        选择多个 PDF
+        <input id="pdfs" type="file" accept="application/pdf,.pdf" multiple>
+      </label>
+      <div class="error" id="upload-error"></div>
+      <ul id="docs"></ul>
+    </section>
+    <section class="chat">
+      <div id="log"></div>
+      <div class="error" id="ask-error"></div>
+      <form class="ask" id="ask">
+        <label class="ghost" style="padding:8px;border-radius:8px;background:#e8eef6;cursor:pointer;">
+          附图
+          <input id="picture" type="file" accept="image/*">
+        </label>
+        <img id="preview" class="preview" hidden alt="">
+        <textarea id="question" placeholder="输入问题，可同时上传一张图片"></textarea>
+        <button type="submit">发送</button>
+      </form>
+    </section>
+  </main>
+  <script>
+    const docsEl = document.querySelector("#docs");
+    const logEl = document.querySelector("#log");
+    const picture = document.querySelector("#picture");
+    const preview = document.querySelector("#preview");
+
+    function escapeHtml(value) {
+      return value.replace(/[&<>"']/g, (ch) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[ch]));
+    }
+
+    function renderDocs(docs) {
+      docsEl.innerHTML = "";
+      for (const doc of docs) {
+        const li = document.createElement("li");
+        li.className = "doc";
+        const status = doc.status || "pending";
+        li.innerHTML = `<span class="name" title="${escapeHtml(doc.filename || "")}">${escapeHtml(doc.filename || "")}</span>` +
+          `<span class="badge ${status}">${escapeHtml(doc.status_text || status)}</span>`;
+        if (doc.error) li.title = doc.error;
+        docsEl.appendChild(li);
+      }
+    }
+
+    async function refreshDocs() {
+      const response = await fetch("/api/docs");
+      const data = await response.json();
+      renderDocs(data.docs || []);
+    }
+
+    document.querySelector("#pdfs").addEventListener("change", async (event) => {
+      const error = document.querySelector("#upload-error");
+      error.textContent = "";
+      const files = event.target.files;
+      if (!files.length) return;
+      const body = new FormData();
+      for (const file of files) body.append("files", file);
+      const response = await fetch("/api/upload", { method: "POST", body });
+      const data = await response.json();
+      if (!response.ok) error.textContent = data.error || "上传失败";
+      event.target.value = "";
+      refreshDocs();
+    });
+
+    picture.addEventListener("change", () => {
+      const file = picture.files[0];
+      if (!file) {
+        preview.hidden = true;
+        return;
+      }
+      preview.src = URL.createObjectURL(file);
+      preview.hidden = false;
+    });
+
+    function figure(image) {
+      return `<figure><img src="${image.url}" alt=""><figcaption>${escapeHtml(image.caption || "")}</figcaption></figure>`;
+    }
+
+    function answerHtml(answer, images) {
+      const used = new Set();
+      let html = escapeHtml(answer).replace(/\{\{img:(\d+)\}\}/g, (_, index) => {
+        const image = images[Number(index)];
+        if (!image) return "";
+        used.add(Number(index));
+        return figure(image);
+      }).replace(/\n/g, "<br>");
+      images.forEach((image, index) => {
+        if (!used.has(index)) html += figure(image);
+      });
+      return html;
+    }
+
+    function addMessage(role, html) {
+      const div = document.createElement("div");
+      div.className = `msg ${role}`;
+      div.innerHTML = html;
+      logEl.appendChild(div);
+      logEl.scrollTop = logEl.scrollHeight;
+    }
+
+    document.querySelector("#ask").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const error = document.querySelector("#ask-error");
+      error.textContent = "";
+      const question = document.querySelector("#question").value.trim();
+      const image = picture.files[0];
+      if (!question && !image) {
+        error.textContent = "请输入问题或选择图片";
+        return;
+      }
+      let userHtml = escapeHtml(question || "请结合图片回答。").replace(/\n/g, "<br>");
+      if (image) userHtml = `<img src="${preview.src}" alt="">` + userHtml;
+      addMessage("user", userHtml);
+      addMessage("assistant", "正在回答…");
+      const pending = logEl.lastElementChild;
+      const body = new FormData();
+      body.append("question", question);
+      if (image) body.append("image", image);
+      try {
+        const response = await fetch("/api/ask", { method: "POST", body });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || "回答失败");
+        pending.innerHTML = answerHtml(data.answer || "", data.images || []);
+      } catch (err) {
+        pending.textContent = err.message;
+      }
+      document.querySelector("#question").value = "";
+      picture.value = "";
+      preview.hidden = true;
+    });
+
+    refreshDocs().catch((err) => {
+      document.querySelector("#upload-error").textContent = err.message;
+    });
+    setInterval(() => refreshDocs().catch(() => {}), 2000);
+  </script>
+</body>
+</html>
