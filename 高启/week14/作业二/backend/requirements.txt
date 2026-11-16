@@ -1,0 +1,9 @@
+fastapi==0.162.0
+kafka-python==3.0.13
+milvus-lite==3.2.2
+openai>=1.0,<3
+pymilvus[milvus-lite]==3.0.2
+pydantic==2.14.1
+python-multipart==0.0.32
+redis==6.4.0
+uvicorn==0.54.0

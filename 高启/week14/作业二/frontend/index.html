@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7fb">
+    <title>多模态 RAG 问答</title>
+    <link rel="stylesheet" href="/static/styles/app.css">
+    <script type="module" src="/static/src/main.mjs"></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="page-header">
+        <p class="eyebrow">DOCUMENT ASSISTANT</p>
+        <h1>多模态 RAG 问答</h1>
+        <p class="intro">上传 PDF 建立资料库，再用文字或图片提问。回答会展示检索阶段、引用页码和相关文档图片。</p>
+      </header>
+
+      <section class="panel documents-panel" aria-labelledby="documents-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">01 · KNOWLEDGE BASE</p>
+            <h2 id="documents-title">资料库文档</h2>
+          </div>
+          <span class="section-note">支持一次选择多个 PDF</span>
+        </div>
+        <form id="pdf-form" class="upload-form">
+          <label class="file-picker" for="pdf-input">
+            <span class="file-picker-icon" aria-hidden="true">＋</span>
+            <span><strong>选择 PDF 文件</strong><small>可多选，解析状态逐份显示</small></span>
+            <input id="pdf-input" name="files" type="file" accept="application/pdf,.pdf" multiple>
+          </label>
+          <button class="button button-primary" type="submit">上传并解析</button>
+        </form>
+        <p id="pdf-message" class="form-message" role="status" aria-live="polite"></p>
+        <ul id="pdf-list" class="document-list" aria-label="已上传文档"></ul>
+      </section>
+
+      <section class="panel chat-panel" aria-labelledby="chat-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">02 · ASK WITH EVIDENCE</p>
+            <h2 id="chat-title">向资料库提问</h2>
+          </div>
+          <span class="section-note">可附一张图片</span>
+        </div>
+        <div id="chat-log" class="chat-log" aria-live="polite" aria-label="问答记录">
+          <div class="empty-state">
+            <span class="empty-mark" aria-hidden="true">?</span>
+            <p>你的问题和资料库回答会显示在这里。</p>
+          </div>
+        </div>
+        <form id="chat-form" class="chat-form">
+          <label class="visually-hidden" for="question-input">问题</label>
+          <textarea id="question-input" name="question_text" rows="3" placeholder="例如：这份资料中提到的主要结论是什么？" required></textarea>
+          <div class="chat-form-footer">
+            <div class="chat-attachments">
+              <label class="button button-attachment" for="question-image">添加图片</label>
+              <input id="question-image" name="image" type="file" accept="image/*">
+              <div id="image-preview" class="image-preview" aria-live="polite"></div>
+            </div>
+            <button class="button button-primary" type="submit">发送问题 <span aria-hidden="true">↗</span></button>
+          </div>
+          <p class="form-hint">图片仅用于当前问答；如果资料中没有足够依据，助手会先征求你的确认。</p>
+        </form>
+      </section>
+      <footer class="page-footer">问答状态和结果会保留在当前页面中；刷新页面后不会恢复本地对话。</footer>
+    </main>
+  </body>
+</html>
