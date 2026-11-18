@@ -1,0 +1,61 @@
+name: sentiment-chat
+
+x-api-image: &api-image
+  build:
+    context: ..
+    dockerfile: docker/Dockerfile
+  image: sentiment-chat-api:local
+
+x-api-env: &api-env
+  DASHSCOPE_API_KEY: "${DASHSCOPE_API_KEY:?DASHSCOPE_API_KEY must be set in .env}"
+  QWEN_BASE_URL: "${QWEN_BASE_URL:-https://dashscope.aliyuncs.com/compatible-mode/v1}"
+  QWEN_MODEL: "${QWEN_MODEL:-qwen-flash}"
+  LLM_TIMEOUT_SECONDS: "${LLM_TIMEOUT_SECONDS:-30}"
+  MAX_INPUT_LENGTH: "${MAX_INPUT_LENGTH:-4000}"
+  PIPELINE_ENGINE: "${PIPELINE_ENGINE:-langgraph}"
+  DATABASE_URL: "postgresql+asyncpg://app:${DB_PASSWORD}@db:5432/sentiment_chat"
+  LOG_LEVEL: "${LOG_LEVEL:-INFO}"
+  API_TOKEN: "${API_TOKEN:-}"
+
+services:
+  db:
+    image: ${POSTGRES_IMAGE:-postgres:16}
+    environment:
+      POSTGRES_DB: sentiment_chat
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: "${DB_PASSWORD:?DB_PASSWORD must be set in .env}"
+    # 仅绑定回环，避免数据库暴露到局域网
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app -d sentiment_chat"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  migrate:
+    <<: *api-image
+    command: ["alembic", "upgrade", "head"]
+    environment: *api-env
+    depends_on:
+      db:
+        condition: service_healthy
+
+  api:
+    <<: *api-image
+    init: true
+    environment: *api-env
+    # 仅绑定回环；公网部署需反向代理并启用 API_TOKEN
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+
+volumes:
+  pgdata:
