@@ -2,7 +2,7 @@
 
 > Week15 作业 1 + 作业 2。
 > 作业 1：分别用 **LangGraph** 和 **OpenAI Agents SDK** 实现「情感识别 → 鼓励/排解」流水线。
-> 作业 2：基于 Agents SDK 版本编写 **Dockerfile**，构建镜像并推送到 **阿里云容器镜像服务（ACR）**。
+> 作业 2：基于 Agents SDK 版本编写 **Dockerfile**，构建镜像并给出 **阿里云容器镜像服务（ACR）** 推送流程（推送需本人账号，未在本机执行）。
 
 ![对话界面](docs/ui-chat.png)
 
