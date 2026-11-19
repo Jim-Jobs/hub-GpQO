@@ -1,0 +1,9 @@
+# 运行时产物
+logs/*.log
+logs/*.pid
+logs/*.sqlite
+gateway/data/
+gateway/checkpoints.sqlite
+__pycache__/
+.pytest_cache/
+.ruff_cache/

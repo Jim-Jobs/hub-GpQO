@@ -1,0 +1,135 @@
+# week15 作业二 · openai-agents 套容器化编排（6 容器，compose 一键起全栈）
+#
+# 宿主端口避开作业一常驻进程（8001/8002/8003/8233）：
+#   前端 http://localhost:8080 · 网关 :18001 · Temporal UI http://localhost:18233
+#   （容器网内仍是标准 80/8001/8002/8003/7233/8233，互访走 compose 服务名）
+#
+# LLM 凭据经 env_file 注入项目根 badou2026/.env（API_KEY/BASE_URL/BASE_MODEL），
+# 密钥不进镜像、不进仓库；容器内 load_dotenv() 找不到 .env 文件属预期，
+# os.getenv 直接读进程环境变量。
+
+name: emotion-oa-docker
+
+x-llm-env: &llm-env
+  env_file: ../../../../.env
+
+services:
+  temporal:
+    # 官方无 CLI dev server 镜像 → 自建（Dockerfile.temporal，GitHub releases
+    # 官方 binary + alpine），与作业一 brew temporal dev server 等价
+    build:
+      context: ..
+      dockerfile: 作业二/Dockerfile.temporal
+    image: emotion-oa-temporal:0.1.0
+    container_name: oa-temporal
+    ports:
+      - "18233:8233" # Web UI；gRPC 7233 仅容器网内使用，不对宿主暴露
+    volumes:
+      - temporal-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "temporal operator cluster health | grep -q SERVING"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 3s
+
+  # ---------- 进程1 情感识别 ----------
+  sentiment:
+    build:
+      context: ..
+      dockerfile: 作业二/Dockerfile
+      target: sentiment
+    image: emotion-oa-sentiment:0.1.0
+    container_name: oa-sentiment
+    <<: *llm-env
+    healthcheck:
+      test: ["CMD-SHELL", "python -c 'import urllib.request;urllib.request.urlopen(\"http://127.0.0.1:8002/health\", timeout=3)'"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 3s
+
+  # ---------- 进程2 情感回应 ----------
+  respond:
+    build:
+      context: ..
+      dockerfile: 作业二/Dockerfile
+      target: respond
+    image: emotion-oa-respond:0.1.0
+    container_name: oa-respond
+    <<: *llm-env
+    healthcheck:
+      test: ["CMD-SHELL", "python -c 'import urllib.request;urllib.request.urlopen(\"http://127.0.0.1:8003/health\", timeout=3)'"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 3s
+
+  # ---------- Temporal worker（task queue emotion-oa）----------
+  worker:
+    build:
+      context: ..
+      dockerfile: 作业二/Dockerfile
+      target: worker
+    image: emotion-oa-worker:0.1.0
+    container_name: oa-worker
+    environment:
+      TEMPORAL_ADDRESS: temporal:7233
+      TASK_QUEUE: emotion-oa
+      SENTIMENT_URL: http://sentiment:8002
+      RESPOND_URL: http://respond:8003
+    depends_on:
+      temporal:
+        condition: service_healthy
+
+  # ---------- 网关（Temporal client + SQLiteSession + SSE）----------
+  gateway:
+    build:
+      context: ..
+      dockerfile: 作业二/Dockerfile
+      target: gateway
+    image: emotion-oa-gateway:0.1.0
+    container_name: oa-gateway
+    environment:
+      TEMPORAL_ADDRESS: temporal:7233
+      TASK_QUEUE: emotion-oa
+    ports:
+      - "18001:8001"
+    volumes:
+      - gateway-data:/app/gateway/data # sessions.sqlite 会话历史持久化
+    depends_on:
+      temporal:
+        condition: service_healthy
+      sentiment:
+        condition: service_healthy
+      respond:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "python -c 'import urllib.request;urllib.request.urlopen(\"http://127.0.0.1:8001/health\", timeout=3)'"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 3s
+
+  # ---------- 前端（nginx 静态 + /api 反代网关，同源免 CORS）----------
+  frontend:
+    build:
+      context: ..
+      dockerfile: 作业二/Dockerfile.frontend
+    image: emotion-oa-frontend:0.1.0
+    container_name: oa-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      gateway:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 3s
+
+volumes:
+  temporal-data:
+  gateway-data:
