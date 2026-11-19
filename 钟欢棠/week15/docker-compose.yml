@@ -1,0 +1,15 @@
+services:
+  emotion-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: week15-emotion-agent:latest
+    container_name: week15-emotion-agent
+    ports:
+      - "8002:8002"
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4o-mini}
+      USE_MOCK_LLM: ${USE_MOCK_LLM:-0}
+    restart: unless-stopped
