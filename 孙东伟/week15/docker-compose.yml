@@ -1,0 +1,30 @@
+services:
+  api:
+    build: .
+    image: sentiment-companion:agents
+    container_name: sentiment-api
+    ports:
+      - "8000:8000"
+    environment:
+      # 不填 Key 会自动进入 mock 模式，链路仍然完整，便于演示。
+      APP_MODE: ${APP_MODE:-auto}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_BASE_URL: ${LLM_BASE_URL:-https://api.openai.com/v1}
+      LLM_MODEL: ${LLM_MODEL:-gpt-4o-mini}
+      DEFAULT_ENGINE: agents
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    image: sentiment-companion-ui:latest
+    container_name: sentiment-ui
+    ports:
+      - "8501:8501"
+    environment:
+      API_BASE: http://api:8000
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped

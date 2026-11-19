@@ -1,0 +1,3 @@
+# 前端进程依赖：只需要 Streamlit + HTTP 客户端。
+streamlit>=1.67,<2
+requests>=2.32,<3
