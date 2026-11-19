@@ -1,0 +1,18 @@
+# 构建上下文瘦身，避免把本地环境打进镜像
+.venv/
+venv/
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+.env
+.git/
+.gitignore
+.idea/
+.vscode/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.log
+scripts/
+README.md

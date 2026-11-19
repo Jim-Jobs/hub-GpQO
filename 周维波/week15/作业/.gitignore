@@ -1,0 +1,15 @@
+# 虚拟环境与本地密钥不入库
+.venv/
+.venv-*/
+venv/
+.env
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+.idea/
+.vscode/
+*.log
