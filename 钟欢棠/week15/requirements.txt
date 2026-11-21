@@ -1,0 +1,14 @@
+# 本地运行两个版本所需的依赖
+fastapi==0.141.1
+uvicorn==0.51.0
+pydantic==2.13.4
+python-dotenv==1.2.2
+requests==2.32.3
+streamlit==1.50.0
+# LangGraph 版
+langgraph==1.2.10
+langchain-openai==1.4.1
+langchain-core>=1.0.0
+# openai-agents 版
+openai-agents==0.19.1
+openai==2.47.0

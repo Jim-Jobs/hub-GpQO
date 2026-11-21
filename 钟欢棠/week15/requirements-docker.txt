@@ -1,0 +1,7 @@
+# Docker 镜像只需 openai-agents 版本
+fastapi==0.141.1
+uvicorn==0.51.0
+pydantic==2.13.4
+python-dotenv==1.2.2
+openai-agents==0.19.1
+openai==2.47.0
