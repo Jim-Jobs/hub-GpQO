@@ -1,0 +1,26 @@
+# week15 作业二 · Temporal dev server 镜像（自建）
+#
+# 官方未发布 CLI dev server 的容器镜像（temporalio/temporal-cli 不存在），
+# 社区标准做法：官方 CLI binary（Go 静态编译）放进 alpine。与作业一
+# `brew temporal` dev server 完全等价（内嵌 SQLite + Web UI）。
+#
+# binary 由 vendor/ 离线供给（构建环境无外网也能 build）：宿主机经代理从
+# GitHub releases 下载两架构 tar.gz 存入 vendor/（下载命令见 readme 踩坑），
+# TARGETARCH 自动选择 amd64/arm64，最终镜像不含 tarball 与多余层。
+# build context = week15/：docker build -f 作业二/Dockerfile.temporal -t emotion-oa-temporal ..
+
+FROM alpine:3.21 AS fetch
+ARG TARGETARCH
+ARG TEMPORAL_CLI_VERSION=1.10.1
+COPY 作业二/vendor/temporal_cli_${TEMPORAL_CLI_VERSION}_linux_amd64.tar.gz \
+     作业二/vendor/temporal_cli_${TEMPORAL_CLI_VERSION}_linux_arm64.tar.gz /tmp/
+RUN arch="$([ "$TARGETARCH" = "arm64" ] && echo arm64 || echo amd64)" \
+ && tar -xzf "/tmp/temporal_cli_${TEMPORAL_CLI_VERSION}_linux_${arch}.tar.gz" -C /tmp temporal
+
+FROM alpine:3.21
+COPY --from=fetch /tmp/temporal /usr/local/bin/temporal
+EXPOSE 7233 8233
+VOLUME /data
+# --ip 0.0.0.0：CLI 默认只听 127.0.0.1，容器间互访必须显式放开
+ENTRYPOINT ["temporal"]
+CMD ["server", "start-dev", "--ip", "0.0.0.0", "--db-filename", "/data/temporal-dev.sqlite", "--log-level", "error"]

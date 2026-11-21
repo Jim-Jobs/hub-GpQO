@@ -1,0 +1,2 @@
+# temporal CLI binary 离线缓存（约 70MB，不进仓库；下载命令见 readme 踩坑3）
+vendor/

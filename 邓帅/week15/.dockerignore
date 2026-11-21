@@ -1,0 +1,22 @@
+# build context = week15/，白名单放行：仅 openai-agents 源码 + 作业二打包文件
+*
+!作业一/openai-agents/contracts.py
+!作业一/openai-agents/streams.py
+!作业一/openai-agents/sentiment-service/
+!作业一/openai-agents/respond-service/
+!作业一/openai-agents/worker/
+!作业一/openai-agents/gateway/
+!作业一/openai-agents/frontend/
+!作业二/requirements.txt
+!作业二/nginx.conf
+!作业二/vendor/
+
+# 反选目录内部的本地产物与缓存仍排除（不入 build context）
+**/__pycache__
+**/*.pyc
+**/node_modules
+**/dist
+**/logs
+**/data
+**/.pytest_cache
+**/.ruff_cache

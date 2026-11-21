@@ -1,0 +1,9 @@
+# week15 作业二 · 镜像内 Python 依赖（与 py312 conda 环境锁定版本一致）
+# openai / pydantic / starlette 等传递依赖由 pip 按上表约束解析
+openai-agents==0.20.0
+temporalio==1.30.0
+fastapi==0.140.13
+uvicorn==0.40.0
+sse-starlette==3.4.10
+httpx==0.28.1
+python-dotenv==1.2.2
