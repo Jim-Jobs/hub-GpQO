@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>心情对话 · OpenAI Agents</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f5f8;color:#202633;font:16px system-ui,"Microsoft YaHei",sans-serif}.shell{max-width:760px;height:100vh;margin:auto;padding:28px 18px;display:flex;flex-direction:column}.top h1{font-size:24px;margin:0}.top p{color:#687386;margin:8px 0 20px}.messages{flex:1;overflow:auto;background:#fff;border:1px solid #e6e9ef;border-radius:18px;padding:18px}.msg{margin:12px 0;line-height:1.65;white-space:pre-wrap}.user{text-align:right}.bubble{display:inline-block;max-width:85%;padding:12px 15px;border-radius:16px;background:#edf2ff;text-align:left}.assistant .bubble{background:#f4f5f7}.label{font-size:12px;color:#65728a;margin-bottom:5px}.form{display:flex;gap:10px;margin-top:14px}textarea{resize:none;flex:1;min-height:54px;padding:14px;border:1px solid #d8dde6;border-radius:14px;font:inherit}button{border:0;border-radius:14px;padding:0 22px;background:#405de6;color:#fff;font:inherit;cursor:pointer}button:disabled{opacity:.55}
+</style></head>
+<body><main class="shell"><header class="top"><h1>心情对话 · OpenAI Agents</h1><p>说说你的近况，我会先理解情绪，再给你回应。</p></header><section id="messages" class="messages"><div class="msg assistant"><div class="bubble">你好，今天有什么想聊的？</div></div></section><form id="form" class="form"><textarea id="text" placeholder="输入消息…（Enter 发送，Shift+Enter 换行）" required></textarea><button id="send">发送</button></form></main>
+<script src="config.js"></script>
+<script>
+const messages = document.querySelector('#messages');
+const form = document.querySelector('#form');
+const text = document.querySelector('#text');
+const send = document.querySelector('#send');
+/**
+ * 在对话区添加一条安全渲染的消息。
+ * @param {string} content 消息正文。
+ * @param {'user'|'assistant'} who 消息发送方样式。
+ * @param {string} label 可选的情感标签和识别原因。
+ * @returns {HTMLDivElement} 已插入页面的消息节点。
+ */
+function add(content, who, label = '') {
+  const row = document.createElement('div');
+  row.className = `msg ${who}`;
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble';
+  if (label) {
+    const meta = document.createElement('div');
+    meta.className = 'label';
+    meta.textContent = label;
+    bubble.append(meta);
+  }
+  bubble.append(document.createTextNode(content));
+  row.append(bubble);
+  messages.append(row);
+  messages.scrollTop = messages.scrollHeight;
+  return row;
+}
+
+/**
+ * 更新当前助手消息中的处理状态。
+ * @param {HTMLDivElement} row 要更新的助手消息节点。
+ * @param {string} message 当前工作流阶段说明。
+ * @returns {void} 原地更新消息正文。
+ */
+function setStatus(row, message) {
+  row.querySelector('.bubble').textContent = message;
+}
+
+/**
+ * 提交用户文字，调用后端，并在对话区显示结果或错误。
+ * @param {SubmitEvent} event 表单提交事件。
+ * @returns {Promise<void>} 请求完成后结束；错误会显示在对话区。
+ */
+async function onSubmit(event) {
+  event.preventDefault();
+  const value = text.value.trim();
+  if (!value) return;
+  add(value, 'user');
+  text.value = '';
+  send.disabled = true;
+  const pending = add('请求已提交，等待处理…', 'assistant');
+  try {
+    const apiBaseUrl = window.APP_CONFIG.apiBaseUrl;
+    const response = await fetch(`${apiBaseUrl}/api/chat`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({text: value})
+    });
+    const accepted = await response.json();
+    if (!response.ok) throw new Error(accepted.detail || '请求失败');
+    const events = new EventSource(new URL(accepted.events_url, apiBaseUrl));
+    events.addEventListener('progress', event => {
+      const progress = JSON.parse(event.data);
+      setStatus(pending, progress.message);
+    });
+    events.addEventListener('completed', event => {
+      const {result} = JSON.parse(event.data);
+      const labels = {positive: '正向', negative: '负向', neutral: '中性'};
+      pending.remove();
+      add(result.reply, 'assistant', `情绪：${labels[result.sentiment]} · ${result.reason}`);
+      events.close();
+      send.disabled = false;
+      text.focus();
+    });
+    events.addEventListener('failed', event => {
+      const failure = JSON.parse(event.data);
+      setStatus(pending, failure.message);
+      events.close();
+      send.disabled = false;
+      text.focus();
+    });
+    events.onerror = () => {
+      setStatus(pending, '连接进度流失败，请刷新后重试。');
+      events.close();
+      send.disabled = false;
+      text.focus();
+    };
+  } catch (error) {
+    setStatus(pending, `暂时无法提交：${error.message}`);
+    send.disabled = false;
+    text.focus();
+  }
+}
+form.addEventListener('submit', onSubmit);
+/** Enter 发送消息，Shift+Enter 保留换行并跳过输入法确认键。
+ * @param {KeyboardEvent} event 输入框键盘事件。
+ * @returns {void} 符合发送条件时提交表单。
+ */
+function onTextKeyDown(event) {
+  if (event.key !== 'Enter' || event.shiftKey || event.isComposing || event.keyCode === 229) return;
+  event.preventDefault();
+  if (!send.disabled) form.requestSubmit();
+}
+text.addEventListener('keydown', onTextKeyDown);
+</script></body></html>
