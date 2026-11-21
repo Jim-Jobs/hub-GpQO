@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>情感识别与回应</title>
+  <style>
+    :root {
+      --bg: #f3f0e8;
+      --ink: #1c1a16;
+      --muted: #6b6458;
+      --line: #d9d2c4;
+      --panel: #fffdf8;
+      --accent: #2f6f5e;
+      --accent-soft: #e4efe9;
+      --pos: #2f6f5e;
+      --neg: #a33b2b;
+      --neu: #6b6458;
+      --danger: #8b2e22;
+      --shadow: 0 12px 40px rgba(28, 26, 22, 0.08);
+      --font-display: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-body: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-body);
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse 80% 50% at 10% -10%, #e8f0ea 0%, transparent 55%),
+        radial-gradient(ellipse 60% 40% at 100% 0%, #efe6d8 0%, transparent 50%),
+        var(--bg);
+    }
+
+    main {
+      width: min(720px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 3rem 0 4rem;
+    }
+
+    header h1 {
+      margin: 0 0 0.35rem;
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 4vw, 2rem);
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+
+    header p {
+      margin: 0 0 1.75rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 1.25rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 110px;
+      resize: vertical;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.9rem 1rem;
+      font: inherit;
+      color: var(--ink);
+      background: #fff;
+      outline: none;
+    }
+
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    .actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 0.9rem;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 0.7rem 1.25rem;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    button:active { transform: translateY(1px); }
+    button:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    .primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--line);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.9rem;
+    }
+
+    .chip {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .chip:hover { border-color: var(--accent); color: var(--accent); }
+
+    .result {
+      margin-top: 1.25rem;
+      display: none;
+    }
+
+    .result.visible { display: block; }
+
+    .meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 650;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .badge.positive { background: #e4efe9; color: var(--pos); }
+    .badge.negative { background: #f6e6e3; color: var(--neg); }
+    .badge.neutral  { background: #ece8e0; color: var(--neu); }
+
+    .reason, .reply {
+      border-top: 1px solid var(--line);
+      padding-top: 0.85rem;
+      margin-top: 0.85rem;
+    }
+
+    .reason h3, .reply h3 {
+      margin: 0 0 0.4rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .reason p, .reply p {
+      margin: 0;
+      line-height: 1.65;
+      white-space: pre-wrap;
+    }
+
+    .error {
+      display: none;
+      margin-top: 1rem;
+      color: var(--danger);
+      background: #f8ebe8;
+      border: 1px solid #efcfc8;
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      line-height: 1.5;
+    }
+
+    .error.visible { display: block; }
+
+    footer {
+      margin-top: 1.5rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>情感识别与回应</h1>
+      <p>输入一句话：先识别情感，再按正向鼓励 / 负向排解 / 中性陪伴生成回应。</p>
+    </header>
+
+    <section class="panel">
+      <label for="text">你的输入</label>
+      <textarea id="text" placeholder="例如：今天面试通过了，好开心！"></textarea>
+      <div class="actions">
+        <button class="primary" id="send" type="button">发送</button>
+        <button class="ghost" id="clear" type="button">清空</button>
+      </div>
+      <div class="chips" aria-label="样例">
+        <button class="chip" type="button" data-sample="今天面试通过了，好开心！">正向样例</button>
+        <button class="chip" type="button" data-sample="连续加班好累，感觉撑不住了">负向样例</button>
+        <button class="chip" type="button" data-sample="今天下午三点开会">中性样例</button>
+      </div>
+    </section>
+
+    <div class="error" id="error"></div>
+
+    <section class="panel result" id="result">
+      <div class="meta">
+        <span class="badge" id="badge">—</span>
+        <span id="engineHint" style="color: var(--muted); font-size: 0.85rem;"></span>
+      </div>
+      <div class="reason">
+        <h3>识别依据</h3>
+        <p id="reason">—</p>
+      </div>
+      <div class="reply">
+        <h3>回应</h3>
+        <p id="reply">—</p>
+      </div>
+    </section>
+
+    <footer id="footer">后端引擎检测中…</footer>
+  </main>
+
+  <script>
+    const textEl = document.getElementById("text");
+    const sendBtn = document.getElementById("send");
+    const clearBtn = document.getElementById("clear");
+    const errorEl = document.getElementById("error");
+    const resultEl = document.getElementById("result");
+    const badgeEl = document.getElementById("badge");
+    const reasonEl = document.getElementById("reason");
+    const replyEl = document.getElementById("reply");
+    const footerEl = document.getElementById("footer");
+    const engineHintEl = document.getElementById("engineHint");
+
+    const labelMap = {
+      positive: "正向 · 鼓励",
+      negative: "负向 · 排解",
+      neutral: "中性 · 陪伴",
+    };
+
+    async function detectEngine() {
+      try {
+        const res = await fetch("/health");
+        const data = await res.json();
+        const name = data.engine === "langgraph" ? "LangGraph" : "OpenAI Agents";
+        footerEl.textContent = `当前后端：${name}`;
+        engineHintEl.textContent = `via ${name}`;
+      } catch {
+        footerEl.textContent = "无法连接后端 /health";
+      }
+    }
+
+    function showError(msg) {
+      errorEl.textContent = msg;
+      errorEl.classList.add("visible");
+      resultEl.classList.remove("visible");
+    }
+
+    function clearError() {
+      errorEl.textContent = "";
+      errorEl.classList.remove("visible");
+    }
+
+    function render(data) {
+      clearError();
+      badgeEl.textContent = labelMap[data.sentiment] || data.sentiment;
+      badgeEl.className = `badge ${data.sentiment}`;
+      reasonEl.textContent = data.reason;
+      replyEl.textContent = data.reply;
+      resultEl.classList.add("visible");
+    }
+
+    async function send() {
+      const text = textEl.value.trim();
+      if (!text) {
+        showError("请先输入内容");
+        return;
+      }
+      sendBtn.disabled = true;
+      sendBtn.textContent = "识别中…";
+      clearError();
+      try {
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          throw new Error(data.detail || `请求失败 (${res.status})`);
+        }
+        render(data);
+      } catch (err) {
+        showError(err.message || String(err));
+      } finally {
+        sendBtn.disabled = false;
+        sendBtn.textContent = "发送";
+      }
+    }
+
+    sendBtn.addEventListener("click", send);
+    clearBtn.addEventListener("click", () => {
+      textEl.value = "";
+      clearError();
+      resultEl.classList.remove("visible");
+      textEl.focus();
+    });
+    textEl.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) send();
+    });
+    document.querySelectorAll("[data-sample]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        textEl.value = btn.getAttribute("data-sample");
+        textEl.focus();
+      });
+    });
+
+    detectEngine();
+  </script>
+</body>
+</html>
