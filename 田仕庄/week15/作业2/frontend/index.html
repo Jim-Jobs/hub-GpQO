@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <meta name="description" content="心语：先感受情绪，再给予温和回应。" />
+    <title>心语 · 情感陪伴</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="app-header">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.5 11.5a8.5 8.5 0 0 1-12.1 7.7L3.5 21l1.9-4.6a8.5 8.5 0 1 1 15.1-4.9Z" />
+              <path d="M8.6 10.8c0-.9.7-1.6 1.6-1.6.5 0 .9.2 1.3.6.4-.4.8-.6 1.3-.6.9 0 1.6.7 1.6 1.6 0 1.5-1.6 2.5-2.9 3.4-1.3-.9-2.9-1.9-2.9-3.4Z" />
+            </svg>
+          </span>
+          <div class="brand-copy">
+            <h1>心语</h1>
+            <p>先感受情绪，再给予回应</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <div class="service-state" id="service-state" data-state="loading" role="status">
+            <span class="state-dot" aria-hidden="true"></span>
+            <span id="service-text">正在连接</span>
+          </div>
+          <button type="button" class="ghost-button" id="new-chat">新对话</button>
+        </div>
+      </header>
+
+      <main class="chat-card">
+        <div class="chat-scroll" id="chat-scroll">
+          <section class="empty-state" id="empty-state" aria-labelledby="empty-title">
+            <div class="empty-orb" aria-hidden="true"></div>
+            <h2 id="empty-title">今天想聊点什么？</h2>
+            <p>把此刻的心情写下来，我会先听懂它，再陪你慢慢梳理。</p>
+            <div class="suggestions" aria-label="快捷输入">
+              <button type="button" class="suggestion" data-message="今天有点累，想找人说说话。">今天有点累</button>
+              <button type="button" class="suggestion" data-message="我刚完成了一件小事，想分享这份开心。">分享一件小事</button>
+              <button type="button" class="suggestion" data-message="最近总是睡不好，脑子停不下来。">最近睡不好</button>
+            </div>
+          </section>
+
+          <div class="message-list" id="message-list" aria-live="polite" aria-relevant="additions"></div>
+
+          <div class="typing-row" id="typing-row" hidden>
+            <span class="avatar" aria-hidden="true">心</span>
+            <div class="typing-bubble" aria-label="正在生成回复">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="composer-wrap">
+          <p class="error-banner" id="error-banner" role="alert" hidden></p>
+          <form class="composer" id="chat-form" novalidate>
+            <label class="sr-only" for="message-input">输入消息</label>
+            <textarea
+              id="message-input"
+              name="message"
+              rows="1"
+              maxlength="4000"
+              placeholder="写下此刻的心情…"
+              autocomplete="off"
+              enterkeyhint="send"
+              aria-describedby="composer-hint"
+            ></textarea>
+            <div class="composer-footer">
+              <div class="composer-hints" id="composer-hint">
+                <span id="char-count">0 / 4000</span>
+                <span class="hint-sep" aria-hidden="true">·</span>
+                <span>Enter 发送，Shift + Enter 换行</span>
+              </div>
+              <button type="submit" class="send-button" id="send-button" disabled>
+                <span id="send-label">发送</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="m4 4 16 8-16 8 3-8-3-8Z" />
+                  <path d="M7 12h13" />
+                </svg>
+              </button>
+            </div>
+          </form>
+          <p class="disclaimer">本服务仅提供情感陪伴，不构成心理或医疗建议。</p>
+        </div>
+      </main>
+
+      <footer class="app-footer">
+        <span id="engine-label">引擎：—</span>
+        <span class="footer-sep" aria-hidden="true">·</span>
+        <span>会话 ID 仅保存在本机浏览器</span>
+      </footer>
+    </div>
+
+    <noscript>
+      <p class="noscript">需要启用 JavaScript 才能使用对话功能。</p>
+    </noscript>
+    <script src="/app.js" defer></script>
+  </body>
+</html>
