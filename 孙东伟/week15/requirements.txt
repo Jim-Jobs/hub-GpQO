@@ -1,0 +1,21 @@
+# 作业 1 + 作业 2 运行依赖（Python 3.12）—— 后端进程
+# 前端依赖单独放在 frontend/requirements.txt，避免把 Streamlit / pyarrow
+# 打进只有 API 的镜像里（体积从 ~1GB 降到 ~700MB）。
+# 本地实测版本：langgraph 1.2.23 / langchain-openai 1.8.3 / openai-agents 0.25.0
+# 需要完全可复现时：pip download -r requirements.txt 后锁成 ==。
+
+# --- 编排框架 ---
+langgraph>=1.2,<2
+langchain-openai>=1.8,<2
+openai-agents>=0.25,<0.26
+
+# --- 后端 ---
+fastapi>=0.165,<1
+uvicorn[standard]>=0.54,<1
+pydantic>=2.14,<3
+python-dotenv>=1.2,<2
+httpx>=0.28,<1
+
+# --- 测试 ---
+pytest>=9,<10
+pytest-asyncio>=1.5,<2

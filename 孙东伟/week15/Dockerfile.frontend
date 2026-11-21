@@ -1,0 +1,32 @@
+# 前端进程镜像：只装 Streamlit，与后端 API 镜像解耦。
+#
+#   docker build -f Dockerfile.frontend -t sentiment-companion-ui .
+#   docker run -p 8501:8501 -e API_BASE=http://host.docker.internal:8000 sentiment-companion-ui
+
+ARG BASE_IMAGE=python:3.12-slim
+FROM ${BASE_IMAGE}
+
+ARG PIP_INDEX_URL=https://mirrors.aliyun.com/pypi/simple/
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_INDEX_URL=${PIP_INDEX_URL} \
+    PIP_TRUSTED_HOST=mirrors.aliyun.com
+
+WORKDIR /app
+COPY frontend/requirements.txt ./frontend/requirements.txt
+RUN pip install -r frontend/requirements.txt
+
+COPY frontend ./frontend
+
+ENV API_BASE=http://127.0.0.1:8000
+RUN useradd --create-home --uid 10001 appuser && chown -R appuser:appuser /app
+USER appuser
+
+EXPOSE 8501
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+    CMD python -c "import sys, urllib.request; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8501/_stcore/health', timeout=3).status == 200 else 1)"
+
+CMD ["streamlit", "run", "frontend/streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]

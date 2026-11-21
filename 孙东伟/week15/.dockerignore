@@ -1,0 +1,17 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.git/
+.gitignore
+.env
+.env.*
+!.env.example
+eval/report.md
+docs/*.png
+*.log
+.DS_Store
+Thumbs.db
