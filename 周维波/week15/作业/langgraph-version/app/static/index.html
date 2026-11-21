@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>情绪支持流水线</title>
+<style>
+  :root {
+    --bg: #f4f2ed;
+    --panel: #ffffff;
+    --ink: #1f2421;
+    --muted: #6f7772;
+    --line: #e3ded4;
+    --accent: #2f6f63;
+    --accent-soft: #e6f0ed;
+    --pos: #2f855a;
+    --neg: #b45309;
+    --neu: #4b5563;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(1200px 600px at 10% -10%, #e9f0ec 0%, transparent 60%), var(--bg);
+    color: var(--ink);
+    font-family: "PingFang SC", "Microsoft YaHei", -apple-system, "Segoe UI", sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 32px 16px 48px;
+  }
+  .app { width: 100%; max-width: 780px; }
+  header { margin-bottom: 20px; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; letter-spacing: .12em; color: var(--accent);
+    background: var(--accent-soft); padding: 4px 10px; border-radius: 999px;
+  }
+  h1 { font-size: 26px; margin: 12px 0 6px; letter-spacing: .01em; }
+  .sub { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
+  .flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 14px; font-size: 12px; color: var(--muted); }
+  .flow span.dot { width: 5px; height: 5px; border-radius: 50%; background: var(--line); }
+  .flow b { color: var(--ink); font-weight: 600; }
+
+  .panel {
+    margin-top: 22px; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 18px; box-shadow: 0 18px 40px -28px rgba(31, 36, 33, .45);
+    overflow: hidden; display: flex; flex-direction: column;
+  }
+  .messages { padding: 22px; display: flex; flex-direction: column; gap: 18px; min-height: 300px; max-height: 56vh; overflow-y: auto; }
+  .empty { margin: auto; text-align: center; color: var(--muted); font-size: 14px; line-height: 1.9; max-width: 420px; }
+  .empty strong { color: var(--ink); display: block; margin-bottom: 6px; font-size: 15px; }
+
+  .msg { display: flex; flex-direction: column; gap: 8px; animation: rise .28s ease both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .msg.user { align-items: flex-end; }
+  .bubble {
+    max-width: 88%; padding: 12px 16px; border-radius: 14px; font-size: 14.5px; line-height: 1.75;
+    white-space: pre-wrap; word-break: break-word;
+  }
+  .msg.user .bubble { background: #1f2421; color: #f5f3ee; border-bottom-right-radius: 4px; }
+  .msg.bot .bubble { background: #fbfaf6; border: 1px solid var(--line); border-bottom-left-radius: 4px; }
+
+  .meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 12px; color: var(--muted); }
+  .chip { padding: 3px 9px; border-radius: 999px; font-weight: 600; font-size: 12px; border: 1px solid transparent; }
+  .chip.positive { color: var(--pos); background: #eaf5ee; border-color: #cfe6d8; }
+  .chip.negative { color: var(--neg); background: #fdf1e3; border-color: #f0dcc0; }
+  .chip.neutral { color: var(--neu); background: #eff1f3; border-color: #dfe3e7; }
+  .chip.tone { color: var(--accent); background: var(--accent-soft); border-color: #cfe3dc; }
+
+  .emotions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .emotions i { font-style: normal; font-size: 12px; color: var(--muted); background: #f3f1ea; padding: 2px 8px; border-radius: 6px; }
+
+  .tips { margin: 10px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .tips li { font-size: 13px; color: #37423c; display: flex; gap: 8px; align-items: baseline; }
+  .tips li::before { content: "→"; color: var(--accent); font-size: 12px; }
+
+  .trace { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); display: flex; flex-direction: column; gap: 4px; }
+  .trace div { font-size: 11.5px; color: #8b938d; display: flex; gap: 8px; }
+  .trace em { font-style: normal; color: #4d5a53; }
+  .trace u { text-decoration: none; color: #a3aaa4; margin-left: auto; }
+
+  .composer { border-top: 1px solid var(--line); padding: 14px 18px 16px; background: #fdfcf9; }
+  .examples { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+  .examples button {
+    border: 1px solid var(--line); background: #fff; color: var(--muted); font-size: 12px;
+    padding: 5px 10px; border-radius: 999px; cursor: pointer; transition: .18s;
+    font-family: inherit;
+  }
+  .examples button:hover { color: var(--accent); border-color: #bfd8d0; background: var(--accent-soft); }
+  .inputRow { display: flex; gap: 10px; align-items: flex-end; }
+  textarea {
+    flex: 1; resize: none; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px;
+    font-size: 14.5px; line-height: 1.6; font-family: inherit; background: #fff; color: var(--ink);
+    min-height: 52px; max-height: 160px; outline: none; transition: .18s;
+  }
+  textarea:focus { border-color: #a8ccc0; box-shadow: 0 0 0 3px #e6f0ed; }
+  .send {
+    height: 52px; padding: 0 22px; border: none; border-radius: 12px; background: var(--accent);
+    color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; transition: .18s; font-family: inherit;
+    display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  }
+  .send:hover { background: #275b51; }
+  .send:disabled { background: #a9bdb7; cursor: not-allowed; }
+  .hint { margin: 8px 2px 0; font-size: 11.5px; color: #9aa19b; display: flex; justify-content: space-between; }
+  .err { color: #b42318; font-size: 13px; }
+  .typing { color: var(--muted); font-size: 13px; }
+  @media (max-width: 560px) {
+    h1 { font-size: 22px; }
+    .messages { max-height: 50vh; padding: 16px; }
+    .send { padding: 0 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <span class="eyebrow">SENTIMENT PIPELINE</span>
+    <h1>情绪支持流水线</h1>
+    <p class="sub">说出你现在的心情。系统先判断情感倾向，再决定是「鼓励」还是「排解」。</p>
+    <div class="flow">
+      <span><b>输入</b></span><span class="dot"></span>
+      <span><b>进程 1</b> 情感识别</span><span class="dot"></span>
+      <span><b>进程 2</b> 正向鼓励 / 负面排解 / 中性回应</span>
+    </div>
+  </header>
+
+  <main class="panel">
+    <div class="messages" id="messages">
+      <div class="empty" id="empty">
+        <strong>这里没有别人，只有你和这台机器</strong>
+        写下今天发生的事，或者只是此刻的感觉。<br />
+        越具体，回应越贴近你。
+      </div>
+    </div>
+
+    <form class="composer" id="form">
+      <div class="examples" id="examples">
+        <button type="button">今天面试过了，感觉这几个月的努力没白费</button>
+        <button type="button">项目又延期了，我真的很累，不想干了</button>
+        <button type="button">明天要去体检，有点紧张</button>
+      </div>
+      <div class="inputRow">
+        <textarea id="input" rows="2" maxlength="4000" placeholder="今天发生了什么？"></textarea>
+        <button class="send" id="send" type="submit">发送</button>
+      </div>
+      <div class="hint"><span>Ctrl + Enter 发送</span><span id="counter">0 / 4000</span></div>
+    </form>
+  </main>
+</div>
+
+<script>
+const messagesEl = document.getElementById("messages");
+const emptyEl = document.getElementById("empty");
+const formEl = document.getElementById("form");
+const inputEl = document.getElementById("input");
+const sendEl = document.getElementById("send");
+const counterEl = document.getElementById("counter");
+const examplesEl = document.getElementById("examples");
+
+const LABEL_TEXT = { positive: "正向", negative: "负面", neutral: "中性" };
+const TONE_TEXT = { encourage: "鼓励模式", relief: "排解模式", neutral: "中性回应" };
+
+function scrollBottom() {
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+function addUser(text) {
+  if (emptyEl) emptyEl.remove();
+  const wrap = document.createElement("div");
+  wrap.className = "msg user";
+  const bubble = document.createElement("div");
+  bubble.className = "bubble";
+  bubble.textContent = text;
+  wrap.appendChild(bubble);
+  messagesEl.appendChild(wrap);
+  scrollBottom();
+}
+
+function addTyping() {
+  const wrap = document.createElement("div");
+  wrap.className = "msg bot";
+  wrap.id = "typing";
+  const bubble = document.createElement("div");
+  bubble.className = "bubble typing";
+  bubble.textContent = "正在识别情感…";
+  wrap.appendChild(bubble);
+  messagesEl.appendChild(wrap);
+  scrollBottom();
+  return wrap;
+}
+
+function addError(message) {
+  const wrap = document.createElement("div");
+  wrap.className = "msg bot";
+  const bubble = document.createElement("div");
+  bubble.className = "bubble err";
+  bubble.textContent = message;
+  wrap.appendChild(bubble);
+  messagesEl.appendChild(wrap);
+  scrollBottom();
+}
+
+function addBot(data) {
+  const wrap = document.createElement("div");
+  wrap.className = "msg bot";
+
+  const meta = document.createElement("div");
+  meta.className = "meta";
+  const s = data.sentiment;
+  meta.innerHTML =
+    '<span class="chip ' + s.label + '">' + LABEL_TEXT[s.label] + " · " + Math.round(s.confidence * 100) + "%</span>" +
+    '<span class="chip tone">' + (TONE_TEXT[data.tone] || data.tone) + "</span>" +
+    "<span>强度 " + s.intensity + "/5 · " + data.elapsed_ms + " ms</span>";
+  wrap.appendChild(meta);
+
+  const bubble = document.createElement("div");
+  bubble.className = "bubble";
+  bubble.textContent = data.reply;
+  wrap.appendChild(bubble);
+
+  if (s.emotions && s.emotions.length) {
+    const emo = document.createElement("div");
+    emo.className = "emotions";
+    emo.innerHTML = s.emotions.map(e => "<i>" + e + "</i>").join("");
+    wrap.appendChild(emo);
+  }
+
+  if (data.tips && data.tips.length) {
+    const tips = document.createElement("ul");
+    tips.className = "tips";
+    tips.innerHTML = data.tips.map(t => "<li>" + t + "</li>").join("");
+    wrap.appendChild(tips);
+  }
+
+  if (data.trace && data.trace.length) {
+    const trace = document.createElement("div");
+    trace.className = "trace";
+    trace.innerHTML = data.trace
+      .map(t => "<div><em>" + t.stage + "</em><span>" + t.name + "</span><u>" + t.elapsed_ms + " ms</u></div>")
+      .join("");
+    wrap.appendChild(trace);
+  }
+
+  messagesEl.appendChild(wrap);
+  scrollBottom();
+}
+
+async function submit(text) {
+  const value = text.trim();
+  if (!value || sendEl.disabled) return;
+
+  addUser(value);
+  inputEl.value = "";
+  updateCounter();
+  sendEl.disabled = true;
+  const typing = addTyping();
+
+  try {
+    const resp = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: value }),
+    });
+    const payload = await resp.json();
+    typing.remove();
+    if (!resp.ok) {
+      addError("请求失败：" + (payload.detail || resp.status));
+    } else {
+      addBot(payload);
+    }
+  } catch (err) {
+    typing.remove();
+    addError("网络异常：" + err.message);
+  } finally {
+    sendEl.disabled = false;
+    inputEl.focus();
+  }
+}
+
+function updateCounter() {
+  counterEl.textContent = inputEl.value.length + " / 4000";
+}
+
+formEl.addEventListener("submit", e => {
+  e.preventDefault();
+  submit(inputEl.value);
+});
+
+inputEl.addEventListener("input", () => {
+  updateCounter();
+  inputEl.style.height = "auto";
+  inputEl.style.height = Math.min(inputEl.scrollHeight, 160) + "px";
+});
+
+inputEl.addEventListener("keydown", e => {
+  if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+    e.preventDefault();
+    submit(inputEl.value);
+  }
+});
+
+examplesEl.addEventListener("click", e => {
+  const btn = e.target.closest("button");
+  if (btn) submit(btn.textContent);
+});
+
+updateCounter();
+inputEl.focus();
+</script>
+</body>
+</html>
