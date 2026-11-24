@@ -1,0 +1,31 @@
+# ── 抓取原始数据与缓存：体积大、可由脚本重跑生成，不入库 ──
+esg_bid_data/raw/
+esg_bid_data/cache/
+esg_bid_data/briefs/pushed.json
+*.log
+
+# ── 中间数据与成果产物：默认不入库 ──
+# 若希望 clone 后直接看到报告成果，注释掉下面几行并把 report/ 加入提交即可
+esg_bid_data/notices_clean.json
+esg_bid_data/projects.json
+esg_bid_data/stats.json
+esg_bid_data/report/
+esg_bid_data/briefs/
+insight.md
+insight_material.md
+
+# ── Python ──
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+
+# ── 编辑器 / 系统 / 本地私有状态 ──
+.workbuddy/
+.tmp_probe/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

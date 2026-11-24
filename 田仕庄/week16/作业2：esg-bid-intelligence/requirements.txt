@@ -1,0 +1,7 @@
+# ESG 投标情报 Skill 运行依赖（Python 3.12）
+# 安装后必须再执行一次：playwright install chromium
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
+Jinja2>=3.1.0
+openpyxl>=3.1.0
+playwright>=1.44.0

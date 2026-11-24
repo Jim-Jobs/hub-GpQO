@@ -1,0 +1,21 @@
+# 统一行尾，避免跨平台差异
+* text=auto
+
+*.py     text eol=lf
+*.md     text eol=lf
+*.txt    text eol=lf
+*.yaml   text eol=lf
+*.yml    text eol=lf
+*.j2     text eol=lf
+*.sh     text eol=lf
+*.bat    text eol=crlf
+*.cmd    text eol=crlf
+*.ps1    text eol=crlf
+
+*.png     binary
+*.jpg     binary
+*.jpeg    binary
+*.ico     binary
+*.docx    binary
+*.xlsx    binary
+*.pdf     binary

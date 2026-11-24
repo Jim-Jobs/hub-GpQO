@@ -1,0 +1,23 @@
+client: 中国神华
+industry: 煤炭开采与煤电一体化
+peers:
+  domestic:
+    - 陕西煤业
+    - 中煤能源
+    - 兖矿能源
+  international:
+    - Peabody
+    - Glencore
+keywords:
+  - 双碳
+  - 能源保供
+  - 绿色矿山
+  - CCUS
+  - 安全生产
+  - 煤电一体化
+  - 碳排放
+red_lines:
+  - 不预测政策
+  - 不评论短期煤价
+report_length: 5000
+table_count: "3-4"

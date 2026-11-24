@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "SummarizedItem": {
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "url": {
+          "title": "Url",
+          "type": "string"
+        },
+        "snippet": {
+          "title": "Snippet",
+          "type": "string"
+        },
+        "published_at": {
+          "title": "Published At",
+          "type": "string"
+        },
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "query": {
+          "title": "Query",
+          "type": "string"
+        },
+        "category": {
+          "title": "Category",
+          "type": "string"
+        },
+        "api": {
+          "title": "Api",
+          "type": "string"
+        },
+        "fetched_at": {
+          "title": "Fetched At",
+          "type": "string"
+        },
+        "date": {
+          "title": "Date",
+          "type": "string"
+        },
+        "section": {
+          "title": "Section",
+          "type": "string"
+        },
+        "impact_level": {
+          "enum": [
+            "高",
+            "中",
+            "低",
+            "待核实"
+          ],
+          "title": "Impact Level",
+          "type": "string"
+        },
+        "impact_one_liner": {
+          "title": "Impact One Liner",
+          "type": "string"
+        },
+        "todo": {
+          "default": false,
+          "title": "Todo",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "title",
+        "url",
+        "snippet",
+        "published_at",
+        "source",
+        "query",
+        "category",
+        "api",
+        "fetched_at",
+        "date",
+        "section",
+        "impact_level",
+        "impact_one_liner"
+      ],
+      "title": "SummarizedItem",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "generated_at": {
+      "title": "Generated At",
+      "type": "string"
+    },
+    "model": {
+      "title": "Model",
+      "type": "string"
+    },
+    "items": {
+      "items": {
+        "$ref": "#/$defs/SummarizedItem"
+      },
+      "title": "Items",
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "generated_at",
+    "model",
+    "items"
+  ],
+  "title": "SummarizedArtifact",
+  "type": "object"
+}

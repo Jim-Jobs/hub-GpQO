@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "Gap": {
+      "additionalProperties": false,
+      "properties": {
+        "query": {
+          "title": "Query",
+          "type": "string"
+        },
+        "category": {
+          "title": "Category",
+          "type": "string"
+        },
+        "reason": {
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "query",
+        "category",
+        "reason"
+      ],
+      "title": "Gap",
+      "type": "object"
+    },
+    "RawResult": {
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "url": {
+          "title": "Url",
+          "type": "string"
+        },
+        "snippet": {
+          "title": "Snippet",
+          "type": "string"
+        },
+        "published_at": {
+          "title": "Published At",
+          "type": "string"
+        },
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "query": {
+          "title": "Query",
+          "type": "string"
+        },
+        "category": {
+          "title": "Category",
+          "type": "string"
+        },
+        "api": {
+          "title": "Api",
+          "type": "string"
+        },
+        "fetched_at": {
+          "title": "Fetched At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "url",
+        "snippet",
+        "published_at",
+        "source",
+        "query",
+        "category",
+        "api",
+        "fetched_at"
+      ],
+      "title": "RawResult",
+      "type": "object"
+    },
+    "Window": {
+      "additionalProperties": false,
+      "properties": {
+        "start": {
+          "title": "Start",
+          "type": "string"
+        },
+        "end": {
+          "title": "End",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "title": "Window",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "generated_at": {
+      "title": "Generated At",
+      "type": "string"
+    },
+    "api": {
+      "title": "Api",
+      "type": "string"
+    },
+    "window": {
+      "$ref": "#/$defs/Window"
+    },
+    "gaps": {
+      "items": {
+        "$ref": "#/$defs/Gap"
+      },
+      "title": "Gaps",
+      "type": "array"
+    },
+    "results": {
+      "items": {
+        "$ref": "#/$defs/RawResult"
+      },
+      "title": "Results",
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "generated_at",
+    "api",
+    "window",
+    "gaps",
+    "results"
+  ],
+  "title": "RawArtifact",
+  "type": "object"
+}

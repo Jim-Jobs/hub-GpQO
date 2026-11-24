@@ -1,0 +1,31 @@
+whitelist:
+  - mee.gov.cn
+  - ndrc.gov.cn
+  - nea.gov.cn
+  - csrc.gov.cn
+  - sse.com.cn
+  - szse.cn
+  - mof.gov.cn
+  - ifrs.org
+  - globalreporting.org
+  - msci.com
+  - spglobal.com
+  - cdp.net
+  - shenhua.com
+  - cctd.com.cn
+
+queries:
+  policy:
+    - "{month} ESG 政策 生态环境部"
+    - "{month} 碳排放 政策 发改委"
+    - "{month} 上市公司 ESG 信息披露 交易所"
+  standard:
+    - "{month} ISSB GRI 评级 机构 动态"
+  industry:
+    - "{month} 煤炭 行业 动态"
+    - "{month} 煤电 一体化 政策"
+  client:
+    - "{month} {client} ESG"
+    - "{month} {client} 公告"
+  peer:
+    - "{month} {peer} ESG"

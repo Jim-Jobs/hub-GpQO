@@ -1,0 +1,24 @@
+# 密钥：仅提交 .env.example（README §11）
+config/.env
+
+# 报告产物与中间 JSON（README §6、§12.1）
+output/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+
+# 系统 / 编辑器
+.DS_Store
+Thumbs.db
+.idea/

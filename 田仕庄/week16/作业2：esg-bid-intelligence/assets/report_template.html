@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }}</title>
+<script>{{ echarts_js | safe }}</script>
+<style>
+  :root{
+    --ink:#0f172a; --ink2:#334155; --muted:#64748b; --line:#e2e8f0;
+    --bg:#f6f8fb; --card:#ffffff;
+    --blue:#2563eb; --green:#059669; --amber:#d97706; --violet:#7c3aed; --rose:#e11d48; --cyan:#0891b2;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    font-size:14px;line-height:1.7;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px 64px}
+
+  /* ---------- header ---------- */
+  header{padding:44px 0 26px;border-bottom:1px solid var(--line);margin-bottom:28px}
+  .eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:10px}
+  h1{font-size:30px;line-height:1.3;margin:0 0 12px;font-weight:700;letter-spacing:-.01em}
+  .sub{color:var(--muted);font-size:13.5px}
+  .sub b{color:var(--ink2);font-weight:600}
+
+  /* ---------- kpi ---------- */
+  .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin:26px 0 34px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 16px 14px;
+       box-shadow:0 1px 2px rgba(15,23,42,.04);min-height:112px;display:flex;flex-direction:column}
+  .kpi .k{font-size:11.5px;color:var(--muted);margin-bottom:8px;letter-spacing:.02em}
+  .kpi .v{font-size:23px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.1}
+  .kpi .v small{font-size:12px;font-weight:600;color:var(--muted);margin-left:2px}
+  .kpi .d{font-size:11.5px;color:var(--muted);margin-top:auto;padding-top:6px;line-height:1.45}
+  .kpi .d.up{color:var(--rose)} .kpi .d.down{color:var(--green)}
+
+  /* ---------- sections ---------- */
+  section{margin-bottom:38px}
+  .sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+  .sec-no{font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.1em;
+          background:#eff6ff;border-radius:6px;padding:3px 8px}
+  h2{font-size:19px;margin:0;font-weight:700;letter-spacing:-.01em}
+  .sec-desc{color:var(--muted);font-size:13px;margin:2px 0 18px 0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+        padding:22px 22px 16px;box-shadow:0 1px 3px rgba(15,23,42,.05);margin-bottom:16px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .grid3{display:grid;grid-template-columns:1.6fr 1fr;gap:16px}
+  .chart{width:100%;height:320px}
+  .chart.sm{height:280px}
+
+  /* ---------- table ---------- */
+  table{width:100%;border-collapse:collapse;font-size:12.8px}
+  thead th{text-align:left;font-weight:600;color:var(--muted);font-size:11.5px;
+           letter-spacing:.04em;padding:9px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+  tbody td{padding:10px;border-bottom:1px solid #f1f5f9;vertical-align:top}
+  tbody tr:hover{background:#fafbfc}
+  td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:600}
+  .tag{display:inline-block;font-size:11px;padding:1.5px 7px;border-radius:5px;
+       background:#f1f5f9;color:var(--ink2);margin-right:4px;white-space:nowrap}
+  .tag.b{background:#eff6ff;color:#1d4ed8}
+  .tag.g{background:#ecfdf5;color:#047857}
+  .tag.a{background:#fffbeb;color:#b45309}
+  .ellip{max-width:430px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* ---------- insight ---------- */
+  .insights{background:#fff;border:1px solid var(--line);border-radius:14px;padding:6px 26px 18px;
+            box-shadow:0 1px 3px rgba(15,23,42,.05)}
+  .insights p{margin:14px 0;color:var(--ink2);font-size:13.6px}
+  .insights strong{color:var(--ink);font-weight:650}
+  .insights h3{font-size:14px;margin:20px 0 6px;color:var(--blue);font-weight:650}
+  .callout{border-left:3px solid var(--blue);background:#f8fbff;padding:12px 16px;border-radius:0 8px 8px 0;
+           margin:16px 0;font-size:13.3px;color:var(--ink2)}
+  .callout.warn{border-color:var(--amber);background:#fffdf7}
+  .callout b{color:var(--ink)}
+
+  /* ---------- misc ---------- */
+  .note{font-size:12px;color:var(--muted);line-height:1.75}
+  .note b{color:var(--ink2)}
+  .divider{height:1px;background:var(--line);margin:30px 0}
+  footer{color:var(--muted);font-size:11.5px;border-top:1px solid var(--line);padding-top:18px}
+  .empty{padding:28px;text-align:center;color:var(--muted);font-size:12.5px}
+
+  @media (max-width:960px){
+    .kpis{grid-template-columns:repeat(3,1fr)}
+    .grid2,.grid3{grid-template-columns:1fr}
+    h1{font-size:24px}
+  }
+  @media print{
+    body{background:#fff}
+    .card,.kpi,.insights{box-shadow:none;break-inside:avoid}
+    section{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Bid Intelligence Report</div>
+    <h1>{{ title }}</h1>
+    <div class="sub">
+      统计区间 <b>{{ period }}</b> ·
+      数据来源 <b>{{ source }}</b> ·
+      样本量 <b>{{ meta.n_core }}</b> 个核心项目 ·
+      生成于 {{ meta.generated_at }}
+    </div>
+  </header>
+
+  <div class="kpis">
+    {% for k in kpis %}
+    <div class="kpi">
+      <div class="k">{{ k.label }}</div>
+      <div class="v">{{ k.value }}<small>{{ k.unit }}</small></div>
+      <div class="d {{ k.cls }}">{{ k.sub }}</div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <section>
+    <div class="sec-head"><span class="sec-no">01</span><h2>市场总量与增长节奏</h2></div>
+    <div class="sec-desc">按公告发布月份统计采购与成交规模，识别预算释放的季节性规律与年度走势。</div>
+    <div class="grid3">
+      <div class="card"><div id="c_trend" class="chart"></div></div>
+      <div class="card"><div id="c_year" class="chart"></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-no">02</span><h2>中标金额分布</h2></div>
+    <div class="sec-desc">所有已披露成交金额的项目按价格带归集。价格带结构直接决定投标报价策略与资质匹配。</div>
+    <div class="grid2">
+      <div class="card"><div id="c_dist" class="chart"></div></div>
+      <div class="card"><div id="c_tier" class="chart"></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-no">03</span><h2>热点标的与买方结构</h2></div>
+    <div class="sec-desc">左：按业务主题归集的成交金额与项目数（单归属，互斥可加）。右：采购方行业构成。</div>
+    <div class="grid2">
+      <div class="card"><div id="c_topic" class="chart"></div></div>
+      <div class="card"><div id="c_industry" class="chart"></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-no">04</span><h2>竞争格局</h2></div>
+    <div class="sec-desc">按中标金额与中标次数排列的头部供应商。份额基于已披露金额的成交项目计算。</div>
+    <div class="card">
+      {% if suppliers %}
+      <table>
+        <thead><tr>
+          <th style="width:34px">#</th><th>中标单位</th><th>主攻领域</th>
+          <th class="num">中标次数</th><th class="num">中标金额(万元)</th>
+          <th class="num">金额份额</th><th class="num">平均单价(万元)</th><th>覆盖区域</th>
+        </tr></thead>
+        <tbody>
+        {% for s in suppliers %}
+          <tr>
+            <td class="num" style="color:var(--muted)">{{ loop.index }}</td>
+            <td><b>{{ s.name }}</b></td>
+            <td><span class="tag">{{ s.tier_label }}</span></td>
+            <td class="num">{{ s.count }}</td>
+            <td class="num">{{ s.amt_wan }}</td>
+            <td class="num">{{ s.share }}%</td>
+            <td class="num">{{ s.avg_wan }}</td>
+            <td style="color:var(--muted);font-size:12px">{{ s.regions }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      {% else %}<div class="empty">该区间内未解析到有效中标单位</div>{% endif %}
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-no">05</span><h2>价格基准与投标参照</h2></div>
+    <div class="sec-desc">分层的四分位区间。P25–P75 是主流成交带，报价落在此区间外的项目中标概率显著下降。</div>
+    <div class="grid2">
+      <div class="card"><div id="c_bench" class="chart"></div></div>
+      <div class="card">
+        {% if benchmarks %}
+        <table>
+          <thead><tr><th>业务分层</th><th class="num">样本</th><th class="num">P25</th>
+          <th class="num">中位数</th><th class="num">P75</th></tr></thead>
+          <tbody>
+          {% for b in benchmarks %}
+            <tr><td><b>{{ b.label }}</b></td><td class="num">{{ b.n }}</td>
+            <td class="num">{{ b.p25 }}</td><td class="num">{{ b.median }}</td>
+            <td class="num">{{ b.p75 }}</td></tr>
+          {% endfor %}
+          </tbody>
+        </table>
+        <p class="note" style="margin-top:14px">单位：万元。样本为已披露金额的成交项目。</p>
+        {% else %}<div class="empty">样本不足，无法生成价格基准</div>{% endif %}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-no">06</span><h2>高价值项目清单</h2></div>
+    <div class="sec-desc">按中标金额降序的头部项目，可直接用于客户拜访与竞争复盘。</div>
+    <div class="card">
+      {% if deals %}
+      <table>
+        <thead><tr><th style="width:34px">#</th><th>项目名称</th><th>采购人</th>
+        <th>中标单位</th><th class="num">金额(万元)</th><th>地区</th><th>成交日</th></tr></thead>
+        <tbody>
+        {% for d in deals %}
+          <tr>
+            <td class="num" style="color:var(--muted)">{{ loop.index }}</td>
+            <td><div class="ellip"><a href="{{ d.url }}" target="_blank">{{ d.name }}</a></div>
+                <span class="tag b">{{ d.tier }}</span></td>
+            <td class="ellip" style="max-width:180px">{{ d.buyer }}</td>
+            <td class="ellip" style="max-width:200px">{{ d.winner or '—' }}</td>
+            <td class="num">{{ d.amount_wan }}</td>
+            <td style="color:var(--muted)">{{ d.region }}</td>
+            <td style="color:var(--muted);font-size:12px">{{ d.date }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      {% else %}<div class="empty">暂无金额数据</div>{% endif %}
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-no">07</span><h2>深度洞察与行动建议</h2></div>
+    <div class="sec-desc">基于本次样本的定量结论与定性判断。</div>
+    <div class="insights">
+      {{ narrative | safe }}
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section>
+    <div class="sec-head"><span class="sec-no">08</span><h2>口径与方法说明</h2></div>
+    <div class="insights">
+      <p class="note">
+        <b>数据来源</b>：{{ source }}。公告为公开信息，具备法定效力；金额以公告披露的中标（成交）金额为准。
+      </p>
+      <p class="note">
+        <b>口径定义</b>：宽口径覆盖三层 —— <span class="tag b">ESG 核心服务</span>
+        报告编制/咨询/评级评价/信息披露；<span class="tag g">双碳与碳管理</span>
+        碳达峰碳中和规划、温室气体核算核查、碳资产碳交易、碳足迹、零碳低碳载体；
+        <span class="tag a">绿色低碳周边</span> 绿色工厂供应链、节能诊断、环保咨询、绿色金融气候投融资。
+      </p>
+      <p class="note">
+        <b>样本清洗</b>：剔除关键词误命中（如以"双碳"命名的楼宇工程、设备采购、场地租赁、会议培训）。
+        站内公告标题常以代理机构名开头，已先剥离该前缀，避免"造价咨询""项目管理"等词把真实的
+        双碳规划研究误判为基建；同时区分"工程量清单编制"（工程）与"温室气体排放清单编制"（碳核算服务）。
+        最后按"采购人 + 项目名"聚合招标公告、更正公告与中标公告，避免同一项目被重复计数。
+      </p>
+      <p class="note">
+        <b>统计基准</b>：核心样本 = 相关性高/中 且 项目性质为服务采购。工程建设类与会议活动类不计入金额分布与价格基准，
+        以免拉偏单价。金额覆盖率 {{ meta.amount_coverage }}%（已成交项目中成功解析金额的比例），
+        未解析部分不影响比例结构，但会使绝对金额偏低估。
+      </p>
+      <p class="note">
+        <b>时间口径</b>：统计区间 {{ period }} 的首尾年份未必是完整自然年，
+        因此年度柱状图仅表示各年在该区间内已披露公告的累计值，<b>不做年度同比</b>；
+        跨年趋势请以月度走势为准，避免把区间截断误读为市场回落。
+      </p>
+      <p class="note">
+        <b>使用限制</b>：仅覆盖中国政府采购网公开公告，不含国企自主采购平台、央企电子采购平台与商业聚合数据源，
+        因此实际市场规模应高于本报告结论。建议作为趋势与单价参照，而非绝对值口径。
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    {{ title }} · 自动生成于 {{ meta.generated_at }} · 数据快照 {{ period }}
+    <br>本报告由 ESG 投标情报分析流水线生成，统计逻辑与清洗规则见配套脚本。
+  </footer>
+</div>
+
+<script>
+const D = {{ data_json | safe }};
+
+const C = {blue:'#2563eb',green:'#059669',amber:'#d97706',violet:'#7c3aed',
+           rose:'#e11d48',cyan:'#0891b2',slate:'#64748b'};
+const PALETTE = [C.blue,C.green,C.amber,C.violet,C.cyan,C.rose,'#0d9488','#9333ea','#ca8a04','#475569'];
+// 注意: 这里不能放 axisLabel。各图表用 Object.assign(自定义, AXIS) 合并,
+// 若 AXIS 带 axisLabel 会把自定义的 interval/rotate/formatter 全部覆盖掉。
+// 默认 label 样式统一在 mk() 里补齐。
+const AXIS = {
+  axisLine:{lineStyle:{color:'#e2e8f0'}},
+  axisTick:{show:false},
+  splitLine:{lineStyle:{color:'#f1f5f9'}}
+};
+const AXIS_LABEL_DEFAULT = {color:'#64748b',fontSize:11};
+const BASE = {
+  grid:{left:52,right:22,top:34,bottom:38},
+  tooltip:{trigger:'axis',backgroundColor:'#0f172a',borderWidth:0,
+           textStyle:{color:'#fff',fontSize:12},axisPointer:{type:'shadow'}},
+  textStyle:{fontFamily:'-apple-system,"PingFang SC","Microsoft YaHei",sans-serif'}
+};
+
+const charts = [];
+function mk(id, opt){
+  const el = document.getElementById(id);
+  if(!el) return;
+  // 统一补默认 label 样式, 同时保留各图表自定义的 interval/rotate/formatter
+  ['xAxis','yAxis'].forEach(function(k){
+    const a = opt[k];
+    if(!a) return;
+    (Array.isArray(a) ? a : [a]).forEach(function(ax){
+      if(ax) ax.axisLabel = Object.assign({}, AXIS_LABEL_DEFAULT, ax.axisLabel || {});
+    });
+  });
+  const c = echarts.init(el);
+  c.setOption(Object.assign({}, BASE, opt));
+  charts.push(c);
+}
+window.addEventListener('resize', ()=>charts.forEach(c=>c.resize()));
+
+/* 01 月度趋势 */
+(function(){
+  const m = D.by_month || {};
+  const ks = Object.keys(m);
+  if(!ks.length) return;
+  mk('c_trend', {
+    grid:{left:58,right:58,top:40,bottom:40},
+    legend:{data:['成交金额','项目数'],right:0,top:0,textStyle:{color:'#64748b',fontSize:11},itemWidth:12,itemHeight:8},
+    tooltip:Object.assign({}, BASE.tooltip, {formatter:function(p){
+      let s = p[0].axisValue;
+      p.forEach(x=>{ s += '<br>'+x.marker+x.seriesName+'：'+(x.seriesName==='成交金额'
+        ? Number(x.value).toLocaleString()+' 万元' : x.value+' 个'); });
+      return s;
+    }}),
+    xAxis:Object.assign({type:'category',data:ks,
+      axisLabel:{fontSize:10,interval:ks.length>16?1:0,
+                 rotate:ks.length>16?32:0,
+                 formatter:function(v){return String(v).slice(2);}}}, AXIS),
+    yAxis:[
+      Object.assign({type:'value',name:'万元',nameTextStyle:{color:'#94a3b8',fontSize:10}}, AXIS),
+      Object.assign({type:'value',name:'个',nameTextStyle:{color:'#94a3b8',fontSize:10},
+                     splitLine:{show:false}}, AXIS)
+    ],
+    series:[
+      {name:'成交金额',type:'bar',data:ks.map(k=>+(m[k].amount/1e4).toFixed(1)),
+       itemStyle:{color:C.blue,borderRadius:[4,4,0,0]}, barMaxWidth:22},
+      {name:'项目数',type:'line',yAxisIndex:1,data:ks.map(k=>m[k].count),
+       smooth:true,symbol:'circle',symbolSize:6,
+       lineStyle:{color:C.amber,width:2},itemStyle:{color:C.amber}}
+    ]
+  });
+})();
+
+/* 01b 年度对比; 若样本只覆盖单一年度, 退化为地区分布, 避免出现无意义的孤柱 */
+(function(){
+  const y = D.by_year || {};
+  const ks = Object.keys(y);
+  if(ks.length >= 2){
+    // 金额(万元)与项目数(个)量纲差 2-3 个数量级, 必须双 Y 轴,
+    // 否则项目数柱会贴地不可见。项目数改用折线, 与月度趋势图视觉语言一致。
+    mk('c_year', {
+      legend:{data:['成交金额','项目数'],bottom:0,textStyle:{color:'#64748b',fontSize:11},itemWidth:12,itemHeight:8},
+      grid:{left:52,right:52,top:26,bottom:52},
+      xAxis:Object.assign({type:'category',data:ks}, AXIS),
+      yAxis:[
+        Object.assign({type:'value',name:'万元',nameTextStyle:{color:'#94a3b8',fontSize:10}}, AXIS),
+        Object.assign({type:'value',name:'个',nameTextStyle:{color:'#94a3b8',fontSize:10},
+                       splitLine:{show:false}}, AXIS)
+      ],
+      series:[
+        {name:'成交金额',type:'bar',yAxisIndex:0,data:ks.map(k=>+(y[k].amount/1e4).toFixed(1)),
+         itemStyle:{color:C.green,borderRadius:[5,5,0,0]},barMaxWidth:44,
+         // 金额标签放柱内, 避免与折线的项目数标签在柱顶重叠
+         label:{show:true,position:'insideTop',color:'#fff',fontSize:11,fontWeight:600,
+                offset:[0,4],formatter:p=>Number(p.value).toLocaleString()}},
+        {name:'项目数',type:'line',yAxisIndex:1,data:ks.map(k=>y[k].count),
+         smooth:true,symbol:'circle',symbolSize:8,
+         lineStyle:{color:C.amber,width:2.5},itemStyle:{color:C.amber},
+         label:{show:true,position:'top',offset:[16,-6],color:'#b45309',fontSize:11,fontWeight:600,
+                backgroundColor:'rgba(255,255,255,.88)',padding:[1,3],borderRadius:3}}
+      ]
+    });
+    return;
+  }
+  const r = (D.region_dist || []).slice(0,9).reverse();
+  if(!r.length) return;
+  mk('c_year', {
+    title:{text:'地区成交额 TOP',left:0,top:0,
+           textStyle:{fontSize:11.5,color:'#94a3b8',fontWeight:500}},
+    grid:{left:66,right:66,top:32,bottom:26},
+    tooltip:Object.assign({}, BASE.tooltip,{formatter:function(p){
+      const i = r[p[0].dataIndex];
+      return i.name+'<br>成交额：'+Number(i.amount/1e4).toFixed(1)+' 万元'
+           +'<br>项目数：'+i.count+' 个';
+    }}),
+    xAxis:Object.assign({type:'value',name:'万元',nameTextStyle:{color:'#94a3b8',fontSize:10}}, AXIS),
+    yAxis:Object.assign({type:'category',data:r.map(x=>x.name),
+      axisLabel:{color:'#334155',fontSize:11}}, AXIS),
+    series:[{
+      type:'bar',data:r.map(x=>+(x.amount/1e4).toFixed(1)),barMaxWidth:15,
+      itemStyle:{borderRadius:[0,4,4,0],
+        color:new echarts.graphic.LinearGradient(0,0,1,0,[
+          {offset:0,color:'#a7f3d0'},{offset:1,color:'#059669'}])},
+      label:{show:true,position:'right',color:'#047857',fontSize:10.5,fontWeight:600,
+             formatter:p=>Number(p.value).toLocaleString()}
+    }]
+  });
+})();
+
+/* 02 金额分布 */
+(function(){
+  const d = D.amount_dist || [];
+  if(!d.length) return;
+  mk('c_dist', {
+    legend:{bottom:0,textStyle:{color:'#64748b',fontSize:11},itemWidth:12,itemHeight:8},
+    grid:{left:52,right:20,top:26,bottom:56},
+    xAxis:Object.assign({type:'category',data:d.map(x=>x.label),
+      axisLabel:{color:'#64748b',fontSize:10.5,interval:0,rotate:d.length>6?20:0}}, AXIS),
+    yAxis:Object.assign({type:'value',name:'项目数',nameTextStyle:{color:'#94a3b8',fontSize:10}}, AXIS),
+    series:[{
+      name:'项目数',type:'bar',data:d.map(x=>x.count),
+      itemStyle:{borderRadius:[5,5,0,0],
+        color:new echarts.graphic.LinearGradient(0,0,0,1,[
+          {offset:0,color:'#3b82f6'},{offset:1,color:'#93c5fd'}])},
+      barMaxWidth:46,
+      label:{show:true,position:'top',color:'#1d4ed8',fontSize:11,fontWeight:600,
+             formatter:p=>p.value? p.value+' 个' : ''}
+    }]
+  });
+})();
+
+/* 02b 分层: 各层金额量纲差异极大(双碳可能是 ESG 的 20 倍), 单轴柱状会让小层消失,
+   故用双 Y 轴同时呈现"金额"与"项目数"两个维度 */
+(function(){
+  const d = D.tier_dist || [];
+  if(!d.length) return;
+  mk('c_tier', {
+    legend:{data:['成交金额','项目数'],bottom:0,textStyle:{color:'#64748b',fontSize:11},itemWidth:12,itemHeight:8},
+    grid:{left:58,right:46,top:30,bottom:56},
+    tooltip:Object.assign({}, BASE.tooltip,{formatter:function(p){
+      let s=p[0].axisValue;
+      p.forEach(x=>{s+='<br>'+x.marker+x.seriesName+'：'+(x.seriesName==='成交金额'
+        ? Number(x.value).toLocaleString()+' 万元':x.value+' 个');});
+      return s;
+    }}),
+    xAxis:Object.assign({type:'category',data:d.map(x=>x.label),
+      axisLabel:{color:'#64748b',fontSize:10.5,interval:0}}, AXIS),
+    yAxis:[
+      Object.assign({type:'value',name:'万元',nameTextStyle:{color:'#94a3b8',fontSize:10}}, AXIS),
+      Object.assign({type:'value',name:'个',nameTextStyle:{color:'#94a3b8',fontSize:10},
+                     splitLine:{show:false}}, AXIS)
+    ],
+    series:[
+      {name:'成交金额',type:'bar',data:d.map(x=>+(x.amount/1e4).toFixed(1)),
+       itemStyle:{color:PALETTE[1],borderRadius:[5,5,0,0]},barMaxWidth:40,
+       label:{show:true,position:'top',color:'#047857',fontSize:10.5,fontWeight:600,
+              formatter:p=>Number(p.value).toLocaleString()}},
+      {name:'项目数',type:'bar',yAxisIndex:1,data:d.map(x=>x.count),
+       itemStyle:{color:'#bfdbfe',borderRadius:[5,5,0,0]},barMaxWidth:40,
+       label:{show:true,position:'top',color:'#1d4ed8',fontSize:10.5,fontWeight:600}}
+    ]
+  });
+})();
+
+/* 03 主题 */
+(function(){
+  const d = (D.topics||[]).filter(x=>x.amount>0).slice(0,10).reverse();
+  if(!d.length) return;
+  mk('c_topic', {
+    grid:{left:118,right:64,top:16,bottom:26},
+    tooltip:Object.assign({}, BASE.tooltip,{formatter:function(p){
+      const i = d[p[0].dataIndex];
+      return i.name+'<br>成交金额：'+Number(i.amount/1e4).toFixed(1)+' 万元'
+           +'<br>项目数：'+i.count+' 个';
+    }}),
+    xAxis:Object.assign({type:'value',name:'万元',nameTextStyle:{color:'#94a3b8',fontSize:10}}, AXIS),
+    yAxis:Object.assign({type:'category',data:d.map(x=>x.name),
+      axisLabel:{color:'#334155',fontSize:11}}, AXIS),
+    series:[{
+      type:'bar',data:d.map(x=>+(x.amount/1e4).toFixed(1)),
+      itemStyle:{borderRadius:[0,5,5,0],
+        color:new echarts.graphic.LinearGradient(0,0,1,0,[
+          {offset:0,color:'#bfdbfe'},{offset:1,color:'#2563eb'}])},
+      barMaxWidth:17,
+      label:{show:true,position:'right',color:'#1e40af',fontSize:10.5,fontWeight:600,
+             formatter:p=>Number(p.value).toLocaleString()}
+    }]
+  });
+})();
+
+/* 03b 买方行业: 政府类常占 70%+, 饼图会吞掉细分行业, 改用横向条形展示全部类别 */
+(function(){
+  const d = (D.industry_dist||[]).slice(0,8).reverse();
+  if(!d.length) return;
+  mk('c_industry', {
+    title:{text:'采购方行业分布（项目数）',left:0,top:0,
+           textStyle:{fontSize:11.5,color:'#94a3b8',fontWeight:500}},
+    grid:{left:84,right:52,top:34,bottom:26},
+    tooltip:Object.assign({}, BASE.tooltip,{formatter:function(p){
+      const i=d[p[0].dataIndex];
+      return i.name+'<br>项目数：'+i.count+' 个'
+        +(i.median?'<br>中位单价：'+(i.median/1e4).toFixed(1)+' 万元':'');
+    }}),
+    xAxis:Object.assign({type:'value'}, AXIS),
+    yAxis:Object.assign({type:'category',data:d.map(x=>x.name),
+      axisLabel:{color:'#334155',fontSize:11}}, AXIS),
+    series:[{
+      type:'bar',data:d.map(x=>x.count),barMaxWidth:18,
+      itemStyle:{borderRadius:[0,4,4,0],
+        color:new echarts.graphic.LinearGradient(0,0,1,0,[
+          {offset:0,color:'#ddd6fe'},{offset:1,color:'#7c3aed'}])},
+      label:{show:true,position:'right',color:'#5b21b6',fontSize:10.5,fontWeight:600,
+             formatter:p=>p.value+' 个'}
+    }]
+  });
+})();
+
+/* 05 价格基准: 用 P25-P75 范围条 + 中位数标记, 比普通柱状更能表达"主流成交带" */
+(function(){
+  const b = D.benchmark || {};
+  const ks = Object.keys(b);
+  if(!ks.length) return;
+  const p25 = ks.map(k=>+(b[k].p25/1e4).toFixed(1));
+  const span = ks.map(k=>+((b[k].p75-b[k].p25)/1e4).toFixed(1));
+  const med = ks.map(k=>+(b[k].median/1e4).toFixed(1));
+  mk('c_bench', {
+    legend:{data:['P25–P75 主流带','中位数'],bottom:0,
+            textStyle:{color:'#64748b',fontSize:11},itemWidth:12,itemHeight:8},
+    grid:{left:56,right:26,top:30,bottom:52},
+    tooltip:Object.assign({}, BASE.tooltip,{formatter:function(p){
+      const i = b[ks[p[0].dataIndex]];
+      return '<b>'+ks[p[0].dataIndex]+'</b><br>P25：'+(i.p25/1e4).toFixed(1)+' 万元'
+        +'<br>中位数：'+(i.median/1e4).toFixed(1)+' 万元'
+        +'<br>P75：'+(i.p75/1e4).toFixed(1)+' 万元<br>样本：'+i.n+' 个';
+    }}),
+    xAxis:Object.assign({type:'category',data:ks,
+      axisLabel:{color:'#334155',fontSize:11,interval:0}}, AXIS),
+    yAxis:Object.assign({type:'value',name:'万元',nameTextStyle:{color:'#94a3b8',fontSize:10}}, AXIS),
+    series:[
+      {name:'占位',type:'bar',stack:'r',data:p25,itemStyle:{color:'transparent'},
+       silent:true,barMaxWidth:54,tooltip:{show:false},legendHoverLink:false},
+      {name:'P25–P75 主流带',type:'bar',stack:'r',data:span,barMaxWidth:54,
+       itemStyle:{color:'#93c5fd',borderRadius:4},
+       label:{show:true,position:'inside',color:'#1e3a8a',fontSize:10,
+              formatter:p=>'P75 '+(p25[p.dataIndex]+p.value).toFixed(0)}},
+      {name:'中位数',type:'scatter',data:med,z:10,
+       symbol:'rect',symbolSize:[52,3],itemStyle:{color:'#1d4ed8'},
+       label:{show:true,position:'right',color:'#1e40af',fontSize:10.5,fontWeight:600,
+              formatter:p=>'中位 '+p.value}}
+    ]
+  });
+})();
+</script>
+</body>
+</html>

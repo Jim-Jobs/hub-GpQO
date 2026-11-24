@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "RankedResult": {
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "url": {
+          "title": "Url",
+          "type": "string"
+        },
+        "snippet": {
+          "title": "Snippet",
+          "type": "string"
+        },
+        "published_at": {
+          "title": "Published At",
+          "type": "string"
+        },
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "query": {
+          "title": "Query",
+          "type": "string"
+        },
+        "category": {
+          "title": "Category",
+          "type": "string"
+        },
+        "api": {
+          "title": "Api",
+          "type": "string"
+        },
+        "fetched_at": {
+          "title": "Fetched At",
+          "type": "string"
+        },
+        "score": {
+          "$ref": "#/$defs/Score"
+        },
+        "dedup_key": {
+          "title": "Dedup Key",
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "url",
+        "snippet",
+        "published_at",
+        "source",
+        "query",
+        "category",
+        "api",
+        "fetched_at",
+        "score",
+        "dedup_key"
+      ],
+      "title": "RankedResult",
+      "type": "object"
+    },
+    "Score": {
+      "additionalProperties": false,
+      "properties": {
+        "relevance": {
+          "title": "Relevance",
+          "type": "number"
+        },
+        "authority": {
+          "title": "Authority",
+          "type": "number"
+        },
+        "timeliness": {
+          "title": "Timeliness",
+          "type": "number"
+        },
+        "total": {
+          "title": "Total",
+          "type": "number"
+        }
+      },
+      "required": [
+        "relevance",
+        "authority",
+        "timeliness",
+        "total"
+      ],
+      "title": "Score",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "generated_at": {
+      "title": "Generated At",
+      "type": "string"
+    },
+    "threshold": {
+      "title": "Threshold",
+      "type": "number"
+    },
+    "topn": {
+      "title": "Topn",
+      "type": "integer"
+    },
+    "groups": {
+      "additionalProperties": {
+        "items": {
+          "$ref": "#/$defs/RankedResult"
+        },
+        "type": "array"
+      },
+      "title": "Groups",
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema_version",
+    "generated_at",
+    "threshold",
+    "topn",
+    "groups"
+  ],
+  "title": "RankedArtifact",
+  "type": "object"
+}

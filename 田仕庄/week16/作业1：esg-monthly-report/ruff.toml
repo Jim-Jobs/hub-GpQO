@@ -1,0 +1,10 @@
+target-version = "py312"
+line-length = 110
+
+[lint]
+select = ["E", "F", "W"]
+ignore = ["E501"]
+
+[lint.per-file-ignores]
+"scripts/run.py" = ["E402"]
+"scripts/rank_filter.py" = ["E402"]

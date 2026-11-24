@@ -1,0 +1,5 @@
+requests==2.34.2       # HTTP / 搜索 API / LLM 调用
+PyYAML==6.0.3          # 配置解析
+Jinja2==3.1.6          # HTML 模板渲染
+python-docx==1.2.0     # Word 直出（替代 pandoc 硬转）
+pydantic==2.14.3       # 中间产物契约模型 + JSON Schema 导出
